@@ -18,10 +18,6 @@
     m.generate_entrances()
     m.solve()
 
-### Generating Images to Represent a Maze
-
-### Generating Images to Represent a Solution
-
 ## The Algorithms
 
 ### Maze-Generating Algorithms
@@ -67,3 +63,35 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 
 ### Maze-Soliving Algorithms
+
+## Using the Results
+
+For the rest of this section, let us assume we have already generated a maze:
+
+    from mazelib import *
+
+    m = Maze()
+    m.generator = Prims()
+    m.generate(27, 34)
+
+#### Example 1: Plotting the Maze in Plain Text
+
+It is helpful to have a low-key, fast way to print out mazes (and solutions) as you develop. I typically use this one:
+
+    def tostr(grid):
+        """Return a string representation of the maze."""
+        txt = ''
+        for row in grid:
+            for cell in row:
+                txt += '#' if cell else ' '
+            txt += '\n'
+    
+        return txt
+        
+    print tostr(m.grid)
+
+#### Example 2: Plotting the Maze with Matplotlib
+
+#### Example 3: Displaying the Maze as CSS
+
+#### Exmaple 4: Drawing the Maze with XKCD style
