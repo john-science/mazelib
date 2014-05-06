@@ -1,1 +1,1 @@
-from src.mazelib import *
+
