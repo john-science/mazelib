@@ -95,40 +95,8 @@ class Maze(object):
         return txt
 
     def __str__(self):
-        # TODO: Should Maze be represented by the maze, and not the other class info?
+        # TODO: At some ponit, this will include Entrances and solutions.
         self._to_dense_string()
 
     def __repr__(self):
         return self.__str__()
-    
-    def toHTML(self, cell_size=10):
-        row_max = len(self.grid)
-        col_max = len(self.grid[0])
-        
-        html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' + \
-               '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + \
-               '<html xmlns="http://www.w3.org/1999/xhtml"><head>' + \
-               '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />' + \
-               '<style type="text/css" media="screen">' + \
-               '#maze {width: ' + str(cell_size * col_max) + 'px;height: ' + \
-               str(cell_size * row_max) + 'px;border: 3px solid grey;}' + \
-               'div.maze_row div{width: ' + str(cell_size) + 'px;height: ' + str(cell_size) + 'px;}' + \
-               'div.maze_row div.bl{background-color: black;}' + \
-               'div.maze_row div.wh{background-color: white;}' + \
-               'div.maze_row div{float: left;}' + \
-               'div.maze_row:after{content: ".";height: 0;visibility: hidden;display: block;clear: both;}' + \
-               '</style></head><body>' + \
-               '<div id="maze">'
-        
-        for row in xrange(row_max):
-            html += '<div class="maze_row">'
-            for col in xrange(col_max):
-                if self.grid[row][col]:
-                    html += '<div class="bl"></div>'
-                else:
-                    html += '<div class="wh"></div>'
-            html += '</div>'
-        
-        html += '</div></body></html>'
-        
-        return html
