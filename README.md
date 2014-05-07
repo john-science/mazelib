@@ -58,9 +58,11 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 ###### The Algorithm
 
-
+Cells survive if they have one to four neighbours. If a cell has exactly three neighbours, it is born. It is similar to Conway's Game of Life in that patterns that do not have a living cell adjacent to 1, 4, or 5 other living cells in any generation will behave identically to it.
 
 ###### Notes
+
+Results: perfect, unbiased
 
 
 
@@ -68,9 +70,16 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 ###### The Algorithm
 
-
+1. Put each cell in the first row into their own set.
+2. Randomly join adjacent cells, but only if they are not in the same set. When joining adjacent cells, merge the cells of both sets into a single set.
+3. For each set, randomly create vertical connections downward to the next row. Each remaining set must have at least one vertical connection. The cells in the next row thus connected must share the set of the cell above them.
+4. Complete the next row by placing any remaining cells into their own sets.
+5. Repeat step 2-4 until the last row.
+6. For the last row, join all adjacent cells that do not share a set, and omit the vertical connections.
 
 ###### Notes
+
+Results: perfect, unbiased
 
 
 
@@ -80,7 +89,7 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 1. Let C be a list of cells, initially empty. Add one cell to C, at random.
 2. Choose a cell from C, and carve a passage to any unvisited neighbor of that cell, adding that neighbor to C as well. If there are no unvisited neighbors, remove the cell from C.
-3. Repeat #2 until C is empty.
+3. Repeat step 2 until C is empty.
 
 ###### Notes
 
@@ -90,9 +99,14 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 ###### The Algorithm
 
-
+1. Randomly choose a starting cell.
+2. Perform a random walk, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
+3. Enter “hunt” mode, where you scan the grid looking for an unvisited cell that is adjacent to a visited cell. If found, carve a passage between the two and let the formerly unvisited cell be the new starting location.
+4. Repeat steps 2 and 3 until the hunt mode scans the entire grid and finds no unvisited cells.
 
 ###### Notes
+
+Results: perfect, unbiased
 
 
 
@@ -102,7 +116,7 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 1. Create a set of all walls in the grid.
 2. Randomly select a wall from the grid. If that wall connects two disjoint trees, join the trees. Otherwise, throw that wall away.
-3. Repeat #2 until there are no more walls left in the set.
+3. Repeat step 2 until there are no more walls left in the set.
 
 ###### Notes
 
@@ -114,7 +128,7 @@ Like Prim's, it is based a namesake algorithm for finding a Minimal Spanning Tre
 
 ###### The Algorithm
 
-
+TBA
 
 ###### Notes
 
@@ -156,9 +170,14 @@ This is a standard maze-generation algorithm because it is easy to understand an
 
 ###### The Algorithm
 
-
+1. Start with an empty grid.
+2. Bisect the frid with a wall (horizontal or vertical). Add a single passage through the wall.
+3. Repeat step 2 with the areas on either side of the wall.
+4. Continue, recursively, until the maze passages are the desired resolution.
 
 ###### Notes
+
+Results: perfect, biased
 
 
 
@@ -166,7 +185,12 @@ This is a standard maze-generation algorithm because it is easy to understand an
 
 ###### The Algorithm
 
-
+1. Work through the grid row-wise, starting with the cell at 0,0.
+2. Add the current cell to a “run” set.
+3. For the current cell, randomly decide whether to carve East.
+4. If a passage East was carved, make the new cell the current cell and repeat steps 2-4.
+5. If a passage East was not carved, choose any one of the cells in the run set and carve a passage North. Then empty the run set. Repeat steps 2-5.
+6. Continue until all rows have been processed.
 
 ###### Notes
 
@@ -179,9 +203,14 @@ Results: perfect, biased
 
 ###### The Algorithm
 
-
+1. Choose any cell at random and add it to the Uniform Spanning Tree (UST).
+2. Select any cell that not in the UST and perform a random walk until you encounter a vertex that is.
+3. Add the cells and walls touched in the random walk to the UST.
+4. Repeat steps 2 and 3 until all cells have been added to the UST.
 
 ###### Notes
+
+Results: perfect, unbiased
 
 
 
@@ -377,4 +406,5 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
 2. __cell__ - an open passage in the maze
 3. __grid__ - the grid is the combination of all passages and barriers in the maze
 4. __perfect__ - a maze is perfect if it has one and only one solution
-5. __wall__ - an impassable barrier in the maze
+5. __sparse__ - a sparse maze has walls or passages thicker than the usual single unit width
+6. __wall__ - an impassable barrier in the maze
