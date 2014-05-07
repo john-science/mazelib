@@ -6,3 +6,4 @@ from src.generate.BinaryTree import BinaryTree
 from src.generate.CellularAutomaton import CellularAutomaton
 from src.generate.Division import Division
 from src.generate.Kruskal import Kruskal
+from src.generate.Prims import Prims
