@@ -5,6 +5,7 @@ from src.generate.AldousBroder import AldousBroder
 from src.generate.BinaryTree import BinaryTree
 from src.generate.CellularAutomaton import CellularAutomaton
 from src.generate.Division import Division
+from src.generate.GrowingTree import GrowingTree
 from src.generate.Kruskal import Kruskal
 from src.generate.Prims import Prims
 from src.generate.Sidewinder import Sidewinder
