@@ -299,10 +299,15 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
 
 Let's have some fun with it. And chances are, if you're reading this you probably like XKCD.
 
+    import numpy as np
+    from matplotlib.path import Path
+    from matplotlib.patches import PathPatch
+    import matplotlib.pyplot as plt
+    
     def plotXKCD(grid):
         """ Generate an XKCD-styled line-drawn image of the maze. """
-        H = walls_array.height
-        W = grid.width
+        H = len(grid)
+        W = len(grid[0])
         h = (H - 1) // 2
         w = (W - 1) // 2
     
@@ -317,69 +322,62 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
             for r,rr in enumerate(xrange(1, H, 2)):
                 run = []
                 for c,cc in enumerate(xrange(1, W, 2)):
-                    if grid[(rr-1,cc)]:
-                        if run:
-                            run += [(r,c+1)]
-                        else:
-                            run = [(r,c), (r,c+1)]
-                    else:
-                        if run:
-                            codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                            vertices += run
+                    if grid[rr-1,cc]:
+                        if not run:
+                            run = [(r,c)]
+                        run += [(r,c+1)]
+                    elif run:
+                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
+                        vertices += run
                         run = []
                 if run:
                     codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
                     vertices += run
-            
+    
             # grab bottom side of last row
             run = []
             for c,cc in enumerate(xrange(1, W, 2)):
-                if grid[(rr+1,cc)]:
-                    if run:
-                        run += [(r+1,c+1)]
-                    else:
-                        run = [(r+1,c), (r+1,c+1)]
-                else:
-                    if run:
-                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                        vertices += run
+                if grid[rr+1,cc]:
+                    if not run:
+                        run = [(r+1,c)]
+                    run += [(r+1,c+1)]
+                elif run:
+                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
+                    vertices += run
                     run = []
                 if run:
                     codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
                     vertices += run
-                            
+    
             # loop over verticles
             for c,cc in enumerate(xrange(1, W, 2)):
                 run = []
                 for r,rr in enumerate(xrange(1, H, 2)):
-                    if grid[(rr,cc-1)]:
-                        if run:
-                            run += [(r+1,c)]
-                        else:
-                            run = [(r,c), (r+1,c)]
-                    else:
-                        if run:
-                            codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                            vertices += run
+                    if grid[rr,cc-1]:
+                        if not run:
+                            run = [(r,c)]
+                        run += [(r+1,c)]
+                    elif run:
+                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
+                        vertices += run
                         run = []
+                        
                 if run:
                     codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
                     vertices += run
-                        
+    
             # grab far right column
             run = []
             for r,rr in enumerate(xrange(1, H, 2)):
-                if grid[(rr,cc+1)]:
-                    if run:
-                        run += [(r+1,c+1)]
-                    else:
-                        run = [(r,c+1), (r+1,c+1)]
-                else:
-                    if run:
-                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                        vertices += run
+                if grid[rr,cc+1]:
+                    if not run:
+                        run = [(r,c+1)]
+                    run += [(r+1,c+1)]
+                elif run:
+                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
+                    vertices += run
                     run = []
-                    
+    
                 if run:
                     codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
                     vertices += run
@@ -398,7 +396,8 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
             ax.autoscale_view()
     
             plt.show()
-
+    
+    plotXKCD(m.grid)
 
 ## Vocabulary
 
