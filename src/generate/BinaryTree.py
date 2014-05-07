@@ -1,5 +1,5 @@
 
-from random import choice,randrange,shuffle
+from random import choice
 from MazeGenAlgo import MazeGenAlgo
 from MazeArray import MazeArray
 
