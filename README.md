@@ -78,7 +78,9 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 ###### The Algorithm
 
-
+1. Let C be a list of cells, initially empty. Add one cell to C, at random.
+2. Choose a cell from C, and carve a passage to any unvisited neighbor of that cell, adding that neighbor to C as well. If there are no unvisited neighbors, remove the cell from C.
+3. Repeat #2 until C is empty.
 
 ###### Notes
 
@@ -235,5 +237,5 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
 1. biased - 
 2. cell - 
 3. grid - 
-4. perfect - 
+4. perfect - a maze is perfect if it has one and only one solution
 5. wall - 
