@@ -68,7 +68,7 @@ class Maze(object):
                 num += 1
             if col < (col_max -1) and self.grid[row][col+1]:
                 num += 1
-            if row > 0 and self.walls[row-1][col]:
+            if row > 0 and self.grid[row-1][col]:
                 num += 1
             if row < (row_max - 1) and self.grid[row+1][col]:
                 num += 1
@@ -123,7 +123,7 @@ class Maze(object):
         for row in xrange(row_max):
             html += '<div class="maze_row">'
             for col in xrange(col_max):
-                if self.walls[row][col]:
+                if self.grid[row][col]:
                     html += '<div class="bl"></div>'
                 else:
                     html += '<div class="wh"></div>'
