@@ -264,9 +264,9 @@ Sometimes it is hard to see the finer points of a maze unless it is a graphic.  
 Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't need any special Python libraries. And CSS is really easy to fine-tune to customize the final output.
 
     def toHTML(grid, cell_size=10):
-        row_max = len(grid)
-        col_max = len(grid[0])
-        
+        row_max = grid.height
+        col_max = grid.width
+
         html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' + \
                '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + \
                '<html xmlns="http://www.w3.org/1999/xhtml"><head>' + \
@@ -281,7 +281,7 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
                'div.maze_row:after{content: ".";height: 0;visibility: hidden;display: block;clear: both;}' + \
                '</style></head><body>' + \
                '<div id="maze">'
-        
+
         for row in xrange(row_max):
             html += '<div class="maze_row">'
             for col in xrange(col_max):
@@ -290,7 +290,6 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
                 else:
                     html += '<div class="wh"></div>'
             html += '</div>'
-        
         html += '</div></body></html>'
         
         return html
