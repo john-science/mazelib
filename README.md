@@ -38,6 +38,21 @@ This is one of the slowest maze-generating algorithms. But it produces nice maze
 
 The Aldous-Broder algorithm treats the cells of a maze as a graph, and solves to find a Uniform Spanning Tree that covers that graph.
 
+#### Backtracking
+
+###### The Algorithm
+
+1. Randomly choose a starting cell.
+2. Randomly choose a wall at the current cell and open a passage through to any random adjacent cell, that has not been visited yet. This is now the current cell.
+3. If all adjacent cells have been visited, back up to the previous and repeat step 2.
+4. Stop when the algorithm has backed all the way up to the starting cell.
+
+###### Notes
+
+Results: perfect, unbiased
+
+This is a standard maze-generation algorithm because it is easy to understand and implement. And it produces high-quality mazes.
+
 #### Binary Tree
 
 ###### The Algorithm
@@ -150,21 +165,6 @@ Well, I guess I was at Fermliab too long. This is an original algorithm, using t
 Results: perfect, unbiased
 
 This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a graph. But Prim's is purely random. In fact, randomized variations on other maze-generating algorithms are frequently called "Prim's variations".
-
-#### Recursive Backtracker
-
-###### The Algorithm
-
-1. Randomly select a starting cell.
-2. Randomly choose a wall at that cell and carve a passage through to the adjacent cell, but only if the adjacent cell has not been visited yet. This becomes the new current cell.
-3. If all adjacent cells have been visited, back up to the last cell that has uncarved walls and repeat.
-4. The algorithm ends when the process has backed all the way up to the starting cell.
-
-###### Notes
-
-Results: perfect, unbiased
-
-This is a standard maze-generation algorithm because it is easy to understand and implement. And it produces high-quality mazes.
 
 #### Recursive Division
 
