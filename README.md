@@ -79,7 +79,9 @@ Cells survive if they have one to four neighbours. If a cell has exactly three n
 
 Results: perfect, unbiased
 
+Using Cellular Automation to generate a maze is a really fun idea, and it is even reasonably fast. And the result is a "perfect" maze, but not always the hardest maze. Generating a few of these mazes, you begin to see that the results are frequently quick easy to solve.
 
+More research is needed to create a post-processing step to remove the typical Cellular Automaton defects.
 
 #### Eller's
 
@@ -108,7 +110,9 @@ Results: perfect, unbiased
 
 ###### Notes
 
+Results: perfect, unbiased
 
+This algorithm is very flexible. Instead of defining exactly what must be done, it lays out a general construct. The exact order in which we choose a new cell from set C in step 2 is left undefined. That means we can pick on at random (and mimick the Prim's algorithm), or always pick the most recent one (and mimick the Backtracking algorithm). The implementation here allows the developer to set the percentage of time Backtracking is chosen versus Prim's. This gives a lot of variety to the final complexity and look of the final maze.
 
 #### Hunt-and-Kill
 
@@ -123,6 +127,7 @@ Results: perfect, unbiased
 
 Results: perfect, unbiased
 
+Generally, you might think random-walk algorithms are very slow. But Hunt-and-Kill is quite efficient.
 
 
 #### Kruskal's
@@ -179,6 +184,9 @@ This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a
 
 Results: perfect, biased
 
+The algorithm is very simple to understand, and reasonably simple to implement. But the results will always look skewed. A big line that perfect divides a maze makes it easier for the human eye to solve a maze: we can quickly reduce our search space. This is doubly true for humans that happen to know the maze was created by division.
+
+This implementation tries, as far as is possible, to reduce these biases by alternating the cuts between horizontal and vertical. (Obviously, if you made 7 vertical cuts in a row the maze would be very easy to solve.)
 
 
 #### Sidewinder
@@ -196,7 +204,9 @@ Results: perfect, biased
 
 Results: perfect, biased
 
+The algorithm is simple and optimally fast. However, the North side of the maze will always be one, long, open corridor. For my tastes, this makes the maze too easy to solve. There are use-cases where that will not matter though.
 
+Active research is underway to create a post-processing step to fix this bias.
 
 
 #### Wilson's
@@ -204,7 +214,7 @@ Results: perfect, biased
 ###### The Algorithm
 
 1. Choose any cell at random and add it to the Uniform Spanning Tree (UST).
-2. Select any cell that not in the UST and perform a random walk until you encounter a vertex that is.
+2. Select any cell that not in the UST and perform a random walk until you encounter a cell that is.
 3. Add the cells and walls touched in the random walk to the UST.
 4. Repeat steps 2 and 3 until all cells have been added to the UST.
 
@@ -212,7 +222,7 @@ Results: perfect, biased
 
 Results: perfect, unbiased
 
-
+Like all random-walk algorithms, Wilson's isn't terribly fast. However, as UST-based algorithms go, this converges faster than Aldous-Broder.
 
 
 
@@ -247,6 +257,8 @@ It is helpful to have a low-key, fast way to print out mazes (and solutions) as 
 #### Example 2: Plotting the Maze with Matplotlib
 
 Sometimes it is hard to see the finer points of a maze unless it is a graphic.  You want to see at a moment's glance if the maze has unreachable sections, if it is obviously too easy, if it is large enough to meet your needs, etcetera.
+
+    import matplotlib.pyplot as plt
 
     def showPNG(walls_array):
         """Generate a simple image of the maze."""
