@@ -1,7 +1,6 @@
 
 import abc
 from random import choice,random,randrange,shuffle
-import sys
 
 
 class Maze(object):
