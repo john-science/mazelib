@@ -1,5 +1,6 @@
 
 import abc
+from ..utils.MazeArray import MazeArray
 
 
 class MazeGenAlgo(object):
@@ -12,7 +13,7 @@ class MazeGenAlgo(object):
         self.w = w
         self.H = (2 * self.h) + 1
         self.W = (2 * self.w) + 1
-    
+
     @abc.abstractmethod
     def generate(self):
         return

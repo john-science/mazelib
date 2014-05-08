@@ -1,7 +1,6 @@
 
 from random import choice
-from MazeGenAlgo import MazeGenAlgo
-from MazeArray import MazeArray
+from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
 class BinaryTree(MazeGenAlgo):

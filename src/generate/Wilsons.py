@@ -1,7 +1,6 @@
 
 from random import randrange,shuffle
 from MazeGenAlgo import MazeGenAlgo
-from MazeArray import MazeArray
 
 
 class Wilsons(MazeGenAlgo):

@@ -1,7 +1,6 @@
 
 from random import randrange
-from MazeGenAlgo import MazeGenAlgo
-from MazeArray import MazeArray
+from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
 class Division(MazeGenAlgo):
