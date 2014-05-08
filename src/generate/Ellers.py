@@ -24,7 +24,7 @@ class Ellers(MazeGenAlgo):
         Flesh out the next row by putting any remaining cells into their own sets.
         Repeat until the last row is reached.
         For the last row, join all adjacent cells that do not share a set, and omit the vertical
-            connections, and you’re done!
+            connections, and you're done!
         """
 
         grid = MazeArray(self.H, self.W)

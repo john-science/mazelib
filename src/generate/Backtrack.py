@@ -5,24 +5,51 @@ from MazeArray import MazeArray
 
 
 class Backtrack(MazeGenAlgo):
+    """
+    1. Randomly choose a starting cell.
+    2. Randomly choose a wall at the current cell and open a passage through to any random adjacent
+        cell, that has not been visited yet. This is now the current cell.
+    3. If all adjacent cells have been visited, back up to the previous and repeat step 2.
+    4. Stop when the algorithm has backed all the way up to the starting cell.
+    """
 
     def __init__(self, w, h):
         super(Backtrack, self).__init__(w, h)
 
     def generate(self):
-        """
-        Choose a starting point in the field.
-        Randomly choose a wall at that point and carve a passage
-            through to the adjacent cell, but only if the adjacent
-            cell has not been visited yet. This becomes the new current cell.
-        If all adjacent cells have been visited, back up to the
-            last cell that has uncarved walls and repeat.
-        The algorithm ends when the process has backed all the way up
-            to the starting point.
-        """
-
         grid = MazeArray(self.H, self.W)
 
-        raise NotImplementedError('Algorithm not yet implemented.')
+        current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
+        track = [current]
+        grid[current] = 0
+
+        while track:
+            current = track[-1]
+            neighbors = self._find_unvisited_adj(current, grid)
+
+            if len(neighbors) == 0:
+                track = track[:-1]
+            else:
+                nn = neighbors[0]
+                grid[nn] = 0
+                grid[(nn[0] + current[0]) // 2, (nn[1] + current[1]) // 2] = 0
+
+                track += [nn]
 
         return grid
+
+    def _find_unvisited_adj(self, current, grid):
+        unvisited = []
+
+        r,c = current
+        if r > 1 and grid[r-2, c] == 1:
+            unvisited.append((r-2, c))
+        if r < self.H - 2 and grid[r+2, c] == 1:
+            unvisited.append((r+2, c))
+        if c > 1 and grid[r, c-2] == 1:
+            unvisited.append((r, c-2))
+        if c < self.W - 2 and grid[r, c+2] == 1:
+            unvisited.append((r, c+2))
+
+        shuffle(unvisited)
+        return unvisited
