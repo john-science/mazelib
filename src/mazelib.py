@@ -39,7 +39,7 @@ class Maze(object):
     def solve(self):
         raise NotImplementedError('Please Implement this method.')
 
-    def tostring(self):
+    def tostring(self, entrances=False, solution=False):
         """Return a string representation of the maze."""
         txt = ''
         for row in self.grid:
@@ -51,7 +51,7 @@ class Maze(object):
 
     def __str__(self):
         # TODO: At some ponit, this will include Entrances and solutions.
-        self._to_dense_string()
+        self.tostring()
 
     def __repr__(self):
         return self.__str__()
