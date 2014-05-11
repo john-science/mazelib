@@ -11,59 +11,67 @@ class HuntAndKill(MazeGenAlgo):
 
     def generate(self):
         """
-        http://weblog.jamisbuck.org/2011/1/24/maze-generation-hunt-and-kill-algorithm
-
-        Choose a starting location.
-        Perform a random walk, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
-        Enter "hunt" mode, where you scan the grid looking for an unvisited cell that is adjacent to a visited cell. If found, carve a passage between the two and let the formerly unvisited cell be the new starting location.
-        Repeat steps 2 and 3 until the hunt mode scans the entire grid and finds no unvisited cells.
+        1. Randomly choose a starting cell.
+        2. Perform a random walk from the current cel, carving passages to unvisited neighbors,
+            until the current cell has no unvisited neighbors.
+        3. Randomly select a new grid cell, if it has been visited, walk from it.
+        4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
+            not being visited is extremely small.
         """
 
         grid = MazeArray(self.H, self.W)
-
-        raise NotImplementedError('Algorithm not yet implemented.')
         
         # do a random walk from an arbitrary starting position
-        start = self._random_hunt(grid)
+        start = self._hunt(grid)
         grid[start] = 0
-        self.walk(grid, start)
+        self._walk(grid, start)
         
         # try to random walk from several random positions
-        random_trials = int(math.sqrt(self.H * self.W))
+        random_trials = self.H * self.W
         for i in xrange(random_trials):
-            current = self._random_hunt(grid)
-            if grid[current] == 0:
-                self._walk(grid, current)
-                
-        # complete the maze by going through every element in the maze in sequence
-        current = (0, 0)
-        while current != (-1, -1):
-            if grid[current] == 0:  # TODO: necessary? Contain this in _walk?
-                self._walk(grid, current)
-            current = self._serpentine_hunt(grid, current)
+            current = self._hunt(grid)
+            self._walk(grid, current)
 
         return grid
 
     def _walk(self, grid, start):
-        current = start
-        
-        unvisited_neighbors = _find_unvisited_neighbors(grid, current)
-        
-        while len(unvisited_neighbors) >  0:
-            neighbor = choice(unvisited_neighbors)
-            grid[neighbor] = 0
-            grid[(neighbor[0] + current[0]) // 2, neighbor[1] + current[1]) // 2)] = 0
-            current = neighbor
-            unvisited_neighbors = _find_unvisited_neighbors(grid, current)
-    
-    def _random_hunt(self, grid):
-        return (randrange(1, self.H, 2), randrange(1, self.H, 2))
-    
-    def _serpentine_hunt(self, grid, last):
-        row,col = last
-        if col == self.W - 1:
-            if row == self.H - 1:
-                return (-1, -1)
-            return (row + 1, 0)
-        return (row, col + 1)
+        """
+        This is a standard random walk.
+        It must start from a visited cell.
+        And it completes when the current cell has no unvisited neighbors.
+        """
+        if grid[start] == 0:
+            current = start
+            unvisited_neighbors = self._find_neighbors(current, grid, True)
 
+            while len(unvisited_neighbors) >  0:
+                neighbor = choice(unvisited_neighbors)
+                grid[neighbor] = 0
+                grid[(neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2] = 0
+                current = neighbor
+                unvisited_neighbors = self._find_neighbors(current, grid, True)
+    
+    def _hunt(self, grid):
+        """ Randomly select the next cell to walk from. """
+        return (randrange(1, self.H, 2), randrange(1, self.W, 2))
+
+    # TODO: Several algorithms use this method, should they share it?
+    def _find_neighbors(self, posi, grid, unvisited=False):
+        """ Find all the neighbors in the grid of the current position,
+        that have/haven't been visited.
+        """
+        (row, col) = posi
+        ns = []
+
+        if row > 1 and grid[row-2, col] == unvisited:
+            ns.append((row-2, col))
+        if row < self.H-2 and grid[row+2, col] == unvisited:
+            ns.append((row+2, col))
+        if col > 1 and grid[row, col-2] == unvisited:
+            ns.append((row, col-2))
+        if col < self.W-2 and grid[row, col+2] == unvisited:
+            ns.append((row, col+2))
+
+        shuffle(ns)
+
+        return ns

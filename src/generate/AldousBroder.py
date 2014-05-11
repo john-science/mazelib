@@ -46,7 +46,8 @@ class AldousBroder(MazeGenAlgo):
                     break
     
         return grid
-        
+
+    # TODO: Several algorithms use this method, should they share it?
     def _find_neighors(self, posi, grid, visited=True):
         """ Find all the neighbors in the grid of the current position,
         that have/haven't been visited.
@@ -66,3 +67,4 @@ class AldousBroder(MazeGenAlgo):
         shuffle(ns)
 
         return ns
+
