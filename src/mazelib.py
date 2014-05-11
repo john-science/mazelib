@@ -66,7 +66,7 @@ class Maze(object):
         return '\n'.join(txt)
 
     def __str__(self):
-        # TODO: At some ponit, this will include Entrances and solutions.
+        # TODO: At some point, this will include Entrances and solutions.
         self.tostring()
 
     def __repr__(self):
