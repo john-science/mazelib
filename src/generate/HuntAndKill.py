@@ -1,4 +1,5 @@
 
+import math
 from random import choice,randrange,shuffle
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 
@@ -21,6 +22,25 @@ class HuntAndKill(MazeGenAlgo):
         grid = MazeArray(self.H, self.W)
 
         raise NotImplementedError('Algorithm not yet implemented.')
+        
+        # do a random walk from an arbitrary starting position
+        start = self._random_hunt(grid)
+        grid[start] = 0
+        self.walk(grid, start)
+        
+        # try to random walk from several random positions
+        random_trials = int(math.sqrt(self.H * self.W))
+        for i in xrange(random_trials):
+            current = self._random_hunt(grid)
+            if grid[current] == 0:
+                self._walk(grid, current)
+                
+        # complete the maze by going through every element in the maze in sequence
+        current = (0, 0)
+        while current != (-1, -1):
+            if grid[current] == 0:  # TODO: necessary? Contain this in _walk?
+                self._walk(grid, current)
+            current = self._serpentine_hunt(grid, current)
 
         return grid
 
@@ -37,8 +57,13 @@ class HuntAndKill(MazeGenAlgo):
             unvisited_neighbors = _find_unvisited_neighbors(grid, current)
     
     def _random_hunt(self, grid):
-        pass
+        return (randrange(1, self.H, 2), randrange(1, self.H, 2))
     
-    def _serpentine_hunt(Self, grid):
-        pass
+    def _serpentine_hunt(self, grid, last):
+        row,col = last
+        if col == self.W - 1:
+            if row == self.H - 1:
+                return (-1, -1)
+            return (row + 1, 0)
+        return (row, col + 1)
 
