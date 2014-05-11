@@ -119,8 +119,8 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 ###### The Algorithm
 
 1. Randomly choose a starting cell.
-2. Perform a random walk from the current cell, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
-3. Randomly select a new grid cell, if it has been visited, walk from it.
+2. Perform a random walk from the current cel, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
+3. Select a new grid cell; if it has been visited, walk from it.
 4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell not being visited is extremely small.
 
 ###### Notes
@@ -128,7 +128,7 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 Results: perfect, unbiased
 
 Generally, you might think random-walk algorithms are very slow. But Hunt-and-Kill is quite efficient. And I really like the end results of this algorithm, the mazes are not easy to solve.
-On a side note, there is a statistical probability that some cells will not be part of the maze with this algorithm. However, the maze would still be perfect.  And the probability of that event is quite small.
+In this implementation of Hunt-and-kill there are two different ways to select a new grid cell in step 2.  The first is serpentine through the grid (the classic solution), the second is to randomly select a new cell enough times that the probability of an unexplored cell is very, very low. The second option includes a small amount of risk, but it creates a more interesting, harder maze. So the second option is default in this implementation.
 
 #### Kruskal's
 
