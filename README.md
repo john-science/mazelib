@@ -119,7 +119,7 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 ###### The Algorithm
 
 1. Randomly choose a starting cell.
-2. Perform a random walk from the current cel, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
+2. Perform a random walk from the current cell, carving passages to unvisited neighbors, until the current cell has no unvisited neighbors.
 3. Randomly select a new grid cell, if it has been visited, walk from it.
 4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell not being visited is extremely small.
 
@@ -142,7 +142,7 @@ On a side note, there is a statistical probability that some cells will not be p
 
 Results: perfect, unbiased
 
-Like Prim's, it is based a namesake algorithm for finding a Minimal Spanning Tree (MST) over a graph.
+Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning Tree (MST) over a graph.
 
 #### Monte Carlo
 
@@ -176,7 +176,7 @@ This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a
 ###### The Algorithm
 
 1. Start with an empty grid.
-2. Bisect the frid with a wall (horizontal or vertical). Add a single passage through the wall.
+2. Bisect the grid with a wall (horizontal or vertical). Add a single passage through the wall.
 3. Repeat step 2 with the areas on either side of the wall.
 4. Continue, recursively, until the maze passages are the desired resolution.
 
@@ -213,9 +213,9 @@ Active research is underway to create a post-processing step to fix this bias.
 
 ###### The Algorithm
 
-1. Choose any cell at random and add it to the Uniform Spanning Tree (UST).
-2. Select any cell that not in the UST and perform a random walk until you encounter a cell that is.
-3. Add the cells and walls touched in the random walk to the UST.
+1. Choose a random cell and add it to the Uniform Spanning Tree (UST).
+2. Select any cell that is not in the UST and perform a random walk until you find a cell that is.
+3. Add the cells and walls visited in the random walk to the UST.
 4. Repeat steps 2 and 3 until all cells have been added to the UST.
 
 ###### Notes
@@ -260,10 +260,10 @@ Sometimes it is hard to see the finer points of a maze unless it is a graphic.  
 
     import matplotlib.pyplot as plt
 
-    def showPNG(walls_array):
+    def showPNG(grid):
         """Generate a simple image of the maze."""
         walls = []
-        for wall in walls_array:
+        for wall in grid:
             walls.append(list(wall))
     
         plt.figure(figsize=(10, 5))
