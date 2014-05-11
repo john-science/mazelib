@@ -1,5 +1,5 @@
 
-from random import randrange,shuffle
+from random import choice,randrange,shuffle
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
@@ -23,3 +23,22 @@ class HuntAndKill(MazeGenAlgo):
         raise NotImplementedError('Algorithm not yet implemented.')
 
         return grid
+
+    def _walk(self, grid, start):
+        current = start
+        
+        unvisited_neighbors = _find_unvisited_neighbors(grid, current)
+        
+        while len(unvisited_neighbors) >  0:
+            neighbor = choice(unvisited_neighbors)
+            grid[neighbor] = 0
+            grid[(neighbor[0] + current[0]) // 2, neighbor[1] + current[1]) // 2)] = 0
+            current = neighbor
+            unvisited_neighbors = _find_unvisited_neighbors(grid, current)
+    
+    def _random_hunt(self, grid):
+        pass
+    
+    def _serpentine_hunt(Self, grid):
+        pass
+

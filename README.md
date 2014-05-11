@@ -26,9 +26,9 @@
 
 ###### The Algorithm
 
-1. Choose a random vertex.
-2. Choose a random neighbor of the vertex and travel to it. If the neighbor has not yet been visited, add the traveled edge to the spanning tree.
-3. Repeat step 2 until all vertexes have been visited.
+1. Choose a random cell.
+2. Choose a random neighbor of the current cell and visit it. If the neighbor has not yet been visited, add the traveled edge to the spanning tree.
+3. Repeat step 2 until all cells have been visited.
 
 ###### Notes
 
