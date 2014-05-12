@@ -240,19 +240,12 @@ For the rest of this section, let us assume we have already generated a maze:
 
 #### Example 1: Plotting the Maze in Plain Text
 
-It is helpful to have a low-key, fast way to print out mazes (and solutions) as you develop. I typically use this one:
+It is helpful to have a low-key, fast way to print out mazes (and solutions) as you develop. The library itself actually has a built-in tostring method:
 
-    def tostr(grid):
-        """Return a string representation of the maze."""
-        txt = ''
-        for row in grid:
-            for cell in row:
-                txt += '#' if cell else ' '
-            txt += '\n'
-    
-        return txt
-        
-    print tostr(m.grid)
+    print m.grid.tostring()            # print walls only
+    print m.grid.tostring(True)        # print walls and entrances
+    print m.grid.tostring(True, True)  # print walls, entrances, and solution
+    print str(m.grid)                  # print everything that is available
 
 #### Example 2: Plotting the Maze with Matplotlib
 
