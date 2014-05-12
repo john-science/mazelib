@@ -15,7 +15,10 @@ class Maze(object):
         self.solution = None
 
     def generate(self):
-        self.grid = self.generator.generate()
+        if self.generator == None:
+            raise UnboundLocalError('No maze-generation algorithm has been set.')
+        else:
+            self.grid = self.generator.generate()
 
     def generate_entrances(self, outer=True):
         """ Generate maze entrances.
@@ -64,7 +67,10 @@ class Maze(object):
         self.end = end
 
     def solve(self):
-        raise NotImplementedError('Please implement this method.')
+        if self.generator == None:
+            raise UnboundLocalError('No maze-solving algorithm has been set.')
+        else:
+            self.solution = self.solver.solve(self.grid, self.start, self.end)
 
     def tostring(self, entrances=False, solution=False):
         """Return a string representation of the maze."""
