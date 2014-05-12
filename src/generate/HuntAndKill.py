@@ -1,5 +1,4 @@
 
-import math
 from random import choice,randrange,shuffle
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 

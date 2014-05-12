@@ -44,7 +44,7 @@ class Prims(MazeGenAlgo):
         row,col = current
         ns = []
 
-        flag = 0 if visited else 1
+        flag = 0 if visited else 1  # TODO: Unnecessary, the grid already contains True/False
 
         if row > 1 and grid[(row - 2, col)] == flag:
             ns.append((row - 2, col))
