@@ -14,7 +14,7 @@
 
 ### Solving Mazes
 
-    m.solver = DFS()
+    m.solver = WallFollower()
     m.generate_entrances()
     m.solve()
 
