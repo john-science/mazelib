@@ -66,8 +66,8 @@ class Maze(object):
         return '\n'.join(txt)
 
     def __str__(self):
-        # TODO: At some point, this will include Entrances and solutions.
-        self.tostring()
+        # print maze walls, entrances, and solutions, IF available
+        self.tostring(True, True)
 
     def __repr__(self):
         return self.__str__()
