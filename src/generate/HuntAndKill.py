@@ -5,39 +5,38 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
 class HuntAndKill(MazeGenAlgo):
+    """
+    1. Randomly choose a starting cell.
+    2. Perform a random walk from the current cel, carving passages to unvisited neighbors,
+        until the current cell has no unvisited neighbors.
+    3. Select a new grid cell; if it has been visited, walk from it.
+    4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
+        not being visited is extremely small.
 
-    def __init__(self, w, h, hunt_order='random'):
+    In this implementation of Hunt-and-kill there are two different ways to select a new grid
+        cell in step 2.  The first is serpentine through the grid (the classic solution), the
+        second is to randomly select a new cell enough times that the probability of an
+        unexplored cell is very, very low. The second option includes a small amount of risk,
+        but it creates a more interesting, harder maze.
+    """
+
+    def __init__(self, w, h, hunt_order='serpentine'):
         super(HuntAndKill, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order == 'serpentine':
-            self._hunt_order = self._hunt_serpentine
-        else:
+        if hunt_order == 'random':
             self._hunt_order = self._hunt_random
+        else:
+            self._hunt_order = self._hunt_serpentine
 
     def generate(self):
-        """
-        1. Randomly choose a starting cell.
-        2. Perform a random walk from the current cel, carving passages to unvisited neighbors,
-            until the current cell has no unvisited neighbors.
-        3. Select a new grid cell; if it has been visited, walk from it.
-        4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
-            not being visited is extremely small.
-
-        In this implementation of Hunt-and-kill there are two different ways to select a new grid
-            cell in step 2.  The first is serpentine through the grid (the classic solution), the
-            second is to randomly select a new cell enough times that the probability of an
-            unexplored cell is very, very low. The second option includes a small amount of risk,
-            but it creates a more interesting, harder maze. So the second option is default in this
-            implementation.
-        """
         grid = MazeArray(self.H, self.W)
         
-        # do a random walk from an arbitrary starting position
+        # find an arbitrary starting position
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0
 
-        # try to random walk from several random positions
+        # perform many random walks, to fill the maze
         num_trials = 0
         while current != (-1, -1):
             self._walk(grid, current)
@@ -48,8 +47,7 @@ class HuntAndKill(MazeGenAlgo):
 
     def _walk(self, grid, start):
         """
-        This is a standard random walk.
-        It must start from a visited cell.
+        This is a standard random walk. It must start from a visited cell.
         And it completes when the current cell has no unvisited neighbors.
         """
         if grid[start] == 0:
