@@ -17,25 +17,51 @@ class Maze(object):
     def generate(self):
         self.grid = self.generator.generate()
 
-    def generate_entrances(self):
-        # TODO: The entrances should have the option of being in three places: on the edges, just inside the edges, and randomly anywhere in the maze.
+    def generate_entrances(self, outer=True):
+        """ Generate maze entrances.
+
+        By default, the entrances will be on opposite outer walls.
+        """
+        if outer:
+            return self._generate_outer_entrances()
+        else:
+            return self._generate_inner_entrances()
+
+    def _generate_outer_entrances(self):
+        """ Generate maze entrances, along the outer walls. """
         H = self.grid.height
         W = self.grid.width
 
         start_side = randrange(4)
 
+        # maze entrances will be on opposite sides of the maze.
         if start_side == 0:
-            self.start = (0, randrange(1, W, 2))         # North
+            self.start = (0, randrange(1, W, 2)) # North
             self.end = (H - 1, randrange(1, W, 2))
         elif start_side == 1:
-            self.start = (H - 1, randrange(1, W, 2))  # South
+            self.start = (H - 1, randrange(1, W, 2)) # South
             self.end = (0, randrange(1, W, 2))
         elif start_side == 2:
-            self.start = (randrange(1, H, 2), 0)          # West
+            self.start = (randrange(1, H, 2), 0) # West
             self.end = (randrange(1, H, 2), W - 1)
         else:
-            self.start = (randrange(1, H, 2), W - 1)   # East
+            self.start = (randrange(1, H, 2), W - 1) # East
             self.end = (randrange(1, H, 2), 0)
+
+
+    def _generate_inner_entrances(self):
+        """ Generate maze entrances, randomly within the maze. """
+        H = self.grid.height
+        W = self.grid.width
+
+        self.start = (randrange(1, H, 2), randrange(1, W, 2))
+        end = (randrange(1, H, 2), randrange(1, W, 2))
+
+        # make certain the start and end points aren't the same
+        while end == start:
+            end = (randrange(1, H, 2), randrange(1, W, 2))
+
+        self.end = end
 
     def solve(self):
         raise NotImplementedError('Please implement this method.')
