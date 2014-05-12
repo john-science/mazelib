@@ -242,10 +242,10 @@ For the rest of this section, let us assume we have already generated a maze:
 
 It is helpful to have a low-key, fast way to print out mazes (and solutions) as you develop. The library itself actually has a built-in tostring method:
 
-    print m.grid.tostring()            # print walls only
-    print m.grid.tostring(True)        # print walls and entrances
-    print m.grid.tostring(True, True)  # print walls, entrances, and solution
-    print str(m.grid)                  # print everything that is available
+    print(m.grid.tostring())            # print walls only
+    print(m.grid.tostring(True))        # print walls and entrances
+    print(m.grid.tostring(True, True))  # print walls, entrances, and solution
+    print(str(m.grid))                  # print everything that is available
 
 #### Example 2: Plotting the Maze with Matplotlib
 
