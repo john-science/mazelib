@@ -5,11 +5,10 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 class Wilsons(MazeGenAlgo):
     """
-    Choose any vertex at random and add it to the UST.
-    Select any vertex that is not already in the UST and perform a random walk until you
-        encounter a vertex that is in the UST.
-    Add the vertices and edges touched in the random walk to the UST.
-    Repeat 2 and 3 until all vertices have been added to the UST.
+    1. Choose a random cell and add it to the Uniform Spanning Tree (UST).
+    2. Select any cell that is not in the UST and perform a random walk until you find a cell that is.
+    3. Add the cells and walls visited in the random walk to the UST.
+    4. Repeat steps 2 and 3 until all cells have been added to the UST.
     """
 
     def __init__(self, w, h, hunt_order='serpentine'):
