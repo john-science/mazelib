@@ -224,9 +224,33 @@ Results: perfect, unbiased
 
 Like all random-walk algorithms, Wilson's isn't terribly fast. However, as UST-based algorithms go, this converges faster than Aldous-Broder.
 
+Of all the classic maze-generation algorithms, I find this one the messiest to implement.
 
 
 ### Maze-Soliving Algorithms
+
+#### Wall Follower
+
+###### The Algorithm
+
+Ideally:
+
+0. Follow the right wall and you will eventually end up at the end.
+
+In reality:
+
+1. Choose a random starting direction.
+2. At each intersection, take the rightmost turn. At dead-ends, turn around.
+3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
+4. Terminate when you reach the end cell.
+5. Prune the extraneous branches from the solution before returning it.
+
+###### Notes
+
+It is an interesting phenomenon that this is the easiest possible solution to a maze for the human brain, but the longest and most complicated to code. Drunk college kids can use this algorithm to solve corn mazes with ease. But problems of geometry that the human mind finds trivial are actually comprised of much logic and understand.
+
+It should be noted that this algorithm does not solve mazes that are not perfect.
+
 
 ## Using the Results
 
