@@ -5,8 +5,6 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 class Wilsons(MazeGenAlgo):
     """
-    http://weblog.jamisbuck.org/2011/1/20/maze-generation-wilson-s-algorithm
-
     Choose any vertex at random and add it to the UST.
     Select any vertex that is not already in the UST and perform a random walk until you
         encounter a vertex that is in the UST.
@@ -35,7 +33,7 @@ class Wilsons(MazeGenAlgo):
         while current != (-1, -1):
             walk = self._generate_random_walk(grid, current)
             self._solve_random_walk(grid, walk, current)
-            current = self._hunt(grid, num_trials)  # TODO: The problem is here.
+            current = self._hunt(grid, num_trials)
             num_trials += 1
 
         return grid
@@ -88,14 +86,14 @@ class Wilsons(MazeGenAlgo):
 
     def _hunt_random(self, grid, count):
         """ Select the next cell to walk from, randomly. """
-        if count >= (self.H * self.W):
+        if count >= (self.H * self.W + 2):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
         """ Select the next cell to walk from by cycling through every grid cell in order. """
-        cell = (1, 1)
+        cell = (1, -1)
         found = False
 
         while not found:
@@ -110,8 +108,7 @@ class Wilsons(MazeGenAlgo):
 
         return cell
 
-    # TODO: Add this to MazeGenAlgo?
-    # TODO: Several algorithms use this method, should they share it?
+    # TODO: Several algorithms use this method, should they share it? (Add it to MazeGenAlgo?)
     def _find_neighbors(self, posi, grid, visited=True):  # TODO: Note, I changed this from 'unvisited' to 'visited'.  Fix this in Hunt-and-Kill
         """ Find all the neighbors in the grid of the current position,
         that have/haven't been visited.
