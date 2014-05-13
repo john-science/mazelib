@@ -35,7 +35,7 @@ class Wilsons(MazeGenAlgo):
         while current != (-1, -1):
             walk = self._generate_random_walk(grid, current)
             self._solve_random_walk(grid, walk, current)
-            current = self._hunt(grid, num_trials)
+            current = self._hunt(grid, num_trials)  # TODO: The problem is here.
             num_trials += 1
 
         return grid
@@ -50,9 +50,9 @@ class Wilsons(MazeGenAlgo):
             direction = self._random_dir(current)
             walk[current] = direction
             current = self._move(current, direction)
-        
+
         return walk
-    
+
     def _random_dir(self, current):
         """ Take a step on one random (but valid) direction """
         r,c = current
@@ -61,18 +61,26 @@ class Wilsons(MazeGenAlgo):
         if r < (self.H - 2): options.append(1)  # South
         if c > 1:            options.append(2)  # East
         if c < (self.W - 2): options.append(3)  # West
-        
+
         direction = choice(options)
         if direction == 0:   return (-2, 0)  # North
         elif direction == 1: return (2, 0)   # South
         elif direction == 2: return (0, -2)  # East
         else:                return (0, 2)   # West
-    
+
     def _move(self, start, direction):
         return tuple(map(sum, zip(start, direction)))
 
     def _solve_random_walk(self, grid, walk, start):
-        pass
+        current = start
+
+        while current in walk:
+            next_cell = self._move(current, walk[current])
+            grid[next_cell] = 0
+            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+            current = next_cell
+            if grid[current] == 0:
+                break
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """

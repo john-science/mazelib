@@ -38,11 +38,11 @@ class WallFollower(MazeSolveAlgo):
         """ At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
         """
-        next = current
+        next_cell = current
         
         # TODO
         
-        return next
+        return next_cell
 
     def _prune_solution(self, solution):
         """ A solution may contain extraneous branches: paths that were followed
