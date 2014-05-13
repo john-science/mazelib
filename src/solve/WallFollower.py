@@ -3,7 +3,13 @@ from MazeSolveAlgo import MazeArray,MazeSolveAlgo
 
 class WallFollower(MazeSolveAlgo):
     """
-    1. Find the starting cell, pick an arbitrary direction to start in (not out of the maze)
+    Ideally:
+    
+    0. Follow the right wall and you will eventually end up at the end.
+    
+    In reality:
+    
+    1. Choose a random starting direction.
     2. At each intersection, take the rightmost turn. At dead-ends, turn around.
     3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
     4. Terminate when you reach the end cell.
