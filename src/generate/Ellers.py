@@ -50,9 +50,16 @@ class Ellers(MazeGenAlgo):
 
         return grid
     
-    def _merge_sets(self, sets, from_set, to_set):
-        """merge two different sets of grid cells into one"""
-        for r in xrange(1, self.H, 2):
+    def _merge_sets(self, sets, from_set, to_set, max_row=-1):
+        """merge two different sets of grid cells into one
+        
+        To improve performance, the grid will only be searched
+        up to some maximum row number.
+        """
+        if max_row < 0:
+            max_row = self.H
+
+        for r in xrange(1, max_row, 2):
             from c in xrange(1, self.W, 2):
                 if sets[r][c] == from_set:
                     sets[r][c] = to_set
