@@ -24,14 +24,17 @@ class Ellers(MazeGenAlgo):
         Flesh out the next row by putting any remaining cells into their own sets.
         Repeat until the last row is reached.
         For the last row, join all adjacent cells that do not share a set, and omit the vertical
-            connections, and you're done!
+            connections.
         """
+
+        if self.H < 3:
+            raise ValueError('Ellers Algorithm requires at least three rows.')
 
         grid = MazeArray(self.H, self.W)
 
         raise NotImplementedError('Algorithm not yet implemented.')
         
-        # initialize a master grid of the sets 
+        # initialize a master grid of the sets of grid cells
         sets = Array2D('i', (self.H, self.W), -1)
         
         # initialize the first row cells to each exist in their own set
@@ -40,4 +43,17 @@ class Ellers(MazeGenAlgo):
             sets[0][c] = max_set_number
             max_set_number += 1
 
+        # process all but first and last rows
+        
+        # process last row
+        
+
         return grid
+    
+    def _merge_sets(self, sets, from_set, to_set):
+        """merge two different sets of grid cells into one"""
+        for r in xrange(1, self.H, 2):
+            from c in xrange(1, self.W, 2):
+                if sets[r][c] == from_set:
+                    sets[r][c] = to_set
+
