@@ -1,6 +1,7 @@
 
 from random import randrange,shuffle
 from MazeGenAlgo import MazeGenAlgo,MazeArray
+from ..utils.array2d import Array2D
 
 
 class Ellers(MazeGenAlgo):
@@ -29,5 +30,14 @@ class Ellers(MazeGenAlgo):
         grid = MazeArray(self.H, self.W)
 
         raise NotImplementedError('Algorithm not yet implemented.')
+        
+        # initialize a master grid of the sets 
+        sets = Array2D('i', (self.H, self.W), -1)
+        
+        # initialize the first row cells to each exist in their own set
+        max_set_number = 0
+        for c in xrange(1, self.W, 2):
+            sets[0][c] = max_set_number
+            max_set_number += 1
 
         return grid
