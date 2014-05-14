@@ -229,6 +229,19 @@ Of all the classic maze-generation algorithms, I find this one the messiest to i
 
 ### Maze-Soliving Algorithms
 
+#### Blind Alley Filler
+#### Blind Alley Sealer
+#### Chain Algorithm
+#### Collision Solver
+#### Cul-de-sac Filler
+#### Dead End Filler
+#### Djikstra's
+#### Pledge Algorithm
+#### Random Mouse
+#### Recursive Backtracker
+#### Shortest Paths Finder
+#### Trémaux's Algorithm
+
 #### Wall Follower
 
 ###### The Algorithm
