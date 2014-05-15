@@ -84,7 +84,7 @@ class Ellers(MazeGenAlgo):
         for c in xrange(1, self.W - 2, 2):
             if random() < self.ybias:
                 s = sets[start_row, c]
-                if s == -1:
+                if sets[start_row+1, c] == -1:
                     sets[start_row+1, c] = s
                     sets[start_row+2, c] = s
     
