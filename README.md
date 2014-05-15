@@ -203,13 +203,15 @@ This implementation tries, as far as is possible, to reduce these biases by alte
 5. If a passage East was not carved, choose any one of the cells in the run set and carve a passage North. Then empty the run set. Repeat steps 2-5.
 6. Continue until all rows have been processed.
 
+This implementation has an optional bias parameter: [0.0, 1.0]. If the bias is set less than 0.5 the maze will be biased East-West, if it set greater than 0.5 it will be biased North-South.
+
 ###### Notes
 
-Results: perfect, biased
+Results: perfect, unbiased, flawed
 
 The algorithm is simple and optimally fast. However, the North side of the maze will always be one, long, open corridor. For my tastes, this makes the maze too easy to solve. There are use-cases where that will not matter though.
 
-Active research is underway to create a post-processing step to fix this bias.
+Active research is underway to create a post-processing step to fix this issue.
 
 
 #### Wilson's
