@@ -5,8 +5,9 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 class Sidewinder(MazeGenAlgo):
 
-    def __init__(self, h, w):
+    def __init__(self, h, w, bias=0.5):
         super(Sidewinder, self).__init__(h, w)
+        self.bias = bias
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
@@ -26,7 +27,7 @@ class Sidewinder(MazeGenAlgo):
                 # add the current cell to the run
                 run.append((row, col))
 
-                carve_east = random() > 0.5
+                carve_east = random() > self.bias
                 # carve East or North (can't carve East into the East wall
                 if carve_east and col < (self.W - 2):
                     grid[row, col + 1] = 0
