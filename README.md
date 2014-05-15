@@ -87,18 +87,21 @@ More research is needed to create a post-processing step to remove the typical C
 
 ###### The Algorithm
 
-1. Put each cell in the first row into their own set.
-2. Randomly join adjacent cells, but only if they are not in the same set. When joining adjacent cells, merge the cells of both sets into a single set.
-3. For each set, randomly create vertical connections downward to the next row. Each remaining set must have at least one vertical connection. The cells in the next row thus connected must share the set of the cell above them.
-4. Complete the next row by placing any remaining cells into their own sets.
-5. Repeat step 2-4 until the last row.
-6. For the last row, join all adjacent cells that do not share a set, and omit the vertical connections.
+1. Put the cells of the first row each in their own set.
+2. Join adjacent cells. But not if they are already in the same set.
+    Merge the sets of these cells.
+3. For each set in the row, create at least one vertical connection down to the next row.
+4. Put any unconnected cells in the next row into their own set.
+5. Repeast until the last row.
+6. In the last row, join all adjacent cells that do not share a set.
 
 ###### Notes
 
 Results: perfect, unbiased
 
+This is a classic set-theory algorithm. It is not the fastest algorithm, as it requires relabeling whole sets of cells at every step.
 
+But this algorithm does have the fun advantage of being easy to bias in the X or Y directions with two little numbers: xbias and ybias, each between zero and one (0.5 is unbiased).
 
 #### Growing Tree
 

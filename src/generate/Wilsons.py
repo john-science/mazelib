@@ -18,7 +18,8 @@ class Wilsons(MazeGenAlgo):
         if hunt_order == 'random':
             self._hunt_order = self._hunt_random
         else:
-            self._hunt_order = self._hunt_serpentine
+            self._hunt_order = self._hunt_random
+            #self._hunt_order = self._hunt_serpentine
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
@@ -30,9 +31,12 @@ class Wilsons(MazeGenAlgo):
         # perform many random walks, to fill the maze
         num_trials = 0
         while current != (-1, -1):
+            current = self._hunt(grid, num_trials)
+            if current == (-1, -1): break  # TODO: This is stupid. Fix the loop.
             walk = self._generate_random_walk(grid, current)
             self._solve_random_walk(grid, walk, current)
-            current = self._hunt(grid, num_trials)
+            if num_trials == 1:
+                return grid
             num_trials += 1
 
         return grid
@@ -47,7 +51,14 @@ class Wilsons(MazeGenAlgo):
             direction = self._random_dir(current)
             walk[current] = direction
             current = self._move(current, direction)
-
+            
+        print 'start'
+        print start
+        print 'walk'
+        print walk
+        print 'walk keys'
+        print sorted(walk.keys())
+        
         return walk
 
     def _random_dir(self, current):
@@ -73,11 +84,25 @@ class Wilsons(MazeGenAlgo):
 
         while current in walk:
             next_cell = self._move(current, walk[current])
-            grid[next_cell] = 0
-            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
-            current = next_cell
-            if grid[current] == 0:
+            if grid[next_cell] == 0:
                 break
+            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+            grid[next_cell] = 0
+            current = next_cell
+        
+        grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+        
+
+    def _solve_random_walk_OLD(self, grid, walk, start):
+        current = start
+
+        while current in walk:
+            next_cell = self._move(current, walk[current])
+            if grid[next_cell] == 0:
+                break
+            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+            grid[next_cell] = 0
+            current = next_cell
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
