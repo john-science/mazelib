@@ -18,8 +18,7 @@ class Wilsons(MazeGenAlgo):
         if hunt_order == 'random':
             self._hunt_order = self._hunt_random
         else:
-            self._hunt_order = self._hunt_random
-            #self._hunt_order = self._hunt_serpentine
+            self._hunt_order = self._hunt_serpentine
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
@@ -51,13 +50,6 @@ class Wilsons(MazeGenAlgo):
             direction = self._random_dir(current)
             walk[current] = direction
             current = self._move(current, direction)
-            
-        print 'start'
-        print start
-        print 'walk'
-        print walk
-        print 'walk keys'
-        print sorted(walk.keys())
         
         return walk
 
@@ -91,18 +83,6 @@ class Wilsons(MazeGenAlgo):
             current = next_cell
         
         grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
-        
-
-    def _solve_random_walk_OLD(self, grid, walk, start):
-        current = start
-
-        while current in walk:
-            next_cell = self._move(current, walk[current])
-            if grid[next_cell] == 0:
-                break
-            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
-            grid[next_cell] = 0
-            current = next_cell
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
