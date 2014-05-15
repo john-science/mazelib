@@ -71,6 +71,12 @@ class Wilsons(MazeGenAlgo):
         return cell
 
     def _generate_random_walk(self, grid, start):
+        """From a given starting position, walk randomly until you hit a visited cell.
+        
+        The returned walk object is a dictionary mapping your location (cell) to a
+        direction. If you randomly walk over the same cell twice, you overwrite
+        the direction at that location.
+        """
         direction = self._random_dir(start)
         walk = {}
         walk[start] = direction
@@ -99,20 +105,26 @@ class Wilsons(MazeGenAlgo):
         else:                return (0, 2)   # West
 
     def _move(self, start, direction):
+        """Convolve a position tuple with a direction tuple to
+        generate a new position.
+        """
         return tuple(map(sum, zip(start, direction)))
 
     def _solve_random_walk(self, grid, walk, start):
+        """Move through the random walk, visiting all the cells you touch,
+        and breaking down the walls you cross.
+        """
         current = start
 
         while current in walk:
             next_cell = self._move(current, walk[current])
             if grid[next_cell] == 0:
                 break
-            grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+            grid[(next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2] = 0
             grid[next_cell] = 0
             current = next_cell
         
-        grid[((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)] = 0
+        grid[(next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2] = 0
 
     # TODO: Several algorithms use this method, should they share it? (Add it to MazeGenAlgo?)
     def _find_neighbors(self, posi, grid, visited=True):  # TODO: Note, I changed this from 'unvisited' to 'visited'.  Fix this in Hunt-and-Kill
