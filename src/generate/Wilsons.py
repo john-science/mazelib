@@ -24,20 +24,18 @@ class Wilsons(MazeGenAlgo):
 
     def generate(self):
         raise NotImplementedError("Wilson's algorithm is not yet implemented.")
-
         grid = MazeArray(self.H, self.W)
-        
+
         # find an arbitrary starting position
-        current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
-        grid[current] = 0
+        grid[randrange(1, self.H, 2), randrange(1, self.W, 2)] = 0
+        current = self._hunt(grid, num_trials)
 
         # perform many random walks, to fill the maze
         num_trials = 0
         while current != (-1, -1):
-            current = self._hunt(grid, num_trials)
-            if current == (-1, -1): break  # TODO: This is stupid. Fix the loop.
             walk = self._generate_random_walk(grid, current)
             self._solve_random_walk(grid, walk, current)
+            current = self._hunt(grid, num_trials)
             num_trials += 1
 
         return grid
@@ -116,15 +114,11 @@ class Wilsons(MazeGenAlgo):
         """
         current = start
 
-        while current in walk:
-            next_cell = self._move(current, walk[current])
-            if grid[next_cell] == 0:
-                break
-            grid[(next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2] = 0
-            grid[next_cell] = 0
-            current = next_cell
-        
-        grid[(next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2] = 0
+        while grid[current] != 0:
+            grid[current] = 0
+            next = self._move(current, walk[current])
+            grid[(next[0] + current[0]) // 2, (next[1] + current[1]) // 2] = 0
+            current = next
 
     # TODO: Several algorithms use this method, should they share it? (Add it to MazeGenAlgo?)
     def _find_neighbors(self, posi, grid, visited=True):  # TODO: Note, I changed this from 'unvisited' to 'visited'.  Fix this in Hunt-and-Kill
