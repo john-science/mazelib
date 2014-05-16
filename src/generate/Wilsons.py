@@ -23,15 +23,14 @@ class Wilsons(MazeGenAlgo):
             self._hunt_order = self._hunt_random
 
     def generate(self):
-        raise NotImplementedError("Wilson's algorithm is not yet implemented.")
         grid = MazeArray(self.H, self.W)
 
         # find an arbitrary starting position
         grid[randrange(1, self.H, 2), randrange(1, self.W, 2)] = 0
+        num_trials = 1
         current = self._hunt(grid, num_trials)
 
         # perform many random walks, to fill the maze
-        num_trials = 0
         while current != (-1, -1):
             walk = self._generate_random_walk(grid, current)
             self._solve_random_walk(grid, walk, current)

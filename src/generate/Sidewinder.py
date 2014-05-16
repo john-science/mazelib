@@ -6,7 +6,7 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 class Sidewinder(MazeGenAlgo):
     """
     1. Work through the grid row-wise, starting with the cell at 0,0.
-    2. Add the current cell to a “run” set.
+    2. Add the current cell to a "run" set.
     3. For the current cell, randomly decide whether to carve East.
     4. If a passage East was carved, make the new cell the current cell and repeat steps 2-4.
     5. If a passage East was not carved, choose any one of the cells in the run set and carve
