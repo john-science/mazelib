@@ -27,15 +27,14 @@ class Wilsons(MazeGenAlgo):
 
         # find an arbitrary starting position
         grid[randrange(1, self.H, 2), randrange(1, self.W, 2)] = 0
-        num_trials = 1
-        current = self._hunt(grid, num_trials)
+        num_visited = 1
+        current = self._hunt(grid, num_visited)
 
         # perform many random walks, to fill the maze
         while current != (-1, -1):
             walk = self._generate_random_walk(grid, current)
-            self._solve_random_walk(grid, walk, current)
-            current = self._hunt(grid, num_trials)
-            num_trials += 1
+            num_visited += self._solve_random_walk(grid, walk, current)
+            current = self._hunt(grid, num_visited)
 
         return grid
 
@@ -45,7 +44,7 @@ class Wilsons(MazeGenAlgo):
 
     def _hunt_random(self, grid, count):
         """ Select the next cell to walk from, randomly. """
-        if count >= (self.H * self.W + 2):
+        if count >= (self.h * self.w):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
@@ -62,7 +61,7 @@ class Wilsons(MazeGenAlgo):
                 if cell[0] > (self.H - 2):
                     return (-1, -1)
 
-            if grid[cell] == 0 and len(self._find_neighbors(cell, grid, False)) > 0:
+            if grid[cell] != 0:
                 found = True
 
         return cell
@@ -111,13 +110,17 @@ class Wilsons(MazeGenAlgo):
         """Move through the random walk, visiting all the cells you touch,
         and breaking down the walls you cross.
         """
+        visits = 0
         current = start
 
         while grid[current] != 0:
             grid[current] = 0
             next = self._move(current, walk[current])
             grid[(next[0] + current[0]) // 2, (next[1] + current[1]) // 2] = 0
+            visits += 1
             current = next
+
+        return visits
 
     # TODO: Several algorithms use this method, should they share it? (Add it to MazeGenAlgo?)
     def _find_neighbors(self, posi, grid, visited=True):  # TODO: Note, I changed this from 'unvisited' to 'visited'.  Fix this in Hunt-and-Kill
