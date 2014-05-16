@@ -4,6 +4,8 @@
 
 ## The mazelib API
 
+The mazelib library supports Python versions 2.6.x, 2.7.x, and 3.x.
+
 ### Generating Mazes
 
     from mazelib import *
@@ -63,7 +65,7 @@ It does not matter what order you go through all the cells in the grid. And if y
 
 ###### Notes
 
-Results: perfect, heavily biased
+Results: perfect, biased, flawed
 
 This algorithm produces mazes with a serious flaw: the North and West borders of the maze are completely open. This makes solving the maze too easy to be fun. That is, unless the person solving the maze can't see the whole thing at one time. In which case, this algorithm is still useful.
 
@@ -227,9 +229,7 @@ Active research is underway to create a post-processing step to fix this issue.
 
 Results: perfect, unbiased
 
-Like all random-walk algorithms, Wilson's isn't terribly fast. However, as UST-based algorithms go, this converges faster than Aldous-Broder.
-
-Of all the classic maze-generation algorithms, I find this one the messiest to implement.
+Like all random-walk algorithms, Wilson's isn't terribly fast. However, this still converges faster than Aldous-Broder.
 
 
 ### Maze-Soliving Algorithms
@@ -265,7 +265,7 @@ In reality:
 
 ###### Notes
 
-It is an interesting phenomenon that this is the easiest possible solution to a maze for the human brain, but the longest and most complicated to code. Drunk college kids can use this algorithm to solve corn mazes with ease. But problems of geometry that the human mind finds trivial are actually comprised of much logic and understand.
+To the human brain, this is the easiest possible way to solve a maze. Drunk college kids use this algorithm to solve corn mazes every year. But if we go purely by the number of lines of code, this is one of the hardest maze-solving algorithms to implement on a computer. Neat.
 
 It should be noted that this algorithm does not solve mazes that are not perfect.
 
@@ -447,7 +447,7 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
 
 ## Vocabulary
 
-1. __biased__ - a maze is biased if the human eye can determine an obvious partial or complete solution very quickly
+1. __biased__ - a maze is biased if there are long runs and corridors more in the North/South or East/West directions.
 2. __cell__ - an open passage in the maze
 3. __grid__ - the grid is the combination of all passages and barriers in the maze
 4. __perfect__ - a maze is perfect if it has one and only one solution
