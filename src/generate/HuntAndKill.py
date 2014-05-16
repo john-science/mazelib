@@ -19,14 +19,16 @@ class HuntAndKill(MazeGenAlgo):
         but it creates a more interesting, harder maze.
     """
 
-    def __init__(self, w, h, hunt_order='serpentine'):
+    def __init__(self, w, h, hunt_order='random'):
         super(HuntAndKill, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
         if hunt_order == 'random':
             self._hunt_order = self._hunt_random
-        else:
+        elif hunt_order == 'serpentine':
             self._hunt_order = self._hunt_serpentine
+        else:
+            self._hunt_order = self._hunt_random
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
@@ -51,14 +53,14 @@ class HuntAndKill(MazeGenAlgo):
         """
         if grid[start] == 0:
             current = start
-            unvisited_neighbors = self._find_neighbors(current, grid, True)
+            unvisited_neighbors = self.find_neighbors(current, grid)
 
             while len(unvisited_neighbors) >  0:
                 neighbor = choice(unvisited_neighbors)
                 grid[neighbor] = 0
                 grid[(neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2] = 0
                 current = neighbor
-                unvisited_neighbors = self._find_neighbors(current, grid, True)
+                unvisited_neighbors = self.find_neighbors(current, grid)
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
@@ -83,28 +85,7 @@ class HuntAndKill(MazeGenAlgo):
                 if cell[0] > (self.H - 2):
                     return (-1, -1)
 
-            if grid[cell] == 0 and len(self._find_neighbors(cell, grid, True)) > 0:
+            if grid[cell] == 0 and len(self.find_neighbors(cell, grid)) > 0:
                 found = True
 
         return cell
-
-    # TODO: Several algorithms use this method, should they share it?
-    def _find_neighbors(self, posi, grid, unvisited=False):
-        """ Find all the neighbors in the grid of the current position,
-        that have/haven't been visited.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and grid[row-2, col] == unvisited:
-            ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] == unvisited:
-            ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] == unvisited:
-            ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] == unvisited:
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns

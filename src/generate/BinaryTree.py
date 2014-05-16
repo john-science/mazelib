@@ -43,4 +43,7 @@ class BinaryTree(MazeGenAlgo):
             return choice(neighbors)
 
     def _add_tuples(self, current, diff):
+        """Convolve a position tuple with a direction tuple to
+        generate a new position.
+        """
         return tuple(map(sum, zip(current, diff)))

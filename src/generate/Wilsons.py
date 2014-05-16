@@ -121,25 +121,3 @@ class Wilsons(MazeGenAlgo):
             current = next
 
         return visits
-
-    # TODO: Several algorithms use this method, should they share it? (Add it to MazeGenAlgo?)
-    def _find_neighbors(self, posi, grid, visited=True):  # TODO: Note, I changed this from 'unvisited' to 'visited'.  Fix this in Hunt-and-Kill
-        """Find all the grid neighbors of the current position.
-        
-        Choose whether you want neighbors that Have or Haven't been visited already.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and grid[row-2, col] == visited:
-            ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] == visited:
-            ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] == visited:
-            ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] == visited:
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns

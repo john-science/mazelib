@@ -24,7 +24,7 @@ class Backtrack(MazeGenAlgo):
 
         while track:
             current = track[-1]
-            neighbors = self._find_unvisited_adj(current, grid)
+            neighbors = self.find_neighbors(current, grid)
 
             if len(neighbors) == 0:
                 track = track[:-1]
@@ -36,19 +36,3 @@ class Backtrack(MazeGenAlgo):
                 track += [nn]
 
         return grid
-
-    def _find_unvisited_adj(self, current, grid):
-        unvisited = []
-
-        r,c = current
-        if r > 1 and grid[r-2, c] == 1:
-            unvisited.append((r-2, c))
-        if r < self.H - 2 and grid[r+2, c] == 1:
-            unvisited.append((r+2, c))
-        if c > 1 and grid[r, c-2] == 1:
-            unvisited.append((r, c-2))
-        if c < self.W - 2 and grid[r, c+2] == 1:
-            unvisited.append((r, c+2))
-
-        shuffle(unvisited)
-        return unvisited

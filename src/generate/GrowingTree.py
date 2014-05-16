@@ -22,7 +22,7 @@ class GrowingTree(MazeGenAlgo):
 
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0
-        active = self._find_unvisited_neighbors(current, grid)
+        active = self.find_neighbors(current, grid)
         active = [current]
 
         while active:
@@ -31,7 +31,7 @@ class GrowingTree(MazeGenAlgo):
             else:
                 current = choice(active)
 
-            next_neighbors = self._find_unvisited_neighbors(current, grid)
+            next_neighbors = self.find_neighbors(current, grid)
             if len(next_neighbors) == 0:
                 active = [a for a in active if a != current]
                 continue
@@ -43,37 +43,3 @@ class GrowingTree(MazeGenAlgo):
             grid[(current[0] + nn[0]) // 2, (current[1] + nn[1]) // 2] = 0
 
         return grid
-
-    def _find_unvisited_neighbors(self, current, grid):
-        neighbors = []
-
-        row,col = current
-        if row > 1 and grid[row - 2, col] == 1:
-            neighbors.append((row - 2, col))
-        if row < (self.H - 2) and grid[row + 2, col] == 1:
-            neighbors.append((row + 2, col))
-        if col > 1 and grid[row, col - 2] == 1:
-            neighbors.append((row, col - 2))
-        if col < (self.W - 2) and grid[row, col + 2] == 1:
-            neighbors.append((row, col + 2))
-
-        shuffle(neighbors)
-        return neighbors
-
-    def _find_visited_neighbors(self, current, grid):
-        neighbors = []
-
-        row,col = current
-        if row > 1 and grid[row - 2, col] == 0:
-            neighbors.append((row - 2, col))
-        if row < (self.H - 2) and grid[row + 2, col] == 0:
-            neighbors.append((row + 2, col))
-        if col > 1 and grid[row, col - 2] == 0:
-            neighbors.append((row, col - 2))
-        if col < (self.W - 2) and grid[row, col + 2] == 0:
-            neighbors.append((row, col + 2))
-
-        shuffle(neighbors)
-        return neighbors
-
-

@@ -6,6 +6,7 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 class CellularAutomaton(MazeGenAlgo):
     
     # TODO: These mazes seem flawed for when small, the outer walls are too open.
+    # TODO: I could simplify this a lot by calling the 'find_neighbors' superclass method.
   
     def __init__(self, w, h, complexity=1.0, density=1.0):
         super(CellularAutomaton, self).__init__(w, h)

@@ -16,7 +16,7 @@ class Prims(MazeGenAlgo):
         grid[current] = 0
 
         # created a weighted list of all vertices connected in the graph
-        neighbors = self._find_neighbors(grid, current, False)
+        neighbors = self.find_neighbors(current, grid)
 
         # loop over all current neighbors, until empty
         visited = 1
@@ -29,32 +29,13 @@ class Prims(MazeGenAlgo):
             grid[current] = 0
             neighbors = neighbors[:nn] + neighbors[nn + 1:]
             # connect that neighbor to a random neighbor with grid[posi] == 0
-            nearest_n = self._find_neighbors(grid, current, True)[0]
+            nearest_n = self.find_neighbors(current, grid, False)[0]
             grid[(current[0] + nearest_n[0]) // 2, (current[1] + nearest_n[1]) // 2] = 0
 
             # find all unvisited neighbors of current, add them to neighbors
-            unvisited = self._find_neighbors(grid, current, False)
+            unvisited = self.find_neighbors(current, grid)
             for unv in unvisited:
                 if unv not in neighbors:
                     neighbors.append(unv)
 
         return grid
-
-    def _find_neighbors(self, grid, current, visited):
-        row,col = current
-        ns = []
-
-        flag = 0 if visited else 1  # TODO: Unnecessary, the grid already contains True/False
-
-        if row > 1 and grid[(row - 2, col)] == flag:
-            ns.append((row - 2, col))
-        if row < self.H - 2 and grid[(row + 2, col)] == flag:
-            ns.append((row + 2, col))
-        if col > 1 and grid[(row, col - 2)] == flag:
-            ns.append((row, col - 2))
-        if col < self.W - 2 and grid[(row, col + 2)] == flag:
-            ns.append((row, col + 2))
-
-        shuffle(ns)
-
-        return ns

@@ -5,6 +5,15 @@ from ..utils.array2d import Array2D
 
 
 class Ellers(MazeGenAlgo):
+    """
+    1. Put the cells of the first row each in their own set.
+    2. Join adjacent cells. But not if they are already in the same set.
+        Merge the sets of these cells.
+    3. For each set in the row, create at least one vertical connection down to the next row.
+    4. Put any unconnected cells in the next row into their own set.
+    5. Repeast until the last row.
+    6. In the last row, join all adjacent cells that do not share a set.
+    """
 
     def __init__(self, w, h, xbias=0.5, ybias=0.5):
         super(Ellers, self).__init__(w, h)
@@ -12,15 +21,6 @@ class Ellers(MazeGenAlgo):
         self.ybias = 0.0 if ybias < 0.0 else 1.0 if ybias > 1.0 else ybias
 
     def generate(self):
-        """
-        1. Put the cells of the first row each in their own set.
-        2. Join adjacent cells. But not if they are already in the same set.
-            Merge the sets of these cells.
-        3. For each set in the row, create at least one vertical connection down to the next row.
-        4. Put any unconnected cells in the next row into their own set.
-        5. Repeast until the last row.
-        6. In the last row, join all adjacent cells that do not share a set.
-        """
         # initialize a master grid of the sets of grid cells
         sets = Array2D('i', (self.H, self.W), -1)
         

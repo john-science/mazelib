@@ -23,12 +23,12 @@ class AldousBroder(MazeGenAlgo):
 
         while num_visited < self.h * self.w:
             # find neighbors
-            neighbors = self._find_neighors(current, grid)
+            neighbors = self.find_neighbors(current, grid)
 
             # how many neighbors have already been visited?
             if len(neighbors) == 0:
                 # mark random neighbor as current
-                current = choice(self._find_neighors(current, grid, False))
+                current = choice(self.find_neighbors(current, grid, False))
                 continue
 
             # loop through neighbors
@@ -46,25 +46,3 @@ class AldousBroder(MazeGenAlgo):
                     break
     
         return grid
-
-    # TODO: Several algorithms use this method, should they share it?
-    def _find_neighors(self, posi, grid, visited=True):
-        """ Find all the neighbors in the grid of the current position,
-        that have/haven't been visited.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and grid[row-2, col] == visited:
-            ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] == visited:
-            ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] == visited:
-            ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] == visited:
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns
-
