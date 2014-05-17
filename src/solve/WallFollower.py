@@ -1,3 +1,4 @@
+
 from MazeSolveAlgo import MazeArray,MazeSolveAlgo
 
 
@@ -15,6 +16,13 @@ class WallFollower(MazeSolveAlgo):
     4. Terminate when you reach the end cell.
     5. Prune the extraneous branches from the solution before returning it.
     """
+    def __init__(self, turn='right'):
+        if turn == 'right':
+            self.directions = [(0, 2), (-2, 0), (0, -2), (2, 0)]
+        elif turn == 'left':
+            self.directions = [(0, -2), (-2, 0), (0, 2), (2, 0)]
+        else:  # default to right turn
+            self.directions = [(0, 2), (-2, 0), (0, -2), (2, 0)]
     
     def solve(self, grid, start, end):
         solution = [current]
@@ -28,35 +36,68 @@ class WallFollower(MazeSolveAlgo):
         # loop until you reach end, or until you have proven you won't solve the maze
         while current != end and len(solution) < limit:
             # move to the next, rightmost, cell
-            
-        
+
         if len(solution) > limit:
             raise RuntimeError('This algorithm was not able to converge on a solution.')
             return []  # TODO: Is necessary?
-        
+
         # remove unnecessary branches from the solution.
         solution = self._prune_solution(solution)
-        
+
         return solution
 
-
-    def _move_to_next_cell(self, grid, current):
+    def _move_to_next_cell(self, grid, last, current):
         """ At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
         """
-        next_cell = current
-        
-        # TODO
-        
-        return next_cell
+        last_diff = (current[0] - last[0], current[1] - last[1])
+        last_dir = self.directions.index(last_diff)
+
+        # loop through all directions until you find a place you can move
+        for d in xrange(1,4):
+            next_dir = (last_dir + d) % 4
+            next_cell = _move(current, self.directions[next_dir])
+            if grid[next_cell] == 0:
+                return next_cell
+
+        # default to going back where you just came from
+        return last
+
+    def _move(self, start, direction):
+        """Convolve a position tuple with a direction tuple to
+        generate a new position.
+        """
+        return tuple(map(sum, zip(start, direction)))
 
     def _prune_solution(self, solution):
         """ A solution may contain extraneous branches: paths that were followed
         to find the end, but could have been skipped.
-        
         This method removes those branches.
         """
-        
-        # TODO
-        
+        # remove all turn-around points in the solution
+        found = True
+        while found and len(solution) > 2:
+            found = False
+            for i in xrange(len(solution) - 2):
+                if solution[i] == solution[i + 2]:
+                    found = True
+                    index = i + 1
+                    break
+
+            if found:
+                del solution[index]
+
+        # if the same row is listed twice in the solution, remove it
+        found = True
+        while found:
+            found = False
+            for i in xrange(len(solution) - 1):
+                if solution[i] == solution[i + 1]:
+                    found = True
+                    index = i
+                    break
+
+            if found:
+                del solution[index]
+
         return solution
