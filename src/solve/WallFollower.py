@@ -1,4 +1,5 @@
 
+from random import choice,shuffle
 from MazeSolveAlgo import MazeArray,MazeSolveAlgo
 
 
@@ -23,19 +24,20 @@ class WallFollower(MazeSolveAlgo):
             self.directions = [(0, -2), (-2, 0), (0, 2), (2, 0)]
         else:  # default to right turn
             self.directions = [(0, 2), (-2, 0), (0, -2), (2, 0)]
-    
-    def solve(self, grid, start, end):
-        solution = [current]
 
-        # select a starting direction
-        current = start
-        # find neighbors and pick one
-        # move there.
-        
+    def solve(self, grid, start, end):
+        solution = [start]
+
+        # a first move has to be made
+        last = start
+        current = choice(self.find_neighbors(last, grid, False))
+
         limit = grid.height * grid.width + 2
         # loop until you reach end, or until you have proven you won't solve the maze
         while current != end and len(solution) < limit:
-            # move to the next, rightmost, cell
+            temp = self._move_to_next_cell(grid, last, current)
+            last = current
+            current = temp
 
         if len(solution) > limit:
             raise RuntimeError('This algorithm was not able to converge on a solution.')
@@ -57,6 +59,7 @@ class WallFollower(MazeSolveAlgo):
         for d in xrange(1,4):
             next_dir = (last_dir + d) % 4
             next_cell = _move(current, self.directions[next_dir])
+            # TODO: There is some chance this will lead you out of the maze... right? Or no?
             if grid[next_cell] == 0:
                 return next_cell
 
@@ -101,3 +104,23 @@ class WallFollower(MazeSolveAlgo):
                 del solution[index]
 
         return solution
+
+    def find_neighbors(self, posi, grid, visited=True):
+        """Find all the grid neighbors of the current position;
+        visited, or not.
+        """
+        (row, col) = posi
+        ns = []
+
+        if row > 1 and grid[row-2, col] == visited:
+            ns.append((row-2, col))
+        if row < self.H-2 and grid[row+2, col] == visited:
+            ns.append((row+2, col))
+        if col > 1 and grid[row, col-2] == visited:
+            ns.append((row, col-2))
+        if col < self.W-2 and grid[row, col+2] == visited:
+            ns.append((row, col+2))
+
+        shuffle(ns)
+
+        return ns

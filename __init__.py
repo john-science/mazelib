@@ -13,3 +13,4 @@ from src.generate.Kruskal import Kruskal
 from src.generate.Prims import Prims
 from src.generate.Sidewinder import Sidewinder
 from src.generate.Wilsons import Wilsons
+from src.solve.WallFollower import WallFollower
