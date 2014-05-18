@@ -69,6 +69,8 @@ class Maze(object):
     def solve(self):
         if self.generator == None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
+        elif self.start == None or self.end == None:
+            raise UnboundLocalError('Start and end times must be set first.')
         else:
             self.solution = self.solver.solve(self.grid, self.start, self.end)
 
