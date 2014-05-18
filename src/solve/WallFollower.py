@@ -28,13 +28,20 @@ class WallFollower(MazeSolveAlgo):
     def solve(self, grid, start, end):
         solution = []
 
+        current = start
+
         # a first move has to be made
-        if self._start_on_edge(start):
-            # push in one cell
-        else:
-            # pick a random direction
+        if self._start_on_edge(start, grid):
+            # TODO: Not quite right. last_diff in _move_to_next_cell will be wrong.
             last = start
-            current = choice(self._find_neighbors(last, grid, False))
+            current = self._push_edge_start(start, grid)
+            solution.append(current)
+
+        # pick a random direction
+        last = current
+        current = choice(self._find_neighbors(last, grid, False))
+        
+        solution.append(current)
 
         limit = grid.height * grid.width + 2
         # loop until you reach end, or until you have proven you won't solve the maze
@@ -130,12 +137,32 @@ class WallFollower(MazeSolveAlgo):
 
         return ns
 
-    def _start_on_edge(self, start):
+    def _start_on_edge(self, start, grid):
+        """Does the starting cell lay on the edge, rather than the
+        inside of the maze grid?
+        """
         row,col = start
         
-        if row % 2 == 0:
+        if row > 0 and row < (grid.height - 1):
             return False
-        if col % 2 == 0:
+        if col > 0 and col < (grid.width - 1):
             return False
 
         return True
+
+    def _push_start(self, start, grid):
+        """If you start on the edge of the maze,
+        you need to push in one cell.
+        
+        This method assumes you start on the edge.
+        """
+        row,col = start
+        
+        if row == 0:
+            return (1, col)
+        elif row == (grid.height - 1):
+            return (row - 1, col)
+        elif col == 0:
+            return (row, 1)
+        else:
+            return (row, col - 1)
