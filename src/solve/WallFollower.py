@@ -95,7 +95,6 @@ class WallFollower(MazeSolveAlgo):
         to find the end, but could have been skipped.
         This method removes those branches.
         """
-        print solution
         # remove all turn-around points in the solution
         found = True
         while found and len(solution) > 2:
@@ -124,7 +123,6 @@ class WallFollower(MazeSolveAlgo):
             if found:
                 del solution[index]
 
-        print solution
         return solution
 
     def _find_neighbors(self, posi, grid, visited=True):
