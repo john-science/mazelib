@@ -3,7 +3,7 @@ from random import randrange,shuffle
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
-class Backtrack(MazeGenAlgo):
+class Backtracker(MazeGenAlgo):
     """
     1. Randomly choose a starting cell.
     2. Randomly choose a wall at the current cell and open a passage through to any random adjacent
@@ -13,7 +13,7 @@ class Backtrack(MazeGenAlgo):
     """
 
     def __init__(self, w, h):
-        super(Backtrack, self).__init__(w, h)
+        super(Backtracker, self).__init__(w, h)
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
