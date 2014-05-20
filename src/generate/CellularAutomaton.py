@@ -1,23 +1,27 @@
-
 from random import choice,randrange
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
 class CellularAutomaton(MazeGenAlgo):
-    
-    # TODO: These mazes seem flawed for when small, the outer walls are too open.
-    # TODO: I could simplify this a lot by calling the 'find_neighbors' superclass method.
-  
+    """Cells survive if they have one to four neighbours.
+    If a cell has exactly three neighbours, it is born.
+
+    It is similar to Conway's Game of Life in that patterns
+    that do not have a living cell adjacent to 1, 4, or 5 other
+    living cells in any generation will behave identically to it.
+    """
+
     def __init__(self, w, h, complexity=1.0, density=1.0):
         super(CellularAutomaton, self).__init__(w, h)
         self.complexity = complexity
         self.density = density
 
     def generate(self):
-        """Generate a new maze using a cellular automaton algorithm"""
         # Adjust complexity and density relative to maze size
-        self.complexity = int(self.complexity * (5 * (self.H + self.W)))
-        self.density    = int(self.density * (self.h * self.w))
+        if self.complexity <= 1.0:
+            self.complexity = int(self.complexity * (5 * (self.H + self.W)))
+        if self.density <= 1.0:
+            self.density = int(self.density * (self.h * self.w))
 
         # Build actual maze
         grid = MazeArray(self.H, self.W, 0)
@@ -25,21 +29,18 @@ class CellularAutomaton(MazeGenAlgo):
         grid[0, :] = grid[-1, :] = 1
         grid[:, 0] = grid[:, -1] = 1
 
-        # Make isles
+        # create walls
         for i in xrange(self.density):
             y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
             grid[y, x] = 1
             for j in xrange(self.complexity):
-                neighbours = []
-                if x > 1:           neighbours.append((y, x - 2))
-                if x < self.W - 2:  neighbours.append((y, x + 2))
-                if y > 1:           neighbours.append((y - 2, x))
-                if y < self.H - 2:  neighbours.append((y + 2, x))
+                neighbours = self.find_neighbors((y, x), grid)          # visited
+                neighbours += self.find_neighbors((y, x), grid, False)  # unvisited
                 if len(neighbours):
-                    y_,x_ = choice(neighbours)
-                    if grid[y_, x_] == 0:
-                        grid[y_, x_] = 1
-                        grid[y_ + (y - y_) // 2, x_ + (x - x_) // 2] = 1
-                        x, y = x_, y_
+                    r,c = choice(neighbours)
+                    if grid[r, c] == 0:
+                        grid[r, c] = 1
+                        grid[r + (y - r) // 2, c + (x - c) // 2] = 1
+                        x, y = c, r
 
         return grid
