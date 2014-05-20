@@ -19,20 +19,22 @@ class WallFollower(MazeSolveAlgo):
     """
     def __init__(self, turn='right'):
         if turn == 'right':
-            self.directions = [(0, 2), (-2, 0), (0, -2), (2, 0)]
+            self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
         elif turn == 'left':
-            self.directions = [(0, -2), (-2, 0), (0, 2), (2, 0)]
-        else:  # default to right turn
-            self.directions = [(0, 2), (-2, 0), (0, -2), (2, 0)]
+            self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
+        else:  # default to right tur
+            self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def solve(self, grid, start, end):
+        # TODO: My pruning is not working correctly
+        # TODO: I think it's possible my turn-around points are being skipped.
+        # TODO: Code cleanup
+        # TODO: Create _midpoint(a, b) method
         solution = []
-
         current = start
 
         # a first move has to be made
         if self._start_on_edge(start, grid):
-            # TODO: Not quite right. last_diff in _move_to_next_cell will be wrong.
             last = start
             current = self._push_edge_start(start, grid)
             solution.append(current)
@@ -41,17 +43,23 @@ class WallFollower(MazeSolveAlgo):
         last = current
         current = choice(self._find_neighbors(last, grid, False))
         
+        solution.append(((last[0] + current[0]) // 2, (last[1] + current[1]) // 2))
         solution.append(current)
 
-        limit = grid.height * grid.width + 2
+        limit = grid.height * grid.width
+        last_diff = (current[0] - last[0], current[1] - last[1])
+        last_dir = self.directions.index(last_diff)
         # loop until you reach end, or until you have proven you won't solve the maze
         while current != end and len(solution) < limit:
-            temp = self._move_to_next_cell(grid, last, current)
+            last_dir,temp = self._move_to_next_cell(grid, last_dir, current, start, end)
+            if temp == end:
+                break
+            solution.append(((temp[0] + current[0]) // 2, (temp[1] + current[1]) // 2))
             solution.append(temp)
             last = current
             current = temp
 
-        if len(solution) > limit:
+        if len(solution) >= limit:
             raise RuntimeError('This algorithm was not able to converge on a solution.')
             return []  # TODO: Is necessary?
 
@@ -60,23 +68,21 @@ class WallFollower(MazeSolveAlgo):
 
         return solution
 
-    def _move_to_next_cell(self, grid, last, current):
+    def _move_to_next_cell(self, grid, last_dir, current, start, end):
         """ At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
+        if right is not available, then straight, if not straight, left, etc...
         """
-        last_diff = (current[0] - last[0], current[1] - last[1])
-        last_dir = self.directions.index(last_diff)
-
-        # loop through all directions until you find a place you can move
-        for d in xrange(1,4):
-            next_dir = (last_dir + d) % 4
+        for d in xrange(4):
+            next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
-            # TODO: What if next_cell is outside of the maze??????
-            if grid[next_cell] == 0:
-                return next_cell
-
-        # default to going back where you just came from
-        return last
+            mid_cell = ((next_cell[0] + current[0]) // 2, (next_cell[1] + current[1]) // 2)
+            if grid[mid_cell] == 0 and mid_cell != start:
+                return (next_dir, next_cell)
+            elif mid_cell == end:
+                return (next_dir, end)
+        
+        return (last_dir, current)
 
     def _move(self, start, direction):
         """Convolve a position tuple with a direction tuple to
@@ -89,6 +95,7 @@ class WallFollower(MazeSolveAlgo):
         to find the end, but could have been skipped.
         This method removes those branches.
         """
+        print solution
         # remove all turn-around points in the solution
         found = True
         while found and len(solution) > 2:
@@ -100,6 +107,8 @@ class WallFollower(MazeSolveAlgo):
                     break
 
             if found:
+                del solution[index+2]
+                del solution[index+1]
                 del solution[index]
 
         # if the same row is listed twice in the solution, remove it
@@ -115,6 +124,7 @@ class WallFollower(MazeSolveAlgo):
             if found:
                 del solution[index]
 
+        print solution
         return solution
 
     def _find_neighbors(self, posi, grid, visited=True):
@@ -143,14 +153,14 @@ class WallFollower(MazeSolveAlgo):
         """
         row,col = start
         
-        if row > 0 and row < (grid.height - 1):
-            return False
-        if col > 0 and col < (grid.width - 1):
-            return False
+        if row == 0 or row == grid.height - 1:
+            return True
+        if col == 0 or col == grid.width - 1:
+            return True
 
-        return True
+        return False
 
-    def _push_start(self, start, grid):
+    def _push_edge_start(self, start, grid):
         """If you start on the edge of the maze,
         you need to push in one cell.
         

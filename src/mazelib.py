@@ -94,8 +94,9 @@ class Maze(object):
 
         # if extant, insert the solution path
         if solution and self.solution:
-            # TODO: Fill this in, after solve method is implemented.
-            pass
+            for posi in self.solution:
+                r,c = posi
+                txt[r] = txt[r][:c] + '+' + txt[r][c+1:]
 
         return '\n'.join(txt)
 
