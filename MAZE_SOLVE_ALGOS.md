@@ -38,4 +38,14 @@ To the human brain, this is the easiest possible way to solve a maze. Drunk coll
 It should be noted that this algorithm does not solve mazes that are not perfect.
 
 
+## Vocabulary
+
+1. __biased__ - a maze is biased if there are long runs and corridors more in the North/South or East/West directions.
+2. __cell__ - an open passage in the maze
+3. __grid__ - the grid is the combination of all passages and barriers in the maze
+4. __perfect__ - a maze is perfect if it has one and only one solution
+5. __sparse__ - a sparse maze has walls or passages thicker than the usual single unit width
+6. __wall__ - an impassable barrier in the maze
+
+
 #####Go back to the main [README](README.md)
