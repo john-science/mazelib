@@ -11,8 +11,8 @@ The mazelib library supports Python versions 2.6.x, 2.7.x, and 3.x.
     from mazelib import *
 
     m = Maze()
-    m.generator = Prims()
-    m.generate(27, 34)
+    m.generator = Prims(27, 34)
+    m.generate()
 
 ### Solving Mazes
 
