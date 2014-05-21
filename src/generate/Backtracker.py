@@ -24,7 +24,7 @@ class Backtracker(MazeGenAlgo):
 
         while track:
             current = track[-1]
-            neighbors = self.find_neighbors(current, grid)
+            neighbors = self.find_neighbors(current, grid, False)
 
             if len(neighbors) == 0:
                 track = track[:-1]

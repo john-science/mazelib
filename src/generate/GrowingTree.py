@@ -22,7 +22,7 @@ class GrowingTree(MazeGenAlgo):
 
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0
-        active = self.find_neighbors(current, grid)
+        active = self.find_neighbors(current, grid, False)
         active = [current]
 
         while active:
@@ -31,7 +31,7 @@ class GrowingTree(MazeGenAlgo):
             else:
                 current = choice(active)
 
-            next_neighbors = self.find_neighbors(current, grid)
+            next_neighbors = self.find_neighbors(current, grid, False)
             if len(next_neighbors) == 0:
                 active = [a for a in active if a != current]
                 continue

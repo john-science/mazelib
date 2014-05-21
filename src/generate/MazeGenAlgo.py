@@ -26,13 +26,13 @@ class MazeGenAlgo(object):
         (row, col) = posi
         ns = []
 
-        if row > 1 and grid[row-2, col] == visited:
+        if row > 1 and grid[row-2, col] != visited:
             ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] == visited:
+        if row < self.H-2 and grid[row+2, col] != visited:
             ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] == visited:
+        if col > 1 and grid[row, col-2] != visited:
             ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] == visited:
+        if col < self.W-2 and grid[row, col+2] != visited:
             ns.append((row, col+2))
 
         shuffle(ns)
