@@ -66,6 +66,53 @@ class Maze(object):
 
         self.end = end
 
+    def generate_monte_carlo(self, h, w, repeat, entrances=3, difficulty=1.0):
+        """Use the Monte Carlo Method to generate a maze of defined difficulty.
+
+        This method assumes the generator and solver algorithms are already set.
+
+        1. Generate a maze.
+        2. For each maze, generate a series of entrances.
+        3. To elliminate boring entrance choices, select only the entrances
+            that yield the longest solution to a given maze.
+        4. Repeat steps 1 through 3 for several mazes.
+        5. Order the mazes based on the length of their maximal solutions.
+        6. Based on the 'difficulty' parameter, select one of the mazes.
+        """
+        if self.difficulty < 0.0 or self.difficulty > 1.0:
+            raise ValueError('Maze difficulty must be set from 0 to 1.')
+
+        # generate different mazes
+        mazes = []
+        for i in xrange(repeat):
+            self.generate()
+            this_maze = []
+
+            # for each maze, generate different entrances, and solve
+            for j in xrange(entrances):
+                self.generate_entrances()
+                self.solve()
+                length = len(self.solution)
+                this_maze.append({'grid': self.grid,
+                                  'start': self.start,
+                                  'end': self.end,
+                                  'solution': self.solution})
+
+            # for each maze, find the longest solution
+            mazes.append(max(this_maze, key=lambda k: len(k['solution'])))
+
+        # sort the mazes by the length of their solution
+        mazes = sorted(mazes, key=lambda k: len(k['solution']))
+
+        # based on optional parameter, choose the maze of the currect difficulty
+        posi = int((len(mazes) - 1) * difficulty)
+
+        # save final results of Monte Carlo Simulations to this object
+        self.grid = mazes[posi]['grid']
+        self.start = mazes[posi]['start']
+        self.end = mazes[posi]['end']
+        self.solution = mazes[posi]['solution']
+
     def solve(self):
         if self.generator == None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
