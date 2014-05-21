@@ -10,8 +10,8 @@ For the rest of this section, let us assume we have already generated a maze:
     from mazelib import *
 
     m = Maze()
-    m.generator = Prims()
-    m.generate(27, 34)
+    m.generator = Prims(27, 34)
+    m.generate()
 
 #### Example 1: Plotting the Maze in Plain Text
 
@@ -24,7 +24,7 @@ It is helpful to have a low-key, fast way to print out mazes (and solutions) as 
 
 #### Example 2: Plotting the Maze with Matplotlib
 
-Sometimes it is hard to see the finer points of a maze unless it is a graphic.  You want to see at a moment's glance if the maze has unreachable sections, if it is obviously too easy, if it is large enough to meet your needs, etcetera.
+Sometimes it is hard to see the finer points of a maze in text.  You want to see at a moment's glance if the maze has unreachable sections, if it is obviously too easy, if it is large enough to meet your needs, etcetera.
 
     import matplotlib.pyplot as plt
 
