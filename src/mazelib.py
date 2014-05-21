@@ -66,7 +66,7 @@ class Maze(object):
 
         self.end = end
 
-    def generate_monte_carlo(self, h, w, repeat, entrances=3, difficulty=1.0):
+    def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0):
         """Use the Monte Carlo Method to generate a maze of defined difficulty.
 
         This method assumes the generator and solver algorithms are already set.
@@ -79,7 +79,7 @@ class Maze(object):
         5. Order the mazes based on the length of their maximal solutions.
         6. Based on the 'difficulty' parameter, select one of the mazes.
         """
-        if self.difficulty < 0.0 or self.difficulty > 1.0:
+        if difficulty < 0.0 or difficulty > 1.0:
             raise ValueError('Maze difficulty must be set from 0 to 1.')
 
         # generate different mazes
