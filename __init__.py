@@ -6,6 +6,7 @@ from src.generate.Backtracker import Backtracker
 from src.generate.BinaryTree import BinaryTree
 from src.generate.CellularAutomaton import CellularAutomaton
 from src.generate.Division import Division
+from src.generate.DungeonRooms import DungeonRooms
 from src.generate.Ellers import Ellers
 from src.generate.GrowingTree import GrowingTree
 from src.generate.HuntAndKill import HuntAndKill
