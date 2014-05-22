@@ -43,7 +43,7 @@ Sometimes it is hard to see the finer points of a maze in text.  You want to see
 
 Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't need any special Python libraries. And CSS is really easy to fine-tune to customize the final output.
 
-    def toHTML(grid, cell_size=10):
+    def toHTML(grid, start, end, cell_size=10):
         row_max = grid.height
         col_max = grid.width
 
@@ -57,6 +57,8 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
                'div.maze_row div{width: ' + str(cell_size) + 'px;height: ' + str(cell_size) + 'px;}' + \
                'div.maze_row div.bl{background-color: black;}' + \
                'div.maze_row div.wh{background-color: white;}' + \
+               'div.maze_row div.rd{background-color: red;}' + \
+               'div.maze_row div.gr{background-color: green;}' + \
                'div.maze_row div{float: left;}' + \
                'div.maze_row:after{content: ".";height: 0;visibility: hidden;display: block;clear: both;}' + \
                '</style></head><body>' + \
@@ -65,13 +67,17 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
         for row in xrange(row_max):
             html += '<div class="maze_row">'
             for col in xrange(col_max):
-                if grid[row][col]:
+                if (row, col) == start:
+                    html += '<div class="gr"></div>'
+                elif (row, col) == end:
+                    html += '<div class="rd"></div>'
+                elif grid[row][col]:
                     html += '<div class="bl"></div>'
                 else:
                     html += '<div class="wh"></div>'
             html += '</div>'
         html += '</div></body></html>'
-        
+
         return html
 
 #### Example 4: Drawing the Maze with XKCD style
