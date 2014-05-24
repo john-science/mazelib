@@ -25,18 +25,18 @@ class WallFollower(MazeSolveAlgo):
         else:  # default to right turns
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
-    def solve(self, grid, start, end):
+    def _solve(self):
         solution = []
-        current = start
+        current = self.start
 
         # a first move has to be made
-        if self._start_on_edge(start, grid):
-            current = self._push_edge_start(start, grid)
+        if self._start_on_edge(self.start):
+            current = self._push_edge_start(self.start)
             solution.append(current)
 
         # pick a random direction and move
         last = current
-        current = choice(self._find_neighbors(last, grid, True))
+        current = choice(self._find_neighbors(last, False))
         last_diff = (current[0] - last[0], current[1] - last[1])
         last_dir = self.directions.index(last_diff)
 
@@ -45,11 +45,11 @@ class WallFollower(MazeSolveAlgo):
         solution.append(current)
 
         # loop until you have proven you won't solve the maze
-        limit = grid.height * grid.width
+        limit = self.grid.height * self.grid.width
         while len(solution) < limit:
-            last_dir,temp = self._move_to_next_cell(grid, last_dir, current, start, end)
+            last_dir,temp = self._move_to_next_cell(last_dir, current)
             # the solution should not include the end point
-            if temp == end:
+            if temp == self.end:
                 break
             solution.append(self._midpoint(temp, current))
             solution.append(temp)
@@ -64,7 +64,7 @@ class WallFollower(MazeSolveAlgo):
 
         return solution
 
-    def _move_to_next_cell(self, grid, last_dir, current, start, end):
+    def _move_to_next_cell(self, last_dir, current):
         """ At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
         if right is not available, then straight, if not straight, left, etc...
@@ -74,10 +74,10 @@ class WallFollower(MazeSolveAlgo):
             next_cell = self._move(current, self.directions[next_dir])
             mid_cell = (self._midpoint(next_cell, current))
 
-            if grid[mid_cell] == 0 and mid_cell != start:
+            if self.grid[mid_cell] == 0 and mid_cell != self.start:
                 return (next_dir, next_cell)
-            elif mid_cell == end:
-                return (next_dir, end)
+            elif mid_cell == self.end:
+                return (next_dir, self.end)
 
         return (last_dir, current)
 
@@ -109,40 +109,20 @@ class WallFollower(MazeSolveAlgo):
 
         return solution
 
-    def _find_neighbors(self, posi, grid, visited=True):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and grid[row-2, col] != visited:
-            ns.append((row-2, col))
-        if row < grid.height-2 and grid[row+2, col] != visited:
-            ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] != visited:
-            ns.append((row, col-2))
-        if col < grid.width-2 and grid[row, col+2] != visited:
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns
-
-    def _start_on_edge(self, start, grid):
+    def _start_on_edge(self, start):
         """Does the starting cell lay on the edge, rather than the
         inside of the maze grid?
         """
         row,col = start
         
-        if row == 0 or row == grid.height - 1:
+        if row == 0 or row == self.grid.height - 1:
             return True
-        if col == 0 or col == grid.width - 1:
+        if col == 0 or col == self.grid.width - 1:
             return True
 
         return False
 
-    def _push_edge_start(self, start, grid):
+    def _push_edge_start(self, start):
         """If you start on the edge of the maze,
         you need to push in one cell.
         
@@ -152,7 +132,7 @@ class WallFollower(MazeSolveAlgo):
         
         if row == 0:
             return (1, col)
-        elif row == (grid.height - 1):
+        elif row == (self.grid.height - 1):
             return (row - 1, col)
         elif col == 0:
             return (row, 1)
