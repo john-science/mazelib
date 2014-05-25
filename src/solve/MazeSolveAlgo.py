@@ -1,4 +1,5 @@
 import abc
+import copy
 from random import shuffle
 
 
@@ -10,7 +11,7 @@ class MazeSolveAlgo(object):
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
-        self.grid = grid
+        self.grid = copy.deepcopy(grid)
         self.start = start
         self.end = end
         

@@ -1,4 +1,4 @@
-import copy
+
 from random import choice,shuffle
 from MazeSolveAlgo import MazeSolveAlgo
 
@@ -19,16 +19,14 @@ class DeadEndFiller(MazeSolveAlgo):
     but won't do much in heavily braid Mazes, and in fact won't do
     anything useful at all for those Mazes without dead ends.
     """
-    def __init__(self):
-
-
-    def solve(self, grid, start, end):
-        self.grid = copy.deepcopy(grid)
-        self.grid[start] = self.grid[end] = 0
-        current = start
+    def _solve(self):
+        exit('This mazer solver is not yet fully implemented.')
+        
+        self.grid[self.start] = self.grid[self.end] = 0
+        current = self.start
 
         # loop through the maze serpentine, and find dead ends
-        dead_end = self._find_dead_end(start, end)
+        dead_end = self._find_dead_end()
         while dead_end != (-1, -1):
             # from the dead end, travel one cell.
             ns = self._find_neighbors(dead_end)
@@ -44,7 +42,7 @@ class DeadEndFiller(MazeSolveAlgo):
                     continue
 
             # otherwise, find another dead end in the maze
-            dead_end = self._find_dead_end(start, end)
+            dead_end = self._find_dead_end(s)
 
         # TODO
         # at this point, you have a grid with only solution tiles
@@ -69,13 +67,13 @@ class DeadEndFiller(MazeSolveAlgo):
         grid[r, c - 1] = 1
         grid[r, c + 1] = 1
 
-    def _find_dead_end(self, start, end):
+    def _find_dead_end(self):
         """A "dead end" is a cell with only zero or one open neighbors.
         The start end end count as open.
         """
         for r in xrange(1, self.grid.height, 2):
             for c in xrange(1, self.grid.width, 2):
-                if (n, c) in [start, end]:
+                if (n, c) in [self.start, self.end]:
                     continue
                 if self._is_dead_end((r, c)):
                     return (r, c)
@@ -113,11 +111,11 @@ class DeadEndFiller(MazeSolveAlgo):
 
         return ns
 
-    def _start_on_edge(self, start):
+    def _start_on_edge(self):
         """Does the starting cell lay on the edge, rather than the
         inside of the maze grid?
         """
-        row,col = start
+        row,col = self.start
 
         if row == 0 or row == self.grid.height - 1:
             return True
