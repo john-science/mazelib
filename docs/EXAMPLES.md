@@ -3,7 +3,7 @@
 #####Go back to the main [README](../README.md)
 
 
-## Displaying the Results
+## Displaying a Maze
 
 For the rest of this section, let us assume we have already generated a maze:
 
@@ -184,5 +184,18 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
     
     plotXKCD(m.grid)
 
+
+## Generating Mazes for Games
+
+#### Dungeons, sans Dragons
+#### (or Dungeons, BYODragons)
+
+DOCUMENTION INCOMING
+
+# Generating Attractive Mazes
+
+Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. Luckily, mazelib gives you the flexibility to hand-craft a more beautiful maze.
+
+DOCUMENTION INCOMING
 
 #####Go back to the main [README](../README.md)

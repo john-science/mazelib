@@ -18,6 +18,8 @@ The simplest example is:
 
 So, what did we do there?
 
+DOCUMENTION INCOMING
+
 ## How to Solve a Maze
 
 Again, the simplest example is:
@@ -28,10 +30,13 @@ Again, the simplest example is:
     
 Now, let's look at what we did.
 
+DOCUMENTION INCOMING
+
 ## Advanced: Using the Monte Carlo Method to Create a Maze of Desired Difficulty
 
 Let us say you want to generate the hardest possible maze (of a given size). Or you want to generate a whole sequence of mazes of increasing difficulty. In the past, this would be a heavily manual process.
 
+DOCUMENTION INCOMING
 
 
 #####Go back to the main [README](../README.md)
