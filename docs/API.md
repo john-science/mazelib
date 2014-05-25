@@ -13,4 +13,6 @@ The simplest example is:
     m.generator = Prims(27, 34)
     m.generate()
 
-So, what did we do here?
+So, what did we do there?
+
+#####Go back to the main [README](../README.md)
