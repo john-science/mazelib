@@ -50,6 +50,9 @@ class WallFollower(MazeSolveAlgo):
             last_dir,temp = self._move_to_next_cell(last_dir, current)
             # the solution should not include the end point
             if temp == self.end:
+                midpoint = self._midpoint(temp, current)
+                if midpoint != self.end:
+                    solution.append(midpoint)
                 break
             solution.append(self._midpoint(temp, current))
             solution.append(temp)
@@ -87,6 +90,7 @@ class WallFollower(MazeSolveAlgo):
 
         These extraneous branches need to be removed.
         """
+        # prune extra branches
         found = True
         while found and len(solution) > 2:
             found = False
@@ -106,6 +110,11 @@ class WallFollower(MazeSolveAlgo):
             if found:
                 for ind in xrange(index + diff, index - diff, - 1):
                     del solution[ind]
+        
+        # prune if start is found in solution
+        if self.start in solution:
+            i = solution.index(self.start)
+            solution = solution[i+1:]
 
         return solution
 

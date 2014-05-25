@@ -61,7 +61,7 @@ class Maze(object):
         end = (randrange(1, H, 2), randrange(1, W, 2))
 
         # make certain the start and end points aren't the same
-        while end == start:
+        while end == self.start:
             end = (randrange(1, H, 2), randrange(1, W, 2))
 
         self.end = end
