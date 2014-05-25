@@ -20,8 +20,6 @@ class DeadEndFiller(MazeSolveAlgo):
     anything useful at all for those Mazes without dead ends.
     """
     def _solve(self):
-        exit('This mazer solver is not yet fully implemented.')
-        
         self.grid[self.start] = self.grid[self.end] = 0
         current = self.start
 
@@ -44,17 +42,30 @@ class DeadEndFiller(MazeSolveAlgo):
             # otherwise, find another dead end in the maze
             dead_end = self._find_dead_end(s)
 
+        solution = self._find_first_solution()
+       
+        return solution
+    
+    def _find_first_solution(self):
         # TODO
         # at this point, you have a grid with only solution tiles
         # however, you may have more than one solution, so you will have
         # to traverse the solution tiles and create multiple solutions
-        solution = self._find_first_solution()
-       
-       
-       
+        start_posis = self._find_neighbors(self.start)
+        sols = []
+        
+        if len(start_posis) == 0:
+            #raise .... something!
+            pass
+        
+        solution = []
+        
+        if len(solution) == 0:
+            #raise ... something
+            pass
+        
         return solution
-
-    def _fill_dead_end(self, dead_end):
+        
 
     def _fill_dead_end(self, dead_end):
         """After moving from a dead end, we want to fill in it and all

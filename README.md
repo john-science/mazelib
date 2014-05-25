@@ -4,21 +4,9 @@
 
 ## The mazelib API
 
-The mazelib library supports Python versions 2.6.x, 2.7.x, and 3.x.
+A quick introduction to how to use this library.
 
-### Generating Mazes
-
-    from mazelib import *
-
-    m = Maze()
-    m.generator = Prims(27, 34)
-    m.generate()
-
-### Solving Mazes
-
-    m.solver = WallFollower()
-    m.generate_entrances()
-    m.solve()
+#### [The mazelib API](docs/API.md)
 
 ## The Algorithms
 
