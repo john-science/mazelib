@@ -24,14 +24,14 @@ The mazelib library supports Python versions 2.6.x, 2.7.x, and 3.x.
 
 There are many algorithms for generating and solving mazes. And the implementation in this library have many optional parameters. To learn more, look in the documentation:
 
-#### [Maze-Generating Algorithms](MAZE_GEN_ALGOS.md)
+#### [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
 
-#### [Maze-Solving Algorithms](MAZE_SOLVE_ALGOS.md)
+#### [Maze-Solving Algorithms](docs/MAZE_SOLVE_ALGOS.md)
 
 
 ## Examples
 
 How would you display the mazes you generate? In what fun ways can you abuse this library? This is the place to find out.
 
-#### [mazelib Examples and Tricks](EXAMPLES.md)
+#### [mazelib Examples and Tricks](docs/EXAMPLES.md)
 
