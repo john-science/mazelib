@@ -12,7 +12,7 @@ class Maze(object):
         self.start = None
         self.end = None
         self.solver = None
-        self.solution = None
+        self.solutions = None
 
     def generate(self):
         if self.generator == None:
@@ -50,7 +50,6 @@ class Maze(object):
         else:
             self.start = (randrange(1, H, 2), W - 1) # East
             self.end = (randrange(1, H, 2), 0)
-
 
     def _generate_inner_entrances(self):
         """ Generate maze entrances, randomly within the maze. """
@@ -92,17 +91,17 @@ class Maze(object):
             for j in xrange(entrances):
                 self.generate_entrances()
                 self.solve()
-                length = len(self.solution)
+                length = len(self.solutions[0])
                 this_maze.append({'grid': self.grid,
                                   'start': self.start,
                                   'end': self.end,
-                                  'solution': self.solution})
+                                  'solutions': self.solutions})
 
             # for each maze, find the longest solution
-            mazes.append(max(this_maze, key=lambda k: len(k['solution'])))
+            mazes.append(max(this_maze, key=lambda k: len(k['solutions'])))
 
         # sort the mazes by the length of their solution
-        mazes = sorted(mazes, key=lambda k: len(k['solution']))
+        mazes = sorted(mazes, key=lambda k: len(k['solutions'][0]))
 
         # based on optional parameter, choose the maze of the currect difficulty
         posi = int((len(mazes) - 1) * difficulty)
@@ -111,7 +110,7 @@ class Maze(object):
         self.grid = mazes[posi]['grid']
         self.start = mazes[posi]['start']
         self.end = mazes[posi]['end']
-        self.solution = mazes[posi]['solution']
+        self.solutions = mazes[posi]['solutions']
 
     def solve(self):
         if self.generator == None:
@@ -119,9 +118,9 @@ class Maze(object):
         elif self.start == None or self.end == None:
             raise UnboundLocalError('Start and end times must be set first.')
         else:
-            self.solution = self.solver.solve(self.grid, self.start, self.end)
+            self.solutions = self.solver.solve(self.grid, self.start, self.end)
 
-    def tostring(self, entrances=False, solution=False):
+    def tostring(self, entrances=False, solutions=False):
         """Return a string representation of the maze."""
         
         # Build the walls of the grid
@@ -140,8 +139,8 @@ class Maze(object):
             txt[r] = txt[r][:c] + 'E' + txt[r][c+1:]
 
         # if extant, insert the solution path
-        if solution and self.solution:
-            for posi in self.solution:
+        if solutions and self.solutions:
+            for posi in self.solutions[0]:
                 r,c = posi
                 txt[r] = txt[r][:c] + '+' + txt[r][c+1:]
 

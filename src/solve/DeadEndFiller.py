@@ -42,11 +42,11 @@ class DeadEndFiller(MazeSolveAlgo):
             # otherwise, find another dead end in the maze
             dead_end = self._find_dead_end(s)
 
-        solution = self._find_first_solution()
+        solutions = self._find_solutions()
        
-        return solution
+        return solutions
     
-    def _find_first_solution(self):
+    def _find_solutions(self):
         # TODO
         # at this point, you have a grid with only solution tiles
         # however, you may have more than one solution, so you will have
@@ -58,13 +58,13 @@ class DeadEndFiller(MazeSolveAlgo):
             #raise .... something!
             pass
         
-        solution = []
+        solutions = []
         
-        if len(solution) == 0:
+        if len(solutions) == 0 or len(solutions[0]) == 0:
             #raise ... something
             pass
         
-        return solution
+        return solutions
         
 
     def _fill_dead_end(self, dead_end):

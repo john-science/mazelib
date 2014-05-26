@@ -65,7 +65,7 @@ class WallFollower(MazeSolveAlgo):
         # remove unnecessary branches from the solution.
         solution = self._prune_solution(solution)
 
-        return solution
+        return [solution]
 
     def _move_to_next_cell(self, last_dir, current):
         """ At each new cell you reach, take the rightmost turn.
