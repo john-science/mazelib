@@ -82,7 +82,7 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
 
 #### Example 4: Drawing the Maze with XKCD style
 
-Let's have some fun with it. And chances are, if you're reading this you probably like XKCD.
+Chances are, if you're reading this you probably like XKCD. So, let's make the maze look like Randal drew it.
 
     import numpy as np
     from matplotlib.path import Path
@@ -188,11 +188,10 @@ Let's have some fun with it. And chances are, if you're reading this you probabl
 ## Generating Mazes for Games
 
 #### Dungeons, sans Dragons
-#### (or Dungeons, BYODragons)
 
 DOCUMENTION INCOMING
 
-# Generating Attractive Mazes
+## Generating Attractive Mazes
 
 Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. Luckily, mazelib gives you the flexibility to hand-craft a more beautiful maze.
 
