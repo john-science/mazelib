@@ -90,6 +90,7 @@ class WallFollower(MazeSolveAlgo):
 
         These extraneous branches need to be removed.
         """
+        # TODO: Will this be shared with other solvers?
         # prune extra branches
         found = True
         while found and len(solution) > 2:

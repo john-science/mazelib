@@ -8,6 +8,28 @@
 ## Collision Solver
 ## Cul-de-sac Filler
 ## Dead End Filler
+
+###### The Algorithm
+
+Just scan the Maze, and fill in each dead end, filling in the
+passage backwards from the block until you reach a junction. This
+includes filling in passages that become parts of dead ends once
+other dead ends are removed. At the end only the solution will
+remain, or solutions if there are more than one.
+
+What is left is a maze with only solution tiles. Loop through
+these cells and build the solution(s).
+
+###### Notes
+
+This is a simple Maze solving algorithm.
+It focuses on the Maze, is always very fast, and uses no extra
+memory.
+
+This will always find the one unique solution for perfect Mazes,
+but won't do much in heavily braid Mazes, and in fact won't do
+anything useful at all for those Mazes without dead ends.
+
 ## Djikstra's
 ## Pledge Algorithm
 ## Random Mouse

@@ -14,6 +14,9 @@ class DeadEndFiller(MazeSolveAlgo):
     includes filling in passages that become parts of dead ends once
     other dead ends are removed. At the end only the solution will
     remain, or solutions if there are more than one.
+    
+    What is left is a maze with only solution tiles. Loop through
+    these cells and build the solution(s).
 
     This will always find the one unique solution for perfect Mazes,
     but won't do much in heavily braid Mazes, and in fact won't do
@@ -42,30 +45,70 @@ class DeadEndFiller(MazeSolveAlgo):
             # otherwise, find another dead end in the maze
             dead_end = self._find_dead_end(s)
 
-        solutions = self._find_solutions()
+        solutions = self._build_solutions()
        
         return solutions
     
-    def _find_solutions(self):
-        # TODO
-        # at this point, you have a grid with only solution tiles
-        # however, you may have more than one solution, so you will have
-        # to traverse the solution tiles and create multiple solutions
+    def _build_solutions(self):
+        """The maze generated has only solution cells.
+        But the maze may have more than one solution. These need to be sorted out.
+        """
+        # TODO: Will this be shared with other solvers?
+        
+        # find the starting positions
         start_posis = self._find_neighbors(self.start)
-        sols = []
         
         if len(start_posis) == 0:
-            #raise .... something!
-            pass
+            raise ValueError('No valid solutions found.')
         
+        # 0. start a solution at each starting position
         solutions = []
+        for s in start_posis:
+            solutions.append([s])
+        
+        num_unfinished = len(solutions)
+        # 1. loop through each solution, and find the neighbors of the last element
+        while num_unfinished > 0:
+            for s in len(solutions):
+                if solutions[s][-1] in solutions[s][:-1]:
+                    solutions[s].append(None)
+                elif solutions[s][-1] == start.end:
+                    solutions[s].append(None)
+                elif solutions[s][-1] != None:
+                    # 2. since there are no dead ends, there can be 2, 3, or 4 neighbors
+                    ns = self._find_neighbors(solutions[s][-1])
+                    if len(ns) in [0, 1]:
+                        solutions[s].append(None)
+                    # 3. if 2, add the new cell to the colution
+                    elif len(ns) == 2:
+                        if ns[0] == solutions[s][-1]:
+                            solutions[s].append(ns[1])
+                        else:
+                            solutions[s].append(ns[0])
+                    # 4. if 3 or 4, 1 or 2 new solutions must be generated
+                    else:
+                        ns.remove(solutions[s][-1])
+                        solutions[s].append(ns[0])
+                        for j in xrange(1, len(ns)):
+                            solutions.append(list(solutions[s]).append(ns[j]))
+            
+            # 5. a solution is done when we mark it by appending a None.
+            num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
+                            
+        # 6. clean-up: remove incomplete solutions
+        new_solutions = []
+        for sol in solutions:
+            if len(sol) > 2 and sol[-1] = start.end:
+                # remove end cell from solution
+                new_solutions.append(sol[:-2])
+                
+        # 7. clean-up: organize solutions by length
+        solutions = sorted(new_solutions, key=len)
         
         if len(solutions) == 0 or len(solutions[0]) == 0:
-            #raise ... something
-            pass
-        
+            raise ValueError('No valid solutions found.')
+
         return solutions
-        
 
     def _fill_dead_end(self, dead_end):
         """After moving from a dead end, we want to fill in it and all
