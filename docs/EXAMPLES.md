@@ -169,6 +169,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
             plt.show()
     
     def use_run(codes, vertices, run):
+        """Helper method for plotXKCD. Updates path with newest run."""
         if run:
             codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
             vertices += run
@@ -180,7 +181,10 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 
 #### Dungeons, sans Dragons
 
-DOCUMENTION INCOMING
+You might want to build a maze for any number of reasons. Mazes in the real world and in games frequently have big, empty rooms in them. To that end, mazelib has some tools to allow you to generate such mazes.
+
+DOCUMENTION INCOMING - DungeonRooms Algorithm
+
 
 ## Generating Attractive Mazes
 
