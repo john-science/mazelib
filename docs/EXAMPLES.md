@@ -41,7 +41,7 @@ Sometimes it is hard to see the finer points of a maze in text.  You want to see
 
 #### Example 3: Displaying the Maze as CSS
 
-Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't need any special Python libraries. And CSS is really easy to fine-tune to customize the final output.
+This is just a simple function to draw a maze in CSS/HTML. CSS is the best free graphics package you will find.
 
     def toHTML(grid, start, end, cell_size=10):
         row_max = grid.height
@@ -83,7 +83,7 @@ Just a simple function to draw a maze in CSS/HTML. The benefit here is you don't
 #### Example 4: Drawing the Maze with XKCD style
 
 Chances are, if you're reading this you probably like XKCD. So, let's make the maze look like Randal drew it.
-
+    
     import numpy as np
     from matplotlib.path import Path
     from matplotlib.patches import PathPatch
@@ -111,28 +111,22 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                         if not run:
                             run = [(r,c)]
                         run += [(r,c+1)]
-                    elif run:
-                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                        vertices += run
+                    else:
+                        use_run(codes, vertices, run)
                         run = []
-                if run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                use_run(codes, vertices, run)
     
             # grab bottom side of last row
             run = []
             for c,cc in enumerate(xrange(1, W, 2)):
-                if grid[rr+1,cc]:
+                if grid[H-1,cc]:
                     if not run:
-                        run = [(r+1,c)]
-                    run += [(r+1,c+1)]
-                elif run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                        run = [(H//2,c)]
+                    run += [(H//2,c+1)]
+                else:
+                    use_run(codes, vertices, run)
                     run = []
-                if run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                use_run(codes, vertices, run)
     
             # loop over verticles
             for c,cc in enumerate(xrange(1, W, 2)):
@@ -142,30 +136,22 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                         if not run:
                             run = [(r,c)]
                         run += [(r+1,c)]
-                    elif run:
-                        codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                        vertices += run
+                    else:
+                        use_run(codes, vertices, run)
                         run = []
-                        
-                if run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                use_run(codes, vertices, run)
     
             # grab far right column
             run = []
             for r,rr in enumerate(xrange(1, H, 2)):
-                if grid[rr,cc+1]:
+                if grid[rr,W-1]:
                     if not run:
-                        run = [(r,c+1)]
-                    run += [(r+1,c+1)]
-                elif run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                        run = [(r,W//2)]
+                    run += [(r+1,W//2)]
+                else:
+                    use_run(codes, vertices, run)
                     run = []
-    
-                if run:
-                    codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
-                    vertices += run
+                use_run(codes, vertices, run)
     
             vertices = np.array(vertices, float)
             path = Path(vertices, codes)
@@ -181,6 +167,11 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
             ax.autoscale_view()
     
             plt.show()
+    
+    def use_run(codes, vertices, run):
+        if run:
+            codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
+            vertices += run
     
     plotXKCD(m.grid)
 
