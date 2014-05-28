@@ -11,14 +11,14 @@ A quick introduction to how to use this library.
 
 ## Examples
 
-How would you display the mazes you generate? In what fun ways can you abuse this library? This is the place to find out.
+Many examples of different ways to display mazes. And lots of examples of how to create more unique, creative mazes.
 
-#### [mazelib Examples and Tricks](docs/EXAMPLES.md)
+#### [Examples of Using mazelib](docs/EXAMPLES.md)
 
 
 ## The Algorithms
 
-There are many algorithms for generating and solving mazes. And the implementation in this library have many optional parameters. To learn more, look in the documentation:
+There are many algorithms for generating and solving mazes. This library covers all the major ones, and then some. And most of these implementations have optional parameters to provide more flexibility.
 
 #### [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
 
