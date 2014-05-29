@@ -19,6 +19,9 @@ class Maze(object):
             raise UnboundLocalError('No maze-generation algorithm has been set.')
         else:
             self.grid = self.generator.generate()
+            self.start = None
+            self.end = None
+            self.solutions = None
 
     def generate_entrances(self, outer=True):
         """ Generate maze entrances.
@@ -29,6 +32,7 @@ class Maze(object):
             return self._generate_outer_entrances()
         else:
             return self._generate_inner_entrances()
+        self.solutions = None
 
     def _generate_outer_entrances(self):
         """ Generate maze entrances, along the outer walls. """
