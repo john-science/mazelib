@@ -18,7 +18,9 @@ other dead ends are removed. At the end only the solution will
 remain, or solutions if there are more than one.
 
 What is left is a maze with only solution tiles. Loop through
-these cells and build the solution(s).
+these cells with shortest paths to find all solutions.
+
+###### Results
 
 ###### Notes
 
@@ -34,7 +36,30 @@ anything useful at all for those Mazes without dead ends.
 ## Pledge Algorithm
 ## Random Mouse
 ## Recursive Backtracker
+## Shortest Path Finder
+
+###### The Algorithm
+
+TBA
+
+###### Results
+
+Finds the single shortest solution. Works against imperfect mazes.
+
+###### Notes
+
 ## Shortest Paths Finder
+
+###### The Algorithm
+
+TBA
+
+###### Results
+
+Find all unique solutions. Works against imperfect mazes.
+
+###### Notes
+
 ## Trémaux's Algorithm
 
 ## Wall Follower
@@ -53,11 +78,20 @@ In reality:
 4. Terminate when you reach the end cell.
 5. Prune the extraneous branches from the solution before returning it.
 
+###### Optional Parameters
+
+* *Turn*: String ['left', 'right']
+ * Do you want to follow the right wall or the left wall? (default 'right')
+
+###### Results
+
+1 solution only, not the shortest solution
+
+This algorithm does not solve mazes that are not perfect.
+
 ###### Notes
 
 To the human brain, this is the easiest possible way to solve a maze. Drunk college kids use this algorithm to solve corn mazes every year. But if we go purely by the number of lines of code, this is one of the hardest maze-solving algorithms to implement on a computer. Neat.
-
-It should be noted that this algorithm does not solve mazes that are not perfect.
 
 
 ## Vocabulary
