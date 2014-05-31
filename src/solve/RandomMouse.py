@@ -3,72 +3,36 @@ from random import choice,shuffle
 from MazeSolveAlgo import MazeSolveAlgo
 
 
-class WallFollower(MazeSolveAlgo):
+class RandomMouse(MazeSolveAlgo):
     """
     The Algorithm
-
-    Follow the right wall and you will eventually end up at the end.
-
-    details:
-
-    1. Choose a random starting direction.
-    2. At each intersection, take the rightmost turn. At dead-ends, turn around.
-    3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
-    4. Terminate when you reach the end cell.
-    5. Prune the extraneous branches from the solution before returning it.
-
-    Optional Parameters
-
-    Turn: String ['left', 'right']
-        Do you want to follow the right wall or the left wall? (default 'right')
+    
+    A mouse just randomly wanders around the maze until it finds the cheese.
     """
-    def __init__(self, turn='right'):
-        if turn == 'right':
-            self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
-        elif turn == 'left':
-            self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
-        else:  # default to right turns
-            self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def _solve(self):
         solution = []
-        current = self.start
 
         # a first move has to be made
-        if self._start_on_edge(self.start):
+        current = self.start
+        if self._on_edge(self.start):
             current = self._push_edge_start(self.start)
-            solution.append(current)
-
-        # pick a random direction and move
-        last = current
-        current = choice(self._find_neighbors(last, False))
-        last_diff = (current[0] - last[0], current[1] - last[1])
-        last_dir = self.directions.index(last_diff)
-
-        # add first move to solution
-        solution.append(self._midpoint(last, current))
         solution.append(current)
-
-        # loop until you have proven you won't solve the maze
-        limit = self.grid.height * self.grid.width
-        while len(solution) < limit:
-            last_dir,temp = self._move_to_next_cell(last_dir, current)
-            # the solution should not include the end point
-            if temp == self.end:
-                midpoint = self._midpoint(temp, current)
-                if midpoint != self.end:
-                    solution.append(midpoint)
-                break
-            solution.append(self._midpoint(temp, current))
-            solution.append(temp)
-            last = current
-            current = temp
-
-        if len(solution) >= limit:
-            raise RuntimeError('This algorithm was not able to converge on a solution.')
-
+        
+        # pick a random neighbor and travel to it, until you're at the end
+        while not self._within_one(solution[-1], self.end):
+            ns = self._find_unblocked_neighbors(solution[-1])
+            
+            nxt = choice(ns)
+            solution.append(self._midpoint(solution[-1], nxt))
+            solution.append(nxt)
+            
         # remove unnecessary branches from the solution.
         solution = self._prune_solution(solution)
+
+        # fix solution so it doesn't overlap endpoints
+        if not self._on_edge(self.end):
+            [solution] = [solution[:-1]]
 
         return [solution]
 
@@ -88,6 +52,26 @@ class WallFollower(MazeSolveAlgo):
                 return (next_dir, self.end)
 
         return (last_dir, current)
+
+    def _find_unblocked_neighbors(self, posi):
+        """Find all the grid neighbors of the current position;
+        visited, or not.
+        """
+        (row, col) = posi
+        ns = []
+
+        if row > 1 and self.grid[row-1, col] == False and self.grid[row-2, col] == False:
+            ns.append((row-2, col))
+        if row < self.grid.height-2 and self.grid[row+1, col] == False and self.grid[row+2, col] == False:
+            ns.append((row+2, col))
+        if col > 1 and self.grid[row, col-1] == False and self.grid[row, col-2] == False:
+            ns.append((row, col-2))
+        if col < self.grid.width-2 and self.grid[row, col+1] == False and self.grid[row, col+2] == False:
+            ns.append((row, col+2))
+
+        shuffle(ns)
+
+        return ns
 
     def _prune_solution(self, solution):
         """In the process of solving a maze, the algorithm might go down
@@ -124,15 +108,14 @@ class WallFollower(MazeSolveAlgo):
 
         return solution
 
-    def _start_on_edge(self, start):
-        """Does the starting cell lay on the edge, rather than the
-        inside of the maze grid?
+    def _on_edge(self, cell):
+        """Does the cell lay on the edge, rather inside of the maze grid?
         """
-        row,col = start
+        r,c = cell
         
-        if row == 0 or row == self.grid.height - 1:
+        if r == 0 or r == self.grid.height - 1:
             return True
-        if col == 0 or col == self.grid.width - 1:
+        if c == 0 or c == self.grid.width - 1:
             return True
 
         return False
@@ -163,3 +146,19 @@ class WallFollower(MazeSolveAlgo):
     def _midpoint(self, a, b):
         """Find the wall cell between to passage cells"""
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
+
+    def _within_one(self, cell, desire):
+        """Is the current cell within one move of the desired cell?
+        Note, this might be one full more, or one half move.
+        """
+        if not cell or not desire:
+            return False
+        
+        if cell[0] == desire[0]:
+            if abs(cell[1] - desire[1]) < 2:
+                return True
+        elif cell[1] == desire[1]:
+            if abs(cell[0] - desire[0]) < 2:
+                return True
+        
+        return False

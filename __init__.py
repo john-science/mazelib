@@ -15,6 +15,7 @@ from src.generate.Prims import Prims
 from src.generate.Sidewinder import Sidewinder
 from src.generate.Wilsons import Wilsons
 from src.solve.DeadEndFiller import DeadEndFiller
+from src.solve.RandomMouse import RandomMouse
 from src.solve.ShortestPath import ShortestPath
 from src.solve.ShortestPaths import ShortestPaths
 from src.solve.WallFollower import WallFollower

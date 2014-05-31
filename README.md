@@ -18,7 +18,7 @@ Many examples of different ways to display mazes. And lots of examples of how to
 
 ## The Algorithms
 
-There are many algorithms for generating and solving mazes. This library covers all the major ones, and then some. And most of these implementations have optional parameters to provide more flexibility.
+The heart of this library is the huge collection of algorithms available to create and solve mazes. The better you understand these, the more you can do with this library.
 
 #### [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
 

@@ -11,16 +11,15 @@
 
 ###### The Algorithm
 
-Just scan the Maze, and fill in each dead end, filling in the
-passage backwards from the block until you reach a junction. This
-includes filling in passages that become parts of dead ends once
-other dead ends are removed. At the end only the solution will
-remain, or solutions if there are more than one.
-
-What is left is a maze with only solution tiles. Loop through
-these cells with shortest paths to find all solutions.
+1. Scan the maze in any order, looking for dead ends.
+2. Fill in each dead end, and any dead-end passages attached to them.
+3. What you will get is a maze with only solution tiles.
+4. Use a different solver (ShortestPaths) to build a solution path.
 
 ###### Results
+
+Finds ALL unique solutions.
+This algorithm only removes non-solution tiles, another algorithm is needed to build the solution.
 
 ###### Notes
 
@@ -35,6 +34,19 @@ anything useful at all for those Mazes without dead ends.
 ## Djikstra's
 ## Pledge Algorithm
 ## Random Mouse
+
+###### The Algorithm:
+
+A mouse just wanders randomly around the maze until it finds the cheese.
+
+###### Results
+
+1 solution. Solution will probably not be the shortest. Works against imperfect mazes.
+
+###### Notes
+
+Random mouse may never finish. Technically. It is certainly inefficient in time, but very efficient in memory.
+
 ## Recursive Backtracker
 ## Shortest Path Finder
 
@@ -72,17 +84,17 @@ It finds all unique, non-looped solutions to the maze.
 
 ###### Notes
 
+Though this version is optimized to improve speed, nothing could be done about the fact that this algorithm uses substantially more memory than just the maze grid itself.
+
 ## Trémaux's Algorithm
 
 ## Wall Follower
 
 ###### The Algorithm
 
-Ideally:
+Follow the right wall and you will eventually end up at the end.
 
-0. Follow the right wall and you will eventually end up at the end.
-
-In reality:
+The details:
 
 1. Choose a random starting direction.
 2. At each intersection, take the rightmost turn. At dead-ends, turn around.
