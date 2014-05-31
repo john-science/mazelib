@@ -38,25 +38,37 @@ anything useful at all for those Mazes without dead ends.
 ## Recursive Backtracker
 ## Shortest Path Finder
 
-###### The Algorithm
+###### The Algorithm:
 
-TBA
+1) create a solution for each starting position
+2) loop through each solution, and find the neighbors of the last element
+3) The first solution to reach the end wins.
 
 ###### Results
 
-Finds the single shortest solution. Works against imperfect mazes.
+The shortest unique solutions. Works against imperfect mazes.
 
 ###### Notes
+
+In CS terms, this is a Breadth-First Search algorithm that is cut short when the first solution is found.
 
 ## Shortest Paths Finder
 
 ###### The Algorithm
 
-TBA
+1) create a solution for each starting position
+2) loop through each solution, and find the neighbors of the last element
+3) a solution reaches the end or a dead end when we mark it by appending a None.
+4) clean-up solutions
 
 ###### Results
 
 Find all unique solutions. Works against imperfect mazes.
+
+###### Notes
+
+In CS terms, this is a Breadth-First Search algorithm.
+It finds all unique, non-looped solutions to the maze.
 
 ###### Notes
 
