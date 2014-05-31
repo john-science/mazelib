@@ -5,29 +5,34 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 class DungeonRooms(MazeGenAlgo):
     """
+    The Algorithm
 
-    0. Start with a grid which already includes open rooms.
-    1. Randomly choose a starting cell.
-    2. Perform a random walk from the current cel, carving passages to unvisited neighbors,
-    until the current cell has no unvisited neighbors.
-    3. Select a new grid cell; if it has been visited, walk from it.
-    4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
-    not being visited is extremely small.
+    This is a variation on Hunt-and-Kill where the initial maze has rooms carved out of
+    it, instead of being completely flat.
 
-    This implementation of DungeonRooms is based on the classic Hunt-and-Kill algorithm.
-    
-    There are two different ways to select a new grid cell in step 2.
-    The first is serpentine through the grid (the classic solution), the second is to
-    randomly select a new cell enough times that the probability of anunexplored cell is
-    very, very low. The second option includes a small amount of risk, but it creates a
-    more interesting, harder maze.
+    Optional Parameters
+
+    rooms: List(List(tuple, tuple))
+        A list of lists, containing the top-left and bottom-right grid coords of where
+        you want rooms to be created. For best results, the corners of each room should
+        have odd-numbered coordinates.
+    grid: MazeArray
+        A pre-built maze array filled with one, or many, rooms.
+    hunt_order: String ['random', 'serpentine']
+        Determines how the next cell to hunt from will be chosen. (default 'random')
     """
 
-    def __init__(self, grid, hunt_order='random'):
-        h = (grid.height - 1) // 2
-        w = (grid.width - 1) // 2
-        self.grid = grid
-        super(DungeonRooms, self).__init__(w, h)
+    def __init__(self, h0, w0, rooms=None, grid=None, hunt_order='random'):
+        # if the user provides a grid, that overrides h & w
+        if grid:
+            h = (grid.height - 1) // 2
+            w = (grid.width - 1) // 2
+            self.grid = grid
+        else:
+            h = h0
+            w = w0
+            self.grid = MazeArray(2 * h + 1, 2 * w + 1)
+        super(DungeonRooms, self).__init__(h, w)
 
         # the user can define what order to hunt for the next cell in
         if hunt_order == 'random':
@@ -36,6 +41,9 @@ class DungeonRooms(MazeGenAlgo):
             self._hunt_order = self._hunt_serpentine
         else:
             self._hunt_order = self._hunt_random
+        
+        # the user can provide rectangular rooms to be cut out of the initial maze
+        self._carve_rooms(rooms)
 
     def generate(self):
         current = self._choose_start()
@@ -48,11 +56,55 @@ class DungeonRooms(MazeGenAlgo):
         # perform many random walks, to fill the maze
         num_trials = 0
         while current != (-1, -1):
-            self._walk(self.grid, current)
-            current = self._hunt(self.grid, num_trials)
+            self._walk(current)
+            current = self._hunt(num_trials)
             num_trials += 1
 
         return self.grid
+
+    def _carve_rooms(self, rooms):
+        """Open up user-defined rooms in a maze."""
+        if rooms is None:
+            return
+
+        for room in rooms:
+            try:
+                top_left,bottom_right = room
+                self._carve_room(top_left, bottom_right)
+                self._carve_door(top_left, bottom_right)
+            except Exception:
+                # If the user tries to create an invalid room, it is simply ignored.
+                pass
+
+    def _carve_room(self, top_left, bottom_right):
+        """Open up a single user-defined room in a maze."""
+        for row in xrange(top_left[0], bottom_right[0] + 1):
+                for col in xrange(top_left[1], bottom_right[1] + 1):
+                    self.grid[row, col] = 0
+
+    def _carve_door(self, top_left, bottom_right):
+        """Open up a single door in a user-defined room,
+        IF that room does not already have a whole wall of doors."""
+        even_squares = filter(lambda i: i % 2 == 0, list(top_left) + list(bottom_right))
+        if len(even_squares) > 0:
+            return
+
+        # find possible doors on all sides of room
+        possible_doors = []
+        odd_rows = filter(lambda i: i % 2 == 1, range(top_left[0] - 1, bottom_right[0] + 2))
+        odd_cols = filter(lambda i: i % 2 == 1, range(top_left[1] - 1, bottom_right[1] + 2))
+
+        if top_left[0] > 2:
+            possible_doors += zip([top_left[0] - 1] * len(odd_rows), odd_rows)
+        if top_left[1] > 2:
+            possible_doors += zip(odd_cols, [top_left[1] - 1] * len(odd_cols))
+        if bottom_right[0] < self.grid.height - 2:
+            possible_doors += zip([bottom_right[0] + 1] * len(odd_rows), odd_rows)
+        if bottom_right[1] < self.grid.width - 2:
+            possible_doors += zip(odd_cols, [bottom_right[1] + 1] * len(odd_cols))
+
+        door = choice(possible_doors)
+        self.grid[door] = 0
 
     def _walk(self, start):
         """
@@ -72,7 +124,7 @@ class DungeonRooms(MazeGenAlgo):
 
     def _hunt(self, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
-        return self._hunt_order(self.grid, count)
+        return self._hunt_order(count)
 
     def _hunt_random(self, count):
         """ Select the next cell to walk from, randomly. """

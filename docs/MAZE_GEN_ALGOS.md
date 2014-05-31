@@ -92,6 +92,8 @@ This is a variation on Hunt-and-Kill where the initial maze has rooms carved out
 
 ###### Optional Parameters
 
+* *rooms*: List(List(tuple, tuple))
+ * A list of lists, containing the top-left and bottom-right grid coords of where you want rooms to be created. For best results, the corners of each room should have odd-numbered coordinates.
 * *grid*: MazeArray
  * A pre-built maze array filled with one, or many, rooms.
 * *hunt_order*: String ['random', 'serpentine']
