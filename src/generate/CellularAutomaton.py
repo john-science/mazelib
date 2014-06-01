@@ -34,8 +34,8 @@ class CellularAutomaton(MazeGenAlgo):
             y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
             grid[y, x] = 1
             for j in xrange(self.complexity):
-                neighbours = self.find_neighbors((y, x), grid, False)  # visited
-                neighbours += self.find_neighbors((y, x), grid)        # unvisited
+                neighbours = self.find_neighbors((y, x), grid, True)  # is wall
+                neighbours += self.find_neighbors((y, x), grid)       # is open
                 if len(neighbours):
                     r,c = choice(neighbours)
                     if grid[r, c] == 0:

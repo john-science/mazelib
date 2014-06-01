@@ -19,20 +19,20 @@ class MazeGenAlgo(object):
     def generate(self):
         return
 
-    def find_neighbors(self, posi, grid, visited=True):
+    def find_neighbors(self, posi, grid, is_wall=False):
         """Find all the grid neighbors of the current position;
         visited, or not.
         """
         (row, col) = posi
         ns = []
 
-        if row > 1 and grid[row-2, col] != visited:
+        if row > 1 and grid[row-2, col] == is_wall:
             ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] != visited:
+        if row < self.H-2 and grid[row+2, col] == is_wall:
             ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] != visited:
+        if col > 1 and grid[row, col-2] == is_wall:
             ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] != visited:
+        if col < self.W-2 and grid[row, col+2] == is_wall:
             ns.append((row, col+2))
 
         shuffle(ns)

@@ -4,7 +4,7 @@ from MazeSolveAlgo import MazeSolveAlgo
 from ShortestPaths import ShortestPaths
 
 
-class DeadEndFiller(MazeSolveAlgo):
+class CuldeSacFiller(MazeSolveAlgo):
     """
     1. Scan the maze in any order, looking for dead ends.
     2. Fill in each dead end, and any dead-end passages attached to them.
@@ -12,6 +12,7 @@ class DeadEndFiller(MazeSolveAlgo):
     4. Use a different solver (ShortestPaths) to build a solution path.
     """
     def _solve(self):
+        raise NotImplementedError('This algorithm is under development.')
         self.grid[self.start] = self.grid[self.end] = 0
         current = self.start
 
