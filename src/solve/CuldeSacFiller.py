@@ -6,10 +6,9 @@ from ShortestPaths import ShortestPaths
 
 class CuldeSacFiller(MazeSolveAlgo):
     """
-    1. Scan the maze in any order, looking for dead ends.
-    2. Fill in each dead end, and any dead-end passages attached to them.
-    3. What you will get is a maze with only solution tiles.
-    4. Use a different solver (ShortestPaths) to build a solution path.
+    1. Scan the maze in any order, looking for cul-de-sacs.
+    2. Add a wall to each cul-de-sac, to create two dead ends.
+    3. Then solve using Dead End Filler.
     """
     def _solve(self):
         raise NotImplementedError('This algorithm is under development.')

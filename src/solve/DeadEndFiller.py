@@ -11,6 +11,12 @@ class DeadEndFiller(MazeSolveAlgo):
     3. What you will get is a maze with only solution tiles.
     4. Use a different solver (ShortestPaths) to build a solution path.
     """
+    def __init__(self, solver=None):
+        if not solver:
+            self.solver = ShortestPaths()
+        else:
+            self.solver = solver
+
     def _solve(self):
         self.grid[self.start] = self.grid[self.end] = 0
         current = self.start
@@ -20,10 +26,10 @@ class DeadEndFiller(MazeSolveAlgo):
         while dead_end != (-1, -1):
             # fill-in and wall-off the dead end
             self._fill_dead_end(dead_end)
-            
+
             # from the dead end, travel one cell.
             ns = self._find_unblocked_neighbors(dead_end)
-            
+
             if len(ns) == 0: break
 
             # look at the next cell, if it is a dead end, restart the loop
@@ -36,16 +42,13 @@ class DeadEndFiller(MazeSolveAlgo):
             # otherwise, find another dead end in the maze
             dead_end = self._find_dead_end()
 
-        # TODO: Add optional parameter to change solving method used here.
         solutions = self._build_solutions()
-       
+
         return solutions
     
     def _build_solutions(self):
         """Now that all of the dead ends have been cut out, the maze still needs to be solved."""
-        s = ShortestPaths()
-
-        return s.solve(self.grid, self.start, self.end)
+        return self.solver.solve(self.grid, self.start, self.end)
 
     def _fill_dead_end(self, dead_end):
         """After moving from a dead end, we want to fill in it and all
