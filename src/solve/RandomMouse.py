@@ -153,12 +153,13 @@ class RandomMouse(MazeSolveAlgo):
         """
         if not cell or not desire:
             return False
+
+        rdiff = abs(cell[0] - desire[0])
+        cdiff = abs(cell[1] - desire[1])
         
-        if cell[0] == desire[0]:
-            if abs(cell[1] - desire[1]) < 2:
-                return True
-        elif cell[1] == desire[1]:
-            if abs(cell[0] - desire[0]) < 2:
-                return True
+        if rdiff == 0 and cdiff < 2:
+            return True
+        elif cdiff == - and rdiff < 2:
+            return True
         
         return False
