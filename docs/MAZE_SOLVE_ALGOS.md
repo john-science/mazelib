@@ -94,10 +94,7 @@ Find all unique solutions. Works against imperfect mazes.
 
 ###### Notes
 
-In CS terms, this is a Breadth-First Search algorithm.
-It finds all unique, non-looped solutions to the maze.
-
-###### Notes
+In CS terms, this is a Breadth-First Search algorithm. It finds all unique, non-looped solutions to the maze.
 
 Though this version is optimized to improve speed, nothing could be done about the fact that this algorithm uses substantially more memory than just the maze grid itself.
 
