@@ -42,9 +42,7 @@ class DeadEndFiller(MazeSolveAlgo):
             # otherwise, find another dead end in the maze
             dead_end = self._find_dead_end()
 
-        solutions = self._build_solutions()
-
-        return solutions
+        return self._build_solutions()
     
     def _build_solutions(self):
         """Now that all of the dead ends have been cut out, the maze still needs to be solved."""
@@ -77,7 +75,7 @@ class DeadEndFiller(MazeSolveAlgo):
     def _is_dead_end(self, cell):
         """A dead end has zero or one open neighbors."""
         ns = self._find_neighbors(cell)
-        #ns = self._find_unblocked_neighbors(cell)
+
         if self.grid[cell] == 1:
             return False
         elif len(ns) in [0, 1]:
@@ -86,8 +84,8 @@ class DeadEndFiller(MazeSolveAlgo):
             return False
 
     def _find_unblocked_neighbors(self, posi, visited=True):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
+        """Find all the grid neighbors of the current position,
+        visited or not, that are not blocked off by a wall.
         """
         (row, col) = posi
         ns = []
@@ -107,8 +105,8 @@ class DeadEndFiller(MazeSolveAlgo):
         return ns
 
     def _find_neighbors(self, posi, visited=True):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
+        """Find all the grid neighbors of the current position,
+        visited or not.
         """
         (row, col) = posi
         ns = []
