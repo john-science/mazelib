@@ -2,11 +2,26 @@
 
 #####Go back to the main [README](../README.md)
 
-## Blind Alley Filler
-## Blind Alley Sealer
+## Blind Alley
 ## Chain Algorithm
 ## Collision Solver
 ## Cul-de-sac Filler
+
+###### The Algorithm
+1. Scan the maze, identify all fully-connected wall systems.
+2. Any wall system that touches the border is not a cul-de-sac, remove it.
+3. Determine if remaining wall systems are cul-de-sacs.
+4. If so, add a wall segment to turn the cul-de-sac into a dead end.
+5. Solve using Dead End Filler.
+
+###### Results
+
+Removes all cul-de-sacs from a maze. Does not solve a maze entirely by itself.
+
+###### Notes
+
+This is a class maze-solving algorithm.  However, it seems to add a lot more complexity to solving a maze. But perhaps if your maze has many cul-de-sacs it would be very helpful.
+
 ## Dead End Filler
 
 ###### The Algorithm
@@ -14,7 +29,7 @@
 1. Scan the maze in any order, looking for dead ends.
 2. Fill in each dead end, and any dead-end passages attached to them.
 3. What you will get is a maze with only solution tiles.
-4. Use a different solver (ShortestPaths) to build a solution path.
+4. Use a different solver to build a solution path.
 
 ###### Results
 
