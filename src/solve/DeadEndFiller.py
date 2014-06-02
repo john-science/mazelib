@@ -178,27 +178,6 @@ class CuldeSacFiller(MazeSolveAlgo):
 
         return ns
 
-    def _find_neighbors(self, posi, visited=True):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and self.grid[row-2, col] != visited:
-            ns.append((row-2, col))
-        if row < self.grid.height-2 and self.grid[row+2, col] != visited:
-            ns.append((row+2, col))
-        if col > 1 and self.grid[row, col-2] != visited:
-            ns.append((row, col-2))
-        if col < self.grid.width-2 and self.grid[row, col+2] != visited:
-
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns
-
     def _midpoint(self, a, b):
         """Find the wall cell between to passage cells"""
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
