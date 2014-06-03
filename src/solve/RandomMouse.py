@@ -159,7 +159,7 @@ class RandomMouse(MazeSolveAlgo):
         
         if rdiff == 0 and cdiff < 2:
             return True
-        elif cdiff == - and rdiff < 2:
+        elif cdiff == 0 and rdiff < 2:
             return True
         
         return False

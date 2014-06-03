@@ -1,6 +1,7 @@
 
 from random import choice,shuffle
 from MazeSolveAlgo import MazeSolveAlgo
+from DeadEndFiller import DeadEndFiller
 from ShortestPaths import ShortestPaths
 
 
@@ -19,7 +20,6 @@ class CuldeSacFiller(MazeSolveAlgo):
             self.solver = DeadEndFiller(solver)
 
     def _solve(self):
-        raise NotImplementedError('This algorithm is under development.')
         current = self.start
 
         # identify all fully-connected wall systems
@@ -29,7 +29,7 @@ class CuldeSacFiller(MazeSolveAlgo):
         walls = self._remove_border_walls(walls)
 
         for wall in walls:
-            border self._find_bordering_cells(wall)
+            border = self._find_bordering_cells(wall)
             if self._wall_is_culdesac(border):
                 self._fix_culdesac(border)
 
@@ -42,7 +42,7 @@ class CuldeSacFiller(MazeSolveAlgo):
     def _fix_culdesac(self, border):
         """Destroy the culdesac by blocking off the loop."""
         if len(border) > 1:
-            grid[self._midpoint(border[0], border[1])] = 1
+            self.grid[self._midpoint(border[0], border[1])] = 1
 
     def _wall_is_culdesac(self, border):
         """A cul-de-sac is a loop with only one entrance."""
@@ -71,10 +71,10 @@ class CuldeSacFiller(MazeSolveAlgo):
                     border.add((r + rdiff, c + cdiff))
 
         # remove all wall cells from the buffer
-        border = filter(lambda b: for b not in wall, border)
+        border = filter(lambda b: b not in wall, border)
 
         # remove all non-navigable cells from the buffer
-        border = filter(lambda b: b[0] % == 1 and b[1] % == 1, border)
+        border = filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border)
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)

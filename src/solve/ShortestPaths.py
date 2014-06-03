@@ -79,7 +79,9 @@ class ShortestPaths(MazeSolveAlgo):
             num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
 
         # 4) clean-up solutions
+        print 'len 1 ', len(solutions)
         solutions = self._clean_up(solutions)
+        print 'len 2 ', len(solutions)
 
         if len(solutions) == 0 or len(solutions[0]) == 0:
             raise ValueError('No valid solutions found.')
@@ -106,14 +108,14 @@ class ShortestPaths(MazeSolveAlgo):
                     new_solutions.append(sol[:-2])
 
         # 2) remove duplicate solutions
-        solutions = self._remove_dup_sols(new_solutions)
+        solutions = self._remove_duplicate_sols(new_solutions)
 
         # order the solutions by length (short to long)
         solutions = sorted(solutions, key=len)
 
         return solutions
 
-    def _remove_dup_sols(self, sols):
+    def _remove_duplicate_sols(self, sols):
         """Remove duplicate solutions using subsetting"""
         uniques = []
         solsets = [set(s) for s in sols]
