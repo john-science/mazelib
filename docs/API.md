@@ -32,6 +32,8 @@ Then, a `Maze` object was created:
 
 Finally, an algorithm was selected to generate the maze, and it was run. In this case, the `Prims` algorithm was used to generate a maze that was 27 rows tall and 34 rows wide.
 
+A complete listing of available maze-generating algorithms can be found [here](MAZE_GEN_ALGOS.md).
+
 ## How to Solve a Maze
 
 Again, the simplest example is:
@@ -42,7 +44,19 @@ Again, the simplest example is:
     
 Now, let's look at what we did.
 
-DOCUMENTION INCOMING
+The `WallFollower` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. Of course, if you prefer, you can manually set the entrances using:
+
+    m.start = (1, 1)
+    m.end = (5, 5)
+
+By default, entrances will be generated on the outer edge of the maze. However, if you want the entrances to appear randomly within the maze, you can use the set the flag to `False`:
+
+    m.generate_entrances(False)
+    m.generate_entrances(outer=False)
+
+Finally, the solving algorithm was run for the given maze `m`, from the start to the end.
+
+A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
 
 ## Advanced: The Monte Carlo Method
 
