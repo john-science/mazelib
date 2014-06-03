@@ -6,7 +6,6 @@ from random import choice,random,randrange,shuffle
 class Maze(object):
 
     def __init__(self):
-        # TODO: Consider allowing grid/solution to be passed as optional parameters to Maze.
         self.generator = None
         self.grid = None
         self.start = None
@@ -70,7 +69,7 @@ class Maze(object):
         self.end = end
 
     def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0):
-        """Use the Monte Carlo Method to generate a maze of defined difficulty.
+        """Use the Monte Carlo method to generate a maze of defined difficulty.
 
         This method assumes the generator and solver algorithms are already set.
 
@@ -151,7 +150,7 @@ class Maze(object):
         return '\n'.join(txt)
 
     def __str__(self):
-        # print maze walls, entrances, and solutions, IF available
+        """display maze walls, entrances, and solutions, if available"""
         self.tostring(True, True)
 
     def __repr__(self):
