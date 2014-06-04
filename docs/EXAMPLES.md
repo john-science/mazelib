@@ -39,6 +39,8 @@ Sometimes it is hard to see the finer points of a maze in text.  You want to see
         plt.xticks([]), plt.yticks([])
         plt.show()
 
+![Prims Example](images/prims_5x5_plain.png?raw=true)
+
 #### Example 3: Displaying the Maze as CSS
 
 This is just a simple function to draw a maze in CSS/HTML. CSS is the best free graphics package you will find.
