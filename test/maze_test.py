@@ -72,7 +72,7 @@ class MazeTest(unittest.TestCase):
     """
     TODO: Tests to Build
 
-    test that Monte Carlo doesn't explode?
+    test Monte Carlo method
     test tostring method
     """
 
