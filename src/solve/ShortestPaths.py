@@ -58,7 +58,7 @@ class ShortestPaths(MazeSolveAlgo):
 
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
-                    ns = filter(lambda i: i not in solutions[s], ns)
+                    ns = filter(lambda i: i not in solutions[s][-2:], ns)
                     
                     if len(ns) == 0:
                         # there are no valid neighbors
@@ -79,9 +79,7 @@ class ShortestPaths(MazeSolveAlgo):
             num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
 
         # 4) clean-up solutions
-        print 'len 1 ', len(solutions)
         solutions = self._clean_up(solutions)
-        print 'len 2 ', len(solutions)
 
         if len(solutions) == 0 or len(solutions[0]) == 0:
             raise ValueError('No valid solutions found.')
@@ -104,7 +102,7 @@ class ShortestPaths(MazeSolveAlgo):
                     new_solutions.append(sol[:-2] + [last])
             else:
                 # remove inside-maze-case end cells
-                if len(sol) > 2 and sol[-2] == self.end:
+                if len(sol) > 2 and self._within_one(sol[-2], self.end):
                     new_solutions.append(sol[:-2])
 
         # 2) remove duplicate solutions
@@ -131,21 +129,21 @@ class ShortestPaths(MazeSolveAlgo):
 
         return uniques
 
-    def _find_unblocked_neighbors(self, posi):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
+    def _find_unblocked_neighbors(self, cell):
+        """Find all the grid neighbors of the current position,
+        visited or not, that are not block by walls.
         """
-        (row, col) = posi
+        r,c = cell
         ns = []
 
-        if row > 1 and self.grid[row-1, col] == False and self.grid[row-2, col] == False:
-            ns.append((row-2, col))
-        if row < self.grid.height-2 and self.grid[row+1, col] == False and self.grid[row+2, col] == False:
-            ns.append((row+2, col))
-        if col > 1 and self.grid[row, col-1] == False and self.grid[row, col-2] == False:
-            ns.append((row, col-2))
-        if col < self.grid.width-2 and self.grid[row, col+1] == False and self.grid[row, col+2] == False:
-            ns.append((row, col+2))
+        if r > 1 and not self.grid[r-1, c] and not self.grid[r-2, c]:
+            ns.append((r-2, c))
+        if r < self.grid.height-2 and not self.grid[r+1, c] and not self.grid[r+2, c]:
+            ns.append((r+2, c))
+        if c > 1 and not self.grid[r, c-1] and not self.grid[r, c-2]:
+            ns.append((r, c-2))
+        if c < self.grid.width-2 and not self.grid[r, c+1] and not self.grid[r, c+2]:
+            ns.append((r, c+2))
 
         shuffle(ns)
 
