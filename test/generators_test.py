@@ -53,7 +53,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def testAldousBroder(self):
         m = Maze()
-        m.generator = testAldousBroder(4, 5)
+        m.generator = AldousBroder(4, 5)
         m.generate()
 
         assertTrue(self.boundary_is_solid(m.grid))
