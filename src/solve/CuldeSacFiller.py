@@ -24,6 +24,7 @@ class CuldeSacFiller(MazeSolveAlgo):
 
         # identify all fully-connected wall systems
         walls = self._find_wall_systems()
+        # TODO: I need to connect wall systems that are disconnected above.
 
         # remove any wall system that touches the maze boundary
         walls = self._remove_border_walls(walls)
