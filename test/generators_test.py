@@ -1,8 +1,18 @@
 
 import unittest
 from mazelib.generate.AldousBroder import AldousBroder
+from mazelib.generate.Backtracker import Backtracker
 from mazelib.generate.BinaryTree import BinaryTree
+from mazelib.generate.CellularAutomaton import CellularAutomaton
+from mazelib.generate.Division import Division
+from mazelib.generate.DungeonRooms import DungeonRooms
+from mazelib.generate.Ellers import Ellers
+from mazelib.generate.GrowingTree import GrowingTree
+from mazelib.generate.HuntAndKill import HuntAndKill
+from mazelib.generate.Kruskal import Kruskal
 from mazelib.generate.Prims import Prims
+from mazelib.generate.Sidewinder import Sidewinder
+from mazelib.generate.Wilsons import Wilsons
 from mazelib.mazelib import Maze
 
 
@@ -60,6 +70,15 @@ class GeneratorsTest(unittest.TestCase):
         assertTrue(self.all_passages_open(m.grid))
         assertTrue(self.all_corners_complete(m.grid))
 
+    def testBacktracker(self):
+        m = Maze()
+        m.generator = Backtracker(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
     def testBinaryTree(self):
         m = Maze()
         m.generator = BinaryTree(4, 5)
@@ -69,9 +88,93 @@ class GeneratorsTest(unittest.TestCase):
         assertTrue(self.all_passages_open(m.grid))
         assertTrue(self.all_corners_complete(m.grid))
 
+    def testCellularAutomaton(self):
+        m = Maze()
+        m.generator = CellularAutomaton(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testDivision(self):
+        m = Maze()
+        m.generator = Division(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    """
+    # TODO: How to test DungeonRooms?
+    def testDungeonRooms(self):
+        m = Maze()
+        m.generator = DungeonRooms(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+    """
+
+    def testEllers(self):
+        m = Maze()
+        m.generator = Ellers(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testGrowingTree(self):
+        m = Maze()
+        m.generator = GrowingTree(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testHuntAndKill(self):
+        m = Maze()
+        m.generator = HuntAndKill(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testKruskal(self):
+        m = Maze()
+        m.generator = Kruskal(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
     def testPrims(self):
         m = Maze()
         m.generator = Prims(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testSidewinder(self):
+        m = Maze()
+        m.generator = Sidewinder(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testWilsons(self):
+        m = Maze()
+        m.generator = Wilsons(4, 5)
         m.generate()
 
         assertTrue(self.boundary_is_solid(m.grid))
