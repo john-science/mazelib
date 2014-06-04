@@ -1,0 +1,31 @@
+
+from setuptools import setup
+
+setup(name='mazelib',
+    version='0.4',
+    description='A Python API for creating and solving mazes.',
+    url='https://github.com/theJollySin/mazelib',
+    author='John Stilley',
+    author_email='stilley_j@yahoo.com',
+    classifiers=['Development Status :: 3 - Alpha',
+                 'Topic :: Software Development :: Libraries :: Python Modules',
+                 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+                 'Programming Language :: Python :: 2.5',
+                 'Programming Language :: Python :: 2.6',
+                 'Programming Language :: Python :: 2.7',
+                 'Programming Language :: Python :: 3.1',
+                 'Programming Language :: Python :: 3.2',
+                 'Programming Language :: Python :: 3.3',
+                 'Programming Language :: Python :: 3.4',
+                 'Natural Language :: English',
+                 'Topic :: Software Development :: Libraries :: Python Modules'],
+    license='GPLv3',
+    long_description=open('README.md').read(),
+    packages=['mazelib',
+              'mazelib.generate',
+              'mazelib.solve',
+              'mazelib.utils'],
+    platforms='any',
+    test_suite="test",
+    zip_safe=False)
+
