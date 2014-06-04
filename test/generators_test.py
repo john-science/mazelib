@@ -1,6 +1,7 @@
 
 import unittest
 from mazelib.generate.AldousBroder import AldousBroder
+from mazelib.generate.BinaryTree import BinaryTree
 from mazelib.generate.Prims import Prims
 from mazelib.mazelib import Maze
 
@@ -51,13 +52,17 @@ class GeneratorsTest(unittest.TestCase):
         return True
 
     def testAldousBroder(self):
-        h = 4
-        w = 5
-        H = 2 * h + 1
-        W = 2 * w + 1
-
         m = Maze()
-        m.generator = testAldousBroder(h, w)
+        m.generator = testAldousBroder(4, 5)
+        m.generate()
+
+        assertTrue(self.boundary_is_solid(m.grid))
+        assertTrue(self.all_passages_open(m.grid))
+        assertTrue(self.all_corners_complete(m.grid))
+
+    def testBinaryTree(self):
+        m = Maze()
+        m.generator = BinaryTree(4, 5)
         m.generate()
 
         assertTrue(self.boundary_is_solid(m.grid))
@@ -65,13 +70,8 @@ class GeneratorsTest(unittest.TestCase):
         assertTrue(self.all_corners_complete(m.grid))
 
     def testPrims(self):
-        h = 4
-        w = 5
-        H = 2 * h + 1
-        W = 2 * w + 1
-
         m = Maze()
-        m.generator = Prims(h, w)
+        m.generator = Prims(4, 5)
         m.generate()
 
         assertTrue(self.boundary_is_solid(m.grid))
