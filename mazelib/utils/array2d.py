@@ -38,7 +38,6 @@ class Array2D(object):
         This method allows the Array2D data structure to use
         the Python standard [ ] notation to get values.
         """
-
         if isinstance(ind, int):
             """ If index is an int, return a single row """
             if ind >= 0 and ind < self.height:
@@ -81,7 +80,6 @@ class Array2D(object):
         This method allows the Array2D data structure to use
         the Python standard [ ] notation to set values.
         """
-
         # TODO: This method is too long. Perhaps I can use __setslice__ to organize this?
         if isinstance(ind, int):
             """ If index is an int, set a single row """
