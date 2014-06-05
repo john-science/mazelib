@@ -109,8 +109,15 @@ class GeneratorsTest(unittest.TestCase):
     """
     # TODO: How to test DungeonRooms?
     def testDungeonRooms(self):
+        g = MazeArray(7, 7)
+        g[1] = array('b', [1,1,1,1,1,1,1])
+        g[2] = array('b', [1,1,1,1,1,1,1])
+        g[3] = array('b', [1,1,0,0,0,1,1])
+        a[4] = array('b', [1,1,0,0,0,0,1])
+        g[5] = array('b', [1,1,0,0,0,1,1])
+
         m = Maze()
-        m.generator = DungeonRooms(4, 5)
+        m.generator = DungeonRooms(4, 4, grid)
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
