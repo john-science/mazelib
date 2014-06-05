@@ -22,17 +22,17 @@ class GeneratorsTest(unittest.TestCase):
         """Algorithms should generate a maze with a solid boundary of walls."""
         # first row
         for c in grid[0]:
-            if grid[r, c] == 0:
+            if c == 0:
                 return False
 
         # other rows
-        for row in grid[1, -1]:
+        for row in grid[1: -1]:
             if row[0] == 0 or row[-1] == 0:
                 return False
 
         # last row
-        for c in grid[-1]:
-            if grid[r, c] == 0:
+        for c in grid[grid.height-1]:
+            if c == 0:
                 return False
 
         return True
@@ -66,45 +66,45 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = AldousBroder(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testBacktracker(self):
         m = Maze()
         m.generator = Backtracker(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testBinaryTree(self):
         m = Maze()
         m.generator = BinaryTree(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testCellularAutomaton(self):
         m = Maze()
         m.generator = CellularAutomaton(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testDivision(self):
         m = Maze()
         m.generator = Division(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     """
     # TODO: How to test DungeonRooms?
@@ -113,9 +113,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = DungeonRooms(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
     """
 
     def testEllers(self):
@@ -123,63 +123,63 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Ellers(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testGrowingTree(self):
         m = Maze()
         m.generator = GrowingTree(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testHuntAndKill(self):
         m = Maze()
         m.generator = HuntAndKill(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testKruskal(self):
         m = Maze()
         m.generator = Kruskal(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testPrims(self):
         m = Maze()
         m.generator = Prims(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testSidewinder(self):
         m = Maze()
         m.generator = Sidewinder(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testWilsons(self):
         m = Maze()
         m.generator = Wilsons(4, 5)
         m.generate()
 
-        assertTrue(self.boundary_is_solid(m.grid))
-        assertTrue(self.all_passages_open(m.grid))
-        assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
 
 def main():

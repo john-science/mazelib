@@ -94,8 +94,6 @@ class WallFollower(MazeSolveAlgo):
 
         These extraneous branches need to be removed.
         """
-        # TODO: Will this be shared with other solvers?
-        # prune extra branches
         found = True
         while found and len(solution) > 2:
             found = False
@@ -120,6 +118,9 @@ class WallFollower(MazeSolveAlgo):
         if self.start in solution:
             i = solution.index(self.start)
             solution = solution[i+1:]
+        # prune duplicate end points
+        if solution[-2] == solution[-1]:
+            solution = solution[:-1]
 
         return solution
 

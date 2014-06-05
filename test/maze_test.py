@@ -32,32 +32,32 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(m.grid.width, W)
 
     def testInnerEntrances(self):
-        h = 5
-        w = 6
+        h = 4
+        w = 5
 
         m = Maze()
         m.generator = Prims(h, w)
         m.generate()
         m.generate_entrances(False)
 
-        self.assertTrue(self._on_edge(m.grid, m.start))
-        self.assertTrue(self._on_edge(m.grid, m.end))
-
-    def testOuterEntrances(self):
-        h = 5
-        w = 6
-
-        m = Maze()
-        m.generator = Prims(h, w)
-        m.generate()
-        m.generate_entrances(True)
-
         self.assertFalse(self._on_edge(m.grid, m.start))
         self.assertFalse(self._on_edge(m.grid, m.end))
 
+    def testOuterEntrances(self):
+        h = 4
+        w = 5
+
+        m = Maze()
+        m.generator = Prims(h, w)
+        m.generate()
+        m.generate_entrances(True)
+
+        self.assertTrue(self._on_edge(m.grid, m.start))
+        self.assertTrue(self._on_edge(m.grid, m.end))
+
     def testGeneratorWipe(self):
-        h = 5
-        w = 6
+        h = 4
+        w = 5
 
         m = Maze()
         m.generator = Prims(h, w)
@@ -65,9 +65,9 @@ class MazeTest(unittest.TestCase):
         m.generate_entrances(True)
         m.generate()
 
-        self.assertTrue(m.start = None)
-        self.assertTrue(m.end = None)
-        self.assertTrue(m.solutions = None)
+        self.assertTrue(m.start == None)
+        self.assertTrue(m.end == None)
+        self.assertTrue(m.solutions == None)
    
     """
     TODO: Tests to Build
