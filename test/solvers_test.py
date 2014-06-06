@@ -47,49 +47,21 @@ class SolversTest(unittest.TestCase):
 
         return m
 
-    def testWallFollowerOuterOuter(self):
-        """test against a maze with outer entrances"""
-        m = self._create_maze_with_varied_entrances(True, True)
-        m.solver = WallFollower()
-        m.solve()
+    def testWallFollower(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
 
-        for sol in m.solutions:
-            self.assertFalse(self._duplicates_in_solution(sol))
-            self.assertTrue(self._within_one(m.start, sol[0]))
-            self.assertTrue(self._within_one(m.end, sol[-1]))
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = WallFollower()
+                m.solve()
 
-    def testWallFollowerInnerInner(self):
-        """test against a maze with inner entrances"""
-        m = self._create_maze_with_varied_entrances(False, False)
-        m.solver = WallFollower()
-        m.solve()
-
-        for sol in m.solutions:
-            self.assertFalse(self._duplicates_in_solution(sol))
-            self.assertTrue(self._within_one(m.start, sol[0]))
-            self.assertTrue(self._within_one(m.end, sol[-1]))
-
-    def testWallFollowerOuterInner(self):
-        """test against a maze with an outer start and an inner end"""
-        m = self._create_maze_with_varied_entrances(True, False)
-        m.solver = WallFollower()
-        m.solve()
-
-        for sol in m.solutions:
-            self.assertFalse(self._duplicates_in_solution(sol))
-            self.assertTrue(self._within_one(m.start, sol[0]))
-            self.assertTrue(self._within_one(m.end, sol[-1]))
-
-    def testWallFollowerInnerOuter(self):
-        """test against a maze with an inner start and an outer end"""
-        m = self._create_maze_with_varied_entrances(False, True)
-        m.solver = WallFollower()
-        m.solve()
-
-        for sol in m.solutions:
-            self.assertFalse(self._duplicates_in_solution(sol))
-            self.assertTrue(self._within_one(m.start, sol[0]))
-            self.assertTrue(self._within_one(m.end, sol[-1]))
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._within_one(m.start, sol[0]))
+                    self.assertTrue(self._within_one(m.end, sol[-1]))
 
 
 def main():
