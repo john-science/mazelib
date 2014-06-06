@@ -75,7 +75,7 @@ class MazeTest(unittest.TestCase):
 
         m = Maze()
         m.generator = Prims(h, w)
-        m.generate_monte_carlo(10)
+        m.generate_monte_carlo(3)
 
         # grid size
         self.assertEqual(m.grid.height, H)
