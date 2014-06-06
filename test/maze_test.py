@@ -68,13 +68,22 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(m.start == None)
         self.assertTrue(m.end == None)
         self.assertTrue(m.solutions == None)
-   
-    """
-    TODO: Tests to Build
 
-    test Monte Carlo method
-    test tostring method
-    """
+    def testMonteCarlo(self):
+        h = 4
+        w = 5
+
+        m = Maze()
+        m.generator = Prims(h, w)
+        m.generate_monte_carlo(10)
+
+        # grid size
+        self.assertEqual(m.grid.height, H)
+        self.assertEqual(m.grid.width, W)
+
+        # test entrances are outer
+        self.assertTrue(self._on_edge(m.grid, m.start))
+        self.assertTrue(self._on_edge(m.grid, m.end))
 
 
 def main():
