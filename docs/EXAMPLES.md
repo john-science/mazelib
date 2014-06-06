@@ -183,7 +183,35 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 
 #### Dungeons, sans Dragons
 
-You might want to build a maze for any number of reasons. Mazes in the real world and in games frequently have big, empty rooms in them. To that end, mazelib has some tools to allow you to generate such mazes.
+When creating mazes for use in games you will frequently want to have big, empty rooms included within the maze. The DungeonRooms algorithm was included for just this purpose. It is a simple variation on the classic Hunt-and-Kill algorithm, but it also accepts information about the rooms you want open in the maze.
+
+To open up rooms in a maze, DungeonRooms accepts two optional input parameters:
+
+* rooms: List(List(tuple, tuple))
+ * A list of lists, containing the top-left and bottom-right corners of the rooms you want to create. For best results, the corners of each room shouldhave odd-numbered coordinates.
+* grid: MazeArray
+ * A pre-built maze array filled with one, or many, rooms.
+
+Let's do an example of each method for defining input rooms:
+
+##### Defining Room Corners
+
+    m = Maze()
+    m.generator = DungeonRooms(24, 33, rooms=[[(3,3), (7,7)]])
+    m.generate()
+
+##### Defining Rooms by an Input Grid
+
+    g = MazeArray(7, 7)
+    g[1] = array('b', [1,1,1,1,1,1,1])
+    g[2] = array('b', [1,1,1,1,1,1,1])
+    g[3] = array('b', [1,1,0,0,0,1,1])
+    a[4] = array('b', [1,1,0,0,0,0,1])
+    g[5] = array('b', [1,1,0,0,0,1,1])
+    
+    m = Maze()
+    m.generator = DungeonRooms(4, 4, grid)
+    m.generate()
 
 DOCUMENTION INCOMING - DungeonRooms Algorithm
 
