@@ -43,4 +43,9 @@ class CellularAutomaton(MazeGenAlgo):
                         grid[r + (y - r) // 2, c + (x - c) // 2] = 1
                         x, y = c, r
 
+        # ensure all corners are filled
+        for r in xrange(2, self.H - 2, 2):
+            for c in xrange(2, self.W - 2, 2):
+                grid[r, c] = 1
+
         return grid

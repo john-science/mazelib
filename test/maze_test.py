@@ -1,6 +1,7 @@
 
 import unittest
 from mazelib.generate.Prims import Prims
+from mazelib.solve.WallFollower import WallFollower
 from mazelib.mazelib import Maze
 
 
@@ -72,9 +73,12 @@ class MazeTest(unittest.TestCase):
     def testMonteCarlo(self):
         h = 4
         w = 5
+        H = 2 * h + 1
+        W = 2 * w + 1
 
         m = Maze()
         m.generator = Prims(h, w)
+        m.solver = WallFollower()
         m.generate_monte_carlo(3)
 
         # grid size

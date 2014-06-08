@@ -118,8 +118,12 @@ class WallFollower(MazeSolveAlgo):
         if self.start in solution:
             i = solution.index(self.start)
             solution = solution[i+1:]
+        # prune if first position is repeated
+        if solution[0] in solution[1:]:
+            i = solution[1:].index(solution[0])
+            solution = solution[i+1:]
         # prune duplicate end points
-        if solution[-2] == solution[-1]:
+        if len(solution) > 1 and solution[-2] == solution[-1]:
             solution = solution[:-1]
 
         return solution

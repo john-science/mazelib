@@ -24,6 +24,12 @@ class ArrayTest(unittest.TestCase):
         a[1,2] = 0
         self.assertFalse(a[1,2])
 
+    def testGetAndSetTuple(self):
+        a = Array2D('b', (5, 5), True)
+        self.assertTrue(a[(1,2)])
+        a[(1,2)] = 0
+        self.assertFalse(a[(1,2)])
+
     def testGetAndSetRow(self):
         # create 2d array, defaulted to all True
         dim = 5
@@ -37,11 +43,38 @@ class ArrayTest(unittest.TestCase):
         # test that the first row was changed correctly
         for col in a[0]:
             self.assertFalse(col)
-    
+
+    def testGetSlice(self):
+        # create 2d array, defaulted to all True
+        dim = 5
+        a = Array2D('b', (dim, dim), True)
+
+        # get first two rows, by slice
+        a_slice = a[:2]
+        self.assertEquals(a_slice.height, 2)
+        for row in a_slice:
+            for col in row:
+                self.assertTrue(col)
+
+    def testMazeArrayDefault(self):
+        m = MazeArray(5, 5)
+        self.assertTrue(m[0, 0])
+        self.assertTrue(m[1, 1])
+
+    def testMazeArraySize(self):
+        m = MazeArray(5, 5)
+        self.assertEqual(m.height, 5)
+        self.assertEqual(m.width, 5)
+        self.assertEqual(len(m), 25)
+
+    def testMazeArrayGetAndSetElement(self):
+        m = MazeArray(5, 5)
+        self.assertTrue(m[1,2])
+        m[1,2] = 0
+        self.assertFalse(m[1,2])
+
     """
     TODO: Build new tests for:
-        set and get slice in array2d
-        create MazeArray
         set and get element, row, and slice in MazeArray
         experimental: set and get with tuples
     """
