@@ -2,6 +2,8 @@
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.WallFollower import WallFollower
+from mazelib.solve.ShortestPath import ShortestPath
+from mazelib.solve.ShortestPaths import ShortestPaths
 from mazelib.mazelib import Maze
 
 
@@ -56,6 +58,22 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self._create_maze_with_varied_entrances(s, e)
                 m.solver = WallFollower()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._within_one(m.start, sol[0]))
+                    self.assertTrue(self._within_one(m.end, sol[-1]))
+
+    def testShortestPath(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = ShortestPath()
                 m.solve()
 
                 for sol in m.solutions:
