@@ -22,6 +22,18 @@ If you want a low-key, fast way to view the maze you've generated, just use the 
     print(m.grid.tostring(True, True))  # print walls, entrances, and solution
     print(str(m.grid))                  # print everything that is available
 
+The above `print` calls would generate these types of plots, respectively:
+
+    ###########         ###########         ###########
+    # #   #   #         S #   #   #         S*#   #   #
+    # ### # # #         # ### # # #         #*### # # #
+    # #     # #         # #     # #         #*#     # #
+    # ### #####         # ### #####         #*### #####
+    #         #         #         #         #***      #
+    ### #######         ### #######         ###*#######
+    #         E         #         E         #  *******E
+    ###########         ###########         ###########
+
 #### Example 2: Plotting the Maze with Matplotlib
 
 Sometimes it is hard to see the finer points of a maze in plain text. You may want to see at a glance if the maze has unreachable sections, if it has loops or free walls, if it is obviously too easy, etcetera.
