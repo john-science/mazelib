@@ -1,4 +1,5 @@
 
+from array import array
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.CuldeSacFiller import CuldeSacFiller
@@ -7,6 +8,7 @@ from mazelib.solve.RandomMouse import RandomMouse
 from mazelib.solve.ShortestPath import ShortestPath
 from mazelib.solve.ShortestPaths import ShortestPaths
 from mazelib.solve.WallFollower import WallFollower
+from mazelib.utils.MazeArray import MazeArray
 from mazelib.mazelib import Maze
 
 
@@ -133,13 +135,45 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._within_one(m.end, sol[-1]))
 
     def testCuldeSacFiller(self):
-        """test against a maze with outer/inner entraces"""
+        """test against a maze with outer/inner entraces
+        #######
+          #   #
+        # # # #
+        # #   #
+        # # ###
+        #
+        #######
+        """
         starts = [True, False]
         ends = [True, False]
 
+        g = MazeArray(7, 7)
+        g[1] = array('b', [1,0,1,0,0,0,1])
+        g[2] = array('b', [1,0,1,0,1,0,1])
+        g[3] = array('b', [1,0,1,0,0,0,1])
+        g[4] = array('b', [1,0,1,0,1,1,1])
+        g[5] = array('b', [1,0,0,0,0,0,1])
+
         for s in starts:
             for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
+                m = Maze()
+                m.generator = Prims(3, 3)
+                m.grid = g
+
+                if s and e:
+                    m.start = (1, 0)
+                    m.end = (5, 6)
+                elif not s and not e:
+                    m.start = (1, 1)
+                    m.end = (5, 5)
+                else:
+                    if s:
+                        m.start = (1, 1)
+                        m.end = (5, 5)
+                    else:
+                        m.start = (1, 1)
+                        m.end = (5, 6)
+                
                 m.solver = CuldeSacFiller()
                 m.solve()
 
