@@ -15,7 +15,7 @@ For the rest of this section, let us assume we have already generated a maze:
 
 #### Example 1: Plotting the Maze in Plain Text
 
-It is helpful to have a low-key, fast way to print out mazes (and solutions) as you develop. The library itself actually has a built-in tostring method:
+If you want a low-key, fast way to view the maze you've generated, just use the library's built-in `tostring` method:
 
     print(m.grid.tostring())            # print walls only
     print(m.grid.tostring(True))        # print walls and entrances
@@ -24,7 +24,7 @@ It is helpful to have a low-key, fast way to print out mazes (and solutions) as 
 
 #### Example 2: Plotting the Maze with Matplotlib
 
-Sometimes it is hard to see the finer points of a maze in text.  You want to see at a moment's glance if the maze has unreachable sections, if it is obviously too easy, if it is large enough to meet your needs, etcetera.
+Sometimes it is hard to see the finer points of a maze in plain text. You may want to see at a glance if the maze has unreachable sections, if it has loops or free walls, if it is obviously too easy, etcetera.
 
     import matplotlib.pyplot as plt
 
@@ -43,7 +43,7 @@ Sometimes it is hard to see the finer points of a maze in text.  You want to see
 
 #### Example 3: Displaying the Maze as CSS
 
-This is just a simple function to draw a maze in CSS/HTML. CSS is the best free graphics package you will find.
+CSS and HTML are universal and easy to use. Here is a simple example to display your maze in CSS and HTML:
 
     def toHTML(grid, start, end, cell_size=10):
         row_max = grid.height
@@ -183,7 +183,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 
 #### Dungeons, sans Dragons
 
-When creating mazes for use in games you will frequently want to have big, empty rooms included within the maze. The DungeonRooms algorithm was included for just this purpose. It is a simple variation on the classic Hunt-and-Kill algorithm, but it also accepts information about the rooms you want open in the maze.
+When creating mazes for use in games you will frequently want to have big, empty rooms included within the maze. The DungeonRooms algorithm was included for just this purpose. It is a simple variation on the classic Hunt-and-Kill algorithm, but it accepts information about open rooms you want included in the maze.
 
 To open up rooms in a maze, DungeonRooms accepts two optional input parameters:
 
@@ -196,24 +196,26 @@ Let's do an example of each method for defining input rooms:
 
 ##### Defining Room Corners
 
+Here we create a 24x33 maze with one rectangular 4x4 room, open between the corners (3, 3) and (7, 7):
+
     m = Maze()
     m.generator = DungeonRooms(24, 33, rooms=[[(3,3), (7,7)]])
     m.generate()
 
 ##### Defining Rooms by an Input Grid
 
+And here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (3, 3) and (5, 5):
+
     g = MazeArray(7, 7)
     g[1] = array('b', [1,1,1,1,1,1,1])
     g[2] = array('b', [1,1,1,1,1,1,1])
-    g[3] = array('b', [1,1,0,0,0,1,1])
-    a[4] = array('b', [1,1,0,0,0,0,1])
-    g[5] = array('b', [1,1,0,0,0,1,1])
+    g[3] = array('b', [1,1,1,0,0,0,1])
+    a[4] = array('b', [1,1,1,0,0,0,1])
+    g[5] = array('b', [1,1,1,0,0,0,1])
     
     m = Maze()
-    m.generator = DungeonRooms(4, 4, grid)
+    m.generator = DungeonRooms(4, 4, grid=g)
     m.generate()
-
-DOCUMENTION INCOMING - DungeonRooms Algorithm
 
 
 ## Generating Attractive Mazes
