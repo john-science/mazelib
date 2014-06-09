@@ -1,4 +1,5 @@
 
+from array import array
 import unittest
 from mazelib.generate.AldousBroder import AldousBroder
 from mazelib.generate.Backtracker import Backtracker
@@ -14,6 +15,7 @@ from mazelib.generate.Prims import Prims
 from mazelib.generate.Sidewinder import Sidewinder
 from mazelib.generate.Wilsons import Wilsons
 from mazelib.mazelib import Maze
+from mazelib.utils.MazeArray import MazeArray
 
 
 class GeneratorsTest(unittest.TestCase):
@@ -106,24 +108,28 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    """
-    # TODO: How to test DungeonRooms?
-    def testDungeonRooms(self):
+    def testDungeonRoomsGrid(self):
         g = MazeArray(7, 7)
         g[1] = array('b', [1,1,1,1,1,1,1])
         g[2] = array('b', [1,1,1,1,1,1,1])
         g[3] = array('b', [1,1,0,0,0,1,1])
-        a[4] = array('b', [1,1,0,0,0,0,1])
+        g[4] = array('b', [1,1,0,0,0,1,1])
         g[5] = array('b', [1,1,0,0,0,1,1])
 
         m = Maze()
-        m.generator = DungeonRooms(4, 4, grid)
+        m.generator = DungeonRooms(4, 4, grid=g)
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
-        self.assertTrue(self.all_corners_complete(m.grid))
-    """
+
+    def testDungeonRoomsRooms(self):
+        m = Maze()
+        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]])
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
 
     def testEllers(self):
         m = Maze()
