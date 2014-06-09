@@ -73,12 +73,6 @@ class ArrayTest(unittest.TestCase):
         m[1,2] = 0
         self.assertFalse(m[1,2])
 
-    """
-    TODO: Build new tests for:
-        set and get element, row, and slice in MazeArray
-        experimental: set and get with tuples
-    """
-
 
 def main():
     unittest.main()
