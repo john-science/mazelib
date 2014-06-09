@@ -81,6 +81,22 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._within_one(m.start, sol[0]))
                     self.assertTrue(self._within_one(m.end, sol[-1]))
 
+    def testShortestPaths(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = ShortestPaths()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._within_one(m.start, sol[0]))
+                    self.assertTrue(self._within_one(m.end, sol[-1]))
+
 
 def main():
     unittest.main()

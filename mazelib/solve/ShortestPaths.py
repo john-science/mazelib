@@ -84,6 +84,9 @@ class ShortestPaths(MazeSolveAlgo):
         if len(solutions) == 0 or len(solutions[0]) == 0:
             raise ValueError('No valid solutions found.')
 
+        print self.start, self.end
+        print solutions
+
         return solutions
     
     def _clean_up(self, solutions):
@@ -95,15 +98,21 @@ class ShortestPaths(MazeSolveAlgo):
         # 1) remove incomplete solutions
         new_solutions = []
         for sol in solutions:
+            new_sol = None
             if self.end_edge:
+                last = self._push_edge(self.end)
                 # remove edge-case end cells
                 if len(sol) > 2 and self._within_one(sol[-2], self.end):
-                    last = self._push_edge(self.end)
-                    new_solutions.append(sol[:-2] + [last])
+                    new_sol = sol[:-1]
+                elif len(sol) > 2 and self._within_one(sol[-2], last):
+                    new_sol = sol[:-1] + [last]
             else:
                 # remove inside-maze-case end cells
                 if len(sol) > 2 and self._within_one(sol[-2], self.end):
-                    new_solutions.append(sol[:-2])
+                    new_sol = sol[:-1]
+
+            if new_sol:
+                new_solutions.append(self._prune_solution(new_sol))
 
         # 2) remove duplicate solutions
         solutions = self._remove_duplicate_sols(new_solutions)
@@ -113,21 +122,50 @@ class ShortestPaths(MazeSolveAlgo):
 
         return solutions
 
+    def _prune_solution(self, solution):
+        """In the process of solving a maze, the algorithm might go down
+        the wrong corridor then backtrack.
+
+        These extraneous branches need to be removed.
+        """
+        found = True
+        while found and len(solution) > 2:
+            found = False
+
+            for i in xrange(1, len(solution) - 1):
+                if solution[i - 1] != solution[i + 1]:
+                    continue
+                diff = 1
+
+                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
+                    diff += 1
+                diff -= 1
+                index = i
+                found = True
+                break
+
+            if found:
+                for ind in xrange(index + diff, index - diff, - 1):
+                    del solution[ind]
+
+        # prune if start is found in solution
+        if self.start in solution:
+            i = solution.index(self.start)
+            solution = solution[i+1:]
+        # prune if first position is repeated
+        if solution[0] in solution[1:]:
+            i = solution[1:].index(solution[0])
+            solution = solution[i+1:]
+        # prune duplicate end points
+        if len(solution) > 1 and solution[-2] == solution[-1]:
+            solution = solution[:-1]
+
+        return solution
+
     def _remove_duplicate_sols(self, sols):
         """Remove duplicate solutions using subsetting"""
-        uniques = []
-        solsets = [set(s) for s in sols]
-        for i,sol in enumerate(solsets):
-            unique = True
-            for j,sol2 in enumerate(solsets[:i] + solsets[i+1:]):
-                if sol.issuperset(sol2):
-                    unique = False
-                    break
-
-            if unique:
-                uniques.append(sols[i])
-
-        return uniques
+        temp = list(set(map(tuple, sols)))
+        return [list(s) for s in temp]
 
     def _find_unblocked_neighbors(self, cell):
         """Find all the grid neighbors of the current position,

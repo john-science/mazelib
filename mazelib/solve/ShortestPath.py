@@ -89,22 +89,6 @@ class ShortestPath(MazeSolveAlgo):
 
         return solutions
 
-    def _remove_dup_sols(self, sols):
-        """Remove duplicate solutions using subsetting"""
-        uniques = []
-        solsets = [set(s) for s in sols]
-        for i,sol in enumerate(solsets):
-            unique = True
-            for j,sol2 in enumerate(solsets[:i] + solsets[i+1:]):
-                if sol.issuperset(sol2):
-                    unique = False
-                    break
-
-            if unique:
-                uniques.append(sols[i])
-
-        return uniques
-
     def _find_unblocked_neighbors(self, posi):
         """Find all the grid neighbors of the current position;
         visited, or not.

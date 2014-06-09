@@ -113,7 +113,7 @@ class WallFollower(MazeSolveAlgo):
             if found:
                 for ind in xrange(index + diff, index - diff, - 1):
                     del solution[ind]
-        
+
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)
