@@ -84,9 +84,6 @@ class ShortestPaths(MazeSolveAlgo):
         if len(solutions) == 0 or len(solutions[0]) == 0:
             raise ValueError('No valid solutions found.')
 
-        print self.start, self.end
-        print solutions
-
         return solutions
     
     def _clean_up(self, solutions):
