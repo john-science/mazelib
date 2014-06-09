@@ -25,6 +25,7 @@ class CuldeSacFiller(MazeSolveAlgo):
         # identify all fully-connected wall systems
         walls = self._find_wall_systems()
         # TODO: I need to connect wall systems that are disconnected above.
+        walls = self._reduce_wall_systems(walls)
 
         # remove any wall system that touches the maze boundary
         walls = self._remove_border_walls(walls)
@@ -35,6 +36,37 @@ class CuldeSacFiller(MazeSolveAlgo):
                 self._fix_culdesac(border)
 
         return self._build_solutions()
+
+    def _reduce_wall_systems(self, walls):
+        """Reduce a collection of walls in a maze to realize
+        when two walls are actually connected and should be one.
+        """
+        N = len(walls)
+
+        for i in xrange(N - 1):
+            if walls[i] is None:
+                continue
+            for j in xrange(i, N):
+                if walls[j] is None:
+                    continue
+                if self._walls_are_connected(walls[i], walls[j]):
+                    walls[i] += walls[j]
+                    walls[j] = None
+
+        # remove "None" walls
+        return filter(lambda w: w != None, walls)
+
+    def _walls_are_connected(self, wall1, wall2):
+        """Figure out if two walls are connected at any point."""
+        if wall1 is None or wall2 is None:
+            return False
+
+        for cell1 in wall1:
+            for cell2 in wall2:
+                if self._is_neighbor(cell1, cell2):
+                    return True
+
+        return False
 
     def _build_solutions(self):
         """Now that all of the cul-de-sac have been cut out, the maze still needs to be solved."""
