@@ -1,7 +1,7 @@
 
 from .mazelib import Maze
 from .generate.AldousBroder import AldousBroder
-from .generate.Backtracker import Backtracker
+from .generate.BacktrackingGenerator import BacktrackingGenerator
 from .generate.BinaryTree import BinaryTree
 from .generate.CellularAutomaton import CellularAutomaton
 from .generate.Division import Division
