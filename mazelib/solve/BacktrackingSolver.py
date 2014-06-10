@@ -2,7 +2,7 @@ from random import choice,shuffle
 from MazeSolveAlgo import MazeSolveAlgo
 
 
-class BacktrackerSolver(MazeSolveAlgo):
+class BacktrackingSolver(MazeSolveAlgo):
     """
     The Algorithm
 
