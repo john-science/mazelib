@@ -2,18 +2,14 @@
 
 #### A Python API for creating and solving mazes.  --  WORK IN PROGRESS
 
-## The mazelib API
+## [The mazelib API](docs/API.md)
 
 A quick introduction to how to use this library.
 
-#### [The mazelib API](docs/API.md)
 
-
-## Examples
+## [Examples](docs/EXAMPLES.md)
 
 Many examples of different ways to display mazes. And lots of examples of how to create more unique, creative mazes.
-
-#### [Examples of Using mazelib](docs/EXAMPLES.md)
 
 
 ## The Algorithms
