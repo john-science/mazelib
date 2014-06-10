@@ -2,7 +2,7 @@
 
 #####Go back to the main [README](../README.md)
 
-The mazelib library is a general library for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes, as well as variations on these. Several more modern methods for generating and solving mazes are also provided, to help expedite the practical uses of mazes.
+The mazelib library is a general library for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes, as well as variations on these. Several more modern methods are also provided, to help expedite the practical use-cases.
 
 The mazelib library supports Python versions 2.5.x, 2.6.x, 2.7.x, and will soon support 3.x.
 
@@ -18,7 +18,7 @@ The simplest example is:
 
 So, what did we do there?
 
-First, there was the obligatory import statment, to include mazelib in your Python code 'from mazelib import *'.
+First, there was the obligatory import statment, to include mazelib in your Python code `from mazelib import *`.
 
 Then, a `Maze` object was created:
 
@@ -60,9 +60,9 @@ A complete listing of available maze-solving algorithms can be found [here](MAZE
 
 ## Advanced: The Monte Carlo Method
 
-When creating a maze, you may want to create a very hard maze, instead of just any old maze. Or you may want to create a whole series of mazes, each progressively harder. These are common goals that used to require a lot of tedious hand-selection. Today, however, these common problems can be solved using the Monte Carlo method.
+A common desire when creating a maze is to not to just create *any* maze. But to create a particularly hard maze. Or a particularly easy maze. Or a whole series of mazes of increasing difficulty. The Monte Carlo method can be used to solve these problems.
 
-The idea is simple: a set number of equally-sized mazes are generated and solved, then these mazes are organized by the length of their shortest solution. Now you have a rubric to quantify your "maze difficulty". To get a very hard maze, just select one of the ones at the end of the list.
+The idea is simple: a number of equally-sized mazes are generated and solved, then these mazes are organized by the length of their shortest solution. To get a very hard maze, just select one of the ones at the end of the list.
 
 Let us do an example:
 
@@ -71,7 +71,7 @@ Let us do an example:
     m.solver = WallFollower()
     m.generate_monte_carlo(100, 10, 1.0)
 
-The above code will generate 100 different mazes, and for each maze generate 10 different pairs of start/end entrances (on the outermost border of the maze). Then it will return the maze with the longest solution, as defined by the `1.0`. If you wanted the maze with the shortest, and hence easiest, solution you would put `0.0` here.  A value of `0.5` would give you a maze with middle-of-the-road difficulty, and so on.
+The above code will generate 100 different mazes, and for each maze generate 10 different pairs of start/end entrances (on the outermost border of the maze). For each of the 10 pairs of entrances, one will be selected that generates the longest solution. Then the 100 mazes will be organized by the length of their solutions. In this case, the maze with the longest solution, as defined by the `1.0`, will be returned. If you wanted the maze with the shortest, and hence easiest, solution you would put `0.0` here.  A value of `0.5` would give you a maze with middle-of-the-road difficulty, and so on.
 
 This basic implementation of the Monte Carlo method gives you a lot of power to not just generate mazes, but generate mazes with properties you like.
 
