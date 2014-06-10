@@ -2,7 +2,7 @@
 from array import array
 import unittest
 from mazelib.generate.AldousBroder import AldousBroder
-from mazelib.generate.Backtracker import Backtracker
+from mazelib.generate.BacktrackingGenerator import BacktrackingGenerator
 from mazelib.generate.BinaryTree import BinaryTree
 from mazelib.generate.CellularAutomaton import CellularAutomaton
 from mazelib.generate.Division import Division
@@ -72,9 +72,9 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testBacktracker(self):
+    def testBacktrackingGenerator(self):
         m = Maze()
-        m.generator = Backtracker(4, 5)
+        m.generator = BacktrackingGenerator(4, 5)
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
