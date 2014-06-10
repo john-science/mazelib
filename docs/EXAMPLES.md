@@ -94,6 +94,8 @@ CSS and HTML are universal and easy to use. Here is a simple example to display 
 
         return html
 
+![CSS/HTML Example](images/css_4x5.png?raw=true)
+
 #### Example 4: Drawing the Maze with XKCD style
 
 Chances are, if you're reading this you probably like XKCD. So, let's make the maze look like Randal drew it.
@@ -190,6 +192,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
     
     plotXKCD(m.grid)
 
+![XKCD Example](images/xkcd_5x6.png?raw=true)
 
 ## Generating Mazes for Games
 
