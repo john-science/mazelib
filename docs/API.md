@@ -2,13 +2,13 @@
 
 #####Go back to the main [README](../README.md)
 
-The mazelib library is a general library for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes, as well as variations on these. Several more modern methods are also provided, to help expedite the practical use-cases.
+The mazelib library is a general library for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these classic algorithms are implemented with optional parameters to customize the result. Several modern methods are also provided, to help expedite the practical use-cases.
 
 The mazelib library supports Python versions 2.5.x, 2.6.x, 2.7.x, and will soon support 3.x.
 
 ## How to Create a Maze
 
-The simplest example is:
+Let us look at the simplest example:
 
     from mazelib import *
 
@@ -16,16 +16,14 @@ The simplest example is:
     m.generator = Prims(27, 34)
     m.generate()
 
-So, what did we do there?
-
-First, there was the obligatory import statment, to include mazelib in your Python code `from mazelib import *`.
+First, there was the obligatory import statement, to include mazelib in your Python code `from mazelib import *`.
 
 Then, a `Maze` object was created:
 
 * Maze
  * grid: 2D array of data representing the maze itself
- * start: staring entrance location in the maze
- * end: exit entrance location in the maze
+ * start: starting location in the maze
+ * end: exit location in the maze
  * generator: algorithm used to generate the maze walls
  * solver: algorithm used to solve the maze
  * solutions: list of solution paths to the maze
@@ -36,15 +34,13 @@ A complete listing of available maze-generating algorithms can be found [here](M
 
 ## How to Solve a Maze
 
-Again, the simplest example is:
+Again, let's look at the simplest example:
 
     m.solver = WallFollower()
     m.generate_entrances()
     m.solve()
-    
-Now, let's look at what we did.
 
-The `WallFollower` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. Of course, if you prefer, you can manually set the entrances using:
+The `WallFollower` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. If you prefer, you can manually set the entrances using:
 
     m.start = (1, 1)
     m.end = (5, 5)
