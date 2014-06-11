@@ -13,6 +13,26 @@ from mazelib.mazelib import Maze
 
 
 class SolversTest(unittest.TestCase):
+    
+    def _example_cul_de_sac_maze(self):
+        """
+        #######
+              #
+        # # # #
+        # #   #
+        # #####
+        #
+        #######
+        """
+    
+        g = MazeArray(7, 7)
+        g[1] = array('b', [1,0,0,0,0,0,1])
+        g[2] = array('b', [1,0,1,0,1,0,1])
+        g[3] = array('b', [1,0,1,0,0,0,1])
+        g[4] = array('b', [1,0,1,1,1,1,1])
+        g[5] = array('b', [1,0,0,0,0,0,1])
+    
+        return g
 
     def _within_one(self, cell1, cell2):
         """Is one cell within one move of another?"""
@@ -135,24 +155,11 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._within_one(m.end, sol[-1]))
 
     def testCuldeSacFiller(self):
-        """test against a maze with outer/inner entraces
-        #######
-          #   #
-        # # # #
-        # #   #
-        # # ###
-        #
-        #######
-        """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
-        g = MazeArray(7, 7)
-        g[1] = array('b', [1,0,1,0,0,0,1])
-        g[2] = array('b', [1,0,1,0,1,0,1])
-        g[3] = array('b', [1,0,1,0,0,0,1])
-        g[4] = array('b', [1,0,1,0,1,1,1])
-        g[5] = array('b', [1,0,0,0,0,0,1])
+        g = self._example_cul_de_sac_maze()
 
         for s in starts:
             for e in ends:
