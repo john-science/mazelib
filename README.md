@@ -4,12 +4,12 @@
 
 ## [The mazelib API](docs/API.md)
 
-A quick introduction to how to use this library.
+A quick introduction in how to use this library.
 
 
 ## [Examples](docs/EXAMPLES.md)
 
-Many examples of different ways to display mazes. And lots of examples of how to create more unique, creative mazes.
+Examples of different ways to display mazes. And some examples of how to create more unique, tailored mazes.
 
 
 ## [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
