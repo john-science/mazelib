@@ -232,6 +232,8 @@ And here we create a 4x4 maze with one rectangular 2x2 room, open between the co
     m.generator = DungeonRooms(4, 4, grid=g)
     m.generate()
 
+![Dungeon Rooms Example](images/dungeon_rooms_4x4_plain.png?raw=true)
+
 
 ## Generating Attractive Mazes
 
