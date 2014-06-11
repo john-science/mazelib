@@ -219,14 +219,12 @@ Here we create a 24x33 maze with one rectangular 4x4 room, open between the corn
 
 ##### Defining Rooms by an Input Grid
 
-And here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (3, 3) and (5, 5):
+And here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (5, 5) and (7, 7):
 
-    g = MazeArray(7, 7)
-    g[1] = array('b', [1,1,1,1,1,1,1])
-    g[2] = array('b', [1,1,1,1,1,1,1])
-    g[3] = array('b', [1,1,1,0,0,0,1])
-    a[4] = array('b', [1,1,1,0,0,0,1])
+    g = MazeArray(9, 9)
     g[5] = array('b', [1,1,1,0,0,0,1])
+    a[6] = array('b', [1,1,1,0,0,0,1])
+    g[7] = array('b', [1,1,1,0,0,0,1])
     
     m = Maze()
     m.generator = DungeonRooms(4, 4, grid=g)

@@ -17,11 +17,9 @@ perfect, unbiased
 
 ###### Notes
 
-This is reasonably slow, but it produces nice mazes.
+This algorithm treats the cells of a maze as a graph, and solves to find a Uniform Spanning Tree that covers that graph. Like most tree-based maze algorithms, this one is a little slow.
 
-This algorithm treats the cells of a maze as a graph, and solves to find a Uniform Spanning Tree that covers that graph.
-
-## Backtracking
+## Backtracking Generator
 
 ###### The Algorithm
 
@@ -44,8 +42,6 @@ This is perhaps the most common maze-generation algorithm because it is easy to 
 
 1. For every cell in the grid, knock down a wall either North or West.
 
-It does not matter what order you go through all the cells in the grid. And if you are on the North edge of the grid, you will have to carve West.
-
 ###### Optional Parameters
 
 * *bias*: String {'NW', 'NE', 'SE', 'SW'}
@@ -57,7 +53,7 @@ perfect, biased, flawed
 
 ###### Notes
 
-This algorithm produces mazes with a serious flaw: the North and West borders of the maze are completely open. This makes solving the maze too easy to be fun. That is, unless the person solving the maze can't see the whole thing at one time. In which case, this algorithm is still useful.
+This algorithm produces mazes with a serious flaw: the North and West borders of the maze are completely open. This makes solving the maze too easy to be fun. However, if the person solving the maze can't see the entire thing at one time, this algorithm is still useful.
 
 On the positive side, this algorithm is extremely fast and very easy to implement.
 
@@ -80,7 +76,7 @@ perfect, unbiased
 
 ###### Notes
 
-Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And the result is a "perfect" maze, but not always the hardest maze. Generating a few of these mazes, you begin to see that the results are frequently quick easy to solve.
+Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And the result is a "perfect" maze, but not always the hardest maze.
 
 More research is needed to create a post-processing step to remove the typical Cellular Automaton defects.
 
