@@ -22,7 +22,8 @@ class BacktrackingSolver(MazeSolveAlgo):
             ns = self._find_unblocked_neighbors(solution[-1])
 
             if len(ns) > 1 and len(solution) > 2:
-                del ns[solution[-3]]
+                if solution[-3] in ns:
+                    ns.remove(solution[-3])
 
             nxt = choice(ns)
             solution.append(self._midpoint(solution[-1], nxt))
@@ -158,7 +159,7 @@ class BacktrackingSolver(MazeSolveAlgo):
 
         if rdiff == 0 and cdiff < 2:
             return True
-        elif cdiff == - and rdiff < 2:
+        elif cdiff == 0 and rdiff < 2:
             return True
 
         return False
