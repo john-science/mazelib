@@ -63,6 +63,21 @@ A mouse just wanders randomly around the maze until it finds the cheese.
 Random mouse may never finish. Technically. It is certainly inefficient in time, but very efficient in memory.
 
 ## Recursive Backtracker
+
+###### The Algorithm:
+
+1) Pick a random direction and follow it
+2) Backtrack if and only if you hit a dead end.
+
+###### Results
+
+1 solution. No gaurantee it will be the shortest. Works against imperfect mazes.
+
+###### Notes
+
+Mathematically, there is very little difference between this algorithm and Random Mouse. The only difference is that at each point, Random Mouse might go right back where it came from. But Backtracker will only do that if it reaches a dead end.
+
+
 ## Shortest Path Finder
 
 ###### The Algorithm:
