@@ -6,7 +6,8 @@ class BacktrackingSolver(MazeSolveAlgo):
     """
     The Algorithm
 
-    TODO
+    Take any path open to you, and follow it.
+    Backtrack if you find a dead end.
     """
     def _solve(self):
         solution = []
@@ -21,6 +22,7 @@ class BacktrackingSolver(MazeSolveAlgo):
         while not self._within_one(solution[-1], self.end):
             ns = self._find_unblocked_neighbors(solution[-1])
 
+            # do no go where you've just been
             if len(ns) > 1 and len(solution) > 2:
                 if solution[-3] in ns:
                     ns.remove(solution[-3])
