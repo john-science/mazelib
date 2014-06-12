@@ -20,7 +20,12 @@ class CuldeSacFiller(MazeSolveAlgo):
             self.solver = DeadEndFiller(solver)
 
     def _solve(self):
-        current = self.start
+        self._seal_culdesacs()
+
+        return self._build_solutions()
+
+    def _seal_culdesacs(self):
+        """identify and seal off all culdesacs"""
 
         # identify all fully-connected wall systems
         walls = self._find_wall_systems()
@@ -34,8 +39,6 @@ class CuldeSacFiller(MazeSolveAlgo):
             border = self._find_bordering_cells(wall)
             if self._wall_is_culdesac(border):
                 self._fix_culdesac(border)
-
-        return self._build_solutions()
 
     def _reduce_wall_systems(self, walls):
         """Reduce a collection of walls in a maze to realize
