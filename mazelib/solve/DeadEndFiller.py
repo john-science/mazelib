@@ -19,34 +19,36 @@ class DeadEndFiller(MazeSolveAlgo):
 
     def _solve(self):
         self.grid[self.start] = self.grid[self.end] = 0
-        current = self.start
-
-        # loop through the maze serpentine, and find dead ends
-        dead_end = self._find_dead_end()
-        while dead_end != (-1, -1):
-            # fill-in and wall-off the dead end
-            self._fill_dead_end(dead_end)
-
-            # from the dead end, travel one cell.
-            ns = self._find_unblocked_neighbors(dead_end)
-
-            if len(ns) == 0: break
-
-            # look at the next cell, if it is a dead end, restart the loop
-            if len(ns) == 1:
-                # continue until you are in a junction cell.
-                if self._is_dead_end(ns[0]):
-                    dead_end = ns[0]
-                    continue
-
-            # otherwise, find another dead end in the maze
-            dead_end = self._find_dead_end()
+        self._fill_dead_ends()
 
         return self._build_solutions()
 
     def _build_solutions(self):
         """Now that all of the dead ends have been cut out, the maze still needs to be solved."""
         return self.solver.solve(self.grid, self.start, self.end)
+
+    def _fill_dead_ends(self):
+        """fill all dead ends in the maze"""
+        # loop through the maze serpentine, and find dead ends
+        dead_end = self._find_dead_end()
+        while dead_end != (-1, -1):
+            # fill-in and wall-off the dead end
+            self._fill_dead_end(dead_end)
+
+            # from the dead end, travel one cell
+            ns = self._find_unblocked_neighbors(dead_end)
+
+            if len(ns) == 0: break
+
+            # look at the next cell, if it is a dead end, restart the loop
+            if len(ns) == 1:
+                # continue until you are in a junction cell
+                if self._is_dead_end(ns[0]):
+                    dead_end = ns[0]
+                    continue
+
+            # otherwise, find another dead end in the maze
+            dead_end = self._find_dead_end()
 
     def _fill_dead_end(self, dead_end):
         """After moving from a dead end, we want to fill in it and all
