@@ -7,7 +7,7 @@
 A quick introduction in how to use this library.
 
 
-## [Disply Examples](docs/EXAMPLES.md)
+## [Display Examples](docs/EXAMPLES.md)
 
 Examples of how to generate and solve some unique, tailored mazes. Also, example of how to plot your `mazelib` results.
 
