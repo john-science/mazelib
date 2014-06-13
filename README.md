@@ -7,9 +7,9 @@
 A quick introduction in how to use this library.
 
 
-## [Examples](docs/EXAMPLES.md)
+## [Disply Examples](docs/EXAMPLES.md)
 
-Examples of different ways to display mazes. And some examples of how to create more unique, tailored mazes.
+Examples of how to generate and solve some unique, tailored mazes. Also, example of how to plot your `mazelib` results.
 
 
 ## [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
