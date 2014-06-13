@@ -3,6 +3,22 @@
 #####Go back to the main [README](../README.md)
 
 ## Blind Alley
+
+###### The Algorithm
+1. Scan the maze, identify all fully-connected wall systems.
+2. Any wall system that touches the border is not a cul-de-sac, remove it.
+3. Determine if remaining wall systems are cul-de-sacs.
+4. If so, add a wall segment to turn the cul-de-sac into a dead end.
+5. Solve using Shortest Paths.
+
+###### Results
+
+Removes all cul-de-sacs and dead ends. Does not solve the maze entirely by itself.
+
+###### Notes
+
+This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Filler. It can fill or seal the offending portions of the maze, and finds all solutions to even imperfect mazes.
+
 ## Chain Algorithm
 ## Collision Solver
 ## Cul-de-sac Filler
