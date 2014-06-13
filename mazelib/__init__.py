@@ -14,6 +14,7 @@ from .generate.Prims import Prims
 from .generate.Sidewinder import Sidewinder
 from .generate.Wilsons import Wilsons
 from .solve.BacktrackingSolver import BacktrackingSolver
+from .solve.BlindAlley import BlindAlley
 from .solve.CuldeSacFiller import CuldeSacFiller
 from .solve.RandomMouse import RandomMouse
 from .solve.ShortestPath import ShortestPath
