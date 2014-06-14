@@ -109,6 +109,8 @@ class ShortestPaths(MazeSolveAlgo):
                     new_sol = sol[:-1]
 
             if new_sol:
+                if new_sol[-1] == self.end:
+                    new_sol = new_sol[:-1]
                 new_solutions.append(self._prune_solution(new_sol))
 
         # 2) remove duplicate solutions
@@ -119,22 +121,22 @@ class ShortestPaths(MazeSolveAlgo):
 
         return solutions
 
-    def _prune_solution(self, solution):
+    def _prune_solution(self, sol):
         """In the process of solving a maze, the algorithm might go down
         the wrong corridor then backtrack.
 
         These extraneous branches need to be removed.
         """
         found = True
-        while found and len(solution) > 2:
+        while found and len(sol) > 2:
             found = False
 
-            for i in xrange(1, len(solution) - 1):
-                if solution[i - 1] != solution[i + 1]:
+            for i in xrange(1, len(sol) - 1):
+                if sol[i - 1] != sol[i + 1]:
                     continue
                 diff = 1
 
-                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
+                while i-diff >= 0 and i+diff < len(sol) and sol[i-diff] == sol[i+diff]:
                     diff += 1
                 diff -= 1
                 index = i
@@ -143,21 +145,21 @@ class ShortestPaths(MazeSolveAlgo):
 
             if found:
                 for ind in xrange(index + diff, index - diff, - 1):
-                    del solution[ind]
+                    del sol[ind]
 
         # prune if start is found in solution
-        if self.start in solution:
-            i = solution.index(self.start)
-            solution = solution[i+1:]
+        if self.start in sol:
+            i = sol.index(self.start)
+            sol = sol[i+1:]
         # prune if first position is repeated
-        if solution[0] in solution[1:]:
-            i = solution[1:].index(solution[0])
-            solution = solution[i+1:]
+        if sol[0] in sol[1:]:
+            i = sol[1:].index(sol[0])
+            sol = sol[i+1:]
         # prune duplicate end points
-        if len(solution) > 1 and solution[-2] == solution[-1]:
-            solution = solution[:-1]
+        if len(sol) > 1 and sol[-2] == sol[-1]:
+            sol = sol[:-1]
 
-        return solution
+        return sol
 
     def _remove_duplicate_sols(self, sols):
         """Remove duplicate solutions using subsetting"""
