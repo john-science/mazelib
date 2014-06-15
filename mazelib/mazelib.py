@@ -22,19 +22,21 @@ class Maze(object):
             self.end = None
             self.solutions = None
 
-    def generate_entrances(self, outer=True):
+    def generate_entrances(self, start_outer=True, end_outer=True):
         """ Generate maze entrances.
-
         By default, the entrances will be on opposite outer walls.
         """
-        if outer:
-            return self._generate_outer_entrances()
+        if start_outer and end_outer:
+            self._generate_outer_entrances()
+        elif not start_outer and not end_outer:
+            self._generate_inner_entrances()
+        elif start_outer:
+            self.end,self.start = self._generate_opposite_entrances()
         else:
-            return self._generate_inner_entrances()
-        self.solutions = None
+            self.start,self.end = self._generate_opposite_entrances()
 
     def _generate_outer_entrances(self):
-        """ Generate maze entrances, along the outer walls. """
+        """Generate maze entrances, along the outer walls."""
         H = self.grid.height
         W = self.grid.width
 
@@ -55,7 +57,7 @@ class Maze(object):
             self.end = (randrange(1, H, 2), 0)
 
     def _generate_inner_entrances(self):
-        """ Generate maze entrances, randomly within the maze. """
+        """Generate maze entrances, randomly within the maze."""
         H = self.grid.height
         W = self.grid.width
 
@@ -67,6 +69,27 @@ class Maze(object):
             end = (randrange(1, H, 2), randrange(1, W, 2))
 
         self.end = end
+
+    def _generate_opposite_entrances(self):
+        """Generate one inner and one outer entrance."""
+        H = self.grid.height
+        W = self.grid.width
+
+        first = (randrange(1, H, 2), randrange(1, W, 2))
+
+        start_side = randrange(4)
+
+        # maze entrances will be on opposite sides of the maze.
+        if start_side == 0:
+            second = (0, randrange(1, W, 2)) # North
+        elif start_side == 1:
+            second = (H - 1, randrange(1, W, 2)) # South
+        elif start_side == 2:
+            second = (randrange(1, H, 2), 0) # West
+        else:
+            second = (randrange(1, H, 2), W - 1) # East
+
+        return (first, second)
 
     def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0):
         """Use the Monte Carlo method to generate a maze of defined difficulty.

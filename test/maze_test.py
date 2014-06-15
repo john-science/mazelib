@@ -39,7 +39,7 @@ class MazeTest(unittest.TestCase):
         m = Maze()
         m.generator = Prims(h, w)
         m.generate()
-        m.generate_entrances(False)
+        m.generate_entrances(False, False)
 
         self.assertFalse(self._on_edge(m.grid, m.start))
         self.assertFalse(self._on_edge(m.grid, m.end))
@@ -51,7 +51,7 @@ class MazeTest(unittest.TestCase):
         m = Maze()
         m.generator = Prims(h, w)
         m.generate()
-        m.generate_entrances(True)
+        m.generate_entrances()
 
         self.assertTrue(self._on_edge(m.grid, m.start))
         self.assertTrue(self._on_edge(m.grid, m.end))
@@ -63,7 +63,7 @@ class MazeTest(unittest.TestCase):
         m = Maze()
         m.generator = Prims(h, w)
         m.generate()
-        m.generate_entrances(True)
+        m.generate_entrances()
         m.generate()
 
         self.assertTrue(m.start == None)

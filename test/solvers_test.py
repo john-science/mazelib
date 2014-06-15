@@ -64,14 +64,11 @@ class SolversTest(unittest.TestCase):
         if start_outer and end_outer:
             m.generate_entrances()
         elif not start_outer and not end_outer:
-            m.generate_entrances(False)
+            m.generate_entrances(False, False)
+        elif start_outer:
+             m.generate_entrances(True, False)
         else:
-            if start_outer:
-                m.start = (0, 3)
-                m.end = (5, 5)
-            else:
-                m.start = (5, 5)
-                m.end = (0, 3)
+             m.generate_entrances(False, True)
 
         return m
 
