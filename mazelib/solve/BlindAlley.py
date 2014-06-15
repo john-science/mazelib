@@ -1,6 +1,5 @@
 from random import choice,shuffle
 from MazeSolveAlgo import MazeSolveAlgo
-from DeadEndFiller import DeadEndFiller
 from ShortestPaths import ShortestPaths
 
 
@@ -14,9 +13,9 @@ class BlindAlley(MazeSolveAlgo):
     """
     def __init__(self, fill_type='sealer', solver=None):
         if not solver:
-            self.solver = DeadEndFiller(ShortestPaths())
+            self.solver = ShortestPaths()
         else:
-            self.solver = DeadEndFiller(solver)
+            self.solver = solver
 
         if fill_type == 'filler':
             self._remove_dead_end = self._dead_end_filler
