@@ -31,9 +31,9 @@ class Maze(object):
         elif not start_outer and not end_outer:
             self._generate_inner_entrances()
         elif start_outer:
-            self.end,self.start = self._generate_opposite_entrances()
-        else:
             self.start,self.end = self._generate_opposite_entrances()
+        else:
+            self.end,self.start = self._generate_opposite_entrances()
 
     def _generate_outer_entrances(self):
         """Generate maze entrances, along the outer walls."""
@@ -75,19 +75,20 @@ class Maze(object):
         H = self.grid.height
         W = self.grid.width
 
-        first = (randrange(1, H, 2), randrange(1, W, 2))
-
         start_side = randrange(4)
 
-        # maze entrances will be on opposite sides of the maze.
+        # pick a side for the outer maze entrance
         if start_side == 0:
-            second = (0, randrange(1, W, 2)) # North
+            first = (0, randrange(1, W, 2)) # North
         elif start_side == 1:
-            second = (H - 1, randrange(1, W, 2)) # South
+            first = (H - 1, randrange(1, W, 2)) # South
         elif start_side == 2:
-            second = (randrange(1, H, 2), 0) # West
+            first = (randrange(1, H, 2), 0) # West
         else:
-            second = (randrange(1, H, 2), W - 1) # East
+            first = (randrange(1, H, 2), W - 1) # East
+
+        # create an innner maze entrance
+        second = (randrange(1, H, 2), randrange(1, W, 2))
 
         return (first, second)
 
