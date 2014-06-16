@@ -2,7 +2,7 @@
 
 #####Go back to the main [README](../README.md)
 
-The mazelib library is a general library for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these classic algorithms are implemented with optional parameters to customize the result. Several modern methods are also provided, to help expedite the practical use-cases.
+The mazelib library provides tools for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these algorithms are implemented with optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
 
 The mazelib library supports Python versions 2.5.x, 2.6.x, 2.7.x, and will soon support 3.x.
 
@@ -16,7 +16,7 @@ Let us look at the simplest example:
     m.generator = Prims(27, 34)
     m.generate()
 
-First, there was the obligatory import statement, to include mazelib in your Python code `from mazelib import *`.
+First, there was the obligatory import statement, to include mazelib in your Python code: `from mazelib import *`.
 
 Then, a `Maze` object was created:
 
@@ -28,7 +28,7 @@ Then, a `Maze` object was created:
  * solver: algorithm used to solve the maze
  * solutions: list of solution paths to the maze
 
-Finally, an algorithm was selected to generate the maze, and it was run. In this case, the `Prims` algorithm was used to generate a maze that was 27 rows tall and 34 rows wide.
+Finally, an algorithm was selected to generate the maze. In this case, the `Prims` algorithm was used to generate a maze that was 27 rows tall and 34 rows wide. And the Prims algorithm was run.
 
 A complete listing of available maze-generating algorithms can be found [here](MAZE_GEN_ALGOS.md).
 
@@ -45,12 +45,12 @@ The `WallFollower` algorithm was choosen to solve the maze. But first, entrances
     m.start = (1, 1)
     m.end = (5, 5)
 
-By default, entrances will be generated on the outer edge of the maze. However, if you want the entrances to appear randomly within the maze, you can use the set the flag to `False`:
+By default, entrances will be generated on the outer edge of the maze. However, you can set if each entrance will be on the outer edge or inside the maze using the optional inputs:
 
-    m.generate_entrances(False)
-    m.generate_entrances(outer=False)
+    m.generate_entrances(False, True)
+    m.generate_entrances(start_outer=False, end_outer=False)
 
-Finally, the solving algorithm was run for the given maze `m`, from the start to the end.
+Finally, the maze `m` was solved for the given entrances, using the `WallFollower` algorithm.
 
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
 
