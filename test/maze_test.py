@@ -19,6 +19,21 @@ class MazeTest(unittest.TestCase):
         
         return False
 
+    def _num_turns(self, path):
+        """count the number of turns in a path"""
+        if len(path) < 3:
+            return 0
+    
+        num = 0
+    
+        for i in xrange(len(path)):
+            same_col = path[i-1][0] == path[i][0] == path[i+1][0]
+            same_row = path[i-1][1] == path[i][1] == path[i+1][1]
+            if not same_row and not same_col:
+                num +=1
+    
+        return num
+
     def testGridSize(self):
         h = 4
         w = 5
@@ -80,6 +95,25 @@ class MazeTest(unittest.TestCase):
         m.generator = Prims(h, w)
         m.solver = WallFollower()
         m.generate_monte_carlo(3)
+
+        # grid size
+        self.assertEqual(m.grid.height, H)
+        self.assertEqual(m.grid.width, W)
+
+        # test entrances are outer
+        self.assertTrue(self._on_edge(m.grid, m.start))
+        self.assertTrue(self._on_edge(m.grid, m.end))
+
+    def testMonteCarloReducer(self):
+        h = 4
+        w = 5
+        H = 2 * h + 1
+        W = 2 * w + 1
+
+        m = Maze()
+        m.generator = Prims(h, w)
+        m.solver = WallFollower()
+        m.generate_monte_carlo(3, reducer=_num_turns)
 
         # grid size
         self.assertEqual(m.grid.height, H)
