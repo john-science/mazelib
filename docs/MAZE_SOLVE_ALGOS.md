@@ -9,18 +9,20 @@
 2. Any wall system that touches the border is not a cul-de-sac, remove it.
 3. Determine if remaining wall systems are cul-de-sacs.
 4. If so, add a wall segment to turn the cul-de-sac into a dead end.
-5. Solve using Shortest Paths.
+5. Solve remaining maze using Shortest Paths.
 
 ###### Results
 
-Removes all cul-de-sacs and dead ends. Does not solve the maze entirely by itself.
+Removes all cul-de-sacs and dead ends. Does not solve the maze by itself.
 
 ###### Notes
 
 This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Filler. It can fill or seal the offending portions of the maze, and finds all solutions to even imperfect mazes.
 
 ## Chain Algorithm
+
 ## Collision Solver
+
 ## Cul-de-sac Filler
 
 ###### The Algorithm
@@ -28,39 +30,35 @@ This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Fill
 2. Any wall system that touches the border is not a cul-de-sac, remove it.
 3. Determine if remaining wall systems are cul-de-sacs.
 4. If so, add a wall segment to turn the cul-de-sac into a dead end.
-5. Solve using Dead End Filler.
+5. Solve the remaining maze using Dead End Filler.
 
 ###### Results
 
-Removes all cul-de-sacs from a maze. Does not solve a maze entirely by itself.
+Removes all cul-de-sacs from a maze. Does not solve a maze by itself.
 
 ###### Notes
 
-This is a class maze-solving algorithm.  However, it seems to add a lot more complexity to solving a maze. But perhaps if your maze has many cul-de-sacs it would be very helpful.
+This is a classic maze-solving algorithm.  However, it seems to add a lot of complexity to solving a maze. But perhaps if your maze has many cul-de-sacs it would be very helpful.
 
 ## Dead End Filler
 
 ###### The Algorithm
 
 1. Scan the maze in any order, looking for dead ends.
-2. Fill in each dead end, and any dead-end passages attached to them.
-3. What you will get is a maze with only solution tiles.
-4. Use a different solver to build a solution path.
+2. Fill in each dead end, and the dead-end passages attached to them.
+3. Use a different solver to build a solution path.
 
 ###### Results
 
-Finds ALL unique solutions.
+Finds ALL unique solutions to imperfect mazes.
 This algorithm only removes non-solution tiles, another algorithm is needed to build the solution.
 
 ###### Notes
 
 This is a simple Maze solving algorithm.
-It focuses on the Maze, is always very fast, and uses no extra
-memory.
+It focuses on the Maze, is always very fast, and uses no extra memory.
 
-This will always find the one unique solution for perfect Mazes,
-but won't do much in heavily braid Mazes, and in fact won't do
-anything useful at all for those Mazes without dead ends.
+This will always find the one unique solution for perfect Mazes, but won't do much in heavily braid Mazes, and in fact won't do anything useful at all for those Mazes without dead ends.
 
 ## Djikstra's
 ## Pledge Algorithm
@@ -72,11 +70,13 @@ A mouse just wanders randomly around the maze until it finds the cheese.
 
 ###### Results
 
-1 solution. Solution will probably not be the shortest. Works against imperfect mazes.
+Yields one solution. The solution will probably not be the shortest. Works against imperfect mazes.
 
 ###### Notes
 
 Random mouse may never finish. Technically. It is certainly inefficient in time, but very efficient in memory.
+
+I added a pruner to the end of this algorithm, to get rid of all unnecessary branches, and backtracks, in the solution.
 
 ## Recursive Backtracker
 
@@ -87,7 +87,7 @@ Random mouse may never finish. Technically. It is certainly inefficient in time,
 
 ###### Results
 
-1 solution. No gaurantee it will be the shortest. Works against imperfect mazes.
+Yields one solution. No gaurantee it will be the shortest. Works against imperfect mazes.
 
 ###### Notes
 
