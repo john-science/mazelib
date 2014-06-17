@@ -92,7 +92,7 @@ class Maze(object):
 
         return (first, second)
 
-    def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0):
+    def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0, reducer=len):
         """Use the Monte Carlo method to generate a maze of defined difficulty.
 
         This method assumes the generator and solver algorithms are already set.
@@ -102,7 +102,8 @@ class Maze(object):
         3. To elliminate boring entrance choices, select only the entrances
             that yield the longest solution to a given maze.
         4. Repeat steps 1 through 3 for several mazes.
-        5. Order the mazes based on the length of their maximal solutions.
+        5. Order the mazes based on a reduction function applied to their maximal
+            solutions. By default, this reducer will return the solution length.
         6. Based on the 'difficulty' parameter, select one of the mazes.
         """
         if difficulty < 0.0 or difficulty > 1.0:
@@ -128,7 +129,7 @@ class Maze(object):
             mazes.append(max(this_maze, key=lambda k: len(k['solutions'])))
 
         # sort the mazes by the length of their solution
-        mazes = sorted(mazes, key=lambda k: len(k['solutions'][0]))
+        mazes = sorted(mazes, key=lambda k: reducer(k['solutions'][0]))
 
         # based on optional parameter, choose the maze of the currect difficulty
         posi = int((len(mazes) - 1) * difficulty)
