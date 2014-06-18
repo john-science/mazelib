@@ -14,7 +14,7 @@ class Maze(object):
         self.solutions = None
 
     def generate(self):
-        if self.generator == None:
+        if self.generator is None:
             raise UnboundLocalError('No maze-generation algorithm has been set.')
         else:
             self.grid = self.generator.generate()
@@ -31,9 +31,9 @@ class Maze(object):
         elif not start_outer and not end_outer:
             self._generate_inner_entrances()
         elif start_outer:
-            self.start,self.end = self._generate_opposite_entrances()
+            self.start, self.end = self._generate_opposite_entrances()
         else:
-            self.end,self.start = self._generate_opposite_entrances()
+            self.end, self.start = self._generate_opposite_entrances()
 
     def _generate_outer_entrances(self):
         """Generate maze entrances, along the outer walls."""
@@ -44,16 +44,16 @@ class Maze(object):
 
         # maze entrances will be on opposite sides of the maze.
         if start_side == 0:
-            self.start = (0, randrange(1, W, 2)) # North
+            self.start = (0, randrange(1, W, 2))  # North
             self.end = (H - 1, randrange(1, W, 2))
         elif start_side == 1:
-            self.start = (H - 1, randrange(1, W, 2)) # South
+            self.start = (H - 1, randrange(1, W, 2))  # South
             self.end = (0, randrange(1, W, 2))
         elif start_side == 2:
-            self.start = (randrange(1, H, 2), 0) # West
+            self.start = (randrange(1, H, 2), 0)  # West
             self.end = (randrange(1, H, 2), W - 1)
         else:
-            self.start = (randrange(1, H, 2), W - 1) # East
+            self.start = (randrange(1, H, 2), W - 1)  # East
             self.end = (randrange(1, H, 2), 0)
 
     def _generate_inner_entrances(self):
@@ -79,15 +79,15 @@ class Maze(object):
 
         # pick a side for the outer maze entrance
         if start_side == 0:
-            first = (0, randrange(1, W, 2)) # North
+            first = (0, randrange(1, W, 2))  # North
         elif start_side == 1:
-            first = (H - 1, randrange(1, W, 2)) # South
+            first = (H - 1, randrange(1, W, 2))  # South
         elif start_side == 2:
-            first = (randrange(1, H, 2), 0) # West
+            first = (randrange(1, H, 2), 0)  # West
         else:
-            first = (randrange(1, H, 2), W - 1) # East
+            first = (randrange(1, H, 2), W - 1)  # East
 
-        # create an innner maze entrance
+        # create an inner maze entrance
         second = (randrange(1, H, 2), randrange(1, W, 2))
 
         return (first, second)
@@ -99,7 +99,7 @@ class Maze(object):
 
         1. Generate a maze.
         2. For each maze, generate a series of entrances.
-        3. To elliminate boring entrance choices, select only the entrances
+        3. To eliminate boring entrance choices, select only the entrances
             that yield the longest solution to a given maze.
         4. Repeat steps 1 through 3 for several mazes.
         5. Order the mazes based on a reduction function applied to their maximal
@@ -131,7 +131,7 @@ class Maze(object):
         # sort the mazes by the length of their solution
         mazes = sorted(mazes, key=lambda k: reducer(k['solutions'][0]))
 
-        # based on optional parameter, choose the maze of the currect difficulty
+        # based on optional parameter, choose the maze of the correct difficulty
         posi = int((len(mazes) - 1) * difficulty)
 
         # save final results of Monte Carlo Simulations to this object
@@ -141,16 +141,16 @@ class Maze(object):
         self.solutions = mazes[posi]['solutions']
 
     def solve(self):
-        if self.generator == None:
+        if self.generator is None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
-        elif self.start == None or self.end == None:
+        elif self.start is None or self.end is None:
             raise UnboundLocalError('Start and end times must be set first.')
         else:
             self.solutions = self.solver.solve(self.grid, self.start, self.end)
 
     def tostring(self, entrances=False, solutions=False):
         """Return a string representation of the maze."""
-        if self.grid == None:
+        if self.grid is None:
             return ''
         
         # Build the walls of the grid
