@@ -223,9 +223,9 @@ class Array2D(object):
                 s += str(self._array[row * self.width + col])
                 s += ','
             s = s[:-1]
-            s += ']\n'
+            s += '],\n'
 
-        s = s[:-1]
+        s = s[:-2]
         s += ']\n'
 
         return s
