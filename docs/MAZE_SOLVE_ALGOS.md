@@ -98,9 +98,10 @@ Mathematically, there is very little difference between this algorithm and Rando
 
 ###### The Algorithm:
 
-1) create a solution for each starting position
-2) loop through each solution, and find the neighbors of the last element
-3) The first solution to reach the end wins.
+1) create a possible solution for each neighbor of the starting position
+2) find the neighbors of the last element in each solution, branches create new solutions
+3) repeat step 2 until you reach the end
+4) The first solution to reach the end wins.
 
 ###### Results
 
@@ -114,10 +115,10 @@ In CS terms, this is a Breadth-First Search algorithm that is cut short when the
 
 ###### The Algorithm
 
-1) create a solution for each starting position
-2) loop through each solution, and find the neighbors of the last element
-3) a solution reaches the end or a dead end when we mark it by appending a None.
-4) clean-up solutions
+1) create a possible solution for each neighbor of the starting position
+2) find the neighbors of the last element in each solution, branches create new solutions
+3) repeat step 2 until you al solutions hit dead ends or reach the end
+4) remove all dead end solutions
 
 ###### Results
 
@@ -142,8 +143,7 @@ The details:
 1. Choose a random starting direction.
 2. At each intersection, take the rightmost turn. At dead-ends, turn around.
 3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
-4. Terminate when you reach the end cell.
-5. Prune the extraneous branches from the solution before returning it.
+4. Prune the extraneous branches from the solution before returning it.
 
 ###### Optional Parameters
 
@@ -154,7 +154,7 @@ The details:
 
 1 solution only, not the shortest solution
 
-This algorithm does not solve mazes that are not perfect.
+This algorithm does not solve imperfect mazes.
 
 ###### Notes
 
