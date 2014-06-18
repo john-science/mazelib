@@ -3,6 +3,7 @@ from array import array
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.BlindAlley import BlindAlley
+from mazelib.solve.Collision import Collision
 from mazelib.solve.CuldeSacFiller import CuldeSacFiller
 from mazelib.solve.DeadEndFiller import DeadEndFiller
 from mazelib.solve.RandomMouse import RandomMouse
@@ -161,6 +162,22 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self._create_maze_with_varied_entrances(s, e)
                 m.solver = BlindAlley()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testCollision(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = Collision()
                 m.solve()
 
                 for sol in m.solutions:

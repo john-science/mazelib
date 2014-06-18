@@ -26,7 +26,7 @@ class MazeTest(unittest.TestCase):
     
         num = 0
     
-        for i in xrange(len(path)):
+        for i in xrange(1, len(path)-1):
             same_col = path[i-1][0] == path[i][0] == path[i+1][0]
             same_row = path[i-1][1] == path[i][1] == path[i+1][1]
             if not same_row and not same_col:
@@ -113,7 +113,7 @@ class MazeTest(unittest.TestCase):
         m = Maze()
         m.generator = Prims(h, w)
         m.solver = WallFollower()
-        m.generate_monte_carlo(3, reducer=_num_turns)
+        m.generate_monte_carlo(3, reducer=self._num_turns)
 
         # grid size
         self.assertEqual(m.grid.height, H)
