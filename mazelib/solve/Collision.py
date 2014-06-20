@@ -13,7 +13,7 @@ class Collision(MazeSolveAlgo):
         # deal with the case where the start is on the edge
         start = self.start
         if self._on_edge(self.start):
-            start = self._push_edge_start(self.start)
+            start = self._push_edge(self.start)
 
         # flood the maze twice, and compare the results
         paths = self._flood_maze(start)
@@ -105,71 +105,3 @@ class Collision(MazeSolveAlgo):
                     paths[j][-1] = None
 
         return paths
-
-    def _within_one(self, cell, desire):
-        """Is the current cell within one move of the desired cell?
-        Note, this might be one full more, or one half move.
-        """
-        if not cell or not desire:
-            return False
-
-        rdiff = abs(cell[0] - desire[0])
-        cdiff = abs(cell[1] - desire[1])
-
-        if rdiff == 0 and cdiff < 2:
-            return True
-        elif cdiff == 0 and rdiff < 2:
-            return True
-
-        return False
-
-    def _on_edge(self, cell):
-        """Does the cell lay on the edge, rather inside of the maze grid?"""
-        r,c = cell
-
-        if r == 0 or r == self.grid.height - 1:
-            return True
-        if c == 0 or c == self.grid.width - 1:
-            return True
-
-        return False
-
-    def _push_edge_start(self, start):
-        """If you start on the edge of the maze,
-        you need to push in one cell.
-        This method assumes you start on the edge.
-        """
-        row,col = start
-
-        if row == 0:
-            return (1, col)
-        elif row == (self.grid.height - 1):
-            return (row - 1, col)
-        elif col == 0:
-            return (row, 1)
-        else:
-            return (row, col - 1)
-
-    def _find_unblocked_neighbors(self, posi):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
-        """
-        (row, col) = posi
-        ns = []
-
-        if row > 1 and self.grid[row-1, col] == False and self.grid[row-2, col] == False:
-            ns.append((row-2, col))
-        if row < self.grid.height-2 and self.grid[row+1, col] == False and self.grid[row+2, col] == False:
-            ns.append((row+2, col))
-        if col > 1 and self.grid[row, col-1] == False and self.grid[row, col-2] == False:
-            ns.append((row, col-2))
-        if col < self.grid.width-2 and self.grid[row, col+1] == False and self.grid[row, col+2] == False:
-            ns.append((row, col+2))
-
-        shuffle(ns)
-
-        return ns
-
-    def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
-        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
