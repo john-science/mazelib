@@ -82,6 +82,12 @@ class MazeSolveAlgo(object):
         """Find the wall cell between to passage cells"""
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
+    def _move(self, start, direction):
+        """Convolve a position tuple with a direction tuple to
+        generate a new position.
+        """
+        return tuple(map(sum, zip(start, direction)))
+
     def _on_edge(self, cell):
         """Does the cell lay on the edge, rather inside of the maze grid?"""
         r, c = cell
