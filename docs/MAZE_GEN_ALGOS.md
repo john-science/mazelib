@@ -76,7 +76,7 @@ perfect, unbiased
 
 ###### Notes
 
-Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And even though the result is a "perfect" maze, but not always the hardest maze.
+Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And even though the result is a "perfect" maze, it is frequently very easy to solve.
 
 More research is needed to create a post-processing step to remove the typical Cellular Automaton defects.
 
@@ -107,7 +107,7 @@ Theseus traversed a maze to find a minotaur in the center. Similar things happen
 
 ###### The Algorithm
 
-1. Put the cells of the first row each in their own set.
+1. Put the each cell of the first row in its own set.
 2. Join adjacent cells. But not if they are already in the same set. Merge the sets of these cells.
 3. For each set in the row, create at least one vertical connection down to the next row.
 4. Put any unconnected cells in the next row into their own set.
@@ -128,6 +128,33 @@ perfect, unbiased
 ###### Notes
 
 This is a classic set-theory algorithm. It is not the fastest algorithm, as it requires relabeling whole sets of cells at every step.
+
+## First-Order Perturbation
+
+###### The Algorithm
+
+1. Start with a complete, valid maze.
+2. Add a small number of random walls, blocking current passages.
+3. Go through the maze and reconnect all passages that are not currently open, by randomly opening walls.
+4. Repeat steps 3 and 4 a prescribed number of times.
+
+###### Optional Parameters
+
+* *new_walls*: Integer [1, ...)
+ * The number of randomly positioned new walls you create throughout the maze. (default 1)
+* *repeat*: Integer [1, ...)
+ * The number of times sets of new walls will be added to the maze; the maze being fixed after each set. (default 1)
+
+###### Results
+
+unbiased
+perfect if-and-only-if the input maze was perfect
+
+###### Notes
+
+In math and physics, perturbation theory is the idea of apply small changes to the mathematical solutions to complex problems. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solving the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
+
+With great power comes great responsibility. If you use this method on a grid that does not contain a maze, it will fail. If you run too many iterations of this algorithm, your end maze will look nothing like the original. But if used wisely, this is an extremely powerful tool.
 
 ## Growing Tree
 

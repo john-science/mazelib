@@ -7,30 +7,30 @@ from mazelib.utils.MazeArray import MazeArray
 
 class ArrayTest(unittest.TestCase):
 
-    def testDefault(self):
+    def test_default(self):
         a = Array2D('b', (5, 5), True)
         self.assertTrue(a[0, 0])
         self.assertTrue(a[1, 1])
 
-    def testSize(self):
+    def test_size(self):
         a = Array2D('b', (5, 5), True)
         self.assertEqual(a.height, 5)
         self.assertEqual(a.width, 5)
         self.assertEqual(len(a), 25)
 
-    def testGetAndSetElement(self):
+    def test_get_and_set_element(self):
         a = Array2D('b', (5, 5), True)
         self.assertTrue(a[1,2])
         a[1,2] = 0
         self.assertFalse(a[1,2])
 
-    def testGetAndSetTuple(self):
+    def test_get_and_set_tuple(self):
         a = Array2D('b', (5, 5), True)
         self.assertTrue(a[(1,2)])
         a[(1,2)] = 0
         self.assertFalse(a[(1,2)])
 
-    def testGetAndSetRow(self):
+    def test_get_and_set_row(self):
         # create 2d array, defaulted to all True
         dim = 5
         a = Array2D('b', (dim, dim), True)
@@ -44,7 +44,7 @@ class ArrayTest(unittest.TestCase):
         for col in a[0]:
             self.assertFalse(col)
 
-    def testGetSlice(self):
+    def test_get_slice(self):
         # create 2d array, defaulted to all True
         dim = 5
         a = Array2D('b', (dim, dim), True)
@@ -56,18 +56,18 @@ class ArrayTest(unittest.TestCase):
             for col in row:
                 self.assertTrue(col)
 
-    def testMazeArrayDefault(self):
+    def test_maze_array_default(self):
         m = MazeArray(5, 5)
         self.assertTrue(m[0, 0])
         self.assertTrue(m[1, 1])
 
-    def testMazeArraySize(self):
+    def test_maze_array_size(self):
         m = MazeArray(5, 5)
         self.assertEqual(m.height, 5)
         self.assertEqual(m.width, 5)
         self.assertEqual(len(m), 25)
 
-    def testMazeArrayGetAndSetElement(self):
+    def test_maze_array_get_and_set_element(self):
         m = MazeArray(5, 5)
         self.assertTrue(m[1,2])
         m[1,2] = 0

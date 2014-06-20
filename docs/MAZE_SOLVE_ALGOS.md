@@ -13,7 +13,7 @@
 
 ###### Results
 
-Removes all cul-de-sacs and dead ends. Does not solve the maze by itself.
+* maze-reduction algorithm only, will not solve maze alone
 
 ###### Notes
 
@@ -34,7 +34,7 @@ This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Fill
 
 ###### Results
 
-Removes all cul-de-sacs from a maze. Does not solve a maze by itself.
+* maze-reduction algorithm only, will not solve maze alone
 
 ###### Notes
 
@@ -50,8 +50,7 @@ This is a classic maze-solving algorithm.  However, it seems to add a lot of com
 
 ###### Results
 
-Finds ALL unique solutions to imperfect mazes.
-This algorithm only removes non-solution tiles, another algorithm is needed to build the solution.
+* maze-reduction algorithm only, will not solve maze alone
 
 ###### Notes
 
@@ -70,7 +69,9 @@ A mouse just wanders randomly around the maze until it finds the cheese.
 
 ###### Results
 
-Yields one solution. The solution will probably not be the shortest. Works against imperfect mazes.
+* 1 solution
+* not the shortest solution
+* works against imperfect mazes
 
 ###### Notes
 
@@ -87,24 +88,28 @@ I added a pruner to the end of this algorithm, to get rid of all unnecessary bra
 
 ###### Results
 
-Yields one solution. No gaurantee it will be the shortest. Works against imperfect mazes.
+* 1 solution
+* not the shortest solution
+* works against imperfect mazes
 
 ###### Notes
 
 Mathematically, there is very little difference between this algorithm and Random Mouse. The only difference is that at each point, Random Mouse might go right back where it came from. But Backtracker will only do that if it reaches a dead end.
 
-
 ## Shortest Path Finder
 
 ###### The Algorithm:
 
-1) create a solution for each starting position
-2) loop through each solution, and find the neighbors of the last element
-3) The first solution to reach the end wins.
+1) create a possible solution for each neighbor of the starting position
+2) find the neighbors of the last element in each solution, branches create new solutions
+3) repeat step 2 until you reach the end
+4) The first solution to reach the end wins.
 
 ###### Results
 
-The shortest unique solutions. Works against imperfect mazes.
+* finds all solutions
+* finds shortest solution(s)
+* works against imperfect mazes
 
 ###### Notes
 
@@ -114,14 +119,15 @@ In CS terms, this is a Breadth-First Search algorithm that is cut short when the
 
 ###### The Algorithm
 
-1) create a solution for each starting position
-2) loop through each solution, and find the neighbors of the last element
-3) a solution reaches the end or a dead end when we mark it by appending a None.
-4) clean-up solutions
+1) create a possible solution for each neighbor of the starting position
+2) find the neighbors of the last element in each solution, branches create new solutions
+3) repeat step 2 until you al solutions hit dead ends or reach the end
+4) remove all dead end solutions
 
 ###### Results
 
-Find all unique solutions. Works against imperfect mazes.
+* finds all solutions
+* works against imperfect mazes
 
 ###### Notes
 
@@ -142,8 +148,7 @@ The details:
 1. Choose a random starting direction.
 2. At each intersection, take the rightmost turn. At dead-ends, turn around.
 3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
-4. Terminate when you reach the end cell.
-5. Prune the extraneous branches from the solution before returning it.
+4. Prune the extraneous branches from the solution before returning it.
 
 ###### Optional Parameters
 
@@ -152,23 +157,21 @@ The details:
 
 ###### Results
 
-1 solution only, not the shortest solution
-
-This algorithm does not solve mazes that are not perfect.
+* 1 solution
+* not the shortest solution
+* does not solve imperfect mazes
 
 ###### Notes
 
-To the human brain, this is the easiest possible way to solve a maze. Drunk college kids use this algorithm to solve corn mazes every year. But if we go purely by the number of lines of code, this is one of the hardest maze-solving algorithms to implement on a computer. Neat.
+To the human brain, this is the easiest way to solve a maze. Drunk college kids use this algorithm every year to solve corn mazes. But if we go by the number of lines of code, this is one of the hardest maze-solving algorithms to implement on a computer. Which is really interesting.
 
 
 ## Vocabulary
 
-1. __biased__ - a maze is biased if there are long runs and corridors more in the North/South or East/West directions.
-2. __cell__ - an open passage in the maze
-3. __grid__ - the grid is the combination of all passages and barriers in the maze
-4. __perfect__ - a maze is perfect if it has one and only one solution
-5. __sparse__ - a sparse maze has walls or passages thicker than the usual single unit width
-6. __wall__ - an impassable barrier in the maze
+1. __cell__ - an open passage in the maze
+2. __grid__ - the grid is the combination of all passages and barriers in the maze
+3. __perfect__ - a maze is perfect if it has one and only one solution
+4. __wall__ - an impassable barrier in the maze
 
 
 #####Go back to the main [README](../README.md)

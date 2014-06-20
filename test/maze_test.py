@@ -10,7 +10,7 @@ class MazeTest(unittest.TestCase):
     def _on_edge(self, grid, cell):
         """test helper method to determine if a point
         is on the edge of a maze"""
-        r,c = cell
+        r, c = cell
         
         if r == 0 or r == (grid.height - 1):
             return True
@@ -30,7 +30,7 @@ class MazeTest(unittest.TestCase):
             same_col = path[i-1][0] == path[i][0] == path[i+1][0]
             same_row = path[i-1][1] == path[i][1] == path[i+1][1]
             if not same_row and not same_col:
-                num +=1
+                num += 1
     
         return num
 
@@ -81,9 +81,9 @@ class MazeTest(unittest.TestCase):
         m.generate_entrances()
         m.generate()
 
-        self.assertTrue(m.start == None)
-        self.assertTrue(m.end == None)
-        self.assertTrue(m.solutions == None)
+        self.assertTrue(m.start is None)
+        self.assertTrue(m.end is None)
+        self.assertTrue(m.solutions is None)
 
     def testMonteCarlo(self):
         h = 4
