@@ -57,17 +57,17 @@ class RandomMouse(MazeSolveAlgo):
         """Find all the grid neighbors of the current position;
         visited, or not.
         """
-        (row, col) = posi
+        (r, c) = posi
         ns = []
 
-        if row > 1 and self.grid[row-1, col] == False and self.grid[row-2, col] == False:
-            ns.append((row-2, col))
-        if row < self.grid.height-2 and self.grid[row+1, col] == False and self.grid[row+2, col] == False:
-            ns.append((row+2, col))
-        if col > 1 and self.grid[row, col-1] == False and self.grid[row, col-2] == False:
-            ns.append((row, col-2))
-        if col < self.grid.width-2 and self.grid[row, col+1] == False and self.grid[row, col+2] == False:
-            ns.append((row, col+2))
+        if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
+            ns.append((r-2, c))
+        if r < self.grid.height-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
+            ns.append((r+2, c))
+        if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
+            ns.append((r, c-2))
+        if c < self.grid.width-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
+            ns.append((r, c+2))
 
         shuffle(ns)
 

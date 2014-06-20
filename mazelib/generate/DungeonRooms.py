@@ -60,6 +60,9 @@ class DungeonRooms(MazeGenAlgo):
             current = self._hunt(num_trials)
             num_trials += 1
 
+        # fix any unconnected wall sections
+        self._reconnect_maze()
+
         return self.grid
 
     def _carve_rooms(self, rooms):
@@ -168,3 +171,95 @@ class DungeonRooms(MazeGenAlgo):
             raise UnboundError('The grid input to DungeonRooms was invalid.')
 
         return current
+
+    def _reconnect_maze(self):
+        """If a maze is not fully connected, open up walls until it is."""
+        passages = self._find_all_passages()
+        self._fix_disjoint_passages(passages)
+
+    def _find_all_passages(self):
+        """Place all connected passage cells into a set.
+        Disjoint passages will be in different sets.
+        """
+        passages = []
+
+        # go through all cells in the maze
+        for r in xrange(1, self.grid.height, 2):
+            for c in xrange(1, self.grid.width, 2):
+                ns = self._find_unblocked_neighbors((r, c))
+                current = set(ns + [(r, c)])
+
+                # determine which passage(s) the current neighbors belong in
+                found = False
+                for i, passage in enumerate(passages):
+                    intersect = current.intersection(passage)
+                    if len(intersect) > 0:
+                        passages[i] = passages[i].union(current)
+                        found = True
+                        break
+
+                # the current neighbors might be a disjoint set
+                if not found:
+                    passages.append(current)
+
+        return self._join_intersecting_sets(passages)
+
+    def _fix_disjoint_passages(self, disjoint_passages):
+        """All passages in a maze should be connected"""
+        while len(disjoint_passages) > 1:
+            found = False
+            while not found:
+                # randomly select a cell in the first passage
+                cell = choice(list(disjoint_passages[0]))
+                neighbors = self.find_neighbors(cell, self.grid)
+                # determine if that cell has a neighbor in any other passage
+                for passage in disjoint_passages[1:]:
+                    intersect = [c for c in neighbors if c in passage]
+                    # if so, remove the dividing wall, combine the two passages
+                    if len(intersect) > 0:
+                        mid = self._midpoint(intersect[0], cell)
+                        self.grid[mid] = 0
+                        disjoint_passages[0] = disjoint_passages[0].union(passage)
+                        disjoint_passages.remove(passage)
+                        found = True
+                        break
+
+    def _join_intersecting_sets(self, list_of_sets):
+        """combine sets that have non-zero intersections"""
+        for i in xrange(len(list_of_sets) - 1):
+            if list_of_sets[i] is None:
+                continue
+
+            for j in xrange(i + 1, len(list_of_sets)):
+                if list_of_sets[j] is None:
+                    continue
+                intersect = list_of_sets[i].intersection(list_of_sets[j])
+                if len(intersect) > 0:
+                    list_of_sets[i] = list_of_sets[i].union(list_of_sets[j])
+                    list_of_sets[j] = None
+
+        return filter(lambda l: l is not None, list_of_sets)
+
+    def _find_unblocked_neighbors(self, posi):
+        """Find all the grid neighbors of the current position;
+        visited, or not.
+        """
+        r, c = posi
+        ns = []
+
+        if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
+            ns.append((r-2, c))
+        if r < self.grid.height-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
+            ns.append((r+2, c))
+        if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
+            ns.append((r, c-2))
+        if c < self.grid.width-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
+            ns.append((r, c+2))
+
+        shuffle(ns)
+
+        return ns
+
+    def _midpoint(self, a, b):
+        """Find the wall cell between to passage cells"""
+        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
