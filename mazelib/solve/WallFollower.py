@@ -34,8 +34,8 @@ class WallFollower(MazeSolveAlgo):
         current = self.start
 
         # a first move has to be made
-        if self._start_on_edge(self.start):
-            current = self._push_edge_start(self.start)
+        if self._on_edge(self.start):
+            current = self._push_edge(self.start)
             solution.append(current)
 
         # pick a random direction and move
@@ -128,42 +128,25 @@ class WallFollower(MazeSolveAlgo):
 
         return solution
 
-    def _start_on_edge(self, start):
-        """Does the starting cell lay on the edge, rather than the
-        inside of the maze grid?
-        """
-        row,col = start
-        
-        if row == 0 or row == self.grid.height - 1:
-            return True
-        if col == 0 or col == self.grid.width - 1:
-            return True
-
-        return False
-
-    def _push_edge_start(self, start):
+    def _push_edge(self, cell):
         """If you start on the edge of the maze,
         you need to push in one cell.
         
         This method assumes you start on the edge.
         """
-        row,col = start
+        r, c = cell
         
-        if row == 0:
-            return (1, col)
-        elif row == (self.grid.height - 1):
-            return (row - 1, col)
-        elif col == 0:
-            return (row, 1)
+        if r == 0:
+            return (1, c)
+        elif r == (self.grid.height - 1):
+            return (r - 1, c)
+        elif c == 0:
+            return (r, 1)
         else:
-            return (row, col - 1)
+            return (r, c - 1)
 
     def _move(self, start, direction):
         """Convolve a position tuple with a direction tuple to
         generate a new position.
         """
         return tuple(map(sum, zip(start, direction)))
-
-    def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
-        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
