@@ -87,9 +87,3 @@ class RandomMouse(MazeSolveAlgo):
             solution = solution[i+1:]
 
         return solution
-
-    def _move(self, start, direction):
-        """Convolve a position tuple with a direction tuple to
-        generate a new position.
-        """
-        return tuple(map(sum, zip(start, direction)))
