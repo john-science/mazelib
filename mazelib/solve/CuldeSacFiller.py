@@ -145,19 +145,6 @@ class CuldeSacFiller(MazeSolveAlgo):
 
         return new_walls
 
-    def _on_edge(self, cell):
-        """Determine is a cell is on the border of the maze"""
-        r,c = cell
-
-        if r == 0 or c == 0:
-            return True
-        elif r == (self.grid.height - 1):
-            return True
-        elif c == (self.grid.width - 1):
-            return True
-        else:
-            return False
-
     def _find_wall_systems(self):
         """A wall system is any continiously-adjacent set of walls."""
         walls = []
@@ -196,27 +183,3 @@ class CuldeSacFiller(MazeSolveAlgo):
                 return True
 
         return False
-
-    def _find_unblocked_neighbors(self, cell):
-        """Find all the grid neighbors of the current position,
-        visited or not, that are not block by walls.
-        """
-        r,c = cell
-        ns = []
-
-        if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
-            ns.append((r-2, c))
-        if r < self.grid.height-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
-            ns.append((r+2, c))
-        if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
-            ns.append((r, c-2))
-        if c < self.grid.width-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
-            ns.append((r, c+2))
-
-        shuffle(ns)
-
-        return ns
-
-    def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
-        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
