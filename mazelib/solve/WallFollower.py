@@ -127,26 +127,3 @@ class WallFollower(MazeSolveAlgo):
             solution = solution[:-1]
 
         return solution
-
-    def _push_edge(self, cell):
-        """If you start on the edge of the maze,
-        you need to push in one cell.
-        
-        This method assumes you start on the edge.
-        """
-        r, c = cell
-        
-        if r == 0:
-            return (1, c)
-        elif r == (self.grid.height - 1):
-            return (r - 1, c)
-        elif c == 0:
-            return (r, 1)
-        else:
-            return (r, c - 1)
-
-    def _move(self, start, direction):
-        """Convolve a position tuple with a direction tuple to
-        generate a new position.
-        """
-        return tuple(map(sum, zip(start, direction)))
