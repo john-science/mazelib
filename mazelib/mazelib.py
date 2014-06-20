@@ -35,6 +35,10 @@ class Maze(object):
         else:
             self.end, self.start = self._generate_opposite_entrances()
 
+        # verify that the start and end aren't right next to each other
+        if abs(self.start[0] - self.end[0]) + abs(self.start[1] - self.end[1]) < 2:
+            self.generate_entrances(start_outer, end_outer)
+
     def _generate_outer_entrances(self):
         """Generate maze entrances, along the outer walls."""
         H = self.grid.height
