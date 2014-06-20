@@ -32,6 +32,11 @@ class MazeSolveAlgo(object):
     @abc.abstractmethod
     def _solve(self):
         return
+    
+    """
+    All of the methods below this are helper methods,
+    common to many maze-solving algorithms.
+    """
 
     def _find_neighbors(self, posi, is_wall=False):
         """Find all the grid neighbors of the current position;
@@ -86,4 +91,34 @@ class MazeSolveAlgo(object):
         if c == 0 or c == self.grid.width - 1:
             return True
 
+        return False
+
+    def _push_edge(self, cell):
+        """You may need to find the cell directly inside of a start or end cell."""
+        r, c = start
+        
+        if r == 0:
+            return (1, c)
+        elif r == (self.grid.height - 1):
+            return (r - 1, c)
+        elif c == 0:
+            return (r, 1)
+        else:
+            return (r, c - 1)
+
+    def _within_one(self, cell, desire):
+        """Is the current cell within one move of the desired cell?
+        Note, this might be one full more, or one half move.
+        """
+        if not cell or not desire:
+            return False
+
+        rdiff = abs(cell[0] - desire[0])
+        cdiff = abs(cell[1] - desire[1])
+        
+        if rdiff == 0 and cdiff < 2:
+            return True
+        elif cdiff == 0 and rdiff < 2:
+            return True
+        
         return False
