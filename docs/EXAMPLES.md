@@ -44,10 +44,30 @@ And here we create a 4x4 maze with one rectangular 2x2 room, open between the co
 
 #### Generating Attractive Mazes
 
-Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. Luckily, mazelib gives you the flexibility to hand-craft a more beautiful maze.
+Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. The First-Order Perturbation algorithm will allow you to do all of these things.
 
-DOCUMENTION INCOMING
+Let us look at an example where we start with a simple spiral maze (which is trivial to solve):
 
+    g = MazeArray(11, 11)
+    g[1] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
+    g[2] = array('b', [1,1,1,1,1,1,1,1,1,0,1])
+    g[3] = array('b', [1,0,0,0,0,0,0,0,1,0,1])
+    g[4] = array('b', [1,0,1,1,1,1,1,0,1,0,1])
+    g[5] = array('b', [1,0,1,0,0,0,1,0,1,0,1])
+    g[6] = array('b', [1,0,1,0,1,1,1,0,1,0,1])
+    g[7] = array('b', [1,0,1,0,0,0,0,0,1,0,1])
+    g[8] = array('b', [1,0,1,1,1,1,1,1,1,0,1])
+    g[9] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
+
+    m = Maze()
+    m.generator = FirstOrderPerturbation(grid=g, repeat=1, new_walls=3)
+    m.generate()
+    m.start = (1, 0)
+    m.end = (5, 5)
+
+The end result is a maze that is *almost* a spiral, but enough different to still make a decent maze.
+
+EXAMPLE IMAGE INCOMING
 
 ## Displaying a Maze
 
