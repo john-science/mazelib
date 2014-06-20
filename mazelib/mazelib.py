@@ -24,7 +24,7 @@ class Maze(object):
 
     def generate_entrances(self, start_outer=True, end_outer=True):
         """ Generate maze entrances.
-        By default, the entrances will be on opposite outer walls.
+        Entrances can be on the walls, or inside the maze.
         """
         if start_outer and end_outer:
             self._generate_outer_entrances()
@@ -35,7 +35,7 @@ class Maze(object):
         else:
             self.end, self.start = self._generate_opposite_entrances()
 
-        # verify that the start and end aren't right next to each other
+        # the start and end shouldn't be right next to each other
         if abs(self.start[0] - self.end[0]) + abs(self.start[1] - self.end[1]) < 2:
             self.generate_entrances(start_outer, end_outer)
 
