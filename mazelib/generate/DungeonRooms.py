@@ -116,14 +116,14 @@ class DungeonRooms(MazeGenAlgo):
         """
         if self.grid[start] == 0:
             current = start
-            unvisited_neighbors = self.find_neighbors(current, self.grid, True)
+            unvisited_neighbors = self._find_neighbors(current, self.grid, True)
 
             while len(unvisited_neighbors) > 0:
                 neighbor = choice(unvisited_neighbors)
                 self.grid[neighbor] = 0
                 self.grid[(neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2] = 0
                 current = neighbor
-                unvisited_neighbors = self.find_neighbors(current, self.grid, True)
+                unvisited_neighbors = self._find_neighbors(current, self.grid, True)
 
     def _hunt(self, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
@@ -148,7 +148,7 @@ class DungeonRooms(MazeGenAlgo):
                 if cell[0] > (self.H - 2):
                     return (-1, -1)
 
-            if self.grid[cell] == 0 and len(self.find_neighbors(cell, self.grid, True)) > 0:
+            if self.grid[cell] == 0 and len(self._find_neighbors(cell, self.grid, True)) > 0:
                 found = True
 
         return cell
@@ -211,7 +211,7 @@ class DungeonRooms(MazeGenAlgo):
             while not found:
                 # randomly select a cell in the first passage
                 cell = choice(list(disjoint_passages[0]))
-                neighbors = self.find_neighbors(cell, self.grid)
+                neighbors = self._find_neighbors(cell, self.grid)
                 # determine if that cell has a neighbor in any other passage
                 for passage in disjoint_passages[1:]:
                     intersect = [c for c in neighbors if c in passage]

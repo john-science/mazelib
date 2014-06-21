@@ -18,22 +18,27 @@ class MazeGenAlgo(object):
     @abc.abstractmethod
     def generate(self):
         return
+    
+    """
+    All of the methods below this are helper methods,
+    common to many maze-generating algorithms.
+    """
 
-    def find_neighbors(self, posi, grid, is_wall=False):
+    def _find_neighbors(self, posi, grid, is_wall=False):
         """Find all the grid neighbors of the current position;
         visited, or not.
         """
-        (row, col) = posi
+        r, c = posi
         ns = []
 
-        if row > 1 and grid[row-2, col] == is_wall:
-            ns.append((row-2, col))
-        if row < self.H-2 and grid[row+2, col] == is_wall:
-            ns.append((row+2, col))
-        if col > 1 and grid[row, col-2] == is_wall:
-            ns.append((row, col-2))
-        if col < self.W-2 and grid[row, col+2] == is_wall:
-            ns.append((row, col+2))
+        if r > 1 and grid[r-2, c] == is_wall:
+            ns.append((r-2, c))
+        if r < self.H-2 and grid[r+2, c] == is_wall:
+            ns.append((r+2, c))
+        if c > 1 and grid[r, c-2] == is_wall:
+            ns.append((r, c-2))
+        if c < self.W-2 and grid[r, c+2] == is_wall:
+            ns.append((r, c+2))
 
         shuffle(ns)
 

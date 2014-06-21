@@ -16,7 +16,7 @@ class Prims(MazeGenAlgo):
         grid[current] = 0
 
         # created a weighted list of all vertices connected in the graph
-        neighbors = self.find_neighbors(current, grid, True)
+        neighbors = self._find_neighbors(current, grid, True)
 
         # loop over all current neighbors, until empty
         visited = 1
@@ -29,11 +29,11 @@ class Prims(MazeGenAlgo):
             grid[current] = 0
             neighbors = neighbors[:nn] + neighbors[nn + 1:]
             # connect that neighbor to a random neighbor with grid[posi] == 0
-            nearest_n = self.find_neighbors(current, grid)[0]
+            nearest_n = self._find_neighbors(current, grid)[0]
             grid[(current[0] + nearest_n[0]) // 2, (current[1] + nearest_n[1]) // 2] = 0
 
             # find all unvisited neighbors of current, add them to neighbors
-            unvisited = self.find_neighbors(current, grid, True)
+            unvisited = self._find_neighbors(current, grid, True)
             for unv in unvisited:
                 if unv not in neighbors:
                     neighbors.append(unv)

@@ -23,12 +23,12 @@ class AldousBroder(MazeGenAlgo):
 
         while num_visited < self.h * self.w:
             # find neighbors
-            neighbors = self.find_neighbors(current, grid, True)
+            neighbors = self._find_neighbors(current, grid, True)
 
             # how many neighbors have already been visited?
             if len(neighbors) == 0:
                 # mark random neighbor as current
-                current = choice(self.find_neighbors(current, grid))
+                current = choice(self._find_neighbors(current, grid))
                 continue
 
             # loop through neighbors

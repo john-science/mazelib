@@ -29,7 +29,7 @@ class GrowingTree(MazeGenAlgo):
 
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0
-        active = self.find_neighbors(current, grid, True)
+        active = self._find_neighbors(current, grid, True)
         active = [current]
 
         # continue until you have no more neighbors to move to
@@ -40,7 +40,7 @@ class GrowingTree(MazeGenAlgo):
                 current = choice(active)
 
             # find a visited neighbor
-            next_neighbors = self.find_neighbors(current, grid, True)
+            next_neighbors = self._find_neighbors(current, grid, True)
             if len(next_neighbors) == 0:
                 active = [a for a in active if a != current]
                 continue
