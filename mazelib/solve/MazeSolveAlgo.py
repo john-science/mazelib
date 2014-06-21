@@ -101,7 +101,7 @@ class MazeSolveAlgo(object):
 
     def _push_edge(self, cell):
         """You may need to find the cell directly inside of a start or end cell."""
-        r, c = start
+        r, c = cell
         
         if r == 0:
             return (1, c)
@@ -119,12 +119,18 @@ class MazeSolveAlgo(object):
         if not cell or not desire:
             return False
 
-        rdiff = abs(cell[0] - desire[0])
-        cdiff = abs(cell[1] - desire[1])
-        
-        if rdiff == 0 and cdiff < 2:
-            return True
-        elif cdiff == 0 and rdiff < 2:
-            return True
+        if cell[0] == desire[0]:
+            if abs(cell[1] - desire[1]) < 2:
+                return True
+        elif cell[1] == desire[1]:
+            if abs(cell[0] - desire[0]) < 2:
+                return True
+        #rdiff = abs(cell[0] - desire[0])
+        #cdiff = abs(cell[1] - desire[1])
+        #
+        #if rdiff == 0 and cdiff < 2:
+        #    return True
+        #elif cdiff == 0 and rdiff < 2:
+        #    return True
         
         return False
