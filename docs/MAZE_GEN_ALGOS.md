@@ -97,7 +97,7 @@ This is a variation on Hunt-and-Kill where the initial maze has rooms carved out
 
 ###### Results
 
-imperfect, unbiased
+imperfect. unbiased.
 
 ###### Notes
 
@@ -123,7 +123,7 @@ Theseus traversed a maze to find a minotaur in the center. Similar things happen
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
@@ -147,8 +147,8 @@ This is a classic set-theory algorithm. It is not the fastest algorithm, as it r
 
 ###### Results
 
-unbiased
-perfect if-and-only-if the input maze was perfect
+unbiased.
+perfect if-and-only-if the input maze was perfect.
 
 ###### Notes
 
@@ -171,7 +171,7 @@ With great power comes great responsibility. If you use this method on a grid th
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
@@ -193,7 +193,7 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
@@ -211,7 +211,7 @@ In this implementation of Hunt-and-kill there are two different ways to select a
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
@@ -228,7 +228,7 @@ Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning 
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
@@ -245,7 +245,7 @@ This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a
 
 ###### Results
 
-perfect, biased
+perfect. biased.
 
 ###### Notes
 
@@ -271,7 +271,7 @@ This implementation tries, as far as is possible, to reduce these biases by alte
 
 ###### Results
 
-perfect, unbiased, flawed
+perfect. unbiased. flawed.
 
 ###### Notes
 
@@ -296,7 +296,7 @@ Research is needed to create a post-processing step to fix this flaw.
 
 ###### Results
 
-perfect, unbiased
+perfect. unbiased.
 
 ###### Notes
 
