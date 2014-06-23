@@ -11,7 +11,7 @@ class BlindAlley(MazeSolveAlgo):
     4. If so, add a wall segment to turn the cul-de-sac into a dead end.
     5. Solve using Dead End Filler.
     """
-    def __init__(self, fill_type='sealer', solver=None):
+    def __init__(self, fill_type='filler', solver=None):
         if not solver:
             self.solver = ShortestPaths()
         else:
@@ -22,7 +22,7 @@ class BlindAlley(MazeSolveAlgo):
         elif fill_type == 'sealer':
             self._remove_dead_end = self._dead_end_sealer
         else:
-            self._remove_dead_end = self._dead_end_sealer
+            self._remove_dead_end = self._dead_end_filler
 
     def _solve(self):
         self._seal_culdesacs()
@@ -196,7 +196,7 @@ class BlindAlley(MazeSolveAlgo):
             for c in xrange(1, self.grid.width, 2):
                 if self._is_dead_end((r, c)):
                     # fill-in or wall-off the dead end
-                    self._remove_dead_end(dead_end)
+                    self._remove_dead_end((r, c))
 
     def _dead_end_filler(self, dead_end):
         """Back away from the dead end until you reach an intersection.
@@ -205,14 +205,9 @@ class BlindAlley(MazeSolveAlgo):
         current = dead_end
         ns = self._find_unblocked_neighbors(current)
 
-        while len(ns) == 1:
+        if len(ns) == 1:
             self.grid[current] = 1
             self.grid[self._midpoint(ns[0], current)] = 1
-
-            last = current
-            current = ns[0]
-            ns = self._find_unblocked_neighbors(current)
-            ns.remove(last)
 
     def _dead_end_sealer(self, dead_end):
         """Back away from the dead end until you reach an intersection.
@@ -221,19 +216,19 @@ class BlindAlley(MazeSolveAlgo):
         current = dead_end
         ns = self._find_unblocked_neighbors(current)
 
-        while len(ns) == 1:
+        if len(ns) == 1:
             last = current
             current = ns[0]
-            ns = self._find_unblocked_neighbors(current)
-            ns.remove(last)
 
         self.grid[self._midpoint(last, current)] = 1
 
     def _is_dead_end(self, cell):
         """A dead end has zero or one open neighbors."""
-        ns = self._find_neighbors(cell)
+        ns = self._find_unblocked_neighbors(cell)
 
-        if self.grid[cell] == 1:
+        if self._within_one(cell, self.start) or self._within_one(cell, self.end):
+            return False
+        elif self.grid[cell] == 1:
             return False
         elif len(ns) in [0, 1]:
             return True
