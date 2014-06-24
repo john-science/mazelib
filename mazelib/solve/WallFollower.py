@@ -48,10 +48,23 @@ class WallFollower(MazeSolveAlgo):
         solution.append(self._midpoint(last, current))
         solution.append(current)
 
-        # loop until you have proven you won't solve the maze
-        limit = self.grid.height * self.grid.width
+        # now that you have set up the situation, follow the walls
+        solution = self._follow_walls(last_dir, current, solution)
+
+        # remove unnecessary branches from the solution.
+        solution = self._prune_solution(solution)
+
+        return [solution]
+
+    def _follow_walls(self, last_dir, current, solution):
+        """Perform the wall following logic.
+        Loop until you have found the end,
+        or prove you won't solve the maze.
+        """
+        limit = self.grid.height * self.grid.width + 2
+
         while len(solution) < limit:
-            last_dir,temp = self._move_to_next_cell(last_dir, current)
+            last_dir,temp = self._follow_one_step(last_dir, current)
             # the solution should not include the end point
             if temp == self.end:
                 midpoint = self._midpoint(temp, current)
@@ -60,19 +73,15 @@ class WallFollower(MazeSolveAlgo):
                 break
             solution.append(self._midpoint(temp, current))
             solution.append(temp)
-            last = current
             current = temp
 
         if len(solution) >= limit:
             raise RuntimeError('This algorithm was not able to converge on a solution.')
 
-        # remove unnecessary branches from the solution.
-        solution = self._prune_solution(solution)
+        return solution
 
-        return [solution]
-
-    def _move_to_next_cell(self, last_dir, current):
-        """ At each new cell you reach, take the rightmost turn.
+    def _follow_one_step(self, last_dir, current):
+        """At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
         if right is not available, then straight, if not straight, left, etc...
         """

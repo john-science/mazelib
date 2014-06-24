@@ -3,6 +3,7 @@ from array import array
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.BlindAlley import BlindAlley
+from mazelib.solve.Chain import Chain
 from mazelib.solve.Collision import Collision
 from mazelib.solve.CuldeSacFiller import CuldeSacFiller
 from mazelib.solve.DeadEndFiller import DeadEndFiller
@@ -73,86 +74,6 @@ class SolversTest(unittest.TestCase):
 
         return m
 
-    def testWallFollower(self):
-        """test against a maze with outer/inner entraces"""
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = WallFollower()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def testShortestPath(self):
-        """test against a maze with outer/inner entraces"""
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = ShortestPath()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def testShortestPaths(self):
-        """test against a maze with outer/inner entraces"""
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = ShortestPaths()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def testRandomMouse(self):
-        """test against a maze with outer/inner entraces"""
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = RandomMouse()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def testDeadEndFiller(self):
-        """test against a maze with outer/inner entraces"""
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = DeadEndFiller()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
     def testBlindAlley(self):
         """test against a maze with outer/inner entraces"""
         starts = [True, False]
@@ -162,6 +83,22 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self._create_maze_with_varied_entrances(s, e)
                 m.solver = BlindAlley()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testChain(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = Chain()
                 m.solve()
 
                 for sol in m.solutions:
@@ -211,8 +148,88 @@ class SolversTest(unittest.TestCase):
                     else:
                         m.start = (1, 1)
                         m.end = (5, 6)
-                
+
                 m.solver = CuldeSacFiller()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testDeadEndFiller(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = DeadEndFiller()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testRandomMouse(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = RandomMouse()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testShortestPath(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = ShortestPath()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testShortestPaths(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = ShortestPaths()
+                m.solve()
+
+                for sol in m.solutions:
+                    self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testWallFollower(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = WallFollower()
                 m.solve()
 
                 for sol in m.solutions:

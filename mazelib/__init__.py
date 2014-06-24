@@ -15,6 +15,7 @@ from .generate.Sidewinder import Sidewinder
 from .generate.Wilsons import Wilsons
 from .solve.BacktrackingSolver import BacktrackingSolver
 from .solve.BlindAlley import BlindAlley
+from .solve.Chain import Chain
 from .solve.Collision import Collision
 from .solve.CuldeSacFiller import CuldeSacFiller
 from .solve.RandomMouse import RandomMouse
