@@ -21,11 +21,56 @@ This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Fill
 
 ## Chain Algorithm
 
+###### The Algorithm
+
+    1. draw a straight-ish line from start to end, ignore the walls.
+    2. Follow the line from start to end.
+        a. If you bump into a wall, you have to go around.
+        b. Send out wall-following robots in the 1 or 2 open directions.
+        c. If the robot can find your new point, continue on.
+        d. If the robot intersects your line at a point that is further down stream, pick up the path there.
+    3. repeat step 2 until you are at the end.
+        a. If both robots return to their original location and direction, the maze is unsolvable.
+
+###### Optional Parameters
+
+* *Turn*: String ['left', 'right']
+ * Do you want to follow the right wall or the left wall? (default 'right')
+
+###### Results
+
+* 1 solution
+* not the shortest solution
+* works against imperfect mazes
+
+###### Notes
+
+The idea here is that you break the maze up into a sequence of smaller mazes. There are undoubtedly cases where this helps and cases where this is a terrible idea. Caveat emptor.
+
+This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such, it is significantly more complicated and memory-intensive than your standard Wall Follower.
+
 ## Collision Solver
+
+###### The Algorithm
+
+1. step through the maze, flooding all directions equally
+2. if two flood paths meet, create a wall where they meet
+3. fill in all dead ends
+4. repeat until there are no more collisions
+
+###### Results
+
+* finds shortests solutions
+* works against imperfect mazes
+
+###### Notes
+
+On a perfect maze, this is little different than the Dead End Filler algorithm. But in heavily braided and imperfect mazes, this algorithm simply iterates over the whole maze a few more times and finds the optimal solutions. It is quite elegant.
 
 ## Cul-de-sac Filler
 
 ###### The Algorithm
+
 1. Scan the maze, identify all fully-connected wall systems.
 2. Any wall system that touches the border is not a cul-de-sac, remove it.
 3. Determine if remaining wall systems are cul-de-sacs.
@@ -59,8 +104,10 @@ It focuses on the Maze, is always very fast, and uses no extra memory.
 
 This will always find the one unique solution for perfect Mazes, but won't do much in heavily braid Mazes, and in fact won't do anything useful at all for those Mazes without dead ends.
 
-## Djikstra's
 ## Pledge Algorithm
+
+WORK IN PROGRESS
+
 ## Random Mouse
 
 ###### The Algorithm:

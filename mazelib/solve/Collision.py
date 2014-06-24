@@ -4,10 +4,10 @@ from MazeSolveAlgo import MazeSolveAlgo
 
 class Collision(MazeSolveAlgo):
     """
-    1) step through the maze, flooding all directions equally
-    2) if two flood paths meet, create a wall where they meet
-    3) fill in all dead ends
-    4) repeat until there are no more collisions
+    1. step through the maze, flooding all directions equally
+    2. if two flood paths meet, create a wall where they meet
+    3. fill in all dead ends
+    4. repeat until there are no more collisions
     """
     def _solve(self):
         # deal with the case where the start is on the edge

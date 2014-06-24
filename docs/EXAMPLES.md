@@ -67,7 +67,7 @@ Let us look at an example where we start with a simple spiral maze (which is tri
 
 The end result is a maze that is *almost* a spiral, but enough different to still make a decent maze.
 
-EXAMPLE IMAGE INCOMING
+WORK IN PROGRESS
 
 ## Displaying a Maze
 
