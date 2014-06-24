@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='mazelib',
-    version='0.4',
+    version='0.5',
     description='A Python API for creating and solving mazes.',
     url='https://github.com/theJollySin/mazelib',
     author='John Stilley',

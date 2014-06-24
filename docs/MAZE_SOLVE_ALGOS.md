@@ -23,14 +23,14 @@ This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Fill
 
 ###### The Algorithm
 
-    1. draw a straight-ish line from start to end, ignore the walls.
-    2. Follow the line from start to end.
-        a. If you bump into a wall, you have to go around.
-        b. Send out wall-following robots in the 1 or 2 open directions.
-        c. If the robot can find your new point, continue on.
-        d. If the robot intersects your line at a point that is further down stream, pick up the path there.
-    3. repeat step 2 until you are at the end.
-        a. If both robots return to their original location and direction, the maze is unsolvable.
+1. draw a straight-ish line from start to end, ignore the walls.
+2. Follow the line from start to end.
+    a. If you bump into a wall, you have to go around.
+    b. Send out wall-following robots in the 1 or 2 open directions.
+    c. If the robot can find your new point, continue on.
+    d. If the robot intersects your line at a point that is further down stream, pick up the path there.
+3. repeat step 2 until you are at the end.
+    a. If both robots return to their original location and direction, the maze is unsolvable.
 
 ###### Optional Parameters
 
@@ -183,6 +183,8 @@ In CS terms, this is a Breadth-First Search algorithm. It finds all unique, non-
 Though this version is optimized to improve speed, nothing could be done about the fact that this algorithm uses substantially more memory than just the maze grid itself.
 
 ## Trémaux's Algorithm
+
+WORK IN PROGRESS
 
 ## Wall Follower
 
