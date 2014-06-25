@@ -129,33 +129,6 @@ perfect. unbiased.
 
 This is a classic set-theory algorithm. It is not the fastest algorithm, as it requires relabeling whole sets of cells at every step.
 
-## First-Order Perturbation
-
-###### The Algorithm
-
-1. Start with a complete, valid maze.
-2. Add a small number of random walls, blocking current passages.
-3. Go through the maze and reconnect all passages that are not currently open, by randomly opening walls.
-4. Repeat steps 3 and 4 a prescribed number of times.
-
-###### Optional Parameters
-
-* *new_walls*: Integer [1, ...)
- * The number of randomly positioned new walls you create throughout the maze. (default 1)
-* *repeat*: Integer [1, ...)
- * The number of times sets of new walls will be added to the maze; the maze being fixed after each set. (default 1)
-
-###### Results
-
-unbiased.
-perfect if-and-only-if the input maze was perfect.
-
-###### Notes
-
-In math and physics, perturbation theory is the idea of apply small changes to the mathematical solutions to complex problems. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solving the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
-
-With great power comes great responsibility. If you use this method on a grid that does not contain a maze, it will fail. If you run too many iterations of this algorithm, your end maze will look nothing like the original. But if used wisely, this is an extremely powerful tool.
-
 ## Growing Tree
 
 ###### The Algorithm
@@ -216,6 +189,33 @@ perfect. unbiased.
 ###### Notes
 
 Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning Tree (MST) over a graph.
+
+## Perturbation
+
+###### The Algorithm
+
+1. Start with a complete, valid maze.
+2. Add a small number of random walls, blocking current passages.
+3. Go through the maze and reconnect all passages that are not currently open, by randomly opening walls.
+4. Repeat steps 3 and 4 a prescribed number of times.
+
+###### Optional Parameters
+
+* *new_walls*: Integer [1, ...)
+ * The number of randomly positioned new walls you create throughout the maze. (default 1)
+* *repeat*: Integer [1, ...)
+ * The number of times sets of new walls will be added to the maze; the maze being fixed after each set. (default 1)
+
+###### Results
+
+unbiased.
+perfect if-and-only-if the input maze was perfect.
+
+###### Notes
+
+In math and physics, perturbation theory is the idea of apply small changes to the mathematical solutions to complex problems. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solving the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
+
+With great power comes great responsibility. If you use this method on a grid that does not contain a maze, it will fail. If you run too many iterations of this algorithm, your end maze will look nothing like the original. But if used wisely, this is an extremely powerful tool.
 
 ## Prim's
 

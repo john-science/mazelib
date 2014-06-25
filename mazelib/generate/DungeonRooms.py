@@ -1,4 +1,5 @@
 
+import copy
 from random import choice,randrange,shuffle
 from MazeGenAlgo import MazeArray,MazeGenAlgo
 
@@ -27,7 +28,7 @@ class DungeonRooms(MazeGenAlgo):
         if grid:
             h = (grid.height - 1) // 2
             w = (grid.width - 1) // 2
-            self.grid = grid
+            self.grid = copy.deepcopy(grid)
         else:
             h = h0
             w = w0

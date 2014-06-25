@@ -44,7 +44,7 @@ And here we create a 4x4 maze with one rectangular 2x2 room, open between the co
 
 #### Generating Attractive Mazes
 
-Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. The First-Order Perturbation algorithm will allow you to do all of these things.
+Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. The Perturbation algorithm will allow you to do all of these things.
 
 Let us look at an example where we start with a simple spiral maze (which is trivial to solve):
 
@@ -60,7 +60,7 @@ Let us look at an example where we start with a simple spiral maze (which is tri
     g[9] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
 
     m = Maze()
-    m.generator = FirstOrderPerturbation(grid=g, repeat=1, new_walls=3)
+    m.generator = Perturbation(grid=g, repeat=1, new_walls=3)
     m.generate()
     m.start = (1, 0)
     m.end = (5, 5)

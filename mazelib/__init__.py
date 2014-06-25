@@ -10,6 +10,7 @@ from .generate.Ellers import Ellers
 from .generate.GrowingTree import GrowingTree
 from .generate.HuntAndKill import HuntAndKill
 from .generate.Kruskal import Kruskal
+from .generate.Perturbation import Perturbation
 from .generate.Prims import Prims
 from .generate.Sidewinder import Sidewinder
 from .generate.Wilsons import Wilsons
