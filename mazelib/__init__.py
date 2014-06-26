@@ -13,6 +13,7 @@ from .generate.Kruskal import Kruskal
 from .generate.Perturbation import Perturbation
 from .generate.Prims import Prims
 from .generate.Sidewinder import Sidewinder
+from .generate.TrivialMaze import TrivialMaze
 from .generate.Wilsons import Wilsons
 from .solve.BacktrackingSolver import BacktrackingSolver
 from .solve.BlindAlley import BlindAlley

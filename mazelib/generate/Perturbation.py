@@ -1,7 +1,7 @@
 
 import copy
 from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeGenAlgo,MazeArray
+from MazeGenAlgo import MazeGenAlgo
 
 
 class Perturbation(MazeGenAlgo):
