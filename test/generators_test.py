@@ -11,8 +11,10 @@ from mazelib.generate.Ellers import Ellers
 from mazelib.generate.GrowingTree import GrowingTree
 from mazelib.generate.HuntAndKill import HuntAndKill
 from mazelib.generate.Kruskal import Kruskal
+from mazelib.generate.Perturbation import Perturbation
 from mazelib.generate.Prims import Prims
 from mazelib.generate.Sidewinder import Sidewinder
+from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.generate.Wilsons import Wilsons
 from mazelib.mazelib import Maze
 from mazelib.utils.MazeArray import MazeArray
@@ -176,9 +178,31 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
+    def testPerturbation(self):
+        m1 = Maze()
+        m1.generator = TrivialMaze(4, 5)
+        m1.generate()
+
+        m = Maze()
+        m.generator = Perturbation(m1.grid)
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
+
     def testSidewinder(self):
         m = Maze()
         m.generator = Sidewinder(4, 5)
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
+
+    def testTrivialMaze(self):
+        m = Maze()
+        m.generator = TrivialMaze(4, 5)
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
