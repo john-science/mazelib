@@ -125,12 +125,33 @@ class MazeSolveAlgo(object):
         elif cell[1] == desire[1]:
             if abs(cell[0] - desire[0]) < 2:
                 return True
-        #rdiff = abs(cell[0] - desire[0])
-        #cdiff = abs(cell[1] - desire[1])
-        #
-        #if rdiff == 0 and cdiff < 2:
-        #    return True
-        #elif cdiff == 0 and rdiff < 2:
-        #    return True
         
         return False
+
+    def _prune_solution(self, solution):
+        """In the process of solving a maze, the algorithm might go down
+        the wrong corridor then backtrack.
+
+        These extraneous branches need to be removed.
+        """
+        found = True
+        while found and len(solution) > 2:
+            found = False
+
+            for i in xrange(1, len(solution) - 1):
+                if solution[i - 1] != solution[i + 1]:
+                    continue
+                diff = 1
+
+                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
+                    diff += 1
+                diff -= 1
+                index = i
+                found = True
+                break
+
+            if found:
+                for ind in xrange(index + diff, index - diff, - 1):
+                    del solution[ind]
+
+        return solution

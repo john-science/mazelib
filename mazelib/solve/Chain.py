@@ -16,12 +16,14 @@ class Chain(MazeSolveAlgo):
         a. If both robots return to their original location and direction,
             the maze is unsolvable.
     """
-    def __init__(self, turn='right'):
+    def __init__(self, turn='right', prune=True):
         # turn can take on values 'left' or 'right'
         if turn == 'left':
             self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
         else:  # default to right turns
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
+
+        self.prune = prune
 
     def _solve(self):
         guiding_line = self._draw_guiding_line()
@@ -38,8 +40,10 @@ class Chain(MazeSolveAlgo):
             else:
                 current = self._send_out_robots(solution, guiding_line, current)
 
-        # remove unnecessary branches from the solution.
-        solution = self._prune_solution(solution)
+        if self.prune:
+            solution = self._prune_solution(solution)
+
+        solution = self._fix_entrances(solution)
 
         return [solution]
 
@@ -193,43 +197,22 @@ class Chain(MazeSolveAlgo):
 
         return path
 
-    def _prune_solution(self, solution):
-        """In the process of solving a maze, the algorithm might go down
-        the wrong corridor then backtrack.
-
-        These extraneous branches need to be removed.
-        """
-        found = True
-        while found and len(solution) > 2:
-            found = False
-
-            for i in xrange(1, len(solution) - 1):
-                if solution[i - 1] != solution[i + 1]:
-                    continue
-                diff = 1
-
-                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
-                    diff += 1
-                diff -= 1
-                index = i
-                found = True
-                break
-
-            if found:
-                for ind in xrange(index + diff, index - diff, - 1):
-                    del solution[ind]
-
+    def _fix_entrances(self, solution):
+        """Ensure the start and end are appropriately placed in the solution."""
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)
             solution = solution[i+1:]
+
         # prune if first position is repeated
         if solution[0] in solution[1:]:
             i = solution[1:].index(solution[0])
             solution = solution[i+1:]
+
         # prune duplicate end points
         if len(solution) > 1 and solution[-2] == solution[-1]:
             solution = solution[:-1]
+
         # prune end point
         if solution[-1] == self.end:
             solution = solution[:-1]

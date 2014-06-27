@@ -90,7 +90,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.start, sol[0]))
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
-    def testChain(self):
+    def testChainPruned(self):
         """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
@@ -103,6 +103,21 @@ class SolversTest(unittest.TestCase):
 
                 for sol in m.solutions:
                     self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testChainUnpruned(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = Chain(prune=False)
+                m.solve()
+
+                for sol in m.solutions:
                     self.assertTrue(self._one_away(m.start, sol[0]))
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
@@ -173,7 +188,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.start, sol[0]))
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
-    def testRandomMouse(self):
+    def testRandomMousePruned(self):
         """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
@@ -186,6 +201,21 @@ class SolversTest(unittest.TestCase):
 
                 for sol in m.solutions:
                     self.assertFalse(self._duplicates_in_solution(sol))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
+
+    def testRandomMouseUnpruned(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self._create_maze_with_varied_entrances(s, e)
+                m.solver = RandomMouse(prune=False)
+                m.solve()
+
+                for sol in m.solutions:
                     self.assertTrue(self._one_away(m.start, sol[0]))
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 

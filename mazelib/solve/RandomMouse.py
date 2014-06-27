@@ -9,6 +9,8 @@ class RandomMouse(MazeSolveAlgo):
     
     A mouse just randomly wanders around the maze until it finds the cheese.
     """
+    def __init__(self, prune=True):
+        self.prune = prune
 
     def _solve(self):
         solution = []
@@ -26,13 +28,11 @@ class RandomMouse(MazeSolveAlgo):
             nxt = choice(ns)
             solution.append(self._midpoint(solution[-1], nxt))
             solution.append(nxt)
-            
-        # remove unnecessary branches from the solution.
-        solution = self._prune_solution(solution)
 
-        # fix solution so it doesn't overlap endpoints
-        if not self._on_edge(self.end):
-            [solution] = [solution[:-1]]
+        if self.prune:
+            solution = self._prune_solution(solution)
+
+        solution = self._fix_entrances(solution)
 
         return [solution]
 
@@ -53,37 +53,15 @@ class RandomMouse(MazeSolveAlgo):
 
         return (last_dir, current)
 
-    def _prune_solution(self, solution):
-        """In the process of solving a maze, the algorithm might go down
-        the wrong corridor then backtrack.
-
-        These extraneous branches need to be removed.
-        """
-        # TODO: Will this be shared with other solvers?
-        # prune extra branches
-        found = True
-        while found and len(solution) > 2:
-            found = False
-
-            for i in xrange(1, len(solution) - 1):
-                if solution[i - 1] != solution[i + 1]:
-                    continue
-                diff = 1
-
-                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
-                    diff += 1
-                diff -= 1
-                index = i
-                found = True
-                break
-
-            if found:
-                for ind in xrange(index + diff, index - diff, - 1):
-                    del solution[ind]
-        
+    def _fix_entrances(self, solution):
+        """Ensure the start and end are appropriately placed in the solution."""
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)
             solution = solution[i+1:]
+
+        # fix solution so it doesn't overlap endpoints
+        if not self._on_edge(self.end):
+            solution = solution[:-1]
 
         return solution
