@@ -4,7 +4,7 @@ from MazeGenAlgo import MazeArray,MazeGenAlgo
 
 
 class Division(MazeGenAlgo):
-  
+
     def __init__(self, h, w):
         super(Division, self).__init__(h, w)
 
@@ -30,20 +30,20 @@ class Division(MazeGenAlgo):
                 continue
 
             if width < height:
-                cut_direction = HORIZONTAL  # with 100% chance (TODO: modifiable?)
+                cut_direction = HORIZONTAL  # with 100% chance
             elif width > height:
-                cut_direction = VERTICAL  # with 100% chance (TODO: modifiable?)
+                cut_direction = VERTICAL  # with 100% chance
             else:
                 if width == 2: continue
                 cut_direction = randrange(2)
 
             # make cut
             #   select cut position (can't be completely on the edge of the region)
-            cut_length = (height, width)[(cut_direction + 1) % 2]  # [(cut_direction + 1) % 2]
+            cut_length = (height, width)[(cut_direction + 1) % 2]
             if cut_length < 3: continue
             cut_posi = randrange(1, cut_length, 2)
             #   select new door position
-            door_posi = randrange(0, (height, width)[cut_direction], 2)  # [cut_direction], 2)
+            door_posi = randrange(0, (height, width)[cut_direction], 2)
             #   add walls to correct places
             if cut_direction == 0: # vertical
                 for row in xrange(min_y, max_y + 1):
@@ -53,7 +53,7 @@ class Division(MazeGenAlgo):
                 for col in xrange(min_x, max_x + 1):
                     grid[min_y + cut_posi, col] = 1
                 grid[min_y + cut_posi, min_x + door_posi] = 0
-           
+
             #   add new regions to stack
             if cut_direction == 0:  # vertical
                 region_stack.append(((min_y, min_x), (max_y, min_x + cut_posi - 1)))
@@ -61,5 +61,5 @@ class Division(MazeGenAlgo):
             else: # horizontal
                 region_stack.append(((min_y, min_x), (min_y + cut_posi - 1, max_x)))
                 region_stack.append(((min_y + cut_posi + 1, min_x), (max_y, max_x)))
-       
+
         return grid
