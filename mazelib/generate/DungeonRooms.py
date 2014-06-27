@@ -28,11 +28,13 @@ class DungeonRooms(MazeGenAlgo):
         if grid:
             h = (grid.height - 1) // 2
             w = (grid.width - 1) // 2
-            self.grid = copy.deepcopy(grid)
+            self.backup_grid = copy.deepcopy(grid)
         else:
             h = h0
             w = w0
-            self.grid = MazeArray(2 * h + 1, 2 * w + 1)
+            self.backup_grid = MazeArray(2 * h + 1, 2 * w + 1)
+        self.grid = None
+        self.rooms = rooms
         super(DungeonRooms, self).__init__(h, w)
 
         # the user can define what order to hunt for the next cell in
@@ -42,14 +44,16 @@ class DungeonRooms(MazeGenAlgo):
             self._hunt_order = self._hunt_serpentine
         else:
             self._hunt_order = self._hunt_random
-        
-        # the user can provide rectangular rooms to be cut out of the initial maze
-        self._carve_rooms(rooms)
 
     def generate(self):
+        # define grid and rooms
+        self.grid = copy.deepcopy(self.backup_grid)
+        self._carve_rooms(self.rooms)
+
+        # select start position for algorithm
         current = self._choose_start()
         self.grid[current] = 0
-        
+
         # find an arbitrary starting position
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         self.grid[current] = 0
@@ -164,8 +168,10 @@ class DungeonRooms(MazeGenAlgo):
         num_tries = 1
 
         # keep looping until you find an unvisited cell
-        while self.grid[current] == 1 and num_tries < LIMIT:
+        while num_tries < LIMIT:
             current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
+            if self.grid[current] == 1:
+                return current
             num_tries += 1
 
         if num_tries >= LIMIT:
