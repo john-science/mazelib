@@ -26,16 +26,7 @@ class Collision(MazeSolveAlgo):
             temp_paths = self._flood_maze(start)
             diff = list(set(map(tuple, paths)) - set(map(tuple, temp_paths)))
 
-        # Filter out paths ending in 'dead_end'
-        paths = filter(lambda p: p[-1] != 'dead_end', paths)
-        # remove 'end' from solution paths
-        paths = map(lambda p: p[:-1], paths)
-        # if start not on edge, remove first position in all paths
-        if not self._on_edge(self.start):
-            paths = map(lambda p: p[1:], paths)
-        # if end not on edge, remove last position in all paths
-        if not self._on_edge(self.end):
-            paths = map(lambda p: p[:-1], paths)
+        paths = self._fix_entrances(paths)        
 
         return paths
 
@@ -105,3 +96,22 @@ class Collision(MazeSolveAlgo):
                     paths[j][-1] = None
 
         return paths
+
+    def _fix_entrances(self, paths):
+        """Ensure the start and end are appropriately placed in the solution."""
+        # Filter out paths ending in 'dead_end'
+        paths = filter(lambda p: p[-1] != 'dead_end', paths)
+
+        # remove 'end' from solution paths
+        paths = map(lambda p: p[:-1], paths)
+
+        # if start not on edge, remove first position in all paths
+        if not self._on_edge(self.start):
+            paths = map(lambda p: p[1:], paths)
+
+        # if end not on edge, remove last position in all paths
+        if not self._on_edge(self.end):
+            paths = map(lambda p: p[:-1], paths)
+
+        return paths
+        
