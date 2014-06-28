@@ -19,7 +19,7 @@ class Array2D(object):
         if typecode not in Array2D.ALLOWED_TYPECODES:
             raise ValueError(Array2D.TYPECODE_ERROR)
 
-        (h, w) = shape
+        h, w = shape
         if fill_value is None:
             if typecode == 'c':
                 fill_value = '0'
@@ -39,13 +39,13 @@ class Array2D(object):
         the Python standard [ ] notation to get values.
         """
         if isinstance(ind, int):
-            """ If index is an int, return a single row """
+            # If index is an int, return a single row
             if ind >= 0 and ind < self.height:
                 return self._array[ind * self.width: ind * self.width + self.width]
             else:
                 raise ValueError(Array2D.BOUND_ERROR)
         elif isinstance(ind, tuple):
-            """ If index is a tuple, return a single value """
+            # If index is a tuple, return a single value
             row, col = ind
             if row < 0 or row >= self.height:
                 raise ValueError(Array2D.BOUND_ERROR)
@@ -55,21 +55,21 @@ class Array2D(object):
                 row, col = ind
                 return self._array[row * self.width + col]
         elif isinstance(ind, slice):
-            """ If index is a slice object, return a single value """
+            # If index is a slice object, return a single value
             start, stop, step = ind.indices(self.height)
             if start < 0 or stop > self.height:
                 raise ValueError(Array2D.BOUND_ERROR)
             elif not step or step == 1:
-                """ slice is one continuous block """
+                # slice is one continuous block
                 out = Array2D(self.typecode, (stop - start, self.width))
                 for row in xrange(0, stop - start):
                     out._array[row * out.width: row * out.width + out.width] = self[row + start]
                 return out
             else:
-                """ discontinous rows are being sliced """
+                # discontinous rows are being sliced
                 num_steps = len(xrange(start, stop, step))
                 out = Array2D(self.typecode, (num_steps, self.width))
-                for i,j in enumerate(xrange(start, stop, step)):
+                for i, j in enumerate(xrange(start, stop, step)):
                     out[i * out.width: i * out.width + out.width] = self[j]
                 return out
         else:
@@ -82,22 +82,22 @@ class Array2D(object):
         """
         # TODO: This method is too long. Perhaps I can use __setslice__ to organize this?
         if isinstance(ind, int):
-            """ If index is an int, set a single row """
+            # If index is an int, set a single row
             if ind >= 0 and ind < self.height:
                 if isinstance(value, array):
-                    """ replace row with array """
+                    # replace row with array
                     if len(value) == self.width:
                         self._array[ind * self.width: ind * self.width + self.width] = value
                     else:
                         raise ValueError(Array2D.LENGTH_ERROR)
                 elif issubclass(type(value), Array2D):
-                    """ replace row with Array2D or subclass """
+                    # replace row with Array2D or subclass
                     if value.height == 1:
                         self._array[ind * self.width: ind * self.width + self.width] = value._array
                     else:
                         raise ValueError(Array2D.LENGTH_ERROR)
                 elif isinstance(value, list) or isinstance(value, tuple):
-                    """ replace row with list or tuple """
+                    # replace row with list or tuple
                     if len(value) == self.width:
                         self._array[ind * self.width: ind * self.width + self.width] = \
                             array(self.typecode, value)
@@ -108,10 +108,11 @@ class Array2D(object):
             else:
                 raise ValueError(Array2D.BOUND_ERROR)
         elif isinstance(ind, tuple):
-            """ If index is a tuple, set a single value """
+            # If index is a tuple, set a single value
             row, col = ind
             if isinstance(col, slice):
-                if not hasattr(row, '__iter__'): row = [row]
+                if not hasattr(row, '__iter__'):
+                    row = [row]
                 col = slice(0 if col.start is None else col.start, \
                             self.width if col.stop is None else col.stop, \
                             1 if col.step is None else col.step)
@@ -123,7 +124,8 @@ class Array2D(object):
                         for i,c in enumerate(xrange(col.start, col.stop, col.step)):
                             self._array[r * self.width + c] = value[i]
             elif isinstance(row, slice):
-                if col == -1: col = self.width - 1
+                if col == -1:
+                    col = self.width - 1
                 if not hasattr(col, '__iter__'): col = [col]
                 row = slice(0 if row.start is None else row.start, \
                             self.height if row.stop is None else row.stop, \
@@ -133,7 +135,7 @@ class Array2D(object):
                         for r in xrange(row.start, row.stop, row.step):
                             self._array[r * self.width + c] = value
                     else:
-                        for i,r in enumerate(xrange(row.start, row.stop, row.step)):
+                        for i, r in enumerate(xrange(row.start, row.stop, row.step)):
                             self._array[r * self.width + c] = value[i]
             else:
                 if row < 0 or row > self.height:
@@ -144,26 +146,26 @@ class Array2D(object):
                     raise TypeError(Array2D.VAL_TYPE_ERROR)
                 self._array[row * self.width + col] = value
         elif isinstance(ind, slice):
-            """ If the index is a slice object, set multiple rows """
+            # If the index is a slice object, set multiple rows
             start, stop, step = ind.indices(self.height)
             if start < 0 or stop >= self.height:
                 raise ValueError(Array2D.BOUND_ERROR)
             elif not step or step == 1:
-                """ slice is one continuous block """
+                # slice is one continuous block
                 if isinstance(value, array):
-                    """ replace rows with array """
+                    # replace rows with array
                     if len(value) == (stop - start) * self.width:
                         self._array[start * self.width: stop * self.width + self.width] = value
                     else:
                         raise ValueError(Array2D.LENGTH_ERROR)
                 elif issubclass(type(value), Array2D):
-                    """ replace rows with Array2D or subclass """
+                    # replace rows with Array2D or subclass
                     if len(value._array) == (stop - start) * self.width:
                         self._array[start * self.width: stop * self.width + self.width] = value._array
                     else:
                         raise ValueError(Array2D.LENGTH_ERROR)
                 elif isinstance(value, list) or isinstance(value, tuple):
-                    """ replace rows with list or tuple (TODO: could be any iterable?) """
+                    # replace rows with list or tuple (TODO: could be any iterable?)
                     if len(value) == (stop - start) * self.width:
                         self._array[start * self.width: stop * self.width + self.width] = \
                             array(self.typecode, value)
@@ -172,10 +174,10 @@ class Array2D(object):
                 else:
                     raise TypeError(Array2D.VAL_TYPE_ERROR)
             else:
-                """ discontinous rows are being sliced """
+                # discontinous rows are being sliced
                 num_steps = len(xrange(start, stop, step))
                 if isinstance(value, list) or isinstance(value, tuple):
-                    """ replace rows with list or tuple of list/tuple/arrays """
+                    # replace rows with list or tuple of list/tuple/arrays
                     if len(value) != num_steps:
                         raise ValueError(Array2D.LENGTH_ERROR)
                     elif type(value[0][0]) != type(self._array[0]):
@@ -189,16 +191,16 @@ class Array2D(object):
                         self._array[j * self.width: j * self.width + self.width] = \
                             array(self.typecode, value[i])
                 if isinstance(value, array):
-                    """ replace rows with array """
+                    # replace rows with array
                     if len(value) != num_steps * self.width:
                         raise ValueError(Array2D.LENGTH_ERROR)
                     elif type(value[0]) != type(self._array[0]):
                         raise TypeError(Array2D.VAL_TYPE_ERROR)
 
-                    for i,j in enumerate(xrange(start, stop, step)):
+                    for i, j in enumerate(xrange(start, stop, step)):
                         self._array[j * self.width: j * self.width + self.width] = value[i]
                 if issubclass(type(value), Array2D):
-                    """ replace rows with Array2D or subclass """
+                    # replace rows with Array2D or subclass
                     if value.height != num_steps:
                         raise ValueError(Array2D.LENGTH_ERROR)
                     elif value.width != self.width:

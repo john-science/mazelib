@@ -1,9 +1,12 @@
 
-import abc
-from random import choice,random,randrange,shuffle
+from random import randrange
 
 
 class Maze(object):
+    """This is a master object meant to hold a rectangular, 2D maze.
+    This object includes the methods used to generate and solve the maze,
+    as well as the start and end points.
+    """
 
     def __init__(self):
         self.generator = None
@@ -14,6 +17,7 @@ class Maze(object):
         self.solutions = None
 
     def generate(self):
+        """public method to generate a new maze, and handle some clean-up"""
         if self.generator is None:
             raise UnboundLocalError('No maze-generation algorithm has been set.')
         else:
@@ -23,7 +27,7 @@ class Maze(object):
             self.solutions = None
 
     def generate_entrances(self, start_outer=True, end_outer=True):
-        """ Generate maze entrances.
+        """Generate maze entrances.
         Entrances can be on the walls, or inside the maze.
         """
         if start_outer and end_outer:
@@ -115,15 +119,14 @@ class Maze(object):
 
         # generate different mazes
         mazes = []
-        for i in xrange(repeat):
+        for _ in xrange(repeat):
             self.generate()
             this_maze = []
 
             # for each maze, generate different entrances, and solve
-            for j in xrange(entrances):
+            for _ in xrange(entrances):
                 self.generate_entrances()
                 self.solve()
-                length = len(self.solutions[0])
                 this_maze.append({'grid': self.grid,
                                   'start': self.start,
                                   'end': self.end,
@@ -156,7 +159,7 @@ class Maze(object):
         """Return a string representation of the maze."""
         if self.grid is None:
             return ''
-        
+
         # Build the walls of the grid
         txt = []
         for row in self.grid:
@@ -164,18 +167,18 @@ class Maze(object):
             for cell in row:
                 txt_row += '#' if cell else ' '
             txt.append(txt_row)
-        
+
         # insert the start and end points
         if entrances and self.start and self.end:
-            r,c = self.start
+            r, c = self.start
             txt[r] = txt[r][:c] + 'S' + txt[r][c+1:]
-            r,c = self.end
+            r, c = self.end
             txt[r] = txt[r][:c] + 'E' + txt[r][c+1:]
 
         # if extant, insert the solution path
         if solutions and self.solutions:
             for posi in self.solutions[0]:
-                r,c = posi
+                r, c = posi
                 txt[r] = txt[r][:c] + '+' + txt[r][c+1:]
 
         return '\n'.join(txt)
