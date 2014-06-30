@@ -1,6 +1,6 @@
 
-from random import randrange,shuffle
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from random import randrange
+from MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class BacktrackingGenerator(MazeGenAlgo):

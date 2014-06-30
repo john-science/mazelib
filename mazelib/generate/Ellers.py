@@ -1,6 +1,6 @@
 
-from random import choice,random,randrange,shuffle
-from MazeGenAlgo import MazeGenAlgo,MazeArray
+from random import choice, random
+from MazeGenAlgo import MazeGenAlgo, MazeArray
 from ..utils.array2d import Array2D
 
 
@@ -23,7 +23,7 @@ class Ellers(MazeGenAlgo):
     def generate(self):
         # initialize a master grid of the sets of grid cells
         sets = Array2D('i', (self.H, self.W), -1)
-        
+
         # initialize the first row cells to each exist in their own set
         max_set_number = 0
 
@@ -48,18 +48,18 @@ class Ellers(MazeGenAlgo):
                 max_set_number += 1
 
         return max_set_number
-    
-    def _merge_one_row(self, sets, row):
+
+    def _merge_one_row(self, sets, r):
         """randomly decide to merge cells within a column"""
         for c in xrange(1, self.W - 2, 2):
             if random() < self.xbias:
-                if sets[row, c] != sets[row, c+2]:
-                    sets[row, c+1] = sets[row, c]
-                    self._merge_sets(sets, sets[row, c+2], sets[row, c], max_row=row)
+                if sets[r, c] != sets[r, c+2]:
+                    sets[r, c+1] = sets[r, c]
+                    self._merge_sets(sets, sets[r, c+2], sets[r, c], max_row=r)
 
     def _merge_down_a_row(self, sets, start_row):
         """Create vertical connections in the maze.
-        
+
         For the current row, cut down at least one passage for each cell set.
         """
         # this is not meant for the bottom row
@@ -87,10 +87,10 @@ class Ellers(MazeGenAlgo):
                 if sets[start_row+1, c] == -1:
                     sets[start_row+1, c] = s
                     sets[start_row+2, c] = s
-    
+
     def _merge_sets(self, sets, from_set, to_set, max_row=-1):
         """merge two different sets of grid cells into one
-        
+
         To improve performance, the grid will only be searched
         up to some maximum row number.
         """
@@ -101,7 +101,7 @@ class Ellers(MazeGenAlgo):
             for c in xrange(1, self.W - 1):
                 if sets[r, c] == from_set:
                     sets[r, c] = to_set
-    
+
     def _process_last_row(self, sets):
         """join all adjacent cells that do not share a set,
         and omit the vertical connections
@@ -115,7 +115,7 @@ class Ellers(MazeGenAlgo):
     def _create_grid_from_sets(self, sets):
         """translate the maze sets into a maze grid"""
         grid = MazeArray(self.H, self.W)
-        
+
         for r in xrange(self.H):
             for c in xrange(self.W):
                 if sets[r, c] == -1:

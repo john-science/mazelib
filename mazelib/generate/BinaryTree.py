@@ -1,6 +1,6 @@
 
 from random import choice
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class BinaryTree(MazeGenAlgo):
@@ -24,12 +24,14 @@ class BinaryTree(MazeGenAlgo):
             for col in xrange(1, self.W, 2):
                 current = (row, col)
                 grid[current] = 0
-                neighbor = self._find_neighbor(current, grid)
+                neighbor = self._find_neighbor(current)
                 grid[neighbor] = 0
         
         return grid
     
-    def _find_neighbor(self, current, grid):
+    def _find_neighbor(self, current):
+        """# TODO: Does this fit within one of the many other neighbor paradigms?
+        """
         neighbors = []
         for b in self.bias:
             neighbor = self._add_tuples(current, b)
@@ -42,7 +44,7 @@ class BinaryTree(MazeGenAlgo):
         else:
             return choice(neighbors)
 
-    def _add_tuples(self, current, diff):
+    def _add_tuples(self, current, diff):  # TODO: method could be a function (in a utility module)
         """Convolve a position tuple with a direction tuple to
         generate a new position.
         """

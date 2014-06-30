@@ -1,6 +1,6 @@
 
-from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from random import choice, randrange
+from MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class AldousBroder(MazeGenAlgo):
