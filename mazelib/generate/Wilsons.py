@@ -1,6 +1,6 @@
 
-from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from random import choice, randrange
+from MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Wilsons(MazeGenAlgo):
@@ -39,18 +39,22 @@ class Wilsons(MazeGenAlgo):
         return grid
 
     def _hunt(self, grid, count):
-        """ Based on how this algorithm was configured, choose hunt for the next starting point. """
+        """Based on how this algorithm was configured,
+        choose hunt for the next starting point.
+        """
         return self._hunt_order(grid, count)
 
     def _hunt_random(self, grid, count):
-        """ Select the next cell to walk from, randomly. """
+        """Select the next cell to walk from, randomly."""
         if count >= (self.h * self.w):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
-        """ Select the next cell to walk from by cycling through every grid cell in order. """
+        """Select the next cell to walk from
+        by cycling through every grid cell in order.
+        """
         cell = (1, -1)
         found = False
 
@@ -67,7 +71,8 @@ class Wilsons(MazeGenAlgo):
         return cell
 
     def _generate_random_walk(self, grid, start):
-        """From a given starting position, walk randomly until you hit a visited cell.
+        """From a given starting position,
+        walk randomly until you hit a visited cell.
         
         The returned walk object is a dictionary mapping your location (cell) to a
         direction. If you randomly walk over the same cell twice, you overwrite
@@ -100,7 +105,7 @@ class Wilsons(MazeGenAlgo):
         elif direction == 2: return (0, -2)  # East
         else:                return (0, 2)   # West
 
-    def _move(self, start, direction):
+    def _move(self, start, direction):  # TODO: Method could be a function
         """Convolve a position tuple with a direction tuple to
         generate a new position.
         """
@@ -115,9 +120,9 @@ class Wilsons(MazeGenAlgo):
 
         while grid[current] != 0:
             grid[current] = 0
-            next = self._move(current, walk[current])
-            grid[(next[0] + current[0]) // 2, (next[1] + current[1]) // 2] = 0
+            next1 = self._move(current, walk[current])
+            grid[(next1[0] + current[0]) // 2, (next1[1] + current[1]) // 2] = 0
             visits += 1
-            current = next
+            current = next1
 
         return visits

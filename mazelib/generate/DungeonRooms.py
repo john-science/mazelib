@@ -1,7 +1,7 @@
 
 import copy
-from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from random import choice, randrange, shuffle
+from MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class DungeonRooms(MazeGenAlgo):
@@ -77,7 +77,7 @@ class DungeonRooms(MazeGenAlgo):
 
         for room in rooms:
             try:
-                top_left,bottom_right = room
+                top_left, bottom_right = room
                 self._carve_room(top_left, bottom_right)
                 self._carve_door(top_left, bottom_right)
             except Exception:
@@ -87,8 +87,8 @@ class DungeonRooms(MazeGenAlgo):
     def _carve_room(self, top_left, bottom_right):
         """Open up a single user-defined room in a maze."""
         for row in xrange(top_left[0], bottom_right[0] + 1):
-                for col in xrange(top_left[1], bottom_right[1] + 1):
-                    self.grid[row, col] = 0
+            for col in xrange(top_left[1], bottom_right[1] + 1):
+                self.grid[row, col] = 0
 
     def _carve_door(self, top_left, bottom_right):
         """Open up a single door in a user-defined room,
@@ -231,7 +231,7 @@ class DungeonRooms(MazeGenAlgo):
                         found = True
                         break
 
-    def _join_intersecting_sets(self, list_of_sets):
+    def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
         """combine sets that have non-zero intersections"""
         for i in xrange(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
@@ -267,6 +267,6 @@ class DungeonRooms(MazeGenAlgo):
 
         return ns
 
-    def _midpoint(self, a, b):
+    def _midpoint(self, a, b):  # TODO: method could be a function
         """Find the wall cell between to passage cells"""
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2

@@ -1,7 +1,6 @@
 
-import copy
 from random import randint
-from MazeGenAlgo import MazeGenAlgo,MazeArray
+from MazeGenAlgo import MazeGenAlgo, MazeArray
 
 
 class TrivialMaze(MazeGenAlgo):
