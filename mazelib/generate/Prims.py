@@ -44,8 +44,6 @@ class Prims(MazeGenAlgo):
 
             # find all unvisited neighbors of current, add them to neighbors
             unvisited = self._find_neighbors(current, grid, True)
-            for unv in unvisited:
-                if unv not in neighbors:
-                    neighbors.append(unv)
+            neighbors = list(set(neighbors + unvisited))
 
         return grid
