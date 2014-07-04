@@ -14,7 +14,7 @@ class MazeSolveAlgo(object):
         self.grid = copy.deepcopy(grid)
         self.start = start
         self.end = end
-        
+
         # validating checks
         if grid is None:
             raise UnboundLocalError('Maze grid is not set.')
@@ -32,7 +32,7 @@ class MazeSolveAlgo(object):
     @abc.abstractmethod
     def _solve(self):
         return
-    
+
     """
     All of the methods below this are helper methods,
     common to many maze-solving algorithms.
@@ -91,7 +91,7 @@ class MazeSolveAlgo(object):
     def _on_edge(self, cell):
         """Does the cell lay on the edge, rather inside of the maze grid?"""
         r, c = cell
-        
+
         if r == 0 or r == self.grid.height - 1:
             return True
         if c == 0 or c == self.grid.width - 1:
@@ -102,7 +102,7 @@ class MazeSolveAlgo(object):
     def _push_edge(self, cell):
         """You may need to find the cell directly inside of a start or end cell."""
         r, c = cell
-        
+
         if r == 0:
             return (1, c)
         elif r == (self.grid.height - 1):
@@ -125,7 +125,7 @@ class MazeSolveAlgo(object):
         elif cell[1] == desire[1]:
             if abs(cell[0] - desire[0]) < 2:
                 return True
-        
+
         return False
 
     def _prune_solution(self, solution):

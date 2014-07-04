@@ -1,5 +1,5 @@
 
-from random import choice,shuffle
+from random import choice
 from MazeSolveAlgo import MazeSolveAlgo
 
 
@@ -23,22 +23,46 @@ class Tremaux(MazeSolveAlgo):
      marked once, meaning you've gone down it exactly once,
      or marked twice, meaning you've gone down it and were forced to backtrack in the opposite direction.
      When you finally reach the solution, paths marked exactly once will indicate a direct way back to the start.
-     If the Maze has no solution, you'll find yourself back at the start with all passages marked twice. 
+     If the Maze has no solution, you'll find yourself back at the start with all passages marked twice.
 
     Results
 
     Find one non-optimal solution. Works against imperfect mazes.
     """
+    def __init__(self):
+        self.visited_coords = {}
+
     def _solve(self):
         raise Exception('This algorithm under development.')
         self.visited_coords = {}
-        
-        
-        
-        if len(solutions) == 0 or len(solutions[0]) == 0:
-            raise ValueError('No valid solutions found.')
+        solution = []
 
-        return solutions
+        # a first move has to be made
+        current = self.start
+        if self._on_edge(self.start):
+            current = self._push_edge(self.start)
+        solution.append(current)
+        self._visit(current)
+
+        # pick a random neighbor and travel to it, until you're at the end
+        while not self._within_one(solution[-1], self.end):
+            ns = self._find_unblocked_neighbors(solution[-1])
+
+            # do no go where you've just been
+            if len(ns) > 1 and len(solution) > 2:
+                if solution[-3] in ns:
+                    ns.remove(solution[-3])
+
+            nxt = choice(ns)
+            solution.append(self._midpoint(solution[-1], nxt))
+            solution.append(nxt)
+            self._visit(nxt)
+
+        # TODO: special pruning method, to backtrack through only cells marked with a '1'
+
+        solution = self._fix_entrances(solution)
+
+        return [solution]
 
     def _visit(self, cell):
         """Increment the number of times a cell has been visited."""
@@ -53,3 +77,16 @@ class Tremaux(MazeSolveAlgo):
             return 0
         else:
             return self.visited_coords[cell]
+
+    def _fix_entrances(self, solution):
+        """Ensure the start and end are appropriately placed in the solution."""
+        # prune if start is found in solution
+        if self.start in solution:
+            i = solution.index(self.start)
+            solution = solution[i+1:]
+
+        # fix solution so it doesn't overlap endpoints
+        if not self._on_edge(self.end):
+            [solution] = [solution[:-1]]
+
+        return solution

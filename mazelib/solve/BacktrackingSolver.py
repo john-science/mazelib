@@ -1,4 +1,4 @@
-from random import choice,shuffle
+from random import choice
 from MazeSolveAlgo import MazeSolveAlgo
 
 
@@ -40,23 +40,6 @@ class BacktrackingSolver(MazeSolveAlgo):
         solution = self._fix_entrances(solution)
 
         return [solution]
-
-    def _move_to_next_cell(self, last_dir, current):
-        """ At each new cell you reach, take the rightmost turn.
-        Turn around if you reach a dead end.
-        if right is not available, then straight, if not straight, left, etc...
-        """
-        for d in xrange(4):
-            next_dir = (last_dir - 1 + d) % 4
-            next_cell = self._move(current, self.directions[next_dir])
-            mid_cell = (self._midpoint(next_cell, current))
-
-            if self.grid[mid_cell] == 0 and mid_cell != self.start:
-                return (next_dir, next_cell)
-            elif mid_cell == self.end:
-                return (next_dir, self.end)
-
-        return (last_dir, current)
 
     def _fix_entrances(self, solution):
         """Ensure the start and end are appropriately placed in the solution."""
