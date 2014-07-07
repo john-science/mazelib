@@ -6,8 +6,8 @@ class BacktrackingSolver(MazeSolveAlgo):
     """
     The Algorithm
 
-    1) Pick a random direction and follow it
-    2) Backtrack if and only if you hit a dead end.
+    1. Pick a random direction and follow it
+    2. Backtrack if and only if you hit a dead end.
     """
     def __init__(self, prune=True):
         self.prune = prune
