@@ -170,7 +170,7 @@ perfect. unbiased.
 
 ###### Notes
 
-Generally, you might think random-walk algorithms are very slow. But Hunt-and-Kill is quite efficient. And I really like the end results of this algorithm, the mazes are not easy to solve.
+Generally, you might think random-walk algorithms are very slow. But Hunt-and-Kill is quite efficient. And I really like the end results of this algorithm: the mazes are not easy to solve.
 
 In this implementation of Hunt-and-kill there are two different ways to select a new grid cell in step 2. The first is serpentine through the grid (the classic solution), the second is to randomly select a new cell enough times that the probability of an unexplored cell is very, very low. The second option includes a small amount of risk, but it creates a more interesting, harder maze. Thus, the second option is default in this implementation.
 
@@ -213,7 +213,7 @@ perfect if-and-only-if the input maze was perfect.
 
 ###### Notes
 
-In math and physics, perturbation theory is the idea of apply small changes to the mathematical solutions to complex problems. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solving the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
+In math and physics, perturbation theory is idea that you can solve a new problem by starting with the known solution to an old problem and making a small change. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solve the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
 
 With great power comes great responsibility. If you use this method on a grid that does not contain a maze, it will fail. If you run too many iterations of this algorithm, your end maze will look nothing like the original. But if used wisely, this is an extremely powerful tool.
 
