@@ -11,9 +11,10 @@ A quick introduction in how to use this library.
 
 Examples of how to generate and solve some unique, tailored mazes. Also, examples of how to plot your results.
 
-
-## [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
-
-## [Maze-Solving Algorithms](docs/MAZE_SOLVE_ALGOS.md)
+## Maze Algorithms
 
 The heart of this library is the huge collection of algorithms available to create and solve mazes. The better you understand these, the more you can do with this library.
+
+### [Maze-Generating Algorithms](docs/MAZE_GEN_ALGOS.md)
+
+### [Maze-Solving Algorithms](docs/MAZE_SOLVE_ALGOS.md)
