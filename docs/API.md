@@ -2,7 +2,7 @@
 
 #####Go back to the main [README](../README.md)
 
-The mazelib library provides tools for creating and solving mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these algorithms are implemented with optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
+The mazelib library provides tools for creating and solving 2D mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these algorithms are implemented with optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
 
 The mazelib library supports Python versions 2.5.x, 2.6.x, 2.7.x, and will soon support 3.x.
 
