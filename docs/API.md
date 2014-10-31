@@ -56,7 +56,7 @@ A complete listing of available maze-solving algorithms can be found [here](MAZE
 
 ## Advanced: The Monte Carlo Method
 
-A common desire when creating a maze is to not to just create *any* maze. But to create a particularly hard maze. Or a particularly easy maze. Or a whole series of mazes of increasing difficulty. The Monte Carlo method can be used to solve these problems.
+A common desire when creating a maze is to not to just create *any* maze. But a maze, or series of mazes, of a particular difficulty level. The Monte Carlo method can be used to solve these problems.
 
 The idea is simple: a number of equally-sized mazes are generated and solved, then these mazes are organized by the length of their shortest solution. To get a very hard maze, just select one of the ones at the end of the list.
 
