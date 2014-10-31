@@ -56,7 +56,7 @@ A complete listing of available maze-solving algorithms can be found [here](MAZE
 
 ## Advanced: The Monte Carlo Method
 
-A common desire when creating a maze is to not to just create *any* maze. But a maze, or series of mazes, of a particular difficulty level. The Monte Carlo method can be used to solve these problems.
+A common desire is to not to create just *any* maze but one of a particular difficulty level. The Monte Carlo method can be used to solve these problems.
 
 The idea is simple: a number of equally-sized mazes are generated and solved, then these mazes are organized by the length of their shortest solution. To get a very hard maze, just select one of the ones at the end of the list.
 
@@ -67,7 +67,7 @@ Let us do an example:
     m.solver = WallFollower()
     m.generate_monte_carlo(100, 10, 1.0)
 
-The above code will generate 100 different mazes, and for each maze generate 10 different pairs of start/end entrances (on the outermost border of the maze). For each of the 10 pairs of entrances, one will be selected that generates the longest solution. Then the 100 mazes will be organized by the length of their solutions. In this case, the maze with the longest solution, as defined by the `1.0`, will be returned. If you wanted the maze with the shortest, and hence easiest, solution you would put `0.0` here.  A value of `0.5` would give you a maze with middle-of-the-road difficulty, and so on.
+The above code will generate 100 different mazes, and for each maze generate 10 different pairs of start/end entrances (on the outermost border of the maze). For each of the 10 pairs of entrances, one will be selected that generates the longest solution. Then the 100 mazes will be organized by the length of their solutions. In this case, the maze with the longest solution, as defined by the `1.0`, will be returned. If you wanted the maze with the shortest, and hence easiest, solution you would put `m.generate_monte_carlo(100, 10, 0.0)`.  A value of `0.5` would give you a maze with middle-of-the-road difficulty, and so on.
 
 This basic implementation of the Monte Carlo method gives you a lot of power to not just generate mazes, but generate mazes with properties you like.
 
