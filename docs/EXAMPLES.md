@@ -28,7 +28,7 @@ Here we create a 24x33 maze with one rectangular 4x4 room, open between the corn
 
 ##### Defining Rooms by an Input Grid
 
-And here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (5, 5) and (7, 7):
+Here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (5, 5) and (7, 7):
 
     g = MazeArray(9, 9)
     g[5] = array('b', [1,1,1,0,0,0,1])
@@ -44,9 +44,9 @@ And here we create a 4x4 maze with one rectangular 2x2 room, open between the co
 
 #### Generating Attractive Mazes
 
-Maybe these algorithms are all well-and-good, but you would like to generate a maze that is beautiful. Maybe you have ideas about spiral mazes, or circular mazes with a big room in the middle. The Perturbation algorithm will allow you to do all of these things.
+Perhaps you want more control over your maze. You have ideas in you imagine spiral mazes, or circular mazes with a room at the very center. The Perturbation algorithm will allow you to do all of these things.
 
-Let us look at an example where we start with a simple spiral maze (which is trivial to solve):
+First, start with a simple spiral maze (which is trivial to solve):
 
     g = MazeArray(11, 11)
     g[1] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
