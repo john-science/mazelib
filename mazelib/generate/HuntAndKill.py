@@ -1,6 +1,6 @@
 
-from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from random import choice, randrange, shuffle
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class HuntAndKill(MazeGenAlgo):
@@ -32,7 +32,7 @@ class HuntAndKill(MazeGenAlgo):
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
-        
+
         # find an arbitrary starting position
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0

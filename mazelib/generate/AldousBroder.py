@@ -1,10 +1,10 @@
 
 from random import choice, randrange
-from MazeGenAlgo import MazeArray, MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class AldousBroder(MazeGenAlgo):
-    """ 
+    """
     1. Choose a random cell.
     2. Choose a random neighbor of the current cell and visit it. If the neighbor has not
         yet been visited, add the traveled edge to the spanning tree.
@@ -16,7 +16,7 @@ class AldousBroder(MazeGenAlgo):
 
     def generate(self):
         grid = MazeArray(self.H, self.W)
-        
+
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current] = 0
         num_visited = 1
@@ -44,5 +44,5 @@ class AldousBroder(MazeGenAlgo):
                     current = neighbor
                     # break loop
                     break
-    
+
         return grid

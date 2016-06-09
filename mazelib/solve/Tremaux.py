@@ -1,6 +1,6 @@
 
 from random import choice
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class Tremaux(MazeSolveAlgo):
@@ -20,7 +20,7 @@ class Tremaux(MazeSolveAlgo):
 
     Find one non-optimal solution.
     Works against imperfect mazes.
-    
+
     Notes
 
     This Maze-solving method is designed to be used by a human inside the Maze.

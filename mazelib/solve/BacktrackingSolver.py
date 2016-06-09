@@ -1,5 +1,6 @@
+
 from random import choice
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class BacktrackingSolver(MazeSolveAlgo):

@@ -1,6 +1,6 @@
 
 from random import choice, random, randrange
-from MazeGenAlgo import MazeArray, MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class GrowingTree(MazeGenAlgo):

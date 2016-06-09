@@ -1,6 +1,6 @@
 
 from MazeSolveAlgo import MazeSolveAlgo
-from ShortestPaths import ShortestPaths
+from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class Chain(MazeSolveAlgo):
@@ -52,7 +52,7 @@ class Chain(MazeSolveAlgo):
         to look for the next point in the guiding line
         """
         ns = self._find_unblocked_neighbors(guiding_line[i])
-        
+
         # create a robot for each open neighbor
         robot_paths = []
         for n in ns:
@@ -61,7 +61,7 @@ class Chain(MazeSolveAlgo):
             robot_path.append(self._midpoint(guiding_line[i], n))
             robot_path.append(n)
             robot_paths.append(robot_path)
-        
+
         # randomly walk each robot, until it finds the guiding line or dies
         for j,path in enumerate(robot_paths):
             last_diff = (path[-1][0] - path[-3][0], path[-1][1] - path[-3][1])
@@ -70,13 +70,13 @@ class Chain(MazeSolveAlgo):
 
         # if all robots return, the maze is unsolvable
         robot_paths = filter(lambda p: p is not None, robot_paths)
-        
+
         if len(robot_paths) == 0:
             raise Exception('No valid solution found.')
-        
+
         shortest_robot_path = sorted(robot_paths, key=lambda s: len(robot_paths))[0][1:]
         solution += shortest_robot_path
-       
+
         return guiding_line.index(solution[-1])
 
     def _has_robot_returned(self, first_dir, path):
@@ -85,7 +85,7 @@ class Chain(MazeSolveAlgo):
             return False
 
         last_diff = (path[-1][0] - path[-3][0], path[-1][1] - path[-3][1])
-        last_dir = self.directions.index(last_diff) 
+        last_dir = self.directions.index(last_diff)
 
         if last_dir == first_dir and path[-1] == path[0]:
             return True

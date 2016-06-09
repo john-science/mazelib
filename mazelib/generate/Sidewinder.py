@@ -1,6 +1,6 @@
 
 from random import choice, random
-from MazeGenAlgo import MazeArray, MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Sidewinder(MazeGenAlgo):
@@ -30,15 +30,15 @@ class Sidewinder(MazeGenAlgo):
         grid = MazeArray(self.H, self.W)
 
         # The first row is always empty, because you can't carve North
-        for col in xrange(1, self.W - 1):
+        for col in range(1, self.W - 1):
             grid[(1, col)] = 0
 
         # loop through the remaining rows and columns
-        for row in xrange(3, self.H, 2):
+        for row in range(3, self.H, 2):
             # create a run of cells
             run = []
 
-            for col in xrange(1, self.W, 2):
+            for col in range(1, self.W, 2):
                 # remove the wall to the current cell
                 grid[row, col] = 0
                 # add the current cell to the run

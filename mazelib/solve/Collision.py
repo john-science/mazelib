@@ -1,5 +1,6 @@
+
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class Collision(MazeSolveAlgo):
@@ -84,10 +85,10 @@ class Collision(MazeSolveAlgo):
         If a collision exists, build a wall in the maze at that point."""
         N = len(paths)
 
-        for i in xrange(N - 1):
+        for i in range(N - 1):  # TODO: fix this xrange non-sense......
             if paths[i][-1] in ['dead_end', 'end']:
                 continue
-            for j in xrange(i + 1, N):
+            for j in range(i + 1, N):
                 if paths[j][-1] in ['dead_end', 'end']:
                     continue
                 if paths[i][-1] == paths[j][-1]:

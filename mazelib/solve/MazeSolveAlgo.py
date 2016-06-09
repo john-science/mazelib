@@ -1,5 +1,5 @@
+
 import abc
-import copy
 from random import shuffle
 
 
@@ -11,7 +11,7 @@ class MazeSolveAlgo(object):
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
-        self.grid = copy.deepcopy(grid)
+        self.grid = grid.copy()
         self.start = start
         self.end = end
 
@@ -138,7 +138,7 @@ class MazeSolveAlgo(object):
         while found and len(solution) > 2:
             found = False
 
-            for i in xrange(1, len(solution) - 1):
+            for i in range(1, len(solution) - 1):
                 if solution[i - 1] != solution[i + 1]:
                     continue
                 diff = 1
@@ -151,7 +151,7 @@ class MazeSolveAlgo(object):
                 break
 
             if found:
-                for ind in xrange(index + diff, index - diff, - 1):
+                for ind in range(index + diff, index - diff, - 1):
                     del solution[ind]
 
         return solution

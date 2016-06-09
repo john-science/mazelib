@@ -1,7 +1,8 @@
 
+from __future__ import absolute_import
+from mazelib.utils.array2d import Array2D  # TODO: Remove
 from random import choice, random
-from MazeGenAlgo import MazeGenAlgo, MazeArray
-from ..utils.array2d import Array2D
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Ellers(MazeGenAlgo):

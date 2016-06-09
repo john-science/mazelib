@@ -1,6 +1,6 @@
 
 from random import randrange
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Division(MazeGenAlgo):
@@ -25,7 +25,7 @@ class Division(MazeGenAlgo):
             max_x = current_region[1][1]
             height = max_y - min_y + 1
             width = max_x - min_x + 1
-            
+
             if height <= 1 or width <= 1:
                 continue
 
@@ -46,11 +46,11 @@ class Division(MazeGenAlgo):
             door_posi = randrange(0, (height, width)[cut_direction], 2)
             #   add walls to correct places
             if cut_direction == 0: # vertical
-                for row in xrange(min_y, max_y + 1):
+                for row in range(min_y, max_y + 1):
                     grid[row, min_x + cut_posi] = 1
                 grid[min_y + door_posi, min_x + cut_posi] = 0
             else: # horizontal
-                for col in xrange(min_x, max_x + 1):
+                for col in range(min_x, max_x + 1):
                     grid[min_y + cut_posi, col] = 1
                 grid[min_y + cut_posi, min_x + door_posi] = 0
 

@@ -1,7 +1,6 @@
 
-import copy
-from random import choice,randrange,shuffle
-from MazeGenAlgo import MazeGenAlgo
+from random import choice, randrange, shuffle
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Perturbation(MazeGenAlgo):
@@ -25,19 +24,19 @@ class Perturbation(MazeGenAlgo):
     def __init__(self, grid, repeat=1, new_walls=1):
         h = (grid.height - 1) // 2
         w = (grid.width - 1) // 2
-        self.grid = copy.deepcopy(grid)
+        self.grid = grid.copy()
         self.repeat = repeat
         self.new_walls = new_walls
         super(Perturbation, self).__init__(h, w)
 
     def generate(self):
-        grid = copy.deepcopy(self.grid)
+        grid = self.grid.copy()
 
         for i in xrange(self.repeat):
             # Add a small number of random walls, blocking current passages
             for j in xrange(self.new_walls):
                 grid = self._add_a_random_wall(grid)
-            
+
             # re-fix the maze
             grid = self._reconnect_maze(grid)
 
@@ -65,7 +64,7 @@ class Perturbation(MazeGenAlgo):
             # Emergency Catch: in case all walls in the maze are filled
             if tries > limit:
                 return grid
-            
+
         return grid
 
     def _reconnect_maze(self, grid):

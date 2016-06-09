@@ -1,8 +1,24 @@
+'''
+Installing the mazelib package into your system Python
+is a two step process:
+
+To build the Cython extensions:
+    python setup.py build_ext --inplace
+To build mazelib and install the package:
+    python setup.py install
+'''
 
 from setuptools import setup
+from distutils.extension import Extension
+from Cython.Distutils import build_ext
+
+cmdclass = {'build_ext': build_ext}
+ext_modules = [Extension("mazelib.utils.array2d", ["mazelib/utils/array2d.pyx" ]),
+               Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ])]
+
 
 setup(name='mazelib',
-    version='0.5',
+    version='0.6',
     description='A Python API for creating and solving mazes.',
     url='https://github.com/theJollySin/mazelib',
     author='John Stilley',
@@ -26,5 +42,7 @@ setup(name='mazelib',
               'mazelib.utils'],
     platforms='any',
     test_suite="test",
-    zip_safe=False)
+    zip_safe=False,
+    cmdclass = cmdclass,
+    ext_modules=ext_modules)
 

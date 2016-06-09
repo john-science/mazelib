@@ -1,6 +1,6 @@
 
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class ShortestPaths(MazeSolveAlgo):
@@ -20,7 +20,7 @@ class ShortestPaths(MazeSolveAlgo):
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.start)
-        
+
         # a first move has to be made
         start = self.start
         if self.start_edge:
@@ -30,7 +30,7 @@ class ShortestPaths(MazeSolveAlgo):
         start_posis = self._find_unblocked_neighbors(start)
         if len(start_posis) == 0:
             raise ValueError('Input maze is invalid.')
-        
+
         # 1) create a solution for each starting position
         solutions = []
         for s in start_posis:
@@ -60,7 +60,7 @@ class ShortestPaths(MazeSolveAlgo):
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
                     ns = filter(lambda i: i not in solutions[s][-2:], ns)
-                    
+
                     if len(ns) == 0:
                         # there are no valid neighbors
                         solutions[s].append(None)
@@ -86,7 +86,7 @@ class ShortestPaths(MazeSolveAlgo):
             raise ValueError('No valid solutions found.')
 
         return solutions
-    
+
     def _clean_up(self, solutions):
         """Cleaning up the solutions in three stages:
         1) remove incomplete solutions

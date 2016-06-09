@@ -4,11 +4,11 @@ from sysconfig import get_python_version
 from timeit import Timer
 
 ''' The reason that this particular combination of runs was chosen is
-	not meant to be obvious.
-	A standard set of runs were designed to test the mazelib library
-	in the most typical use-case of the target audience.
-	The only really important part of this benchmark is that there is a
-	standard basis for comparison.
+    not meant to be obvious.
+    A standard set of runs were designed to test the mazelib library
+    in the most typical use-case of the target audience.
+    The only really important part of this benchmark is that there is a
+    standard basis for comparison.
 '''
 SIZES = [5, 10, 25, 50, 100, 200]
 ITERATIONS = [1000, 1000, 100, 50, 1, 1]
@@ -22,7 +22,7 @@ GENERATORS = ['AldousBroder', 'AldousBroder',
               'Sidewinder', 'Sidewinder',
               'TrivialMaze', 'TrivialMaze',
               'Wilsons', 'Wilsons']
-SOLVERS = ['Collision', 'WallFollower'] * (len(GENERATORS) / 2)
+SOLVERS = ['Collision', 'WallFollower'] * int(len(GENERATORS) / 2)
 
 
 def main():
@@ -67,13 +67,13 @@ def print_benchmarks(times):
     print('\nmazelib benchmarking')
     print(datetime.now().strftime('%Y-%m-%d %H:%M'))
     print('Python version: ' + get_python_version())
-    print('\nTotal Time (seconds): %f\n' %
+    print('\nTotal Time (seconds): %.5f\n' %
           sum([sum(times_row) for times_row in times]))
 
     print('\nmaze size,' + ','.join([str(s) for s in SIZES]))
     for row in range(len(times)):
         method = GENERATORS[row] + '-' + SOLVERS[row] + ','
-        print(method + ','.join([str(time) for time in times[row]]))
+        print(method + ','.join(['%.5f' % time for time in times[row]]))
 
 
 if __name__ == '__main__':

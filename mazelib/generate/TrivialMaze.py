@@ -1,6 +1,6 @@
 
 from random import randint
-from MazeGenAlgo import MazeGenAlgo, MazeArray
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class TrivialMaze(MazeGenAlgo):
@@ -18,7 +18,7 @@ class TrivialMaze(MazeGenAlgo):
             self.sub_gen = self._generate_spiral_maze
         else:
             self.sub_gen = self._generate_spiral_maze
-        
+
         super(TrivialMaze, self).__init__(h, w)
 
     def generate(self):

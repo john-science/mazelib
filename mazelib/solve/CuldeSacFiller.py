@@ -1,8 +1,8 @@
 
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
-from DeadEndFiller import DeadEndFiller
-from ShortestPaths import ShortestPaths
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.DeadEndFiller import DeadEndFiller
+from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class CuldeSacFiller(MazeSolveAlgo):

@@ -1,5 +1,6 @@
-from random import choice,randrange
-from MazeGenAlgo import MazeArray,MazeGenAlgo
+
+from random import choice, randrange
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class CellularAutomaton(MazeGenAlgo):

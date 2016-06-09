@@ -1,7 +1,8 @@
 
+from __future__ import absolute_import
+from mazelib.utils.MazeArray import MazeArray
 import abc
 from random import shuffle
-from ..utils.MazeArray import MazeArray
 
 
 class MazeGenAlgo(object):
@@ -18,7 +19,7 @@ class MazeGenAlgo(object):
     @abc.abstractmethod
     def generate(self):
         return
-    
+
     """
     All of the methods below this are helper methods,
     common to many maze-generating algorithms.

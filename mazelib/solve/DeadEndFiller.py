@@ -1,7 +1,7 @@
 
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
-from ShortestPaths import ShortestPaths
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class DeadEndFiller(MazeSolveAlgo):

@@ -1,6 +1,6 @@
 
 from random import choice, randrange
-from MazeGenAlgo import MazeArray, MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class Wilsons(MazeGenAlgo):
@@ -73,7 +73,7 @@ class Wilsons(MazeGenAlgo):
     def _generate_random_walk(self, grid, start):
         """From a given starting position,
         walk randomly until you hit a visited cell.
-        
+
         The returned walk object is a dictionary mapping your location (cell) to a
         direction. If you randomly walk over the same cell twice, you overwrite
         the direction at that location.
@@ -87,7 +87,7 @@ class Wilsons(MazeGenAlgo):
             direction = self._random_dir(current)
             walk[current] = direction
             current = self._move(current, direction)
-        
+
         return walk
 
     def _random_dir(self, current):

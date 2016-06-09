@@ -1,7 +1,6 @@
 
-import copy
 from random import choice, randrange, shuffle
-from MazeGenAlgo import MazeArray, MazeGenAlgo
+from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
 class DungeonRooms(MazeGenAlgo):
@@ -28,7 +27,7 @@ class DungeonRooms(MazeGenAlgo):
         if grid:
             h = (grid.height - 1) // 2
             w = (grid.width - 1) // 2
-            self.backup_grid = copy.deepcopy(grid)
+            self.backup_grid = grid.copy()
         else:
             h = h0
             w = w0
@@ -47,7 +46,7 @@ class DungeonRooms(MazeGenAlgo):
 
     def generate(self):
         # define grid and rooms
-        self.grid = copy.deepcopy(self.backup_grid)
+        self.grid = self.backup_grid.copy()
         self._carve_rooms(self.rooms)
 
         # select start position for algorithm
@@ -157,7 +156,7 @@ class DungeonRooms(MazeGenAlgo):
                 found = True
 
         return cell
-        
+
     def _choose_start(self):
         """Choose a random starting location, that is not already inside a room.
         If no such room exists, the input grid was invalid.

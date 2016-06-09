@@ -1,6 +1,6 @@
 
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class ShortestPath(MazeSolveAlgo):
@@ -20,7 +20,7 @@ class ShortestPath(MazeSolveAlgo):
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.start)
-        
+
         # a first move has to be made
         start = self.start
         if self.start_edge:
@@ -30,7 +30,7 @@ class ShortestPath(MazeSolveAlgo):
         start_posis = self._find_unblocked_neighbors(start)
         if len(start_posis) == 0:
             raise ValueError('Input maze is invalid.')
-        
+
         # 1) create a solution for each starting position
         solutions = []
         for s in start_posis:

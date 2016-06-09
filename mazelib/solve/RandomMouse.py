@@ -1,12 +1,12 @@
 
 from random import choice,shuffle
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class RandomMouse(MazeSolveAlgo):
     """
     The Algorithm
-    
+
     A mouse just randomly wanders around the maze until it finds the cheese.
     """
     def __init__(self, prune=True):
@@ -20,11 +20,11 @@ class RandomMouse(MazeSolveAlgo):
         if self._on_edge(self.start):
             current = self._push_edge(self.start)
         solution.append(current)
-        
+
         # pick a random neighbor and travel to it, until you're at the end
         while not self._within_one(solution[-1], self.end):
             ns = self._find_unblocked_neighbors(solution[-1])
-            
+
             nxt = choice(ns)
             solution.append(self._midpoint(solution[-1], nxt))
             solution.append(nxt)
