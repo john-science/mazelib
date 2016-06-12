@@ -13,8 +13,9 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 cmdclass = {'build_ext': build_ext}
-ext_modules = [Extension("mazelib.utils.array2d", ["mazelib/utils/array2d.pyx" ]),
-               Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ])]
+ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ]),
+               Extension("mazelib.generate.MazeGenAlgo", ["mazelib/generate/MazeGenAlgo.pyx" ]),
+               Extension("mazelib.generate.Ellers", ["mazelib/generate/Ellers.pyx" ])]
 
 
 setup(name='mazelib',
@@ -28,10 +29,10 @@ setup(name='mazelib',
                  'Programming Language :: Python :: 2.5',
                  'Programming Language :: Python :: 2.6',
                  'Programming Language :: Python :: 2.7',
-#                 'Programming Language :: Python :: 3.1',
-#                 'Programming Language :: Python :: 3.2',
-#                 'Programming Language :: Python :: 3.3',
-#                 'Programming Language :: Python :: 3.4',
+                 'Programming Language :: Python :: 3.1',
+                 'Programming Language :: Python :: 3.2',
+                 'Programming Language :: Python :: 3.3',
+                 'Programming Language :: Python :: 3.4',
                  'Natural Language :: English',
                  'Topic :: Software Development :: Libraries :: Python Modules'],
     license='GPLv3',
