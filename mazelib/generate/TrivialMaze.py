@@ -35,22 +35,22 @@ class TrivialMaze(MazeGenAlgo):
         vertical_bias = randint(0, 1)
 
         if vertical_bias:
-            for row in xrange(1, grid.height - 1):
-                for col in xrange(1, grid.width - 1, 2):
+            for row in range(1, grid.height - 1):
+                for col in range(1, grid.width - 1, 2):
                     grid[(row, col)] = 0
             # add minor passages
-            for col in xrange(2, grid.width - 1, 4):
+            for col in range(2, grid.width - 1, 4):
                 grid[(1, col)] = 0
-            for col in xrange(4, grid.width - 1, 4):
+            for col in range(4, grid.width - 1, 4):
                 grid[(grid.height - 2, col)] = 0
         else:
-            for row in xrange(1, grid.height - 1, 2):
-                for col in xrange(1, grid.width - 1):
+            for row in range(1, grid.height - 1, 2):
+                for col in range(1, grid.width - 1):
                     grid[(row, col)] = 0
             # add minor passages
-            for row in xrange(2, grid.height - 1, 4):
+            for row in range(2, grid.height - 1, 4):
                 grid[(row, 1)] = 0
-            for row in xrange(4, grid.height - 1, 4):
+            for row in range(4, grid.height - 1, 4):
                 grid[(row, grid.width - 2)] = 0
 
         return grid

@@ -27,7 +27,7 @@ class Collision(MazeSolveAlgo):
             temp_paths = self._flood_maze(start)
             diff = list(set(map(tuple, paths)) - set(map(tuple, temp_paths)))
 
-        paths = self._fix_entrances(paths)        
+        paths = self._fix_entrances(paths)
 
         return paths
 
@@ -85,7 +85,7 @@ class Collision(MazeSolveAlgo):
         If a collision exists, build a wall in the maze at that point."""
         N = len(paths)
 
-        for i in range(N - 1):  # TODO: fix this xrange non-sense......
+        for i in range(N - 1):
             if paths[i][-1] in ['dead_end', 'end']:
                 continue
             for j in range(i + 1, N):
@@ -115,4 +115,4 @@ class Collision(MazeSolveAlgo):
             paths = map(lambda p: p[:-1], paths)
 
         return paths
-        
+

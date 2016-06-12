@@ -31,10 +31,10 @@ class CellularAutomaton(MazeGenAlgo):
         grid[:, 0] = grid[:, -1] = 1
 
         # create walls
-        for i in xrange(self.density):
+        for i in range(self.density):
             y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
             grid[y, x] = 1
-            for j in xrange(self.complexity):
+            for j in range(self.complexity):
                 neighbours = self._find_neighbors((y, x), grid, True)  # is wall
                 neighbours += self._find_neighbors((y, x), grid)       # is open
                 if len(neighbours):
@@ -45,8 +45,8 @@ class CellularAutomaton(MazeGenAlgo):
                         x, y = c, r
 
         # ensure all corners are filled
-        for r in xrange(2, self.H - 2, 2):
-            for c in xrange(2, self.W - 2, 2):
+        for r in range(2, self.H - 2, 2):
+            for c in range(2, self.W - 2, 2):
                 grid[r, c] = 1
 
         return grid

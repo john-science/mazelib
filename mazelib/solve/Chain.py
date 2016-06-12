@@ -122,7 +122,7 @@ class Chain(MazeSolveAlgo):
         Turn around if you reach a dead end.
         if right is not available, then straight, if not straight, left, etc...
         """
-        for d in xrange(4):
+        for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
             mid_cell = (self._midpoint(next_cell, current))

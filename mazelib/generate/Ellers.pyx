@@ -33,7 +33,7 @@ cdef class Ellers(MazeGenAlgo):
         max_set_number = 0
 
         # process all but the last row
-        for r in xrange(1, self.H - 1, 2):
+        for r in range(1, self.H - 1, 2):
             max_set_number = self._init_row(sets, r, max_set_number)
             self._merge_one_row(sets, r)
             self._merge_down_a_row(sets, r)
@@ -48,7 +48,7 @@ cdef class Ellers(MazeGenAlgo):
     cdef _init_row(self, int[:,:] sets, int row, int max_set_number):
         """Initialize each cell in a row to its own set"""
         cdef int c
-        for c in xrange(1, self.W, 2):
+        for c in range(1, self.W, 2):
             if sets[row][c] < 0:
                 sets[row][c] = max_set_number
                 max_set_number += 1
@@ -58,7 +58,7 @@ cdef class Ellers(MazeGenAlgo):
     cdef _merge_one_row(self, int[:,:] sets, int r):
         """randomly decide to merge cells within a column"""
         cdef int c
-        for c in xrange(1, self.W - 2, 2):
+        for c in range(1, self.W - 2, 2):
             if random() < self.xbias:
                 if sets[r][c] != sets[r][c+2]:
                     sets[r][c+1] = sets[r][c]
@@ -76,7 +76,7 @@ cdef class Ellers(MazeGenAlgo):
 
         # count how many cells of each set exist in a row
         set_counts = {}
-        for c in xrange(1, self.W, 2):
+        for c in range(1, self.W, 2):
             s = sets[start_row][c]
             if s not in set_counts:
                 set_counts[s] = [c]
@@ -89,7 +89,7 @@ cdef class Ellers(MazeGenAlgo):
             sets[start_row+1][c] = s
             sets[start_row+2][c] = s
 
-        for c in xrange(1, self.W - 2, 2):
+        for c in range(1, self.W - 2, 2):
             if random() < self.ybias:
                 s = sets[start_row][c]
                 if sets[start_row+1][c] == -1:
@@ -106,8 +106,8 @@ cdef class Ellers(MazeGenAlgo):
         if max_row < 0:
             max_row = self.H - 1
 
-        for r in xrange(1, max_row + 1):
-            for c in xrange(1, self.W - 1):
+        for r in range(1, max_row + 1):
+            for c in range(1, self.W - 1):
                 if sets[r][c] == from_set:
                     sets[r][c] = to_set
 
@@ -117,7 +117,7 @@ cdef class Ellers(MazeGenAlgo):
         """
         cdef int r, c
         r = self.H - 2
-        for c in xrange(1, self.W - 2, 2):
+        for c in range(1, self.W - 2, 2):
             if sets[r][c] != sets[r][c+2]:
                 sets[r][c+1] = sets[r][c]
                 self._merge_sets(sets, sets[r][c+2], sets[r][c])
@@ -127,8 +127,8 @@ cdef class Ellers(MazeGenAlgo):
         cdef int r, c
         grid = MazeArray(self.H, self.W)
 
-        for r in xrange(self.H):
-            for c in xrange(self.W):
+        for r in range(self.H):
+            for c in range(self.W):
                 if sets[r][c] == -1:
                     grid[r][c] = 1
                 else:

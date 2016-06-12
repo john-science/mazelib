@@ -16,7 +16,7 @@ cdef class MazeArray(object):
 
     TODO:
     To convert _array to a c-array, you will need to (at least)
-    implement slicing on the c-array.
+    implement slicing on the c-array.  (Ignore numpy).)
     """
 
     cdef object _array  # TODO: Change this to C array

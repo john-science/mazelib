@@ -52,10 +52,10 @@ class BlindAlley(MazeSolveAlgo):
         """
         N = len(walls)
 
-        for i in xrange(N - 1):
+        for i in range(N - 1):
             if walls[i] is None:
                 continue
-            for j in xrange(i, N):
+            for j in range(i, N):
                 if walls[j] is None:
                     continue
                 if self._walls_are_connected(walls[i], walls[j]):
@@ -108,8 +108,8 @@ class BlindAlley(MazeSolveAlgo):
         # buffer each wall cell by one, add those buffer cells to a set
         for cell in wall:
             r,c = cell
-            for rdiff in xrange(-1, 2):
-                for cdiff in xrange(-1, 2):
+            for rdiff in range(-1, 2):
+                for cdiff in range(-1, 2):
                     border.add((r + rdiff, c + cdiff))
 
         # remove all wall cells from the buffer
@@ -155,13 +155,13 @@ class BlindAlley(MazeSolveAlgo):
         """A wall system is any continiously-adjacent set of walls."""
         walls = []
         # loop through each cell in the maze
-        for r in xrange(self.grid.height):
-            for c in xrange(self.grid.width):
+        for r in range(self.grid.height):
+            for c in range(self.grid.width):
                 # if the cell is a wall
                 if self.grid[r, c] == 1:
                     found = False
                     # determine which wall system it belongs in
-                    for i in xrange(len(walls)):
+                    for i in range(len(walls)):
                         if self._has_neighbor((r, c), walls[i]):
                             found = True
                             walls[i].append((r, c))
@@ -193,8 +193,8 @@ class BlindAlley(MazeSolveAlgo):
     def _fill_dead_ends(self):
         """fill all dead ends in the maze"""
         # loop through the maze serpentine, and find dead ends
-        for r in xrange(1, self.grid.height, 2):
-            for c in xrange(1, self.grid.width, 2):
+        for r in range(1, self.grid.height, 2):
+            for c in range(1, self.grid.width, 2):
                 if self._is_dead_end((r, c)):
                     # fill-in or wall-off the dead end
                     self._remove_dead_end((r, c))

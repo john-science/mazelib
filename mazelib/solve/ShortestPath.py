@@ -42,7 +42,7 @@ class ShortestPath(MazeSolveAlgo):
         # 2) loop through each solution, and find the neighbors of the last element
         num_unfinished = len(solutions)
         while num_unfinished > 0:
-            for s in xrange(len(solutions)):
+            for s in range(len(solutions)):
                 if solutions[s][-1] in solutions[s][:-1]:
                     # stop all solutions that have done a full loop
                     solutions[s].append(None)
@@ -72,7 +72,7 @@ class ShortestPath(MazeSolveAlgo):
                         solutions[s].append(ns[0])
                     else:
                         # there are 2 or 3 valid neigbors0
-                        for j in xrange(1, len(ns)):
+                        for j in range(1, len(ns)):
                             nxt = [self._midpoint(ns[j], solutions[s][-1]), ns[j]]
                             solutions.append(list(solutions[s]) + nxt)
                         solutions[s].append(self._midpoint(ns[0], solutions[s][-1]))

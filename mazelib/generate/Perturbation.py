@@ -32,9 +32,9 @@ class Perturbation(MazeGenAlgo):
     def generate(self):
         grid = self.grid.copy()
 
-        for i in xrange(self.repeat):
+        for i in range(self.repeat):
             # Add a small number of random walls, blocking current passages
-            for j in xrange(self.new_walls):
+            for j in range(self.new_walls):
                 grid = self._add_a_random_wall(grid)
 
             # re-fix the maze
@@ -79,8 +79,8 @@ class Perturbation(MazeGenAlgo):
         passages = []
 
         # go through all cells in the maze
-        for r in xrange(1, grid.height, 2):
-            for c in xrange(1, grid.width, 2):
+        for r in range(1, grid.height, 2):
+            for c in range(1, grid.width, 2):
                 ns = self._find_unblocked_neighbors(grid, (r, c))
                 current = set(ns + [(r, c)])
 
@@ -123,11 +123,11 @@ class Perturbation(MazeGenAlgo):
 
     def _join_intersecting_sets(self, list_of_sets):
         """combine sets that have non-zero intersections"""
-        for i in xrange(len(list_of_sets) - 1):
+        for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue
 
-            for j in xrange(i + 1, len(list_of_sets)):
+            for j in range(i + 1, len(list_of_sets)):
                 if list_of_sets[j] is None:
                     continue
                 intersect = list_of_sets[i].intersection(list_of_sets[j])

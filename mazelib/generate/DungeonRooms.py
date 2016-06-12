@@ -85,8 +85,8 @@ class DungeonRooms(MazeGenAlgo):
 
     def _carve_room(self, top_left, bottom_right):
         """Open up a single user-defined room in a maze."""
-        for row in xrange(top_left[0], bottom_right[0] + 1):
-            for col in xrange(top_left[1], bottom_right[1] + 1):
+        for row in range(top_left[0], bottom_right[0] + 1):
+            for col in range(top_left[1], bottom_right[1] + 1):
                 self.grid[row, col] = 0
 
     def _carve_door(self, top_left, bottom_right):
@@ -190,8 +190,8 @@ class DungeonRooms(MazeGenAlgo):
         passages = []
 
         # go through all cells in the maze
-        for r in xrange(1, self.grid.height, 2):
-            for c in xrange(1, self.grid.width, 2):
+        for r in range(1, self.grid.height, 2):
+            for c in range(1, self.grid.width, 2):
                 ns = self._find_unblocked_neighbors((r, c))
                 current = set(ns + [(r, c)])
 
@@ -232,11 +232,11 @@ class DungeonRooms(MazeGenAlgo):
 
     def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
         """combine sets that have non-zero intersections"""
-        for i in xrange(len(list_of_sets) - 1):
+        for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue
 
-            for j in xrange(i + 1, len(list_of_sets)):
+            for j in range(i + 1, len(list_of_sets)):
                 if list_of_sets[j] is None:
                     continue
                 intersect = list_of_sets[i].intersection(list_of_sets[j])

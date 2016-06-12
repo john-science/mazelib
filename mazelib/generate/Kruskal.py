@@ -12,17 +12,17 @@ class Kruskal(MazeGenAlgo):
         grid = MazeArray(self.H, self.W)
 
         forest = []
-        for row in xrange(1, self.H - 1, 2):
-            for col in xrange(1, self.W -1, 2):
+        for row in range(1, self.H - 1, 2):
+            for col in range(1, self.W -1, 2):
                 forest.append([(row, col)])
                 grid[row, col] = 0
 
         edges = []
-        for row in xrange(2, self.H - 1, 2):
-            for col in xrange(1, self.W - 1, 2):
+        for row in range(2, self.H - 1, 2):
+            for col in range(1, self.W - 1, 2):
                 edges.append((row, col))
-        for row in xrange(1, self.H - 1, 2):
-            for col in xrange(2, self.W - 1, 2):
+        for row in range(1, self.H - 1, 2):
+            for col in range(2, self.W - 1, 2):
                 edges.append((row, col))
 
         shuffle(edges)

@@ -65,8 +65,8 @@ class DeadEndFiller(MazeSolveAlgo):
         """A "dead end" is a cell with only zero or one open neighbors.
         The start end end count as open.
         """
-        for r in xrange(1, self.grid.height, 2):
-            for c in xrange(1, self.grid.width, 2):
+        for r in range(1, self.grid.height, 2):
+            for c in range(1, self.grid.width, 2):
                 if (r, c) in [self.start, self.end]:
                     continue
                 if self._is_dead_end((r, c)):
