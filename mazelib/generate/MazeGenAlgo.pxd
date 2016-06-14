@@ -1,4 +1,10 @@
 
+import cython
+cimport numpy as cnp
+cnp.import_array()
+
+ctypedef cnp.int8_t i8
+
 
 cdef class MazeGenAlgo:
 
@@ -9,5 +15,5 @@ cdef class MazeGenAlgo:
     cdef public int W
 
     # functions
-    cpdef object generate(self)
+    cpdef i8[:,:] generate(self)
     cpdef object _find_neighbors(self, posi, grid, is_wall=?)

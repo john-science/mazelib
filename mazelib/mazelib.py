@@ -45,8 +45,8 @@ class Maze(object):
 
     def _generate_outer_entrances(self):
         """Generate maze entrances, along the outer walls."""
-        H = self.grid.height
-        W = self.grid.width
+        H = self.grid.shape[0]
+        W = self.grid.shape[1]
 
         start_side = randrange(4)
 

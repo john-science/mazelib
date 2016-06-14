@@ -115,4 +115,3 @@ class Collision(MazeSolveAlgo):
             paths = map(lambda p: p[:-1], paths)
 
         return paths
-

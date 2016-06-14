@@ -1,7 +1,10 @@
 
 from __future__ import absolute_import
-from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import MazeArray
+from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo, i8
+import cython
+cimport numpy as cnp
+import numpy as np
+cnp.import_array()
 from random import choice, random
 
 
@@ -17,17 +20,19 @@ cdef class Ellers(MazeGenAlgo):
     """
 
     def __cinit__(self, w, h, xbias=0.5, ybias=0.5):
-        super(Ellers, self).__cinit__(w, h)
+        super(Ellers, self).__init__(w, h)
         self.xbias = 0.0 if xbias < 0.0 else 1.0 if xbias > 1.0 else xbias
         self.ybias = 0.0 if ybias < 0.0 else 1.0 if ybias > 1.0 else ybias
 
-    cpdef generate(self):
+    @cython.boundscheck(False)
+    cpdef i8[:,:] generate(self):
         cdef int i, j, r, max_set_number
-        cdef int[10][10] sets
+        cdef int[:,:] sets
 
-        for i in range(0, self.H):
-            for j in range(0, self.W):
-                sets[i][j] = -1
+        # create empty grid, with walls
+        a = np.empty((self.H, self.W), dtype=np.dtype('i'))
+        a.fill(-1)
+        sets = a
 
         # initialize the first row cells to each exist in their own set
         max_set_number = 0
@@ -45,7 +50,7 @@ cdef class Ellers(MazeGenAlgo):
         # translate grid cell sets into a maze
         return self._create_grid_from_sets(sets)
 
-    cdef _init_row(self, int[:,:] sets, int row, int max_set_number):
+    cdef int _init_row(self, int[:,:] sets, int row, int max_set_number):
         """Initialize each cell in a row to its own set"""
         cdef int c
         for c in range(1, self.W, 2):
@@ -55,7 +60,7 @@ cdef class Ellers(MazeGenAlgo):
 
         return max_set_number
 
-    cdef _merge_one_row(self, int[:,:] sets, int r):
+    cdef void _merge_one_row(self, int[:,:] sets, int r):
         """randomly decide to merge cells within a column"""
         cdef int c
         for c in range(1, self.W - 2, 2):
@@ -64,12 +69,13 @@ cdef class Ellers(MazeGenAlgo):
                     sets[r][c+1] = sets[r][c]
                     self._merge_sets(sets, sets[r][c+2], sets[r][c], max_row=r)
 
-    cdef _merge_down_a_row(self, int[:,:] sets, int start_row):
+    cdef void _merge_down_a_row(self, int[:,:] sets, int start_row):
         """Create vertical connections in the maze.
 
         For the current row, cut down at least one passage for each cell set.
         """
         cdef int c, s
+
         # this is not meant for the bottom row
         if start_row == self.H - 2:
             return
@@ -96,7 +102,7 @@ cdef class Ellers(MazeGenAlgo):
                     sets[start_row+1][c] = s
                     sets[start_row+2][c] = s
 
-    cdef _merge_sets(self, int[:,:] sets, int from_set, int to_set, int max_row=-1):
+    cdef void _merge_sets(self, int[:,:] sets, int from_set, int to_set, int max_row=-1):
         """merge two different sets of grid cells into one
 
         To improve performance, the grid will only be searched
@@ -111,7 +117,7 @@ cdef class Ellers(MazeGenAlgo):
                 if sets[r][c] == from_set:
                     sets[r][c] = to_set
 
-    cdef _process_last_row(self, int[:,:] sets):
+    cdef void _process_last_row(self, int[:,:] sets):
         """join all adjacent cells that do not share a set,
         and omit the vertical connections
         """
@@ -122,16 +128,19 @@ cdef class Ellers(MazeGenAlgo):
                 sets[r][c+1] = sets[r][c]
                 self._merge_sets(sets, sets[r][c+2], sets[r][c])
 
-    cdef _create_grid_from_sets(self, int[:,:] sets):
+    @cython.boundscheck(False)
+    cdef i8[:,:] _create_grid_from_sets(self, int[:,:] sets):
         """translate the maze sets into a maze grid"""
         cdef int r, c
-        grid = MazeArray(self.H, self.W)
+        cdef i8[:,:] grid
+
+        a = np.empty((self.H, self.W), dtype=np.int8)
+        a.fill(0)
+        grid = a
 
         for r in range(self.H):
             for c in range(self.W):
                 if sets[r][c] == -1:
                     grid[r][c] = 1
-                else:
-                    grid[r][c] = 0
 
         return grid

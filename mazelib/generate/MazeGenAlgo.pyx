@@ -1,6 +1,5 @@
 
-from __future__ import absolute_import
-from mazelib.utils.MazeArray import MazeArray
+import cython
 from random import shuffle
 
 
@@ -20,8 +19,9 @@ cdef class MazeGenAlgo:
     def __dealloc__(self):
         pass
 
-    cpdef object generate(self):
-        return
+    @cython.boundscheck(False)
+    cpdef i8[:,:] generate(self):
+        return None
 
     """
     All of the methods below this are helper methods,

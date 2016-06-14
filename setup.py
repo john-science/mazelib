@@ -15,6 +15,7 @@ from Cython.Distutils import build_ext
 cmdclass = {'build_ext': build_ext}
 ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ]),
                Extension("mazelib.generate.MazeGenAlgo", ["mazelib/generate/MazeGenAlgo.pyx" ]),
+               Extension("mazelib.generate.AldousBroder", ["mazelib/generate/AldousBroder.pyx" ]),
                Extension("mazelib.generate.Ellers", ["mazelib/generate/Ellers.pyx" ])]
 
 
@@ -43,6 +44,10 @@ setup(name='mazelib',
               'mazelib.utils'],
     platforms='any',
     test_suite="test",
+    install_requires=[
+        "cython",
+        "numpy",
+    ],
     zip_safe=False,
     cmdclass = cmdclass,
     ext_modules=ext_modules)

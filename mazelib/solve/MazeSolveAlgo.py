@@ -20,13 +20,13 @@ class MazeSolveAlgo(object):
             raise UnboundLocalError('Maze grid is not set.')
         elif start is None or end is None:
             raise UnboundLocalError('Entrances are not set.')
-        elif start[0] < 0 or start[0] >= grid.height:
+        elif start[0] < 0 or start[0] >= grid.shape[0]:
             raise ValueError('Entrance is outside the grid.')
-        elif start[1] < 0 or start[1] >= grid.width:
+        elif start[1] < 0 or start[1] >= grid.shape[1]:
             raise ValueError('Entrance is outside the grid.')
-        elif end[0] < 0 or end[0] >= grid.height:
+        elif end[0] < 0 or end[0] >= grid.shape[0]:
             raise ValueError('Entrance is outside the grid.')
-        elif end[1] < 0 or end[1] >= grid.width:
+        elif end[1] < 0 or end[1] >= grid.shape[1]:
             raise ValueError('Entrance is outside the grid.')
 
     @abc.abstractmethod
@@ -67,11 +67,11 @@ class MazeSolveAlgo(object):
 
         if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
             ns.append((r-2, c))
-        if r < self.grid.height-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
+        if r < self.grid.shape[0]-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
             ns.append((r+2, c))
         if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
             ns.append((r, c-2))
-        if c < self.grid.width-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
+        if c < self.grid.shape[1]-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
             ns.append((r, c+2))
 
         shuffle(ns)
@@ -92,9 +92,9 @@ class MazeSolveAlgo(object):
         """Does the cell lay on the edge, rather inside of the maze grid?"""
         r, c = cell
 
-        if r == 0 or r == self.grid.height - 1:
+        if r == 0 or r == self.grid.shape[0] - 1:
             return True
-        if c == 0 or c == self.grid.width - 1:
+        if c == 0 or c == self.grid.shape[1] - 1:
             return True
 
         return False
@@ -105,7 +105,7 @@ class MazeSolveAlgo(object):
 
         if r == 0:
             return (1, c)
-        elif r == (self.grid.height - 1):
+        elif r == (self.grid.shape[0] - 1):
             return (r - 1, c)
         elif c == 0:
             return (r, 1)
