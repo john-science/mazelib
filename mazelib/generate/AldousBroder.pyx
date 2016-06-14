@@ -21,7 +21,7 @@ cdef class AldousBroder(MazeGenAlgo):
 
     @cython.boundscheck(False)
     cpdef i8[:,:] generate(self):
-        cdef int num_visited, current_row, current_col
+        cdef int num_visited, crow, ccol, nrow, ncol
         cdef i8[:,:] grid
 
         # create empty grid, with walls
@@ -29,31 +29,33 @@ cdef class AldousBroder(MazeGenAlgo):
         a.fill(1)
         grid = a
 
-        current_row, current_col = randrange(1, self.H, 2), randrange(1, self.W, 2)
-        grid[current_row][current_col] = 0
+        crow = randrange(1, self.H, 2)
+        ccol = randrange(1, self.W, 2)
+        grid[crow][ccol] = 0
         num_visited = 1
 
         while num_visited < self.h * self.w:
             # find neighbors
-            neighbors = self._find_neighbors((current_row, current_col), grid, True)
+            neighbors = self._find_neighbors((crow, ccol), grid, True)
 
             # how many neighbors have already been visited?
             if len(neighbors) == 0:
                 # mark random neighbor as current
-                (current_row, current_col) = choice(self._find_neighbors((current_row, current_col), grid))
+                (crow, ccol) = choice(self._find_neighbors((crow, ccol), grid))
                 continue
 
             # loop through neighbors
-            for neighbor in neighbors:
-                if grid[neighbor[0]][neighbor[1]] > 0:
+            for nrow,ncol in neighbors:
+                if grid[nrow][ncol] > 0:
                     # open up wall to new neighbor
-                    grid[((neighbor[0]+current_row)//2, (neighbor[1]+current_col)//2)] = 0
+                    grid[((nrow + crow)//2, (ncol + ccol)//2)] = 0
                     # mark neighbor as visited
-                    grid[neighbor[0]][neighbor[1]] = 0
+                    grid[nrow][ncol] = 0
                     # bump the number visited
                     num_visited += 1
                     # current becomes new neighbor
-                    (current_row, current_col) = neighbor
+                    crow = nrow
+                    ccol = ncol
                     # break loop
                     break
 
