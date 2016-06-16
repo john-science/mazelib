@@ -16,6 +16,12 @@ cmdclass = {'build_ext': build_ext}
 ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ]),
                Extension("mazelib.generate.MazeGenAlgo", ["mazelib/generate/MazeGenAlgo.pyx" ]),
                Extension("mazelib.generate.AldousBroder", ["mazelib/generate/AldousBroder.pyx" ]),
+               Extension("mazelib.generate.BacktrackingGenerator",
+                         ["mazelib/generate/BacktrackingGenerator.pyx" ]),
+               Extension("mazelib.generate.BinaryTree", ["mazelib/generate/BinaryTree.pyx" ]),
+               Extension("mazelib.generate.CellularAutomaton",
+                         ["mazelib/generate/CellularAutomaton.pyx" ]),
+               Extension("mazelib.generate.Division", ["mazelib/generate/Division.pyx" ]),
                Extension("mazelib.generate.Ellers", ["mazelib/generate/Ellers.pyx" ])]
 
 
