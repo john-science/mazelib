@@ -47,21 +47,9 @@ cdef class Kruskal(MazeGenAlgo):
             tree2 = -1
 
             if ce_row % 2 == 0:  # even-numbered row: vertical wall
-                #print(ce_row, ce_col)
-                #print((ce_row - 1, ce_col))
-                #print(999 if (ce_row - 1, ce_col) in forest[0] else 0)
-                #print(forest)
-                #print([(i,j) for i, j in enumerate(forest)])
-                #print([i if (ce_row - 1, ce_col) in j else 0 for i, j in enumerate(forest)])
                 tree1 = sum([i if (ce_row - 1, ce_col) in j else 0 for i, j in enumerate(forest)])
                 tree2 = sum([i if (ce_row + 1, ce_col) in j else 0 for i, j in enumerate(forest)])
             else:  # odd-numbered row: horizontal wall
-                #print(ce_row, ce_col)
-                #print((ce_row, ce_col - 1))
-                #print(777 if (ce_row, ce_col - 1) in forest[0] else 0)
-                #print(forest)
-                #print([(i,j) for i, j in enumerate(forest)])
-                #print([i if (ce_row, ce_col - 1) in j else 0 for i, j in enumerate(forest)])
                 tree1 = sum([i if (ce_row, ce_col - 1) in j else 0 for i, j in enumerate(forest)])
                 tree2 = sum([i if (ce_row, ce_col + 1) in j else 0 for i, j in enumerate(forest)])
 
