@@ -30,7 +30,8 @@ ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.py
                Extension("mazelib.generate.Perturbation", ["mazelib/generate/Perturbation.pyx" ]),
                Extension("mazelib.generate.Prims", ["mazelib/generate/Prims.pyx" ]),
                Extension("mazelib.generate.Sidewinder", ["mazelib/generate/Sidewinder.pyx" ]),
-               Extension("mazelib.generate.TrivialMaze", ["mazelib/generate/TrivialMaze.pyx" ])]
+               Extension("mazelib.generate.TrivialMaze", ["mazelib/generate/TrivialMaze.pyx" ]),
+               Extension("mazelib.generate.Wilsons", ["mazelib/generate/Wilsons.pyx" ])]
 
 
 setup(name='mazelib',
