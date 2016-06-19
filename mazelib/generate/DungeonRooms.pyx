@@ -83,7 +83,7 @@ cdef class DungeonRooms(MazeGenAlgo):
 
         return self.grid
 
-    def _carve_rooms(self, rooms):
+    cdef void _carve_rooms(self, rooms):
         """Open up user-defined rooms in a maze."""
         if rooms is None:
             return
@@ -97,13 +97,13 @@ cdef class DungeonRooms(MazeGenAlgo):
                 # If the user tries to create an invalid room, it is simply ignored.
                 pass
 
-    def _carve_room(self, top_left, bottom_right):
+    cdef void _carve_room(self, top_left, bottom_right):
         """Open up a single user-defined room in a maze."""
         for row in range(top_left[0], bottom_right[0] + 1):
             for col in range(top_left[1], bottom_right[1] + 1):
                 self.grid[row][col] = 0
 
-    def _carve_door(self, top_left, bottom_right):
+    cdef void _carve_door(self, top_left, bottom_right):
         """Open up a single door in a user-defined room,
         IF that room does not already have a whole wall of doors."""
         even_squares = filter(lambda i: i % 2 == 0, list(top_left) + list(bottom_right))
@@ -127,7 +127,7 @@ cdef class DungeonRooms(MazeGenAlgo):
         door = choice(possible_doors)
         self.grid[door[0]][door[1]] = 0
 
-    def _walk(self, start):
+    cdef void _walk(self, start):
         """
         This is a standard random walk. It must start from a visited cell.
         And it completes when the current cell has no unvisited neighbors.
@@ -193,7 +193,7 @@ cdef class DungeonRooms(MazeGenAlgo):
 
         return current
 
-    def _reconnect_maze(self):
+    cdef void _reconnect_maze(self):
         """If a maze is not fully connected, open up walls until it is."""
         passages = self._find_all_passages()
         self._fix_disjoint_passages(passages)
@@ -225,7 +225,7 @@ cdef class DungeonRooms(MazeGenAlgo):
 
         return self._join_intersecting_sets(passages)
 
-    def _fix_disjoint_passages(self, disjoint_passages):
+    cdef void _fix_disjoint_passages(self, disjoint_passages):
         """All passages in a maze should be connected"""
         while len(disjoint_passages) > 1:
             found = False

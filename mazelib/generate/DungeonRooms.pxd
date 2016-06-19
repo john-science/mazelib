@@ -13,4 +13,10 @@ cdef class DungeonRooms(MazeGenAlgo):
 
     # methods
     cpdef i8[:,:] generate(self)
+    cdef void _carve_rooms(self, rooms)
+    cdef void _carve_room(self, top_left, bottom_right)
+    cdef void _carve_door(self, top_left, bottom_right)
     cdef _choose_start(self)
+    cdef void _walk(self, start)
+    cdef void _reconnect_maze(self)
+    cdef void _fix_disjoint_passages(self, disjoint_passages)
