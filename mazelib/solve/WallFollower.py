@@ -65,7 +65,7 @@ class WallFollower(MazeSolveAlgo):
         Loop until you have found the end,
         or prove you won't solve the maze.
         """
-        limit = self.grid.height * self.grid.width + 2
+        limit = self.grid.shape[0] * self.grid.shape[1] + 2
 
         while len(solution) < limit:
             last_dir,temp = self._follow_one_step(last_dir, current)
@@ -92,11 +92,11 @@ class WallFollower(MazeSolveAlgo):
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
-            mid_cell = (self._midpoint(next_cell, current))
+            mid = (self._midpoint(next_cell, current))
 
-            if self.grid[mid_cell] == 0 and mid_cell != self.start:
+            if self.grid[mid[0]][mid[1]] == 0 and mid != self.start:
                 return (next_dir, next_cell)
-            elif mid_cell == self.end:
+            elif mid == self.end:
                 return (next_dir, self.end)
 
         return (last_dir, current)
