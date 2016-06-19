@@ -28,7 +28,7 @@ cdef class MazeGenAlgo:
     common to many maze-generating algorithms.
     """
 
-    cpdef object _find_neighbors(self, posi, grid, is_wall=False):
+    cpdef list _find_neighbors(self, tuple posi, i8[:,:] grid, bint is_wall=False):
         """Find all the grid neighbors of the current position;
         visited, or not.
         """
@@ -36,13 +36,13 @@ cdef class MazeGenAlgo:
         r, c = posi
         ns = []
 
-        if r > 1 and grid[r-2, c] == is_wall:
+        if r > 1 and grid[r-2][c] == is_wall:
             ns.append((r-2, c))
-        if r < self.H-2 and grid[r+2, c] == is_wall:
+        if r < self.H-2 and grid[r+2][c] == is_wall:
             ns.append((r+2, c))
-        if c > 1 and grid[r, c-2] == is_wall:
+        if c > 1 and grid[r][c-2] == is_wall:
             ns.append((r, c-2))
-        if c < self.W-2 and grid[r, c+2] == is_wall:
+        if c < self.W-2 and grid[r][c+2] == is_wall:
             ns.append((r, c+2))
 
         shuffle(ns)

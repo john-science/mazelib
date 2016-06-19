@@ -16,4 +16,4 @@ cdef class MazeGenAlgo:
 
     # functions
     cpdef i8[:,:] generate(self)
-    cpdef object _find_neighbors(self, posi, grid, is_wall=?)
+    cpdef list _find_neighbors(self, tuple posi, i8[:,:] grid, bint is_wall=?)

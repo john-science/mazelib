@@ -28,10 +28,6 @@ cdef class Division(MazeGenAlgo):
         a[:, 0] = a[:, -1] = 1
         grid = a
 
-        #VERTICAL, HORIZONTAL = 0, 1
-        #grid = MazeArray(self.H, self.W, 0)
-        #grid[:, 0] = grid[:, -1] = 1
-        #grid[0, :] = grid[-1, :] = 1
         region_stack = [((1, 1), (self.H - 2, self.W - 2))]
 
         while region_stack:
@@ -50,7 +46,7 @@ cdef class Division(MazeGenAlgo):
             if width < height:
                 cut_direction = HORIZONTAL  # with 100% chance
             elif width > height:
-                cut_direction = VERTICAL  # with 100% chance
+                cut_direction = VERTICAL    # with 100% chance
             else:
                 if width == 2: continue
                 cut_direction = randrange(2)

@@ -1,11 +1,16 @@
 
+from __future__ import absolute_import
+from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo, i8
+import cython
+cimport numpy as cnp
+import numpy as np
+cnp.import_array()
 from random import choice
-from mazelib.generate.MazeGenAlgo import MazeArray, MazeGenAlgo
 
 
-class BinaryTree(MazeGenAlgo):
+cdef class BinaryTree(MazeGenAlgo):
 
-    def __init__(self, w, h, bias=None):
+    def __cinit__(self, w, h, bias=None):
         super(BinaryTree, self).__init__(w, h)
         biases = {'NW': [(1, 0), (0, -1)],
                   'NE': [(1, 0), (0, 1)],
@@ -17,35 +22,37 @@ class BinaryTree(MazeGenAlgo):
             key = choice(list(biases.keys()))
             self.bias = biases[key]
 
-    def generate(self):
-        grid = MazeArray(self.H, self.W)
+    @cython.boundscheck(False)
+    cpdef i8[:,:] generate(self):
+        cdef int row, col, neighbor_row, neighbor_col
+        cdef i8[:,:] grid
+
+        # create empty grid, with walls
+        a = np.empty((self.H, self.W), dtype=np.int8)
+        a.fill(1)
+        grid = a
 
         for row in range(1, self.H, 2):
             for col in range(1, self.W, 2):
-                current = (row, col)
-                grid[current] = 0
-                neighbor = self._find_neighbor(current)
-                grid[neighbor] = 0
+                grid[row][col] = 0
+                neighbor_row, neighbor_col = self._find_neighbor(row, col)
+                grid[neighbor_row][neighbor_col] = 0
 
         return grid
 
-    def _find_neighbor(self, current):
-        """# TODO: Does this fit within one of the many other neighbor paradigms?
+    cdef tuple _find_neighbor(self, int current_row, int current_col):
+        """ Find a neighbor in the biased direction.
         """
+        cdef b_row, b_col, neighbor_row, neighbor_col
         neighbors = []
-        for b in self.bias:
-            neighbor = self._add_tuples(current, b)
-            if neighbor[0] > 0 and neighbor[0] < (self.H - 1):
-                if neighbor[1] > 0 and neighbor[1] < (self.W - 1):
-                    neighbors.append(neighbor)
+        for b_row, b_col in self.bias:
+            neighbor_row = current_row + b_row
+            neighbor_col = current_col + b_col
+            if neighbor_row > 0 and neighbor_row < (self.H - 1):
+                if neighbor_col > 0 and neighbor_col < (self.W - 1):
+                    neighbors.append((neighbor_row, neighbor_col))
 
         if len(neighbors) == 0:
-            return current
+            return (current_row, current_col)
         else:
             return choice(neighbors)
-
-    def _add_tuples(self, current, diff):  # TODO: method could be a function (in a utility module)
-        """Convolve a position tuple with a direction tuple to
-        generate a new position.
-        """
-        return tuple(map(sum, zip(current, diff)))

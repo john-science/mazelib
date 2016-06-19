@@ -22,6 +22,7 @@ class WallFollower(MazeSolveAlgo):
     Turn: String ['left', 'right']
         Do you want to follow the right wall or the left wall? (default 'right')
     """
+
     def __init__(self, turn='right', prune=True):
         # turn can take on values 'left' or 'right'
         if turn == 'left':

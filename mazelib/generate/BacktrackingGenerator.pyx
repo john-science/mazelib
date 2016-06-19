@@ -33,7 +33,7 @@ cdef class BacktrackingGenerator(MazeGenAlgo):
         crow = randrange(1, self.H, 2)
         ccol = randrange(1, self.W, 2)
         track = [(crow, ccol)]
-        grid[(crow, ccol)] = 0
+        grid[crow][ccol] = 0
 
         while track:
             (crow, ccol) = track[-1]
@@ -43,8 +43,8 @@ cdef class BacktrackingGenerator(MazeGenAlgo):
                 track = track[:-1]
             else:
                 nrow, ncol = neighbors[0]
-                grid[(nrow, ncol)] = 0
-                grid[(nrow + crow) // 2, (ncol + ccol) // 2] = 0
+                grid[nrow][ncol] = 0
+                grid[(nrow + crow) // 2][(ncol + ccol) // 2] = 0
 
                 track += [(nrow, ncol)]
 

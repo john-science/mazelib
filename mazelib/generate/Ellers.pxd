@@ -9,7 +9,7 @@ cdef class Ellers(MazeGenAlgo):
     cdef float xbias
     cdef float ybias
 
-    # functions
+    # methods
     cpdef i8[:,:] generate(self)
     cdef int _init_row(self, int[:,:] sets, int row, int max_set_number)
     cdef void _merge_one_row(self, int[:,:] sets, int r)

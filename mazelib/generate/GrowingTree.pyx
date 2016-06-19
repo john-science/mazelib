@@ -20,7 +20,7 @@ cdef class GrowingTree(MazeGenAlgo):
 
     Optional Parameters
 
-    backtrack_chance: Float [0.0, 1.0]
+    backtrack_chance: float [0.0, 1.0]
         Splits the logic to either use Recursive Backtracking (RB) or Prim's (random)
         to select the next cell to visit. (default 1.0)
     """
@@ -62,5 +62,16 @@ cdef class GrowingTree(MazeGenAlgo):
 
             grid[nn_row][nn_col] = 0
             grid[(current_row + nn_row) // 2][(current_col + nn_col) // 2] = 0
+
+        '''
+        for i in range(grid.shape[0]):
+            line = ''
+            for j in range(grid.shape[1]):
+                if grid[i][j] == 1:
+                    line += '#'
+                else:
+                    line += ' '
+            print(line)
+        '''
 
         return grid
