@@ -25,6 +25,7 @@ ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.py
                Extension("mazelib.generate.DungeonRooms", ["mazelib/generate/DungeonRooms.pyx" ]),
                Extension("mazelib.generate.Ellers", ["mazelib/generate/Ellers.pyx" ]),
                Extension("mazelib.generate.GrowingTree", ["mazelib/generate/GrowingTree.pyx" ]),
+               Extension("mazelib.generate.HuntAndKill", ["mazelib/generate/HuntAndKill.pyx" ]),
                Extension("mazelib.generate.Kruskal", ["mazelib/generate/Kruskal.pyx" ]),
                Extension("mazelib.generate.Prims", ["mazelib/generate/Prims.pyx" ]),
                Extension("mazelib.generate.Sidewinder", ["mazelib/generate/Sidewinder.pyx" ])]
