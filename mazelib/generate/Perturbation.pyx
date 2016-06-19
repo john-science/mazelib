@@ -28,8 +28,8 @@ cdef class Perturbation(MazeGenAlgo):
     """
 
     def __cinit__(self, grid, repeat=1, new_walls=1):
-        h = (grid.height - 1) // 2
-        w = (grid.width - 1) // 2
+        h = (grid.shape[0] - 1) // 2
+        w = (grid.shape[1] - 1) // 2
         self.grid = grid.copy()
         self.repeat = repeat
         self.new_walls = new_walls
@@ -53,20 +53,20 @@ cdef class Perturbation(MazeGenAlgo):
 
     def _add_a_random_wall(self, grid):
         """Add a single wall randomly within the maze"""
-        limit = 2 * grid.height * grid.width
+        limit = 2 * grid.shape[0] * grid.shape[1]
         tries = 0
 
         found = False
         while not found:
-            row = randrange(1, grid.height - 1)
+            row = randrange(1, grid.shape[0] - 1)
             if row % 2 == 0:
-                col = randrange(1, grid.width - 1, 2)
+                col = randrange(1, grid.shape[1] - 1, 2)
             else:
-                col = randrange(2, grid.width - 1, 2)
+                col = randrange(2, grid.shape[1] - 1, 2)
 
-            if grid[(row, col)] == 0:
+            if grid[row][col] == 0:
                 found = True
-                grid[(row, col)] = 1
+                grid[row][col] = 1
             else:
                 tries += 1
 
@@ -88,8 +88,8 @@ cdef class Perturbation(MazeGenAlgo):
         passages = []
 
         # go through all cells in the maze
-        for r in range(1, grid.height, 2):
-            for c in range(1, grid.width, 2):
+        for r in range(1, grid.shape[0], 2):
+            for c in range(1, grid.shape[1], 2):
                 ns = self._find_unblocked_neighbors(grid, (r, c))
                 current = set(ns + [(r, c)])
 
@@ -122,7 +122,7 @@ cdef class Perturbation(MazeGenAlgo):
                     # if so, remove the dividing wall, combine the two passages
                     if len(intersect) > 0:
                         mid = self._midpoint(intersect[0], cell)
-                        grid[mid] = 0
+                        grid[mid[0]][mid[1]] = 0
                         disjoint_passages[0] = disjoint_passages[0].union(passage)
                         disjoint_passages.remove(passage)
                         found = True
@@ -153,13 +153,13 @@ cdef class Perturbation(MazeGenAlgo):
         r, c = posi
         ns = []
 
-        if r > 1 and grid[r-1, c] == False and grid[r-2, c] == False:
+        if r > 1 and grid[r-1][c] == False and grid[r-2][c] == False:
             ns.append((r-2, c))
-        if r < grid.height-2 and grid[r+1, c] == False and grid[r+2, c] == False:
+        if r < grid.shape[0]-2 and grid[r+1][c] == False and grid[r+2][c] == False:
             ns.append((r+2, c))
-        if c > 1 and grid[r, c-1] == False and grid[r, c-2] == False:
+        if c > 1 and grid[r][c-1] == False and grid[r][c-2] == False:
             ns.append((r, c-2))
-        if c < grid.width-2 and grid[r, c+1] == False and grid[r, c+2] == False:
+        if c < grid.shape[1]-2 and grid[r][c+1] == False and grid[r][c+2] == False:
             ns.append((r, c+2))
 
         shuffle(ns)
