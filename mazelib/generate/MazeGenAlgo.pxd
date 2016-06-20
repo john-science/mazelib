@@ -1,7 +1,13 @@
 
 import cython
 cimport numpy as cnp
+import numpy as np
 cnp.import_array()
+'''
+import cython
+cimport numpy as cnp
+cnp.import_array()
+'''
 
 ctypedef cnp.int8_t i8
 

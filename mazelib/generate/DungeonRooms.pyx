@@ -1,10 +1,8 @@
 
 from __future__ import absolute_import
-from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo, i8
+from mazelib.generate.MazeGenAlgo cimport cnp
+from mazelib.generate.MazeGenAlgo import np
 import cython
-cimport numpy as cnp
-import numpy as np
-cnp.import_array()
 from random import choice, randrange, shuffle
 
 
@@ -21,7 +19,7 @@ cdef class DungeonRooms(MazeGenAlgo):
         A list of lists, containing the top-left and bottom-right grid coords of where
         you want rooms to be created. For best results, the corners of each room should
         have odd-numbered coordinates.
-    grid: MazeArray
+    grid: i8[H,W]
         A pre-built maze array filled with one, or many, rooms.
     hunt_order: String ['random', 'serpentine']
         Determines how the next cell to hunt from will be chosen. (default 'random')

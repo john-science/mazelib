@@ -13,8 +13,7 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 cmdclass = {'build_ext': build_ext}
-ext_modules = [Extension("mazelib.utils.MazeArray", ["mazelib/utils/MazeArray.pyx" ]),
-               Extension("mazelib.generate.MazeGenAlgo", ["mazelib/generate/MazeGenAlgo.pyx" ]),
+ext_modules = [Extension("mazelib.generate.MazeGenAlgo", ["mazelib/generate/MazeGenAlgo.pyx" ]),
                Extension("mazelib.generate.AldousBroder", ["mazelib/generate/AldousBroder.pyx" ]),
                Extension("mazelib.generate.BacktrackingGenerator",
                          ["mazelib/generate/BacktrackingGenerator.pyx" ]),

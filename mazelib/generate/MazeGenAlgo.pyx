@@ -1,5 +1,8 @@
 
 import cython
+cimport numpy as cnp
+import numpy as np
+cnp.import_array()
 from random import shuffle
 
 

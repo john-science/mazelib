@@ -5,4 +5,5 @@ from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo, i8
 
 cdef class AldousBroder(MazeGenAlgo):
 
+    # methods
     cpdef i8[:,:] generate(self)

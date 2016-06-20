@@ -1,10 +1,8 @@
 
 from __future__ import absolute_import
-from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo, i8
+from mazelib.generate.MazeGenAlgo cimport cnp
+from mazelib.generate.MazeGenAlgo import np
 import cython
-cimport numpy as cnp
-import numpy as np
-cnp.import_array()
 from random import choice, randrange
 
 
@@ -48,7 +46,7 @@ cdef class AldousBroder(MazeGenAlgo):
             for nrow,ncol in neighbors:
                 if grid[nrow][ncol] > 0:
                     # open up wall to new neighbor
-                    grid[((nrow + crow)//2, (ncol + ccol)//2)] = 0
+                    grid[(nrow + crow)//2][(ncol + ccol)//2] = 0
                     # mark neighbor as visited
                     grid[nrow][ncol] = 0
                     # bump the number visited
