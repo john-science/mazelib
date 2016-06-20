@@ -33,7 +33,7 @@ def main():
 def run_benchmarks():
     ''' Run the benchmarks.
         An annoying screen-print will occur so that you know your
-        progress, as these tests can take a while.
+        progress, as these tests might take a while.
     '''
     times = [[0.0]*len(SIZES) for _ in range(len(GENERATORS))]
 
