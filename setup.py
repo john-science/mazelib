@@ -1,9 +1,18 @@
 '''
 Installing the mazelib package into your system Python
-is a two step process:
+is a short process:
+
+Optionally, one developer reported having to set an environment variable to his numpy installation:
+
+    export CFLAGS="-I /usr/local/lib/python2.7/site-packages/numpy/core/include"
 
 To build the Cython extensions:
     python setup.py build_ext --inplace
+
+You will need to have Cython installed, and the current version of mazelib is a little persnickety about the version:
+
+    pip install cython==0.21
+
 To build mazelib and install the package:
     python setup.py install
 '''
@@ -54,8 +63,7 @@ setup(name='mazelib',
     long_description=open('README.md').read(),
     packages=['mazelib',
               'mazelib.generate',
-              'mazelib.solve',
-              'mazelib.utils'],
+              'mazelib.solve'],
     platforms='any',
     test_suite="test",
     install_requires=[
