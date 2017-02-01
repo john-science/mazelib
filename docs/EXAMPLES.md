@@ -108,12 +108,8 @@ Sometimes it is hard to see the finer points of a maze in plain text. You may wa
 
     def showPNG(grid):
         """Generate a simple image of the maze."""
-        walls = []
-        for wall in grid:
-            walls.append(list(wall))
-    
         plt.figure(figsize=(10, 5))
-        plt.imshow(walls, cmap=plt.cm.binary, interpolation='nearest')
+        plt.imshow(grid, cmap=plt.cm.binary, interpolation='nearest')
         plt.xticks([]), plt.yticks([])
         plt.show()
 
