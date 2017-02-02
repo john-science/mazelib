@@ -3,9 +3,9 @@ from random import randrange
 
 
 class Maze(object):
-    """This is a master object meant to hold a rectangular, 2D maze.
-    This object includes the methods used to generate and solve the maze,
-    as well as the start and end points.
+    """ This is a master object meant to hold a rectangular, 2D maze.
+        This object includes the methods used to generate and solve the maze,
+        as well as the start and end points.
     """
 
     def __init__(self):
@@ -17,7 +17,7 @@ class Maze(object):
         self.solutions = None
 
     def generate(self):
-        """public method to generate a new maze, and handle some clean-up"""
+        """ public method to generate a new maze, and handle some clean-up """
         if self.generator is None:
             raise UnboundLocalError('No maze-generation algorithm has been set.')
         else:
@@ -27,8 +27,8 @@ class Maze(object):
             self.solutions = None
 
     def generate_entrances(self, start_outer=True, end_outer=True):
-        """Generate maze entrances.
-        Entrances can be on the walls, or inside the maze.
+        """ Generate maze entrances.
+            Entrances can be on the walls, or inside the maze.
         """
         if start_outer and end_outer:
             self._generate_outer_entrances()
@@ -44,7 +44,7 @@ class Maze(object):
             self.generate_entrances(start_outer, end_outer)
 
     def _generate_outer_entrances(self):
-        """Generate maze entrances, along the outer walls."""
+        """ Generate maze entrances, along the outer walls. """
         H = self.grid.shape[0]
         W = self.grid.shape[1]
 
@@ -65,7 +65,7 @@ class Maze(object):
             self.end = (randrange(1, H, 2), 0)
 
     def _generate_inner_entrances(self):
-        """Generate maze entrances, randomly within the maze."""
+        """ Generate maze entrances, randomly within the maze. """
         H = self.grid.height
         W = self.grid.width
 
@@ -79,7 +79,7 @@ class Maze(object):
         self.end = end
 
     def _generate_opposite_entrances(self):
-        """Generate one inner and one outer entrance."""
+        """ Generate one inner and one outer entrance. """
         H = self.grid.height
         W = self.grid.width
 
@@ -101,7 +101,7 @@ class Maze(object):
         return (first, second)
 
     def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0, reducer=len):
-        """Use the Monte Carlo method to generate a maze of defined difficulty.
+        """ Use the Monte Carlo method to generate a maze of defined difficulty.
 
         This method assumes the generator and solver algorithms are already set.
 
@@ -148,6 +148,7 @@ class Maze(object):
         self.solutions = mazes[posi]['solutions']
 
     def solve(self):
+        """ public method to solve a new maze, if possible """
         if self.generator is None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
         elif self.start is None or self.end is None:
@@ -156,17 +157,14 @@ class Maze(object):
             self.solutions = self.solver.solve(self.grid, self.start, self.end)
 
     def tostring(self, entrances=False, solutions=False):
-        """Return a string representation of the maze."""
+        """ Return a string representation of the maze. """
         if self.grid is None:
             return ''
 
-        # Build the walls of the grid
+        # build the walls of the grid
         txt = []
         for row in self.grid:
-            txt_row = ''
-            for cell in row:
-                txt_row += '#' if cell else ' '
-            txt.append(txt_row)
+            txt.append(''.join(['#' if cell else ' ' for cell in row]))
 
         # insert the start and end points
         if entrances and self.start and self.end:
@@ -177,14 +175,13 @@ class Maze(object):
 
         # if extant, insert the solution path
         if solutions and self.solutions:
-            for posi in self.solutions[0]:
-                r, c = posi
+            for r, c in self.solutions[0]:
                 txt[r] = txt[r][:c] + '+' + txt[r][c+1:]
 
         return '\n'.join(txt)
 
     def __str__(self):
-        """display maze walls, entrances, and solutions, if available"""
+        """ display maze walls, entrances, and solutions, if available """
         return self.tostring(True, True)
 
     def __repr__(self):
