@@ -155,6 +155,9 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 
 ## Hunt-and-Kill
 
+[![Click to see Hunt-and-Kill in Action](images/huntandkill_7x7.png?raw=true)
+*Click to see Hunt-and-Kill in Action*](images/huntandkill_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 1. Randomly choose a starting cell.
