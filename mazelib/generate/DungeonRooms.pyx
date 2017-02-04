@@ -65,10 +65,6 @@ cdef class DungeonRooms(MazeGenAlgo):
             return None
         self.grid[current[0]][current[1]] = 0
 
-        # find an arbitrary starting position
-        current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
-        self.grid[current[0]][current[1]] = 0
-
         # perform many random walks, to fill the maze
         num_trials = 0
         while current != (-1, -1):
