@@ -82,6 +82,8 @@ More research is needed to create a post-processing step to remove the typical C
 
 ## Dungeon Rooms
 
+[![Link to Dungeon Rooms example GIF](images/dungeon_rooms_7x7.png?raw=true)](images/dungeon_rooms_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 This is a variation on Hunt-and-Kill where the initial maze has rooms carved out of it, instead of being completely filled.
