@@ -82,7 +82,8 @@ More research is needed to create a post-processing step to remove the typical C
 
 ## Dungeon Rooms
 
-[![Link to Dungeon Rooms example GIF](images/dungeon_rooms_7x7.png?raw=true)](images/dungeon_rooms_7x7.gif?raw=true)
+[![Click to see Dungeon Rooms in Action](images/dungeon_rooms_7x7.png?raw=true)
+*Click to see Dungeon Rooms in Action*](images/dungeon_rooms_7x7.gif?raw=true)
 
 ###### The Algorithm
 
