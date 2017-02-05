@@ -5,6 +5,9 @@
 
 ## Aldous-Broder
 
+[![Click to see Aldous Broder in Action](images/aldous_broder_7x7.png?raw=true)
+*Click to see Aldous Broder in Action*](images/aldous_broder_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 1. Choose a random cell.
@@ -20,6 +23,9 @@ perfect, unbiased
 This algorithm treats the cells of a maze as a graph, and solves to find a Uniform Spanning Tree that covers that graph. Like most tree-based maze algorithms, this one is a little slow.
 
 ## Backtracking Generator
+
+[![Click to see the Backtracking Generator in Action](images/backtracking_7x7.png?raw=true)
+*Click to see the Backtracking Generator in Action*](images/backtracking_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -37,6 +43,9 @@ perfect, unbiased
 This is perhaps the most common maze-generation algorithm because it is easy to understand and implement. And it produces high-quality mazes.
 
 ## Binary Tree
+
+[![Click to see the Binary Tree in Action](images/binary_tree_7x7.png?raw=true)
+*Click to see the Binary Tree in Action*](images/binary_tree_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -58,6 +67,9 @@ This algorithm produces mazes with a serious flaw: the North and West borders of
 On the positive side, this algorithm is extremely fast and very easy to implement.
 
 ## Cellular Automaton
+
+[![Click to see the Cellular Automaton in Action](images/cell_auto_7x7.png?raw=true)
+*Click to see the Cellular Automaton in Action*](images/cell_auto_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -108,6 +120,9 @@ Theseus traversed a maze to find a minotaur in the center. Similar things happen
 
 ## Eller's
 
+[![Click to see the Eller's in Action](images/ellers_7x7.png?raw=true)
+*Click to see the Eller's in Action*](images/ellers_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 1. Put the each cell of the first row in its own set.
@@ -133,6 +148,9 @@ perfect. unbiased.
 This is a classic set-theory algorithm. It is not the fastest algorithm, as it requires relabeling whole sets of cells at every step.
 
 ## Growing Tree
+
+[![Click to see the Growing Tree in Action](images/growing_tree_7x7.png?raw=true)
+*Click to see the Growing Tree in Action*](images/growing_tree_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -182,6 +200,9 @@ In this implementation of Hunt-and-kill there are two different ways to select a
 
 ## Kruskal's
 
+[![Click to see the Kruskal's in Action](images/kruskals_7x7.png?raw=true)
+*Click to see the Kruskal's in Action*](images/kruskals_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 1. Create a set of all walls in the grid.
@@ -225,6 +246,9 @@ With great power comes great responsibility. If you use this method on a grid th
 
 ## Prim's
 
+[![Click to see the Prim's in Action](images/prims_7x7.png?raw=true)
+*Click to see the Prim's in Action*](images/prims_7x7.gif?raw=true)
+
 ###### The Algorithm
 
 1. Choose an arbitrary cell from the grid, and add it to some (initially empty) set visited nodes (V).
@@ -241,6 +265,9 @@ perfect. unbiased.
 This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a graph. But Prim's is purely random. In fact, randomized variations on other maze-generating algorithms are frequently called "Prim's variations".
 
 ## Recursive Division
+
+[![Click to see the Division in Action](images/division_7x7.png?raw=true)
+*Click to see the Division in Action*](images/division_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -260,6 +287,9 @@ The algorithm is very simple to understand, and reasonably simple to implement. 
 This implementation tries, as far as is possible, to reduce these biases by alternating the cuts between horizontal and vertical. (Obviously, if you made 7 vertical cuts in a row the maze would be very easy to solve.)
 
 ## Sidewinder
+
+[![Click to see the Sidewinder in Action](images/sidewinder_7x7.png?raw=true)
+*Click to see the Sidewinder in Action*](images/sidewinder_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -287,6 +317,9 @@ Research is needed to create a post-processing step to fix this flaw.
 
 
 ## Wilson's
+
+[![Click to see the Wilson's in Action](images/wilsons_7x7.png?raw=true)
+*Click to see the Wilson's in Action*](images/wilsons_7x7.gif?raw=true)
 
 ###### The Algorithm
 
