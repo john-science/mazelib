@@ -1,6 +1,6 @@
 # Maze-Solving Algorithms
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
 
 ## Blind Alley
 
@@ -223,4 +223,4 @@ To the human brain, this is the easiest way to solve a maze. Drunk college kids 
 4. __wall__ - an impassable barrier in the maze
 
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
