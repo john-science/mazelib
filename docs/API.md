@@ -1,6 +1,6 @@
 # mazelib API
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
 
 The mazelib library provides tools for creating and solving 2D mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these algorithms are implemented with optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
 
@@ -72,4 +72,4 @@ The above code will generate 100 different mazes, and for each maze generate 10 
 This basic implementation of the Monte Carlo method gives you a lot of power to not just generate mazes, but generate mazes with properties you like.
 
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
