@@ -1,6 +1,6 @@
 # Maze-Generating Algorithms
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
 
 
 ## Aldous-Broder
@@ -342,5 +342,5 @@ perfect. unbiased.
 Like all random-walk algorithms, Wilson's isn't terribly fast. However, this still converges faster than Aldous-Broder. And it produces similarly nice results.
 
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
 
