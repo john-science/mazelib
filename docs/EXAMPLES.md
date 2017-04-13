@@ -1,6 +1,6 @@
 # mazelib Examples
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
 
 
 ## Generating Special Mazes
@@ -257,4 +257,4 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 ![XKCD Example](images/xkcd_5x6.png?raw=true)
 
 
-#####Go back to the main [README](../README.md)
+##### Go back to the main [README](../README.md)
