@@ -1,10 +1,8 @@
 
-import abc
 from random import shuffle
 
 
 class MazeSolveAlgo(object):
-    __metaclass__ = abc.ABCMeta
 
     def solve(self, grid, start, end):
         self._solve_preprocessor(grid, start, end)
@@ -29,9 +27,8 @@ class MazeSolveAlgo(object):
         elif end[1] < 0 or end[1] >= grid.shape[1]:
             raise ValueError('Entrance is outside the grid.')
 
-    @abc.abstractmethod
     def _solve(self):
-        return
+        return None
 
     """
     All of the methods below this are helper methods,
