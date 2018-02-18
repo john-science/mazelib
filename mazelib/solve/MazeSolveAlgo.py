@@ -1,5 +1,5 @@
 
-from random import shuffle
+from numpy.random import shuffle
 
 
 class MazeSolveAlgo(object):
