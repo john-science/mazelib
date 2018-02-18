@@ -1,7 +1,7 @@
 
 import abc
 import numpy as np
-from random import shuffle
+from numpy.random import shuffle
 
 
 class MazeGenAlgo(object):
