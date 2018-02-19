@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 from mazelib.generate.MazeGenAlgo import np
-from random import shuffle
+from numpy.random import shuffle
 
 
 class Kruskal(MazeGenAlgo):
