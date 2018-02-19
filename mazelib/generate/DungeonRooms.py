@@ -268,8 +268,6 @@ class DungeonRooms(MazeGenAlgo):
 
         shuffle(ns)
 
-as;flgiahdf;MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import MazeGenAlgofrom mazelib.generate.MazeGenAlgo import MazeGenAlgo
         return ns
 
     def _midpoint(self, a, b):  # TODO: method could be a function
