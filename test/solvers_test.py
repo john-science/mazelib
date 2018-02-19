@@ -51,7 +51,7 @@ class SolversTest(unittest.TestCase):
 
     def _duplicates_in_solution(self, solution):
         """No cell should appear twice in the same maze solution."""
-        for i in xrange(len(solution[:-1])):
+        for i in range(len(solution[:-1])):
             if solution[i] in solution[i+1:]:
                 return True
 

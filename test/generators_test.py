@@ -46,8 +46,8 @@ class GeneratorsTest(unittest.TestCase):
         H = grid.height
         W = grid.width
 
-        for r in xrange(1, H, 2):
-            for c in xrange(1, W, 2):
+        for r in range(1, H, 2):
+            for c in range(1, W, 2):
                 if grid[r, c] == 1:
                     return False
 
@@ -58,8 +58,8 @@ class GeneratorsTest(unittest.TestCase):
         H = grid.height
         W = grid.width
 
-        for r in xrange(2, H, 2):
-            for c in xrange(2, W, 2):
+        for r in range(2, H, 2):
+            for c in range(2, W, 2):
                 if grid[r, c] == 0:
                     return False
 

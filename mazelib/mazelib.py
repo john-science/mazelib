@@ -119,12 +119,12 @@ class Maze(object):
 
         # generate different mazes
         mazes = []
-        for _ in xrange(repeat):
+        for _ in range(repeat):
             self.generate()
             this_maze = []
 
             # for each maze, generate different entrances, and solve
-            for _ in xrange(entrances):
+            for _ in range(entrances):
                 self.generate_entrances()
                 self.solve()
                 this_maze.append({'grid': self.grid,

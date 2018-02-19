@@ -26,7 +26,7 @@ class MazeTest(unittest.TestCase):
     
         num = 0
     
-        for i in xrange(1, len(path)-1):
+        for i in range(1, len(path)-1):
             same_col = path[i-1][0] == path[i][0] == path[i+1][0]
             same_row = path[i-1][1] == path[i][1] == path[i+1][1]
             if not same_row and not same_col:
