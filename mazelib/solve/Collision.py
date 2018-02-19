@@ -1,5 +1,5 @@
 
-from random import choice,shuffle
+from numpy.random import choice, shuffle
 from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
