@@ -200,8 +200,8 @@ In this implementation of Hunt-and-kill there are two different ways to select a
 
 ## Kruskal's
 
-[![Click to see the Kruskal's in Action](images/kruskals_7x7.png?raw=true)
-*Click to see the Kruskal's in Action*](images/kruskals_7x7.gif?raw=true)
+[![Click to see the Kruskal's in Action](images/kruskal_7x7.png?raw=true)
+*Click to see the Kruskal's in Action*](images/kruskal_7x7.gif?raw=true)
 
 ###### The Algorithm
 
@@ -218,6 +218,8 @@ perfect. unbiased.
 Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning Tree (MST) over a graph.
 
 ## Perturbation
+
+> TODO: Image needed
 
 ###### The Algorithm
 
