@@ -116,20 +116,19 @@ class DungeonRooms(MazeGenAlgo):
         self.grid[door[0]][door[1]] = 0
 
     def _walk(self, start):
-        """
-        This is a standard random walk. It must start from a visited cell.
-        And it completes when the current cell has no unvisited neighbors.
+        """ This is a standard random walk. It must start from a visited cell.
+            And it completes when the current cell has no unvisited neighbors.
         """
         if self.grid[start[0]][start[1]] == 0:
             current = start
-            unvisited_neighbors = self._find_neighbors(current, self.grid, True)
+            unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
             while len(unvisited_neighbors) > 0:
                 neighbor = choice(unvisited_neighbors)
                 self.grid[neighbor[0]][neighbor[1]] = 0
                 self.grid[(neighbor[0] + current[0]) // 2][(neighbor[1] + current[1]) // 2] = 0
                 current = neighbor
-                unvisited_neighbors = self._find_neighbors(current, self.grid, True)
+                unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
     def _hunt(self, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
@@ -220,7 +219,7 @@ class DungeonRooms(MazeGenAlgo):
             while not found:
                 # randomly select a cell in the first passage
                 cell = choice(list(disjoint_passages[0]))
-                neighbors = self._find_neighbors(cell, self.grid)
+                neighbors = self._find_neighbors(cell[0], cell[1], self.grid)
                 # determine if that cell has a neighbor in any other passage
                 for passage in disjoint_passages[1:]:
                     intersect = [c for c in neighbors if c in passage]
@@ -250,8 +249,8 @@ class DungeonRooms(MazeGenAlgo):
         return list(filter(lambda l: l is not None, list_of_sets))
 
     def _find_unblocked_neighbors(self, posi):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
+        """ Find all the grid neighbors of the current position;
+            visited, or not.
         """
         r, c = posi
         ns = []
@@ -269,6 +268,6 @@ class DungeonRooms(MazeGenAlgo):
 
         return ns
 
-    def _midpoint(self, a, b):  # TODO: method could be a function
-        """Find the wall cell between to passage cells"""
+    def _midpoint(self, a, b):  # TODO: method could be a function (or static)
+        """ Find the wall cell between to passage cells """
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2

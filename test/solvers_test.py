@@ -1,5 +1,5 @@
 
-from array import array
+import numpy as np
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.BlindAlley import BlindAlley
@@ -11,7 +11,6 @@ from mazelib.solve.RandomMouse import RandomMouse
 from mazelib.solve.ShortestPath import ShortestPath
 from mazelib.solve.ShortestPaths import ShortestPaths
 from mazelib.solve.WallFollower import WallFollower
-from mazelib.utils.MazeArray import MazeArray
 from mazelib.mazelib import Maze
 
 
@@ -27,18 +26,17 @@ class SolversTest(unittest.TestCase):
         #
         #######
         """
-    
-        g = MazeArray(7, 7)
-        g[1] = array('b', [1,0,0,0,0,0,1])
-        g[2] = array('b', [1,0,1,0,1,0,1])
-        g[3] = array('b', [1,0,1,0,0,0,1])
-        g[4] = array('b', [1,0,1,1,1,1,1])
-        g[5] = array('b', [1,0,0,0,0,0,1])
+        g = np.ones((7, 7), dtype=np.bool_)
+        g[1] = [1,0,0,0,0,0,1]
+        g[2] = [1,0,1,0,1,0,1]
+        g[3] = [1,0,1,0,0,0,1]
+        g[4] = [1,0,1,1,1,1,1]
+        g[5] = [1,0,0,0,0,0,1]
     
         return g
 
     def _one_away(self, cell1, cell2):
-        """Is one cell exactly one move from another?"""
+        """ Is one cell exactly one move from another? """
         r1,c1 = cell1
         r2,c2 = cell2
 
@@ -50,7 +48,7 @@ class SolversTest(unittest.TestCase):
         return False
 
     def _duplicates_in_solution(self, solution):
-        """No cell should appear twice in the same maze solution."""
+        """ No cell should appear twice in the same maze solution. """
         for i in range(len(solution[:-1])):
             if solution[i] in solution[i+1:]:
                 return True
@@ -58,7 +56,7 @@ class SolversTest(unittest.TestCase):
         return False
 
     def _create_maze_with_varied_entrances(self, start_outer=True, end_outer=True):
-        """create a maze with entrances inside/outside"""
+        """ create a maze with entrances inside/outside """
         m = Maze()
         m.generator = Prims(4, 5)
         m.generate()
@@ -75,7 +73,7 @@ class SolversTest(unittest.TestCase):
         return m
 
     def testBlindAlley(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -91,7 +89,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testChainPruned(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -107,7 +105,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testChainUnpruned(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -122,7 +120,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testCollision(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -138,7 +136,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testCuldeSacFiller(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -173,7 +171,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testDeadEndFiller(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -189,7 +187,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testRandomMousePruned(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -205,7 +203,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testRandomMouseUnpruned(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -220,7 +218,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testShortestPath(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -236,7 +234,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testShortestPaths(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 
@@ -252,7 +250,7 @@ class SolversTest(unittest.TestCase):
                     self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def testWallFollower(self):
-        """test against a maze with outer/inner entraces"""
+        """ test against a maze with outer/inner entraces """
         starts = [True, False]
         ends = [True, False]
 

@@ -8,19 +8,20 @@ from mazelib.mazelib import Maze
 class MazeTest(unittest.TestCase):
     
     def _on_edge(self, grid, cell):
-        """test helper method to determine if a point
-        is on the edge of a maze"""
+        """ test helper method to determine if a point
+            is on the edge of a maze
+        """
         r, c = cell
         
-        if r == 0 or r == (grid.height - 1):
+        if r == 0 or r == (grid.shape[0] - 1):
             return True
-        elif c == 0 or c == (grid.width - 1):
+        elif c == 0 or c == (grid.shape[1] - 1):
             return True
         
         return False
 
     def _num_turns(self, path):
-        """count the number of turns in a path"""
+        """ count the number of turns in a path """
         if len(path) < 3:
             return 0
     
@@ -44,8 +45,8 @@ class MazeTest(unittest.TestCase):
         m.generator = Prims(h, w)
         m.generate()
 
-        self.assertEqual(m.grid.height, H)
-        self.assertEqual(m.grid.width, W)
+        self.assertEqual(m.grid.shape[0], H)
+        self.assertEqual(m.grid.shape[1], W)
 
     def testInnerEntrances(self):
         h = 4
@@ -97,8 +98,8 @@ class MazeTest(unittest.TestCase):
         m.generate_monte_carlo(3)
 
         # grid size
-        self.assertEqual(m.grid.height, H)
-        self.assertEqual(m.grid.width, W)
+        self.assertEqual(m.grid.shape[0], H)
+        self.assertEqual(m.grid.shape[1], W)
 
         # test entrances are outer
         self.assertTrue(self._on_edge(m.grid, m.start))
@@ -116,8 +117,8 @@ class MazeTest(unittest.TestCase):
         m.generate_monte_carlo(3, reducer=self._num_turns)
 
         # grid size
-        self.assertEqual(m.grid.height, H)
-        self.assertEqual(m.grid.width, W)
+        self.assertEqual(m.grid.shape[0], H)
+        self.assertEqual(m.grid.shape[1], W)
 
         # test entrances are outer
         self.assertTrue(self._on_edge(m.grid, m.start))

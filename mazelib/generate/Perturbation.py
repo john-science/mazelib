@@ -35,15 +35,15 @@ class Perturbation(MazeGenAlgo):
         for i in range(self.repeat):
             # Add a small number of random walls, blocking current passages
             for j in range(self.new_walls):
-                grid = self._add_a_random_wall(grid)
+                self.grid = self._add_a_random_wall(self.grid)
 
             # re-fix the maze
-            grid = self._reconnect_maze(grid)
+            self.grid = self._reconnect_maze(self.grid)
 
-        return grid
+        return self.grid
 
     def _add_a_random_wall(self, grid):
-        """Add a single wall randomly within the maze"""
+        """ Add a single wall randomly within the maze """
         limit = 2 * grid.shape[0] * grid.shape[1]
         tries = 0
 
@@ -68,13 +68,13 @@ class Perturbation(MazeGenAlgo):
         return grid
 
     def _reconnect_maze(self, grid):
-        """If a maze is not fully connected, open up walls until it is."""
+        """ If a maze is not fully connected, open up walls until it is. """
         passages = self._find_all_passages(grid)
         return self._fix_disjoint_passages(passages, grid)
 
     def _find_all_passages(self, grid):
-        """Place all connected passage cells into a set.
-        Disjoint passages will be in different sets.
+        """ Place all connected passage cells into a set.
+            Disjoint passages will be in different sets.
         """
         passages = []
 
@@ -100,7 +100,7 @@ class Perturbation(MazeGenAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages, grid):
-        """All passages in a maze should be connected"""
+        """ All passages in a maze should be connected """
         while len(disjoint_passages) > 1:
             found = False
             while not found:
@@ -122,7 +122,7 @@ class Perturbation(MazeGenAlgo):
         return grid
 
     def _join_intersecting_sets(self, list_of_sets):
-        """combine sets that have non-zero intersections"""
+        """ combine sets that have non-zero intersections """
         for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue
@@ -135,11 +135,11 @@ class Perturbation(MazeGenAlgo):
                     list_of_sets[i] = list_of_sets[i].union(list_of_sets[j])
                     list_of_sets[j] = None
 
-        return filter(lambda l: l is not None, list_of_sets)
+        return list(filter(lambda l: l is not None, list_of_sets))
 
     def _find_unblocked_neighbors(self, grid, posi):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
+        """ Find all the grid neighbors of the current position;
+            visited, or not.
         """
         r, c = posi
         ns = []
@@ -158,5 +158,5 @@ class Perturbation(MazeGenAlgo):
         return ns
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
+        """ Find the wall cell between to passage cells """
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2

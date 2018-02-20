@@ -116,7 +116,7 @@ class BlindAlley(MazeSolveAlgo):
         border = filter(lambda b: b not in wall, border)
 
         # remove all non-navigable cells from the buffer
-        border = filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border)
+        border = list(filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border))
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)
@@ -155,8 +155,8 @@ class BlindAlley(MazeSolveAlgo):
         """A wall system is any continiously-adjacent set of walls."""
         walls = []
         # loop through each cell in the maze
-        for r in range(self.grid.height):
-            for c in range(self.grid.width):
+        for r in range(self.grid.shape[0]):
+            for c in range(self.grid.shape[1]):
                 # if the cell is a wall
                 if self.grid[r, c] == 1:
                     found = False
@@ -193,8 +193,8 @@ class BlindAlley(MazeSolveAlgo):
     def _fill_dead_ends(self):
         """fill all dead ends in the maze"""
         # loop through the maze serpentine, and find dead ends
-        for r in range(1, self.grid.height, 2):
-            for c in range(1, self.grid.width, 2):
+        for r in range(1, self.grid.shape[0], 2):
+            for c in range(1, self.grid.shape[1], 2):
                 if self._is_dead_end((r, c)):
                     # fill-in or wall-off the dead end
                     self._remove_dead_end((r, c))

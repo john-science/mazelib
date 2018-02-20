@@ -61,7 +61,7 @@ class ShortestPath(MazeSolveAlgo):
 
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
-                    ns = filter(lambda i: i not in solutions[s], ns)
+                    ns = list(filter(lambda i: i not in solutions[s], ns))
 
                     if len(ns) == 0:
                         # there are no valid neighbors
@@ -71,7 +71,7 @@ class ShortestPath(MazeSolveAlgo):
                         solutions[s].append(self._midpoint(ns[0], solutions[s][-1]))
                         solutions[s].append(ns[0])
                     else:
-                        # there are 2 or 3 valid neigbors0
+                        # there are 2 or 3 valid neigbors
                         for j in range(1, len(ns)):
                             nxt = [self._midpoint(ns[j], solutions[s][-1]), ns[j]]
                             solutions.append(list(solutions[s]) + nxt)

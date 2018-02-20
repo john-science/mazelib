@@ -59,7 +59,7 @@ class ShortestPaths(MazeSolveAlgo):
 
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
-                    ns = filter(lambda i: i not in solutions[s][-2:], ns)
+                    ns = list(filter(lambda i: i not in solutions[s][-2:], ns))
 
                     if len(ns) == 0:
                         # there are no valid neighbors

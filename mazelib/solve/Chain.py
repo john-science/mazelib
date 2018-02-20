@@ -1,5 +1,5 @@
 
-from MazeSolveAlgo import MazeSolveAlgo
+from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 from mazelib.solve.ShortestPaths import ShortestPaths
 
 
@@ -48,8 +48,8 @@ class Chain(MazeSolveAlgo):
         return [solution]
 
     def _send_out_robots(self, solution, guiding_line, i):
-        """send out wall-following robots in all directions,
-        to look for the next point in the guiding line
+        """ send out wall-following robots in all directions,
+            to look for the next point in the guiding line
         """
         ns = self._find_unblocked_neighbors(guiding_line[i])
 
@@ -69,7 +69,7 @@ class Chain(MazeSolveAlgo):
             robot_paths[j] = self._follow_walls(last_dir, path[-1], path, guiding_line[i+1:])
 
         # if all robots return, the maze is unsolvable
-        robot_paths = filter(lambda p: p is not None, robot_paths)
+        robot_paths = list(filter(lambda p: p is not None, robot_paths))
 
         if len(robot_paths) == 0:
             raise Exception('No valid solution found.')
@@ -80,7 +80,7 @@ class Chain(MazeSolveAlgo):
         return guiding_line.index(solution[-1])
 
     def _has_robot_returned(self, first_dir, path):
-        """Has the robot return to the same position and direction as it started?"""
+        """ Has the robot return to the same position and direction as it started? """
         if len(path) < 4:
             return False
 
@@ -93,9 +93,9 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _follow_walls(self, last_dir, current, solution, goal):
-        """Perform the wall following logic.
-        Loop until you have found the end,
-        or prove you won't solve the maze.
+        """ Perform the wall following logic.
+            Loop until you have found the end,
+            or prove you won't solve the maze.
         """
         path = list(solution)
         first_diff = (path[2][0] - path[0][0], path[2][1] - path[0][1])
@@ -118,9 +118,9 @@ class Chain(MazeSolveAlgo):
         return path
 
     def _follow_one_step(self, last_dir, current):
-        """At each new cell you reach, take the rightmost turn.
-        Turn around if you reach a dead end.
-        if right is not available, then straight, if not straight, left, etc...
+        """ At each new cell you reach, take the rightmost turn.
+            Turn around if you reach a dead end.
+            if right is not available, then straight, if not straight, left, etc...
         """
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
@@ -133,39 +133,39 @@ class Chain(MazeSolveAlgo):
         return (last_dir, current)
 
     def _try_direct_move(self, solution, guiding_line, i):
-        """The path to the next spot on the guiding line might be open.
-        If so, add a couple steps to the solution.
-        If not, return False.
+        """ The path to the next spot on the guiding line might be open.
+            If so, add a couple steps to the solution.
+            If not, return False.
         """
         current = guiding_line[i]
         next = guiding_line[i + 1]
 
-        rdiff = (next[0] - current[0])
-        cdiff = (next[1] - current[1])
+        rdiff = next[0] - current[0]
+        cdiff = next[1] - current[1]
 
         if rdiff == 0:
-            if self.grid[(current[0], current[1] + cdiff/2)] == 0:
-                solution.append((current[0], current[1] + cdiff/2))
+            if self.grid[(current[0], current[1] + cdiff//2)] == 0:
+                solution.append((current[0], current[1] + cdiff//2))
                 solution.append((current[0], current[1] + cdiff))
                 return True
         elif cdiff == 0:
-            if self.grid[(current[0] + rdiff/2, current[1])] == 0:
-                solution.append((current[0] + rdiff/2, current[1]))
+            if self.grid[(current[0] + rdiff//2, current[1])] == 0:
+                solution.append((current[0] + rdiff//2, current[1]))
                 solution.append((current[0] + rdiff, current[1]))
                 return True
         else:
-            if self.grid[(current[0] + rdiff/2, current[1])] == 0 and \
-                self.grid[(current[0] + rdiff, current[1] + cdiff/2)] == 0:
-                solution.append((current[0] + rdiff/2, current[1]))
+            if self.grid[(current[0] + rdiff//2, current[1])] == 0 and \
+                self.grid[(current[0] + rdiff, current[1] + cdiff//2)] == 0:
+                solution.append((current[0] + rdiff//2, current[1]))
                 solution.append((current[0] + rdiff, current[1]))
-                solution.append((current[0] + rdiff, current[1] + cdiff/2))
+                solution.append((current[0] + rdiff, current[1] + cdiff//2))
                 solution.append((current[0] + rdiff, current[1] + cdiff))
                 return True
-            elif self.grid[(current[0], current[1] + cdiff/2)] == 0 and \
-                self.grid[(current[0] + rdiff/2, current[1] + cdiff)] == 0:
-                solution.append((current[0], current[1] + cdiff/2))
+            elif self.grid[(current[0], current[1] + cdiff//2)] == 0 and \
+                self.grid[(current[0] + rdiff//2, current[1] + cdiff)] == 0:
+                solution.append((current[0], current[1] + cdiff//2))
                 solution.append((current[0], current[1] + cdiff))
-                solution.append((current[0] + rdiff/2, current[1] + cdiff))
+                solution.append((current[0] + rdiff//2, current[1] + cdiff))
                 solution.append((current[0] + rdiff, current[1] + cdiff))
                 return True
             else:
@@ -174,7 +174,7 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _draw_guiding_line(self):
-        """draw a (mostly) straight line from start to end"""
+        """ draw a (mostly) straight line from start to end """
         r2, c2 = self.end
         path = []
 
@@ -198,7 +198,7 @@ class Chain(MazeSolveAlgo):
         return path
 
     def _fix_entrances(self, solution):
-        """Ensure the start and end are appropriately placed in the solution."""
+        """ Ensure the start and end are appropriately placed in the solution. """
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)

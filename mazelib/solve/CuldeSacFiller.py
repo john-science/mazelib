@@ -110,7 +110,7 @@ class CuldeSacFiller(MazeSolveAlgo):
         border = filter(lambda b: b not in wall, border)
 
         # remove all non-navigable cells from the buffer
-        border = filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border)
+        border = list(filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border))
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)
@@ -149,8 +149,8 @@ class CuldeSacFiller(MazeSolveAlgo):
         """A wall system is any continiously-adjacent set of walls."""
         walls = []
         # loop through each cell in the maze
-        for r in range(self.grid.height):
-            for c in range(self.grid.width):
+        for r in range(self.grid.shape[0]):
+            for c in range(self.grid.shape[1]):
                 # if the cell is a wall
                 if self.grid[r, c] == 1:
                     found = False

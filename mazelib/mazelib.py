@@ -66,8 +66,7 @@ class Maze(object):
 
     def _generate_inner_entrances(self):
         """ Generate maze entrances, randomly within the maze. """
-        H = self.grid.height
-        W = self.grid.width
+        H, W = self.grid.shape
 
         self.start = (randrange(1, H, 2), randrange(1, W, 2))
         end = (randrange(1, H, 2), randrange(1, W, 2))
@@ -80,8 +79,7 @@ class Maze(object):
 
     def _generate_opposite_entrances(self):
         """ Generate one inner and one outer entrance. """
-        H = self.grid.height
-        W = self.grid.width
+        H, W = self.grid.shape
 
         start_side = randrange(4)
 

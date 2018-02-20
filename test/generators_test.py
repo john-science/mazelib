@@ -1,5 +1,5 @@
 
-from array import array
+import numpy as np
 import unittest
 from mazelib.generate.AldousBroder import AldousBroder
 from mazelib.generate.BacktrackingGenerator import BacktrackingGenerator
@@ -17,7 +17,6 @@ from mazelib.generate.Sidewinder import Sidewinder
 from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.generate.Wilsons import Wilsons
 from mazelib.mazelib import Maze
-from mazelib.utils.MazeArray import MazeArray
 
 
 class GeneratorsTest(unittest.TestCase):
@@ -35,7 +34,7 @@ class GeneratorsTest(unittest.TestCase):
                 return False
 
         # last row
-        for c in grid[grid.height-1]:
+        for c in grid[grid.shape[0]-1]:
             if c == 0:
                 return False
 
@@ -43,8 +42,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def all_passages_open(self, grid):
         """All of the (odd, odd) grid cells in a maze should be passages."""
-        H = grid.height
-        W = grid.width
+        H, W = grid.shape
 
         for r in range(1, H, 2):
             for c in range(1, W, 2):
@@ -55,8 +53,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def all_corners_complete(self, grid):
         """All of the (even, even) grid cells in a maze should be walls."""
-        H = grid.height
-        W = grid.width
+        H, W = grid.shape
 
         for r in range(2, H, 2):
             for c in range(2, W, 2):
@@ -111,12 +108,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_corners_complete(m.grid))
 
     def testDungeonRoomsGrid(self):
-        g = MazeArray(7, 7)
-        g[1] = array('b', [1,1,1,1,1,1,1])
-        g[2] = array('b', [1,1,1,1,1,1,1])
-        g[3] = array('b', [1,1,0,0,0,1,1])
-        g[4] = array('b', [1,1,0,0,0,1,1])
-        g[5] = array('b', [1,1,0,0,0,1,1])
+        g = np.ones((7, 7), dtype=np.bool_)
+        g[1] = [1,1,1,1,1,1,1]
+        g[2] = [1,1,1,1,1,1,1]
+        g[3] = [1,1,0,0,0,1,1]
+        g[4] = [1,1,0,0,0,1,1]
+        g[5] = [1,1,0,0,0,1,1]
 
         m = Maze()
         m.generator = DungeonRooms(4, 4, grid=g)
