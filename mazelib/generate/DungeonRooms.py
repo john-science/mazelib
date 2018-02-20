@@ -72,7 +72,7 @@ class DungeonRooms(MazeGenAlgo):
         return self.grid
 
     def _carve_rooms(self, rooms):
-        """Open up user-defined rooms in a maze."""
+        """ Open up user-defined rooms in a maze. """
         if rooms is None:
             return
 
@@ -86,14 +86,15 @@ class DungeonRooms(MazeGenAlgo):
                 pass
 
     def _carve_room(self, top_left, bottom_right):
-        """Open up a single user-defined room in a maze."""
+        """ Open up a single user-defined room in a maze. """
         for row in range(top_left[0], bottom_right[0] + 1):
             for col in range(top_left[1], bottom_right[1] + 1):
                 self.grid[row][col] = 0
 
     def _carve_door(self, top_left, bottom_right):
-        """Open up a single door in a user-defined room,
-        IF that room does not already have a whole wall of doors."""
+        """ Open up a single door in a user-defined room,
+            IF that room does not already have a whole wall of doors.
+        """
         even_squares = filter(lambda i: i % 2 == 0, list(top_left) + list(bottom_right))
         if len(even_squares) > 0:
             return
@@ -186,8 +187,8 @@ class DungeonRooms(MazeGenAlgo):
         self._fix_disjoint_passages(passages)
 
     def _find_all_passages(self):
-        """Place all connected passage cells into a set.
-        Disjoint passages will be in different sets.
+        """ Place all connected passage cells into a set.
+            Disjoint passages will be in different sets.
         """
         passages = []
 
@@ -213,7 +214,7 @@ class DungeonRooms(MazeGenAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages):
-        """All passages in a maze should be connected"""
+        """ All passages in a maze should be connected """
         while len(disjoint_passages) > 1:
             found = False
             while not found:
@@ -233,7 +234,7 @@ class DungeonRooms(MazeGenAlgo):
                         break
 
     def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
-        """combine sets that have non-zero intersections"""
+        """ combine sets that have non-zero intersections """
         for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue

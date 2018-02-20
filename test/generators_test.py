@@ -22,7 +22,7 @@ from mazelib.mazelib import Maze
 class GeneratorsTest(unittest.TestCase):
     
     def boundary_is_solid(self, grid):
-        """Algorithms should generate a maze with a solid boundary of walls."""
+        """ Algorithms should generate a maze with a solid boundary of walls. """
         # first row
         for c in grid[0]:
             if c == 0:
@@ -41,7 +41,7 @@ class GeneratorsTest(unittest.TestCase):
         return True
 
     def all_passages_open(self, grid):
-        """All of the (odd, odd) grid cells in a maze should be passages."""
+        """ All of the (odd, odd) grid cells in a maze should be passages. """
         H, W = grid.shape
 
         for r in range(1, H, 2):
@@ -52,7 +52,7 @@ class GeneratorsTest(unittest.TestCase):
         return True
 
     def all_corners_complete(self, grid):
-        """All of the (even, even) grid cells in a maze should be walls."""
+        """ All of the (even, even) grid cells in a maze should be walls. """
         H, W = grid.shape
 
         for r in range(2, H, 2):

@@ -32,7 +32,7 @@ class BlindAlley(MazeSolveAlgo):
         return self._build_solutions()
 
     def _seal_culdesacs(self):
-        """identify and seal off all culdesacs"""
+        """ identify and seal off all culdesacs """
         # identify all fully-connected wall systems
         walls = self._find_wall_systems()
         # connect wall systems that are disconnected above
@@ -47,8 +47,8 @@ class BlindAlley(MazeSolveAlgo):
                 self._fix_culdesac(border)
 
     def _reduce_wall_systems(self, walls):
-        """Reduce a collection of walls in a maze to realize
-        when two walls are actually connected and should be one.
+        """ Reduce a collection of walls in a maze to realize
+            when two walls are actually connected and should be one.
         """
         N = len(walls)
 
@@ -66,7 +66,7 @@ class BlindAlley(MazeSolveAlgo):
         return filter(lambda w: w != None, walls)
 
     def _walls_are_connected(self, wall1, wall2):
-        """Figure out if two walls are connected at any point."""
+        """ Figure out if two walls are connected at any point. """
         if wall1 is None or wall2 is None:
             return False
 
@@ -78,16 +78,18 @@ class BlindAlley(MazeSolveAlgo):
         return False
 
     def _build_solutions(self):
-        """Now that all of the cul-de-sac have been cut out, the maze still needs to be solved."""
+        """ Now that all of the cul-de-sac have been cut out,
+            the maze still needs to be solved.
+        """
         return self.solver.solve(self.grid, self.start, self.end)
 
     def _fix_culdesac(self, border):
-        """Destroy the culdesac by blocking off the loop."""
+        """ Destroy the culdesac by blocking off the loop. """
         if len(border) > 1:
             self.grid[self._midpoint(border[0], border[1])] = 1
 
     def _wall_is_culdesac(self, border):
-        """A cul-de-sac is a loop with only one entrance."""
+        """ A cul-de-sac is a loop with only one entrance. """
         num_entrances = 0
 
         for cell in border:
@@ -102,7 +104,7 @@ class BlindAlley(MazeSolveAlgo):
         return True
 
     def _find_bordering_cells(self, wall):
-        """build a buffer, one cell wide, around the wall"""
+        """ build a buffer, one cell wide, around the wall """
         border = set()
 
         # buffer each wall cell by one, add those buffer cells to a set
@@ -122,8 +124,9 @@ class BlindAlley(MazeSolveAlgo):
         return self._remove_internal_deadends(border)
 
     def _remove_internal_deadends(self, border):
-        """Complicated cul-de-Sacs can have internal dead ends.
-        These seriously complicate the logic and need to be removed."""
+        """ Complicated cul-de-Sacs can have internal dead ends.
+            These seriously complicate the logic and need to be removed.
+        """
         found = True
         while found:
             found = False
@@ -137,7 +140,7 @@ class BlindAlley(MazeSolveAlgo):
         return border
 
     def _remove_border_walls(self, walls):
-        """remove any wall system that touches the maze border"""
+        """ remove any wall system that touches the maze border """
         new_walls = []
 
         for wall in walls:
@@ -152,7 +155,7 @@ class BlindAlley(MazeSolveAlgo):
         return new_walls
 
     def _find_wall_systems(self):
-        """A wall system is any continiously-adjacent set of walls."""
+        """ A wall system is any continiously-adjacent set of walls. """
         walls = []
         # loop through each cell in the maze
         for r in range(self.grid.shape[0]):
@@ -171,7 +174,7 @@ class BlindAlley(MazeSolveAlgo):
         return walls
 
     def _is_neighbor(self, cell1, cell2):
-        """Determine if one cell is adjacent to another"""
+        """ Determine if one cell is adjacent to another """
         r_diff = abs(cell1[0] - cell2[0])
         c_diff = abs(cell1[1] - cell2[1])
 
@@ -183,7 +186,7 @@ class BlindAlley(MazeSolveAlgo):
             return False
 
     def _has_neighbor(self, cell, list_cells):
-        """Determine if your cell has a neighbor in a list of cells"""
+        """ Determine if your cell has a neighbor in a list of cells """
         for target in list_cells:
             if self._is_neighbor(cell, target):
                 return True
@@ -191,7 +194,7 @@ class BlindAlley(MazeSolveAlgo):
         return False
 
     def _fill_dead_ends(self):
-        """fill all dead ends in the maze"""
+        """ fill all dead ends in the maze """
         # loop through the maze serpentine, and find dead ends
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
@@ -200,8 +203,8 @@ class BlindAlley(MazeSolveAlgo):
                     self._remove_dead_end((r, c))
 
     def _dead_end_filler(self, dead_end):
-        """Back away from the dead end until you reach an intersection.
-        Fill the path as you go.
+        """ Back away from the dead end until you reach an intersection.
+            Fill the path as you go.
         """
         current = dead_end
         ns = self._find_unblocked_neighbors(current)
@@ -211,8 +214,8 @@ class BlindAlley(MazeSolveAlgo):
             self.grid[self._midpoint(ns[0], current)] = 1
 
     def _dead_end_sealer(self, dead_end):
-        """Back away from the dead end until you reach an intersection.
-        Block off the dead end passage.
+        """ Back away from the dead end until you reach an intersection.
+            Block off the dead end passage.
         """
         current = dead_end
         ns = self._find_unblocked_neighbors(current)
@@ -224,7 +227,7 @@ class BlindAlley(MazeSolveAlgo):
         self.grid[self._midpoint(last, current)] = 1
 
     def _is_dead_end(self, cell):
-        """A dead end has zero or one open neighbors."""
+        """ A dead end has zero or one open neighbors. """
         ns = self._find_unblocked_neighbors(cell)
 
         if self._within_one(cell, self.start) or self._within_one(cell, self.end):
