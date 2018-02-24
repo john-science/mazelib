@@ -22,6 +22,7 @@ perfect, unbiased
 
 This algorithm treats the cells of a maze as a graph, and solves to find a Uniform Spanning Tree that covers that graph. Like most tree-based maze algorithms, this one is a little slow.
 
+
 ## Backtracking Generator
 
 [![Click to see the Backtracking Generator in Action](images/backtracking_7x7.png?raw=true)
@@ -36,11 +37,12 @@ This algorithm treats the cells of a maze as a graph, and solves to find a Unifo
 
 ###### Results
 
-perfect, unbiased
+perfect
 
 ###### Notes
 
 This is perhaps the most common maze-generation algorithm because it is easy to understand and implement. And it produces high-quality mazes.
+
 
 ## Binary Tree
 
@@ -53,18 +55,19 @@ This is perhaps the most common maze-generation algorithm because it is easy to 
 
 ###### Optional Parameters
 
-* *bias*: String {'NW', 'NE', 'SE', 'SW'}
- * Determines which corner of the maze to start looping from. Thus, it also determines the direction of the bias inherant in this algorithm. (default 'NW')
+* *skew*: String {'NW', 'NE', 'SE', 'SW'}
+ * Determines which corner of the maze to start looping from. Thus, it also determines the direction of the skew inherant in this algorithm. (default 'NW')
 
 ###### Results
 
-perfect, biased, flawed
+perfect, biased, skewed
 
 ###### Notes
 
 This algorithm produces mazes with a serious flaw: the North and West borders of the maze are completely open. Generally, this makes solving the maze too easy to be fun. However, if the person solving the maze can't see the entire thing at one time, this algorithm is still useful.
 
 On the positive side, this algorithm is extremely fast and very easy to implement.
+
 
 ## Cellular Automaton
 
@@ -84,13 +87,14 @@ Cells survive if they have one to four neighbours. If a cell has exactly three n
 
 ###### Results
 
-perfect, unbiased
+perfect, biased
 
 ###### Notes
 
 Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And even though the result is a "perfect" maze, it is frequently very easy to solve.
 
 More research is needed to create a post-processing step to remove the typical Cellular Automaton defects.
+
 
 ## Dungeon Rooms
 
@@ -112,11 +116,12 @@ This is a variation on Hunt-and-Kill where the initial maze has rooms carved out
 
 ###### Results
 
-imperfect. unbiased.
+imperfect, slightly biased
 
 ###### Notes
 
 Theseus traversed a maze to find a minotaur in the center. Similar things happen in a lot of games; players will traverse a maze to find a room filled with enemies or treasure. I developed this algorithm to aid this use-case.
+
 
 ## Eller's
 
@@ -134,18 +139,19 @@ Theseus traversed a maze to find a minotaur in the center. Similar things happen
 
 ###### Optional Parameters
 
-* *xbias*: Float [0.0, 1.0]
+* *xskew*: Float [0.0, 1.0]
  * Probability of joining cells in the same row. (default 0.5)
-* *ybias*: Float [0.0, 1.0]
+* *yskew*: Float [0.0, 1.0]
  * Probability of joining cells in the same column. (default 0.5)
 
 ###### Results
 
-perfect. unbiased.
+perfect
 
 ###### Notes
 
 This is a classic set-theory algorithm. It is not the fastest algorithm, as it requires relabeling whole sets of cells at every step.
+
 
 ## Growing Tree
 
@@ -165,11 +171,12 @@ This is a classic set-theory algorithm. It is not the fastest algorithm, as it r
 
 ###### Results
 
-perfect. unbiased.
+perfect
 
 ###### Notes
 
 This algorithm is very flexible. Instead of defining exactly what must be done, it lays out a general construct. The exact order in which we choose a new cell from set C in step 2 is left undefined. That means we can pick one at random (and mimick the Prim's algorithm), or always pick the most recent one (and mimick the Backtracking algorithm). This implementation allows the developer to set the percentage of time Backtracking is chosen versus Prim's. This gives a lot of variety to the final complexity and look of the final maze.
+
 
 ## Hunt-and-Kill
 
@@ -190,13 +197,14 @@ This algorithm is very flexible. Instead of defining exactly what must be done, 
 
 ###### Results
 
-perfect. unbiased.
+perfect
 
 ###### Notes
 
 Generally, you might think random-walk algorithms are very slow. But Hunt-and-Kill is quite efficient. And I really like the end results of this algorithm: the mazes are not easy to solve.
 
 In this implementation of Hunt-and-kill there are two different ways to select a new grid cell in step 2. The first is serpentine through the grid (the classic solution), the second is to randomly select a new cell enough times that the probability of an unexplored cell is very, very low. The second option includes a small amount of risk, but it creates a more interesting, harder maze. Thus, the second option is default in this implementation.
+
 
 ## Kruskal's
 
@@ -211,11 +219,12 @@ In this implementation of Hunt-and-kill there are two different ways to select a
 
 ###### Results
 
-perfect. unbiased.
+perfect
 
 ###### Notes
 
 Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning Tree (MST) over a graph.
+
 
 ## Perturbation
 
@@ -237,14 +246,14 @@ Like Prim's, it is based on a namesake algorithm for finding a Minimal Spanning 
 
 ###### Results
 
-unbiased.
-perfect if-and-only-if the input maze was perfect.
+perfect if-and-only-if the input maze was perfect
 
 ###### Notes
 
 In math and physics, perturbation theory is idea that you can solve a new problem by starting with the known solution to an old problem and making a small change. Here, we take a solved maze and perturb it slightly by adding a couple walls, then re-solve the maze. This is an amazingly powerful tool. It can fix nearly any flaw in a maze. Or you can start with a non-maze, say a nice spiral or a cute drawing, and turn it into a maze using first-order perturbations.
 
 With great power comes great responsibility. If you use this method on a grid that does not contain a maze, it will fail. If you run too many iterations of this algorithm, your end maze will look nothing like the original. But if used wisely, this is an extremely powerful tool.
+
 
 ## Prim's
 
@@ -260,11 +269,12 @@ With great power comes great responsibility. If you use this method on a grid th
 
 ###### Results
 
-perfect. unbiased.
+perfect
 
 ###### Notes
 
 This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a graph. But Prim's is purely random. In fact, randomized variations on other maze-generating algorithms are frequently called "Prim's variations".
+
 
 ## Recursive Division
 
@@ -280,13 +290,14 @@ This is a classic. Like Kruskal's, it is based on the idea of finding a MST in a
 
 ###### Results
 
-perfect. biased.
+perfect, biased, skewed
 
 ###### Notes
 
 The algorithm is very simple to understand, and reasonably simple to implement. But the results will always look skewed. A big line that perfect divides a maze makes it easier for the human eye to solve: it reduces your visual search space. This is doubly true for humans that happen to know the maze was created by division.
 
-This implementation tries, as far as is possible, to reduce these biases by alternating the cuts between horizontal and vertical. (Obviously, if you made 7 vertical cuts in a row the maze would be very easy to solve.)
+This implementation tries, as far as is possible, to reduce this skew by alternating the cuts between horizontal and vertical. (Obviously, if you made 7 vertical cuts in a row the maze would be very easy to solve.)
+
 
 ## Sidewinder
 
@@ -304,18 +315,18 @@ This implementation tries, as far as is possible, to reduce these biases by alte
 
 ###### Optional Parameters
 
-* *bias*: Float [0.0, 1.0]
- * If the bias is set less than 0.5 the maze will be biased East-West, if it set greater than 0.5 it will be biased North-South. (default 0.5)
+* *skew*: Float [0.0, 1.0]
+ * If the skew is set less than 0.5 the maze will be skewed East-West, if it set greater than 0.5 it will be skewed North-South. (default 0.5)
 
 ###### Results
 
-perfect. unbiased. flawed.
+perfect, flawed
 
 ###### Notes
 
 The algorithm is simple and optimally fast. However, the North side of the maze will always be one, long, open corridor. For my tastes, this makes the maze too easy to solve. There are use-cases where that will not matter though; if the person solving the maze cannot see the whole thing at one time.
 
-Research is needed to create a post-processing step to fix this flaw.
+Research is needed to create a post-processing step to fix this flaw.  (Though that will mean varrying from the original algorithm.)
 
 
 ## Wilson's
@@ -337,7 +348,7 @@ Research is needed to create a post-processing step to fix this flaw.
 
 ###### Results
 
-perfect. unbiased.
+perfect, unbiased
 
 ###### Notes
 

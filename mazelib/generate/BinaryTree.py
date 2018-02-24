@@ -6,17 +6,17 @@ from random import choice
 
 class BinaryTree(MazeGenAlgo):
 
-    def __init__(self, w, h, bias=None):
+    def __init__(self, w, h, skew=None):
         super(BinaryTree, self).__init__(w, h)
-        biases = {'NW': [(1, 0), (0, -1)],
+        skewes = {'NW': [(1, 0), (0, -1)],
                   'NE': [(1, 0), (0, 1)],
                   'SW': [(-1, 0), (0, -1)],
                   'SE': [(-1, 0), (0, 1)]}
-        if bias in biases.keys():
-            self.bias = biases[bias]
+        if skew in skewes.keys():
+            self.skew = skewes[skew]
         else:
-            key = choice(list(biases.keys()))
-            self.bias = biases[key]
+            key = choice(list(skewes.keys()))
+            self.skew = skewes[key]
 
     def generate(self):
         # create empty grid, with walls
@@ -33,10 +33,10 @@ class BinaryTree(MazeGenAlgo):
         return grid
 
     def _find_neighbor(self, current_row, current_col):
-        """ Find a neighbor in the biased direction.
+        """ Find a neighbor in the skewed direction.
         """
         neighbors = []
-        for b_row, b_col in self.bias:
+        for b_row, b_col in self.skew:
             neighbor_row = current_row + b_row
             neighbor_col = current_col + b_col
             if neighbor_row > 0 and neighbor_row < (self.H - 1):

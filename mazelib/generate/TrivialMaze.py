@@ -34,12 +34,12 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _generate_serpentine_maze(self, grid):
-        """Create a simple maze that snakes around the grid.
-        This is a unicursal maze (with no dead ends).
+        """     Create a simple maze that snakes around the grid.
+            This is a unicursal maze (with no dead ends).
         """
-        vertical_bias = randint(0, 1)
+        vertical_skew = randint(0, 1)
 
-        if vertical_bias:
+        if vertical_skew:
             for row in range(1, grid.height - 1):
                 for col in range(1, grid.width - 1, 2):
                     grid[(row, col)] = 0

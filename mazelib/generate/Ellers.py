@@ -15,10 +15,10 @@ class Ellers(MazeGenAlgo):
     6. In the last row, join all adjacent cells that do not share a set.
     """
 
-    def __init__(self, w, h, xbias=0.5, ybias=0.5):
+    def __init__(self, w, h, xskew=0.5, yskew=0.5):
         super(Ellers, self).__init__(w, h)
-        self.xbias = 0.0 if xbias < 0.0 else 1.0 if xbias > 1.0 else xbias
-        self.ybias = 0.0 if ybias < 0.0 else 1.0 if ybias > 1.0 else ybias
+        self.xskew = 0.0 if xskew < 0.0 else 1.0 if xskew > 1.0 else xskew
+        self.yskew = 0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
 
     def generate(self):
         # create empty grid, with walls
@@ -54,7 +54,7 @@ class Ellers(MazeGenAlgo):
     def _merge_one_row(self, sets, r):
         """ randomly decide to merge cells within a column """
         for c in range(1, self.W - 2, 2):
-            if random() < self.xbias:
+            if random() < self.xskew:
                 if sets[r][c] != sets[r][c+2]:
                     sets[r][c+1] = sets[r][c]
                     self._merge_sets(sets, sets[r][c+2], sets[r][c], max_row=r)
@@ -84,7 +84,7 @@ class Ellers(MazeGenAlgo):
             sets[start_row+2][c] = s
 
         for c in range(1, self.W - 2, 2):
-            if random() < self.ybias:
+            if random() < self.yskew:
                 s = sets[start_row][c]
                 if sets[start_row+1][c] == -1:
                     sets[start_row+1][c] = s

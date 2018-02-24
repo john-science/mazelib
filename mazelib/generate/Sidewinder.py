@@ -18,14 +18,14 @@ class Sidewinder(MazeGenAlgo):
 
     Optional Parameters
 
-    bias: Float [0.0, 1.0]
-        If the bias is set less than 0.5 the maze will be biased East-West, if it set greater
-        than 0.5 it will be biased North-South. (default 0.5)
+    skew: Float [0.0, 1.0]
+        If the skew is set less than 0.5 the maze will be skewed East-West, if it set greater
+        than 0.5 it will be skewed North-South. (default 0.5)
     """
 
-    def __init__(self, h, w, bias=0.5):
+    def __init__(self, h, w, skew=0.5):
         super(Sidewinder, self).__init__(h, w)
-        self.bias = bias
+        self.skew = skew
 
     def generate(self):
         # create empty grid
@@ -48,7 +48,7 @@ class Sidewinder(MazeGenAlgo):
                 # add the current cell to the run
                 run.append((row, col))
 
-                carve_east = random() > self.bias
+                carve_east = random() > self.skew
                 # carve East or North (can't carve East into the East wall
                 if carve_east and col < (self.W - 2):
                     grid[row][col + 1] = 0
