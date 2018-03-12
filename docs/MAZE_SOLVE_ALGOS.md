@@ -2,6 +2,7 @@
 
 ##### Go back to the main [README](../README.md)
 
+
 ## Blind Alley
 
 ###### The Algorithm
@@ -18,6 +19,7 @@
 ###### Notes
 
 This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Filler. It can fill or seal the offending portions of the maze, and finds all solutions to even imperfect mazes.
+
 
 ## Chain Algorithm
 
@@ -49,6 +51,7 @@ The idea here is that you break the maze up into a sequence of smaller mazes. Th
 
 This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such, it is significantly more complicated and memory-intensive than your standard Wall Follower.
 
+
 ## Collision Solver
 
 ###### The Algorithm
@@ -67,6 +70,7 @@ This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such,
 
 On a perfect maze, this is little different than the Dead End Filler algorithm. But in heavily braided and imperfect mazes, this algorithm simply iterates over the whole maze a few more times and finds the optimal solutions. It is quite elegant.
 
+
 ## Cul-de-sac Filler
 
 ###### The Algorithm
@@ -84,6 +88,7 @@ On a perfect maze, this is little different than the Dead End Filler algorithm. 
 ###### Notes
 
 This is a classic maze-solving algorithm.  However, it seems to add a lot of complexity to solving a maze. But perhaps if your maze has many cul-de-sacs it would be very helpful.
+
 
 ## Dead End Filler
 
@@ -104,9 +109,6 @@ It focuses on the Maze, is always very fast, and uses no extra memory.
 
 This will always find the one unique solution for perfect Mazes, but won't do much in heavily braid Mazes, and in fact won't do anything useful at all for those Mazes without dead ends.
 
-## Pledge Algorithm
-
-WORK IN PROGRESS
 
 ## Random Mouse
 
@@ -126,6 +128,7 @@ Random mouse may never finish. Technically. It is certainly inefficient in time,
 
 I added a pruner to the end of this algorithm, to get rid of all unnecessary branches, and backtracks, in the solution.
 
+
 ## Recursive Backtracker
 
 ###### The Algorithm:
@@ -142,6 +145,7 @@ I added a pruner to the end of this algorithm, to get rid of all unnecessary bra
 ###### Notes
 
 Mathematically, there is very little difference between this algorithm and Random Mouse. The only difference is that at each point, Random Mouse might go right back where it came from. But Backtracker will only do that if it reaches a dead end.
+
 
 ## Shortest Path Finder
 
@@ -161,6 +165,7 @@ Mathematically, there is very little difference between this algorithm and Rando
 ###### Notes
 
 In CS terms, this is a Breadth-First Search algorithm that is cut short when the first solution is found.
+
 
 ## Shortest Paths Finder
 
@@ -185,6 +190,7 @@ Though this version is optimized to improve speed, nothing could be done about t
 ## Trémaux's Algorithm
 
 WORK IN PROGRESS
+
 
 ## Wall Follower
 
