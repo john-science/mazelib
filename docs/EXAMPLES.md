@@ -13,7 +13,7 @@ To open up rooms in a maze, DungeonRooms accepts two optional input parameters:
 
 * rooms: List(List(tuple, tuple))
  * A list of lists, containing the top-left and bottom-right corners of the rooms you want to create. For best results, the corners of each room shouldhave odd-numbered coordinates.
-* grid: MazeArray
+* grid: 2D NumPy array, of booleans, all set to `True`
  * A pre-built maze array filled with one, or many, rooms.
 
 Let's do an example of each method for defining input rooms:
@@ -30,7 +30,8 @@ Here we create a 24x33 maze with one rectangular 4x4 room, open between the corn
 
 Here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (5, 5) and (7, 7):
 
-    g = MazeArray(9, 9)
+    import numpy as np
+    g = np.ones((9, 9), dtype=np.bool_)
     g[5] = array('b', [1,1,1,0,0,0,1])
     a[6] = array('b', [1,1,1,0,0,0,1])
     g[7] = array('b', [1,1,1,0,0,0,1])
@@ -48,7 +49,8 @@ Perhaps you want more control over your maze. You have ideas in you imagine spir
 
 First, start with a simple spiral maze (which is trivial to solve):
 
-    g = MazeArray(11, 11)
+    import numpy as np
+    g = np.ones((11, 11), dtype=np.bool_)
     g[1] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
     g[2] = array('b', [1,1,1,1,1,1,1,1,1,0,1])
     g[3] = array('b', [1,0,0,0,0,0,0,0,1,0,1])
