@@ -109,7 +109,7 @@ This is a variation on Hunt-and-Kill where the initial maze has rooms carved out
 
 * *rooms*: List(List(tuple, tuple))
  * A list of lists, containing the top-left and bottom-right grid coords of where you want rooms to be created. For best results, the corners of each room should have odd-numbered coordinates.
-* *grid*: MazeArray
+* *grid*: 2D Numpy Array, filled with ones, OR with a valid maze inside
  * A pre-built maze array filled with one, or many, rooms.
 * *hunt_order*: String ['random', 'serpentine']
  * Determines how the next cell to hunt from will be chosen. (default 'random')
