@@ -1,3 +1,4 @@
+__version__ = '0.8.1'
 
 from .mazelib import Maze
 from .generate.AldousBroder import AldousBroder

@@ -28,35 +28,26 @@ from glob import glob
 import numpy as np
 from os import name as os_name
 from sys import argv, platform
+from mazelib import __version__
 
 # CONSTANTS
 FORCE_REBUILD = True if "-f" in argv else False
 IS_WINDOWS = True if (os_name.lower() == 'nt' or 'win' in platform.lower()) else False
 
 
-class InstallCommand(install):
-    def run(self):
-        add_version()
-        try:
-            install.run(self)
-        except Exception as err:
-            print(('Error performing egg install : {0}'.format(err)))
-        finally:
-            clear_version()
-        
-
 # find all the extension modules in the project
 sep = '\\' if IS_WINDOWS else '/'
-ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_dirs=[np.get_include(), '.']) for p in glob('mazelib/*/*.pxd')]
+ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_dirs=[np.get_include(), '.'])
+               for p in glob(sep.join(['mazelib', '*', '*.pxd']))]
 
 
 setup(
     cmdclass={
-        'install': InstallCommand,
+        'install': install,
         'build_ext': build_pyx,
     },
     name='mazelib',
-    version='0.8',
+    version=__version__,
     description='A Python API for creating and solving mazes.',
     url='https://github.com/theJollySin/mazelib',
     author='John Stilley',
@@ -72,7 +63,7 @@ setup(
     license='GPLv3',
     long_description=open('README.md').read(),
     packages=find_packages(),
-    ext_modules=cythonize(ext_modules, annotate=True, force=FORCE_REBUILD),
+    ext_modules=cythonize(ext_modules, annotate=False, force=FORCE_REBUILD),
     platforms='any',
     test_suite="test",
     install_requires=[
