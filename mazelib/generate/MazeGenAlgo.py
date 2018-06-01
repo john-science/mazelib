@@ -4,7 +4,7 @@ import numpy as np
 from numpy.random import shuffle
 
 
-class MazeGenAlgo(object):
+class MazeGenAlgo: 
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
@@ -17,8 +17,8 @@ class MazeGenAlgo(object):
 
     @abc.abstractmethod
     def generate(self):
-        return None
-
+        return None 
+ 
     """ All of the methods below this are helper methods,
         common to many maze-generating algorithms.
     """

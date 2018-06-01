@@ -2,6 +2,10 @@
 from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 from mazelib.generate.MazeGenAlgo import np
 from random import randrange
+# TODO: TESTING
+import cython
+if not cython.compiled:
+    print('TODO: TESTING! Running uncompiled python')
 
 
 class Prims(MazeGenAlgo):
@@ -21,12 +25,12 @@ class Prims(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         # choose a random starting position
-        current_row, current_col = randrange(1, self.H, 2), randrange(1, self.W, 2)
+        current_row = randrange(1, self.H, 2)
+        current_col = randrange(1, self.W, 2)
         grid[current_row][current_col] = 0
 
         # created a weighted list of all vertices connected in the graph
@@ -43,8 +47,8 @@ class Prims(MazeGenAlgo):
             grid[current_row][current_col] = 0
             neighbors = neighbors[:nn] + neighbors[nn + 1:]
             # connect that neighbor to a random neighbor with grid[posi] == 0
-            nearest_n = self._find_neighbors(current_row, current_col, grid)[0]
-            grid[(current_row + nearest_n[0]) // 2][(current_col + nearest_n[1]) // 2] = 0
+            nearest_n0, nearest_n1 = self._find_neighbors(current_row, current_col, grid)[0]
+            grid[(current_row + nearest_n0) // 2][(current_col + nearest_n1) // 2] = 0
 
             # find all unvisited neighbors of current, add them to neighbors
             unvisited = self._find_neighbors(current_row, current_col, grid, True)

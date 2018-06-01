@@ -2,7 +2,7 @@
 from numpy.random import shuffle
 
 
-class MazeSolveAlgo(object):
+class MazeSolveAlgo:
 
     def solve(self, grid, start, end):
         self._solve_preprocessor(grid, start, end)
