@@ -1,10 +1,6 @@
 '''
-Installing the mazelib package into your system Python
-is a short process:
+Installing the mazelib package into your system Python is a short process.
 
-Optionally, one developer reported having to set an environment variable to his numpy installation:
-
-    export CFLAGS="-I /usr/local/lib/python3.6/site-packages/numpy/core/include"
 
 To build mazelib and install the package on your computer:
     python setup.py install
@@ -18,6 +14,11 @@ To force all Cython code to rebuild/reinstall locally:
 To run the test suit:
 
     python setup.py test
+
+
+Caveat, one user reported having to set an environment variable to install:
+
+    export CFLAGS="-I /usr/local/lib/python3.6/site-packages/numpy/core/include"
 '''
 from setuptools import setup, find_packages
 from setuptools.command.install import install
@@ -41,6 +42,7 @@ ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_di
                for p in glob(sep.join(['mazelib', '*', '*.pxd']))]
 
 
+# perform the actual build/install
 setup(
     cmdclass={
         'install': install,

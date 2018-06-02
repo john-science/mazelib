@@ -1,11 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import randrange
-# TODO: TESTING
+import numpy as np
 import cython
 if not cython.compiled:
-    print('TODO: TESTING! Running uncompiled python')
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class Prims(MazeGenAlgo):
@@ -25,7 +24,7 @@ class Prims(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid = np.empty((self.H, self.W), dtype=np.int16)
         grid.fill(1)
 
         # choose a random starting position
