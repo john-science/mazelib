@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
+import numpy as np
 from random import choice, randrange
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class AldousBroder(MazeGenAlgo):
@@ -17,9 +20,8 @@ class AldousBroder(MazeGenAlgo):
 
     def generate(self):
         # create empty grid, with walls
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         crow = randrange(1, self.H, 2)
         ccol = randrange(1, self.W, 2)

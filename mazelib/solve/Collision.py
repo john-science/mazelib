@@ -5,6 +5,10 @@ if not cython.compiled:
     print('WARNING: Running uncompiled Python')
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
+# CONSTANTS
+END = (-999, -9)
+DEAD_END = (-9, -999)
+
 
 class Collision(MazeSolveAlgo):
     """
@@ -13,6 +17,7 @@ class Collision(MazeSolveAlgo):
     3. fill in all dead ends
     4. repeat until there are no more collisions
     """
+
     def _solve(self):
         # deal with the case where the start is on the edge
         start = self.start
@@ -53,9 +58,9 @@ class Collision(MazeSolveAlgo):
         step_made = False
 
         for path in paths:
-            if path is None or path[-1] == 'dead_end':
+            if path is None or path[-1] == DEAD_END:
                 continue
-            elif path[-1] == 'end':
+            elif path[-1] == END:
                 temp_paths.append(path)
                 continue
 
@@ -64,14 +69,14 @@ class Collision(MazeSolveAlgo):
                 ns.remove(path[-3])
 
             if len(ns) == 0:
-                temp_paths.append(path + ['dead_end'])
+                temp_paths.append(path + [DEAD_END])
                 step_made = True
             else:
                 step_made = True
                 for neighbor in ns:
                     mid = self._midpoint(path[-1], neighbor)
                     if self._within_one(neighbor, self.end):
-                        temp_paths.append(path + [mid, neighbor, 'end'])
+                        temp_paths.append(path + [mid, neighbor, END])
                     else:
                         temp_paths.append(path + [mid, neighbor])
 
@@ -89,13 +94,14 @@ class Collision(MazeSolveAlgo):
         N = len(paths)
 
         for i in range(N - 1):
-            if paths[i][-1] in ['dead_end', 'end']:
+            if paths[i][-1] in [DEAD_END, END]:
                 continue
             for j in range(i + 1, N):
-                if paths[j][-1] in ['dead_end', 'end']:
+                if paths[j][-1] in [DEAD_END, END]:
                     continue
                 if paths[i][-1] == paths[j][-1]:
-                    self.grid[paths[i][-1]] = 1
+                    row, col = paths[i][-1]
+                    self.grid[row, col] = 1
                     paths[i][-1] = None
                     paths[j][-1] = None
 
@@ -104,7 +110,7 @@ class Collision(MazeSolveAlgo):
     def _fix_entrances(self, paths):
         """Ensure the start and end are appropriately placed in the solution."""
         # Filter out paths ending in 'dead_end'
-        paths = filter(lambda p: p[-1] != 'dead_end', paths)
+        paths = filter(lambda p: p[-1] != DEAD_END, paths)
 
         # remove 'end' from solution paths
         paths = map(lambda p: p[:-1], paths)

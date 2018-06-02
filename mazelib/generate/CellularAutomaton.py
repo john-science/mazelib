@@ -1,8 +1,11 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import choice, randrange
 from numpy.random import shuffle
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class CellularAutomaton(MazeGenAlgo):
@@ -21,12 +24,11 @@ class CellularAutomaton(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(0)
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(0)
         # fill borders
-        a[0, :] = a[-1, :] = 1
-        a[:, 0] = a[:, -1] = 1
-        grid = a
+        grid[0, :] = grid[-1, :] = 1
+        grid[:, 0] = grid[:, -1] = 1
 
         # adjust complexity and density relative to maze size
         if self.complexity <= 1.0:
@@ -37,7 +39,7 @@ class CellularAutomaton(MazeGenAlgo):
         # create walls
         for i in range(int(self.density)):
             y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
-            grid[y][x] = 1
+            grid[y, x] = 1
             for j in range(int(self.complexity)):
                 neighbors = self._find_neighbors(y, x, grid, True)  # is wall
                 if len(neighbors) > 0 and len(neighbors) < 5:
@@ -45,9 +47,9 @@ class CellularAutomaton(MazeGenAlgo):
                     if not len(neighbors):
                         continue
                     r,c = choice(neighbors)
-                    if grid[r][c] == 0:
-                        grid[r][c] = 1
-                        grid[r + (y - r) // 2][c + (x - c) // 2] = 1
+                    if grid[r, c] == 0:
+                        grid[r, c] = 1
+                        grid[r + (y - r) // 2, c + (x - c) // 2] = 1
                         x, y = c, r
 
         return grid

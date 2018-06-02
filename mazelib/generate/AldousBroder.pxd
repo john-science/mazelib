@@ -5,8 +5,8 @@ from numpy cimport ndarray
 cimport numpy as np
 
 
-cdef class Prims(MazeGenAlgo):
+cdef class AldousBroder(MazeGenAlgo):
 
-    @cython.locals(grid=ndarray, current_row=cython.int, current_col=cython.int, visited=cython.int,
-                   nearest_n0=cython.int, nearest_n1=cython.int, unvisited=list, neighbors=list, nn=cython.int)
+    @cython.locals(grid=ndarray, crow=cython.uint, ccol=cython.uint, nrow=cython.uint, ncol=cython.uint,
+                   num_visited=cython.uint, neighbors=list)
     cpdef ndarray[cython.char, ndim=2] generate(self)

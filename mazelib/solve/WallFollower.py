@@ -93,11 +93,11 @@ class WallFollower(MazeSolveAlgo):
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
-            mid = (self._midpoint(next_cell, current))
+            r, c= self._midpoint(next_cell, current)
 
-            if self.grid[mid[0]][mid[1]] == 0 and mid != self.start:
+            if self.grid[r, c] == 0 and (r, c) != self.start:
                 return (next_dir, next_cell)
-            elif mid == self.end:
+            elif (r, c) == self.end:
                 return (next_dir, self.end)
 
         return (last_dir, current)

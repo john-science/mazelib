@@ -1,7 +1,14 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 from mazelib.generate.MazeGenAlgo import np
 from random import randrange
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
+
+# CONSTANTS
+VERTICAL = 0
+HORIZONTAL = 1
 
 
 class Division(MazeGenAlgo):
@@ -10,16 +17,12 @@ class Division(MazeGenAlgo):
         super(Division, self).__init__(h, w)
 
     def generate(self):
-        VERTICAL = 0
-        HORIZONTAL = 1
-
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(0)
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(0)
         # fill borders
-        a[0, :] = a[-1, :] = 1
-        a[:, 0] = a[:, -1] = 1
-        grid = a
+        grid[0, :] = grid[-1, :] = 1
+        grid[:, 0] = grid[:, -1] = 1
 
         region_stack = [((1, 1), (self.H - 2, self.W - 2))]
 

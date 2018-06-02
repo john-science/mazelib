@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 from mazelib.generate.MazeGenAlgo import np
 from random import choice
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class BinaryTree(MazeGenAlgo):
@@ -12,7 +15,7 @@ class BinaryTree(MazeGenAlgo):
                   'NE': [(1, 0), (0, 1)],
                   'SW': [(-1, 0), (0, -1)],
                   'SE': [(-1, 0), (0, 1)]}
-        if skew in skewes.keys():
+        if skew in skewes:
             self.skew = skewes[skew]
         else:
             key = choice(list(skewes.keys()))
@@ -20,9 +23,8 @@ class BinaryTree(MazeGenAlgo):
 
     def generate(self):
         # create empty grid, with walls
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         for row in range(1, self.H, 2):
             for col in range(1, self.W, 2):

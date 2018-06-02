@@ -24,7 +24,7 @@ class Prims(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        grid = np.empty((self.H, self.W), dtype=np.int16)
+        grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)
 
         # choose a random starting position
