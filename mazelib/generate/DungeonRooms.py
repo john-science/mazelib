@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import choice, randrange, shuffle
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class DungeonRooms(MazeGenAlgo):
@@ -33,9 +36,8 @@ class DungeonRooms(MazeGenAlgo):
         else:
             h = h0
             w = w0
-            a = np.empty((2 * h + 1, 2 * w + 1), dtype=np.int8)
-            a.fill(1)
-            self.backup_grid = a
+            self.backup_grid = np.empty((2 * h + 1, 2 * w + 1), dtype=np.int8)
+            self.backup_grid.fill(1)
         self.grid = None
         self.rooms = rooms
         super(DungeonRooms, self).__init__(h, w)
@@ -114,7 +116,7 @@ class DungeonRooms(MazeGenAlgo):
             possible_doors += zip(odd_cols, [bottom_right[1] + 1] * len(odd_cols))
 
         door = choice(possible_doors)
-        self.grid[door[0]][door[1]] = 0
+        self.grid[door[0], door[1]] = 0
 
     def _walk(self, start):
         """ This is a standard random walk. It must start from a visited cell.
@@ -183,8 +185,7 @@ class DungeonRooms(MazeGenAlgo):
 
     def _reconnect_maze(self):
         """If a maze is not fully connected, open up walls until it is."""
-        passages = self._find_all_passages()
-        self._fix_disjoint_passages(passages)
+        self._fix_disjoint_passages(self._find_all_passages())
 
     def _find_all_passages(self):
         """ Place all connected passage cells into a set.
@@ -233,22 +234,6 @@ class DungeonRooms(MazeGenAlgo):
                         found = True
                         break
 
-    def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
-        """ combine sets that have non-zero intersections """
-        for i in range(len(list_of_sets) - 1):
-            if list_of_sets[i] is None:
-                continue
-
-            for j in range(i + 1, len(list_of_sets)):
-                if list_of_sets[j] is None:
-                    continue
-                intersect = list_of_sets[i].intersection(list_of_sets[j])
-                if len(intersect) > 0:
-                    list_of_sets[i] = list_of_sets[i].union(list_of_sets[j])
-                    list_of_sets[j] = None
-
-        return list(filter(lambda l: l is not None, list_of_sets))
-
     def _find_unblocked_neighbors(self, posi):
         """ Find all the grid neighbors of the current position;
             visited, or not.
@@ -269,6 +254,22 @@ class DungeonRooms(MazeGenAlgo):
 
         return ns
 
-    def _midpoint(self, a, b):  # TODO: method could be a function (or static)
+    def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
+        """ combine sets that have non-zero intersections """
+        for i in range(len(list_of_sets) - 1):
+            if list_of_sets[i] is None:
+                continue
+
+            for j in range(i + 1, len(list_of_sets)):
+                if list_of_sets[j] is None:
+                    continue
+                intersect = list_of_sets[i].intersection(list_of_sets[j])
+                if len(intersect) > 0:
+                    list_of_sets[i] = intersect
+                    list_of_sets[j] = None
+
+        return list(filter(lambda l: l is not None, list_of_sets))
+
+    def _midpoint(self, a, b):  # TODO: method could be a function or static
         """ Find the wall cell between to passage cells """
-        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
+        return ((a[0] + b[0]) // 2, (a[1] + b[1]) // 2)

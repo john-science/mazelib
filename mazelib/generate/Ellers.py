@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import choice, random
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class Ellers(MazeGenAlgo):
@@ -22,9 +25,8 @@ class Ellers(MazeGenAlgo):
 
     def generate(self):
         # create empty grid, with walls
-        a = np.empty((self.H, self.W), dtype=np.dtype('i'))
-        a.fill(-1)
-        sets = a
+        sets = np.empty((self.H, self.W), dtype=np.int8)
+        sets.fill(-1)
 
         # initialize the first row cells to each exist in their own set
         max_set_number = 0
@@ -116,9 +118,8 @@ class Ellers(MazeGenAlgo):
 
     def _create_grid_from_sets(self, sets):
         """ translate the maze sets into a maze grid """
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(0)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(0)
 
         for r in range(self.H):
             for c in range(self.W):
