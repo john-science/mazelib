@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from numpy.random import shuffle
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class Kruskal(MazeGenAlgo):
@@ -11,9 +14,8 @@ class Kruskal(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         forest = []
         for row in range(1, self.H - 1, 2):

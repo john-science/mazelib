@@ -9,7 +9,7 @@ cdef class Ellers(MazeGenAlgo):
     cdef readonly double xskew
     cdef readonly double yskew
 
-    @cython.locals(sets=ndarray, max_set_number=cython.int, r=cython.int)
+    @cython.locals(grid=ndarray, sets=ndarray, max_set_number=cython.int, r=cython.int)
     cpdef ndarray[cython.char, ndim=2] generate(self)
 
     @cython.locals(c=cython.int, max_set_number=cython.int)

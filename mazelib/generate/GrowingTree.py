@@ -1,7 +1,10 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import choice, random, randrange
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class GrowingTree(MazeGenAlgo):
@@ -27,9 +30,8 @@ class GrowingTree(MazeGenAlgo):
 
     def generate(self):
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         current_row, current_col = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current_row][current_col] = 0
