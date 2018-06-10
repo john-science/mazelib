@@ -6,6 +6,9 @@ if not cython.compiled:
     print('WARNING: Running uncompiled Python')
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
+RANDOM = 1
+SERPENTINE = 2
+
 
 class HuntAndKill(MazeGenAlgo):
     """
@@ -27,10 +30,10 @@ class HuntAndKill(MazeGenAlgo):
         super(HuntAndKill, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order == 'serpentine':
-            self.ho = 2
+        if hunt_order.lower().strip() == 'serpentine':
+            self.ho = SERPENTINE
         else:
-            self.ho = 1
+            self.ho = RANDOM
 
     def generate(self):
         # create empty grid
@@ -69,7 +72,7 @@ class HuntAndKill(MazeGenAlgo):
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
-        if self.ho == 2:
+        if self.ho == SERPENTINE:
             return self._hunt_serpentine(grid, count)
         else:
             return self._hunt_random(grid, count)

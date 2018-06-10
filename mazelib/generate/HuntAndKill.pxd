@@ -4,6 +4,9 @@ from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo
 from numpy cimport ndarray
 cimport numpy as np
 
+cdef public cython.int RANDOM = 1
+cdef public cython.int SERPENTINE = 2
+
 
 cdef class HuntAndKill(MazeGenAlgo):
     cdef readonly cython.int ho

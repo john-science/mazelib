@@ -4,11 +4,14 @@ from mazelib.generate.MazeGenAlgo cimport MazeGenAlgo
 from numpy cimport ndarray
 cimport numpy as np
 
+cdef public cython.int RANDOM = 1
+cdef public cython.int SERPENTINE = 2
+
 
 cdef class DungeonRooms(MazeGenAlgo):
     cdef readonly ndarray backup_grid
-    #cdef readonly f_type _hunt_order
     cdef readonly list rooms
+    cdef readonly cython.int _hunt_order
 
 
     @cython.locals(current=tuple, num_trials=cython.int)

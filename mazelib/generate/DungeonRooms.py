@@ -6,6 +6,9 @@ if not cython.compiled:
     print('WARNING: Running uncompiled Python')
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
+RANDOM = 1
+SERPENTINE = 2
+
 
 class DungeonRooms(MazeGenAlgo):
     """
@@ -43,12 +46,10 @@ class DungeonRooms(MazeGenAlgo):
         super(DungeonRooms, self).__init__(h, w)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order == 'random':
-            self._hunt_order = self._hunt_random
-        elif hunt_order == 'serpentine':
-            self._hunt_order = self._hunt_serpentine
+        if hunt_order.lower().strip() == 'serpentine':
+            self._hunt_order = SERPENTINE
         else:
-            self._hunt_order = self._hunt_random
+            self._hunt_order = RANDOM
 
     def generate(self):
         # define grid and rooms
@@ -135,7 +136,10 @@ class DungeonRooms(MazeGenAlgo):
 
     def _hunt(self, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point. """
-        return self._hunt_order(count)
+        if self._hunt_order == SERPENTINE:
+            return self._hunt_serpentine(count)
+        else:
+            return self._hunt_random(count)
 
     def _hunt_random(self, count):
         """ Select the next cell to walk from, randomly. """

@@ -5,6 +5,7 @@ __pycache__/
 # Cython and C extensions
 *.so
 *.c
+*.h
 *.html
 
 # Distribution / packaging

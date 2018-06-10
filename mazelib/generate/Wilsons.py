@@ -1,7 +1,13 @@
 
-from mazelib.generate.MazeGenAlgo import MazeGenAlgo
-from mazelib.generate.MazeGenAlgo import np
 from random import choice, randrange
+import numpy as np
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
+
+RANDOM = 1
+SERPENTINE = 2
 
 
 class Wilsons(MazeGenAlgo):
@@ -16,18 +22,15 @@ class Wilsons(MazeGenAlgo):
         super(Wilsons, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order == 'random':
-            self._hunt_order = self._hunt_random
-        elif hunt_order == 'serpentine':
-            self._hunt_order = self._hunt_serpentine
+        if hunt_order.lower().strip() == 'serpentine':
+            self._hunt_order = SERPENTINE
         else:
-            self._hunt_order = self._hunt_random
+            self._hunt_order = RANDOM
 
     def generate(self):
         # create empty grid
-        a = np.empty((self.H, self.W), dtype=np.int8)
-        a.fill(1)
-        grid = a
+        grid = np.empty((self.H, self.W), dtype=np.int8)
+        grid.fill(1)
 
         # find an arbitrary starting position
         grid[randrange(1, self.H, 2)][randrange(1, self.W, 2)] = 0
@@ -46,7 +49,10 @@ class Wilsons(MazeGenAlgo):
         """Based on how this algorithm was configured,
         choose hunt for the next starting point.
         """
-        return self._hunt_order(grid, count)
+        if self._hunt_order == SERPENTINE:
+            return self._hunt_serpentine(grid, count)
+        else:
+            return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
         """Select the next cell to walk from, randomly."""
