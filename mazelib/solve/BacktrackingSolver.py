@@ -1,6 +1,9 @@
 
 from random import choice
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class BacktrackingSolver(MazeSolveAlgo):

@@ -1,6 +1,8 @@
 
-from random import choice,shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class RandomMouse(MazeSolveAlgo):
@@ -44,11 +46,11 @@ class RandomMouse(MazeSolveAlgo):
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
-            mid_cell = (self._midpoint(next_cell, current))
+            r, c = (self._midpoint(next_cell, current))
 
-            if self.grid[mid_cell] == 0 and mid_cell != self.start:
+            if self.grid[r, c] == 0 and (r, c) != self.start:
                 return (next_dir, next_cell)
-            elif mid_cell == self.end:
+            elif (r, c) == self.end:
                 return (next_dir, self.end)
 
         return (last_dir, current)

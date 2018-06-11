@@ -1,8 +1,11 @@
 
 from random import choice,shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
-from mazelib.solve.DeadEndFiller import DeadEndFiller
-from mazelib.solve.ShortestPaths import ShortestPaths
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+    from mazelib.solve.DeadEndFiller import DeadEndFiller
+    from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class CuldeSacFiller(MazeSolveAlgo):
@@ -57,7 +60,7 @@ class CuldeSacFiller(MazeSolveAlgo):
                     walls[j] = None
 
         # remove "None" walls
-        return filter(lambda w: w != None, walls)
+        return [w for w in walls if w != None]
 
     def _walls_are_connected(self, wall1, wall2):
         """Figure out if two walls are connected at any point."""
@@ -97,20 +100,23 @@ class CuldeSacFiller(MazeSolveAlgo):
 
     def _find_bordering_cells(self, wall):
         """build a buffer, one cell wide, around the wall"""
-        border = set()
+        border = []
 
         # buffer each wall cell by one, add those buffer cells to a set
         for cell in wall:
-            r,c = cell
+            r, c = cell
             for rdiff in range(-1, 2):
                 for cdiff in range(-1, 2):
                     border.add((r + rdiff, c + cdiff))
 
+        # remove non-unique values
+        border = list(set(border))
+
         # remove all wall cells from the buffer
-        border = filter(lambda b: b not in wall, border)
+        border = [b for b in border if b not in wall]
 
         # remove all non-navigable cells from the buffer
-        border = list(filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border))
+        border = [b[0] % 2 == 1 and b[1] % 2 == 1 for b in border]
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)

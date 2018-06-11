@@ -1,7 +1,10 @@
 
 from random import choice, shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
-from mazelib.solve.ShortestPaths import ShortestPaths
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+    from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class DeadEndFiller(MazeSolveAlgo):
@@ -18,7 +21,10 @@ class DeadEndFiller(MazeSolveAlgo):
             self.solver = solver
 
     def _solve(self):
-        self.grid[self.start] = self.grid[self.end] = 0
+        r, c = self.start
+        self.grid[r, c] = 0
+        r, c = self.end
+        self.grid[r, c] = 0
         self._fill_dead_ends()
 
         return self._build_solutions()
@@ -78,7 +84,7 @@ class DeadEndFiller(MazeSolveAlgo):
         """A dead end has zero or one open neighbors."""
         ns = self._find_neighbors(cell)
 
-        if self.grid[cell] == 1:
+        if self.grid[cell[0], cell[1]] == 1:
             return False
         elif len(ns) in [0, 1]:
             return True

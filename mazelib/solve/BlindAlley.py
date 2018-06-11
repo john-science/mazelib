@@ -1,7 +1,13 @@
 
 from random import choice,shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
-from mazelib.solve.ShortestPaths import ShortestPaths
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+    from mazelib.solve.ShortestPaths import ShortestPaths
+
+FILLER = 1
+SEALER = 2
 
 
 class BlindAlley(MazeSolveAlgo):
@@ -18,12 +24,10 @@ class BlindAlley(MazeSolveAlgo):
         else:
             self.solver = solver
 
-        if fill_type == 'filler':
-            self._remove_dead_end = self._dead_end_filler
-        elif fill_type == 'sealer':
-            self._remove_dead_end = self._dead_end_sealer
+        if fill_type == 'sealer':
+            self._remove_dead_end = SEALER
         else:
-            self._remove_dead_end = self._dead_end_filler
+            self._remove_dead_end = FILLER
 
     def _solve(self):
         self._seal_culdesacs()
@@ -63,7 +67,7 @@ class BlindAlley(MazeSolveAlgo):
                     walls[j] = None
 
         # remove "None" walls
-        return filter(lambda w: w != None, walls)
+        return [w for w in walls if w != None]
 
     def _walls_are_connected(self, wall1, wall2):
         """ Figure out if two walls are connected at any point. """
@@ -86,7 +90,8 @@ class BlindAlley(MazeSolveAlgo):
     def _fix_culdesac(self, border):
         """ Destroy the culdesac by blocking off the loop. """
         if len(border) > 1:
-            self.grid[self._midpoint(border[0], border[1])] = 1
+            r, c = self._midpoint(border[0], border[1])
+            self.grid[r, c] = 1
 
     def _wall_is_culdesac(self, border):
         """ A cul-de-sac is a loop with only one entrance. """
@@ -105,7 +110,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _find_bordering_cells(self, wall):
         """ build a buffer, one cell wide, around the wall """
-        border = set()
+        border = []
 
         # buffer each wall cell by one, add those buffer cells to a set
         for cell in wall:
@@ -114,11 +119,14 @@ class BlindAlley(MazeSolveAlgo):
                 for cdiff in range(-1, 2):
                     border.add((r + rdiff, c + cdiff))
 
+        # remove all non-unique cells
+        border = list(set(border))
+
         # remove all wall cells from the buffer
-        border = filter(lambda b: b not in wall, border)
+        border = [b for b in border if b not in wall]
 
         # remove all non-navigable cells from the buffer
-        border = list(filter(lambda b: b[0] % 2 == 1 and b[1] % 2 == 1, border))
+        border = [b[0] % 2 == 1 and b[1] % 2 == 1 for b in border]
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)
@@ -200,18 +208,22 @@ class BlindAlley(MazeSolveAlgo):
             for c in range(1, self.grid.shape[1], 2):
                 if self._is_dead_end((r, c)):
                     # fill-in or wall-off the dead end
-                    self._remove_dead_end((r, c))
+                    if self._remove_dead_end == SEALER:
+                        self._dead_end_sealer((r, c))
+                    else:
+                        self._dead_end_filler((r, c))
 
     def _dead_end_filler(self, dead_end):
         """ Back away from the dead end until you reach an intersection.
             Fill the path as you go.
         """
-        current = dead_end
-        ns = self._find_unblocked_neighbors(current)
+        r, c = dead_end
+        ns = self._find_unblocked_neighbors((r, c))
 
         if len(ns) == 1:
-            self.grid[current] = 1
-            self.grid[self._midpoint(ns[0], current)] = 1
+            self.grid[r, c] = 1
+            r, c = self._midpoint(ns[0], (r, c))
+            self.grid[r, c] = 1
 
     def _dead_end_sealer(self, dead_end):
         """ Back away from the dead end until you reach an intersection.
@@ -224,7 +236,8 @@ class BlindAlley(MazeSolveAlgo):
             last = current
             current = ns[0]
 
-        self.grid[self._midpoint(last, current)] = 1
+        r, c = self._midpoint(last, current)
+        self.grid[r, c] = 1
 
     def _is_dead_end(self, cell):
         """ A dead end has zero or one open neighbors. """
@@ -232,7 +245,7 @@ class BlindAlley(MazeSolveAlgo):
 
         if self._within_one(cell, self.start) or self._within_one(cell, self.end):
             return False
-        elif self.grid[cell] == 1:
+        elif self.grid[cell[0], cell[1]] == True:  # TODO: WARNING: Index should be typed for more efficient access
             return False
         elif len(ns) in [0, 1]:
             return True

@@ -1,6 +1,8 @@
 
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
-from mazelib.solve.ShortestPaths import ShortestPaths
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class Chain(MazeSolveAlgo):
@@ -63,19 +65,25 @@ class Chain(MazeSolveAlgo):
             robot_paths.append(robot_path)
 
         # randomly walk each robot, until it finds the guiding line or dies
-        for j,path in enumerate(robot_paths):
+        for j, path in enumerate(robot_paths):
             last_diff = (path[-1][0] - path[-3][0], path[-1][1] - path[-3][1])
             last_dir = self.directions.index(last_diff)
             robot_paths[j] = self._follow_walls(last_dir, path[-1], path, guiding_line[i+1:])
 
         # if all robots return, the maze is unsolvable
-        robot_paths = list(filter(lambda p: p is not None, robot_paths))
+        robot_paths = [p for p in robot_paths if p is not None]
 
         if len(robot_paths) == 0:
             raise Exception('No valid solution found.')
 
-        shortest_robot_path = sorted(robot_paths, key=lambda s: len(robot_paths))[0][1:]
-        solution += shortest_robot_path
+        # add the shortest path to the solution
+        shortest_robot_path = robot_paths[0]
+        min_len = len(shortest_robot_path)
+        for j, path in enumerate(robot_paths[1:]):
+            if len(path) < min_len:
+                shortest_robot_path = path
+                min_len = len(path)
+        solution += shortest_robot_path[1:]
 
         return guiding_line.index(solution[-1])
 
@@ -125,9 +133,9 @@ class Chain(MazeSolveAlgo):
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
             next_cell = self._move(current, self.directions[next_dir])
-            mid_cell = (self._midpoint(next_cell, current))
+            r, c = (self._midpoint(next_cell, current))
 
-            if self.grid[mid_cell] == 0 and mid_cell != self.start:
+            if self.grid[r, c] == 0 and (r, c) != self.start:
                 return (next_dir, next_cell)
 
         return (last_dir, current)
@@ -137,36 +145,36 @@ class Chain(MazeSolveAlgo):
             If so, add a couple steps to the solution.
             If not, return False.
         """
-        current = guiding_line[i]
+        r, c = guiding_line[i]
         next = guiding_line[i + 1]
 
-        rdiff = next[0] - current[0]
-        cdiff = next[1] - current[1]
+        rdiff = next[0] - r
+        cdiff = next[1] - c
 
         if rdiff == 0:
-            if self.grid[(current[0], current[1] + cdiff//2)] == 0:
-                solution.append((current[0], current[1] + cdiff//2))
-                solution.append((current[0], current[1] + cdiff))
+            if self.grid[r, c + cdiff//2] == 0:
+                solution.append((r, c + cdiff//2))
+                solution.append((r, c + cdiff))
                 return True
         elif cdiff == 0:
-            if self.grid[(current[0] + rdiff//2, current[1])] == 0:
-                solution.append((current[0] + rdiff//2, current[1]))
-                solution.append((current[0] + rdiff, current[1]))
+            if self.grid[r + rdiff//2, c] == 0:
+                solution.append((r + rdiff//2, c))
+                solution.append((r + rdiff, c))
                 return True
         else:
-            if self.grid[(current[0] + rdiff//2, current[1])] == 0 and \
-                self.grid[(current[0] + rdiff, current[1] + cdiff//2)] == 0:
-                solution.append((current[0] + rdiff//2, current[1]))
-                solution.append((current[0] + rdiff, current[1]))
-                solution.append((current[0] + rdiff, current[1] + cdiff//2))
-                solution.append((current[0] + rdiff, current[1] + cdiff))
+            if self.grid[r + rdiff//2, c] == 0 and \
+                self.grid[r + rdiff, c + cdiff//2] == 0:
+                solution.append((r + rdiff//2, c))
+                solution.append((r + rdiff, c))
+                solution.append((r + rdiff, c + cdiff//2))
+                solution.append((r + rdiff, c + cdiff))
                 return True
-            elif self.grid[(current[0], current[1] + cdiff//2)] == 0 and \
-                self.grid[(current[0] + rdiff//2, current[1] + cdiff)] == 0:
-                solution.append((current[0], current[1] + cdiff//2))
-                solution.append((current[0], current[1] + cdiff))
-                solution.append((current[0] + rdiff//2, current[1] + cdiff))
-                solution.append((current[0] + rdiff, current[1] + cdiff))
+            elif self.grid[r, c + cdiff//2] == 0 and \
+                self.grid[r + rdiff//2, c + cdiff] == 0:
+                solution.append((r, c + cdiff//2))
+                solution.append((r, c + cdiff))
+                solution.append((r + rdiff//2, c + cdiff))
+                solution.append((r + rdiff, c + cdiff))
                 return True
             else:
                 return False

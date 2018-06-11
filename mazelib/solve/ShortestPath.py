@@ -1,6 +1,9 @@
 
 from random import choice,shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class ShortestPath(MazeSolveAlgo):
@@ -61,7 +64,7 @@ class ShortestPath(MazeSolveAlgo):
 
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
-                    ns = list(filter(lambda i: i not in solutions[s], ns))
+                    ns = [n for n in ns if n not in solutions[s]]
 
                     if len(ns) == 0:
                         # there are no valid neighbors
