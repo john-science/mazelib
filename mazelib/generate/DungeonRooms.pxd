@@ -9,6 +9,7 @@ cdef public cython.int SERPENTINE = 2
 
 
 cdef class DungeonRooms(MazeGenAlgo):
+    cdef public ndarray grid
     cdef readonly ndarray backup_grid
     cdef readonly list rooms
     cdef readonly cython.int _hunt_order
@@ -50,12 +51,12 @@ cdef class DungeonRooms(MazeGenAlgo):
     cdef inline void _reconnect_maze(self)
 
 
-    @cython.locals(passages=list, r=cython.int, c=cython.int, ns=list, current=tuple, found=bint, i=cython.int,
-                   intersect=list)
+    @cython.locals(passages=list, r=cython.int, c=cython.int, ns=list, current=set, found=bint, i=cython.int,
+                   intersect=set)
     cdef inline list _find_all_passages(self)
 
 
-    @cython.locals(found=bint, cell=tuple, neighbors=list, passage=list, intersect=list, mid=tuple)
+    @cython.locals(found=bint, cell=tuple, neighbors=list, passage=set, intersect=list, mid=tuple)
     cdef inline void _fix_disjoint_passages(self, list disjoint_passages)
 
 

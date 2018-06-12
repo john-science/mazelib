@@ -2,7 +2,7 @@
 from numpy.random import choice, shuffle
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
+    print('WARNING: Running uncompiled Python')  # TODO: Remove in production code
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 # CONSTANTS
@@ -110,17 +110,15 @@ class Collision(MazeSolveAlgo):
     def _fix_entrances(self, paths):
         """Ensure the start and end are appropriately placed in the solution."""
         # Filter out paths ending in 'dead_end'
-        paths = filter(lambda p: p[-1] != DEAD_END, paths)
-
-        # remove 'end' from solution paths
-        paths = map(lambda p: p[:-1], paths)
+        # (also: remove 'end' from solution paths)
+        paths = [p[:-1] for p in paths if p[-1] != DEAD_END]
 
         # if start not on edge, remove first position in all paths
         if not self._on_edge(self.start):
-            paths = map(lambda p: p[1:], paths)
+            paths = [p[1:] for p in paths]
 
         # if end not on edge, remove last position in all paths
         if not self._on_edge(self.end):
-            paths = map(lambda p: p[:-1], paths)
+            paths = [p[:-1] for p in paths]
 
         return paths

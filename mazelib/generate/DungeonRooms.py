@@ -92,20 +92,20 @@ class DungeonRooms(MazeGenAlgo):
         """ Open up a single user-defined room in a maze. """
         for row in range(top_left[0], bottom_right[0] + 1):
             for col in range(top_left[1], bottom_right[1] + 1):
-                self.grid[row][col] = 0
+                self.grid[row, col] = 0
 
     def _carve_door(self, top_left, bottom_right):
         """ Open up a single door in a user-defined room,
             IF that room does not already have a whole wall of doors.
         """
-        even_squares = filter(lambda i: i % 2 == 0, list(top_left) + list(bottom_right))
+        even_squares = [i for i in list(top_left) + list(bottom_right) if i % 2 == 0]
         if len(even_squares) > 0:
             return
 
         # find possible doors on all sides of room
         possible_doors = []
-        odd_rows = filter(lambda i: i % 2 == 1, range(top_left[0] - 1, bottom_right[0] + 2))
-        odd_cols = filter(lambda i: i % 2 == 1, range(top_left[1] - 1, bottom_right[1] + 2))
+        odd_rows = [i for i in range(top_left[0] - 1, bottom_right[0] + 2) if i % 2 == 1]
+        odd_cols = [i for i in range(top_left[1] - 1, bottom_right[1] + 2) if i % 2 == 1]
 
         if top_left[0] > 2:
             possible_doors += zip([top_left[0] - 1] * len(odd_rows), odd_rows)
@@ -123,14 +123,14 @@ class DungeonRooms(MazeGenAlgo):
         """ This is a standard random walk. It must start from a visited cell.
             And it completes when the current cell has no unvisited neighbors.
         """
-        if self.grid[start[0]][start[1]] == 0:
+        if self.grid[start[0], start[1]] == 0:
             current = start
             unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
             while len(unvisited_neighbors) > 0:
                 neighbor = choice(unvisited_neighbors)
-                self.grid[neighbor[0]][neighbor[1]] = 0
-                self.grid[(neighbor[0] + current[0]) // 2][(neighbor[1] + current[1]) // 2] = 0
+                self.grid[neighbor[0], neighbor[1]] = 0
+                self.grid[(neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2] = 0
                 current = neighbor
                 unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
@@ -229,10 +229,10 @@ class DungeonRooms(MazeGenAlgo):
                 # determine if that cell has a neighbor in any other passage
                 for passage in disjoint_passages[1:]:
                     intersect = [c for c in neighbors if c in passage]
-                    # if so, remove the dividing wall, combine the two passages
+                    # if so, remove the dividing wall, and combine the two passages
                     if len(intersect) > 0:
                         mid = self._midpoint(intersect[0], cell)
-                        self.grid[mid[0]][mid[1]] = 0
+                        self.grid[mid[0], mid[1]] = 0
                         disjoint_passages[0] = disjoint_passages[0].union(passage)
                         disjoint_passages.remove(passage)
                         found = True

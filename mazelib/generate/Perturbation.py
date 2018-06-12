@@ -1,4 +1,3 @@
-
 from random import choice, randrange, shuffle
 import numpy as np
 import cython
@@ -141,9 +140,7 @@ class Perturbation(MazeGenAlgo):
         return list(filter(lambda l: l is not None, list_of_sets))
 
     def _find_unblocked_neighbors(self, grid, posi):
-        """ Find all the grid neighbors of the current position;
-            visited, or not.
-        """
+        """ Find all the grid neighbors of the current position; visited, or not. """
         r, c = posi
         ns = []
 

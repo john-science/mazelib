@@ -1,7 +1,7 @@
 
 import unittest
 from mazelib.generate.Prims import Prims
-from mazelib.solve.WallFollower import WallFollower
+from mazelib.solve.Collision import Collision
 from mazelib.mazelib import Maze
 
 
@@ -94,7 +94,7 @@ class MazeTest(unittest.TestCase):
 
         m = Maze()
         m.generator = Prims(h, w)
-        m.solver = WallFollower()
+        m.solver = Collision()
         m.generate_monte_carlo(3)
 
         # grid size
@@ -113,7 +113,7 @@ class MazeTest(unittest.TestCase):
 
         m = Maze()
         m.generator = Prims(h, w)
-        m.solver = WallFollower()
+        m.solver = Collision()
         m.generate_monte_carlo(3, reducer=self._num_turns)
 
         # grid size

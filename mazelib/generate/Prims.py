@@ -3,7 +3,7 @@ from random import randrange
 import numpy as np
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
+    print('WARNING: Running uncompiled Python')  # TODO: Remove in production code?
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 

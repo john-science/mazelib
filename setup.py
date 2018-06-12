@@ -69,7 +69,7 @@ setup(
     platforms='any',
     test_suite="test",
     install_requires=[
-    	"cython"
-        "numpy",
+    	"cython",
+        "numpy"
     ],
     zip_safe=False)

@@ -59,19 +59,17 @@ class MazeSolveAlgo:
         return ns
 
     def _find_unblocked_neighbors(self, posi):
-        """Find all the grid neighbors of the current position;
-        visited, or not.
-        """
+        """Find all the grid neighbors of the current position; visited, or not. """
         r, c = posi
         ns = []
 
-        if r > 1 and self.grid[r-1][c] == False and self.grid[r-2][c] == False:
+        if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
             ns.append((r-2, c))
-        if r < self.grid.shape[0]-2 and self.grid[r+1][c] == False and self.grid[r+2][c] == False:
+        if r < self.grid.shape[0]-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
             ns.append((r+2, c))
-        if c > 1 and self.grid[r][c-1] == False and self.grid[r][c-2] == False:
+        if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
             ns.append((r, c-2))
-        if c < self.grid.shape[1]-2 and self.grid[r][c+1] == False and self.grid[r][c+2] == False:
+        if c < self.grid.shape[1]-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
             ns.append((r, c+2))
 
         shuffle(ns)
@@ -143,8 +141,9 @@ class MazeSolveAlgo:
                     continue
                 diff = 1
 
-                while i-diff >= 0 and i+diff < len(solution) and solution[i-diff] == solution[i+diff]:
+                while i - diff > 0 and i + diff < len(solution) and solution[i - diff] == solution[i + diff]:
                     diff += 1
+
                 diff -= 1
                 index = i
                 found = True

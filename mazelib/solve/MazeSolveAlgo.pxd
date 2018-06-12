@@ -3,19 +3,21 @@ cimport cython
 from numpy cimport ndarray
 
 
-ctypedef bint[:,:] ndarray_grid
+ctypedef cython.char[:,:] ndarray_grid
 
 
 cdef class MazeSolveAlgo:
-    cdef public ndarray_grid grid
+    #cdef public ndarray_grid grid
+    #cdef public ndarray[cython.char, ndim=2] grid
+    cdef public ndarray grid
     cdef public tuple start  # TODO: Would start/end be faster as size-2 arrays?
     cdef public tuple end
 
 
-    cpdef list solve(self, ndarray[cython.short, ndim=2] grid, tuple start, tuple end)
+    cpdef list solve(self, ndarray[cython.char, ndim=2] grid, tuple start, tuple end)
 
 
-    cdef inline void _solve_preprocessor(self, ndarray[cython.short, ndim=2] grid, tuple start, tuple end)  # TODO: needs expect -1
+    cdef inline void _solve_preprocessor(self, ndarray[cython.char, ndim=2] grid, tuple start, tuple end)  # TODO: needs expect -1
 
 
     cpdef list _solve(self)

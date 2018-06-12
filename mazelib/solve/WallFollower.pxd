@@ -4,6 +4,8 @@ from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 
 
 cdef class WallFollower(MazeSolveAlgo):
+    cdef readonly list directions
+    cdef readonly bint prune
 
     @cython.locals(solution=list, current=tuple, last=tuple, last_diff=tuple, last_dir=cython.int)
     cpdef list _solve(self)

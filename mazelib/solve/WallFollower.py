@@ -1,6 +1,9 @@
 
-from random import choice,shuffle
-from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
+from random import choice, shuffle
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')  # TODO: Remove in production code?
+    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class WallFollower(MazeSolveAlgo):
@@ -69,7 +72,7 @@ class WallFollower(MazeSolveAlgo):
         limit = self.grid.shape[0] * self.grid.shape[1] + 2
 
         while len(solution) < limit:
-            last_dir,temp = self._follow_one_step(last_dir, current)
+            last_dir, temp = self._follow_one_step(last_dir, current)
             # the solution should not include the end point
             if temp == self.end:
                 midpoint = self._midpoint(temp, current)
