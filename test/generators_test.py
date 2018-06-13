@@ -108,7 +108,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_corners_complete(m.grid))
 
     def testDungeonRoomsGrid(self):
-        g = np.ones((7, 7), dtype=np.bool_)
+        g = np.ones((7, 7), dtype=np.int8)
         g[1] = [1,1,1,1,1,1,1]
         g[2] = [1,1,1,1,1,1,1]
         g[3] = [1,1,0,0,0,1,1]
