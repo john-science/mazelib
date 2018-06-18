@@ -13,17 +13,17 @@ cdef class Chain(MazeSolveAlgo):
     cpdef list _solve(self)
 
 
-    @cython.locals(ns=list, robot_path=list, robot_paths=list, n=tuple, j=cython.int, path=list,
-                   last_diff=tuple, last_dir=tuple, shortest_robot_path=list, min_len=cython.int)
+    #@cython.locals(ns=list, robot_path=list, robot_paths=list, n=tuple, j=cython.int, path=list,
+    #               last_diff=tuple, last_dir=int, shortest_robot_path=list, min_len=cython.int)
     cdef inline cython.int _send_out_robots(self, list solution, list guiding_line, cython.int i) except -999
 
 
-    @cython.locals(last_diff=tuple, last_dir=tuple)
-    cdef inline bint _has_robot_returned(self, tuple first_dir, list path)
+    @cython.locals(last_diff=tuple, last_dir=cython.int)
+    cdef inline bint _has_robot_returned(self, cython.int first_dir, list path)
 
 
-    @cython.locals(path=list, first_diff=tuple, first_dir=tuple, last_dir=tuple, temp=tuple)
-    cdef inline list _follow_walls(self, tuple last_dir, tuple current, list solution, list goal)
+    @cython.locals(path=list, first_diff=tuple, first_dir=cython.int, temp=tuple)
+    cdef inline list _follow_walls(self, cython.int last_dir, tuple current, list solution, list goal)
 
 
     @cython.locals(d=cython.int, next_dir=cython.int, next_cell=tuple, r=cython.int, c=cython.int)

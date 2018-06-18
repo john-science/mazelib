@@ -51,7 +51,7 @@ class MazeSolveAlgo:
             ns.append((r+2, c))
         if c > 1 and self.grid[r][c-2] == is_wall:
             ns.append((r, c-2))
-        if c < self.grid.shape[1]-2 and self.grid[r][c+2] == is_wall:
+        if c < self.grid.shape[1]-2 and self.grid[r, c+2] == is_wall:
             ns.append((r, c+2))
 
         shuffle(ns)
@@ -133,24 +133,27 @@ class MazeSolveAlgo:
         These extraneous branches need to be removed.
         """
         found = True
-        while found and len(solution) > 2:
+        attempt = 0
+        max_attempt = len(solution)
+
+        while found and len(solution) > 2 and attempt < max_attempt:
             found = False
 
             for i in range(1, len(solution) - 1):
-                if solution[i - 1] != solution[i + 1]:
-                    continue
-                diff = 1
-
-                while i - diff > 0 and i + diff < len(solution) and solution[i - diff] == solution[i + diff]:
-                    diff += 1
-
-                diff -= 1
-                index = i
-                found = True
-                break
+                first = solution[i]
+                if first in solution[i + 1:]:
+                    first_i = i
+                    last_i = solution[i + 1:].index(first) + i + 1
+                    found = True
+                    break
 
             if found:
-                for ind in range(index + diff, index - diff, - 1):
-                    del solution[ind]
+                solution = solution[:first_i] + solution[last_i + 1:]
+
+        # solution does not include entrances
+        if solution[0] == self.start:
+            solution = solution[1:]
+        if solution[-1] == self.end:
+            solution = solution[:-1]
 
         return solution

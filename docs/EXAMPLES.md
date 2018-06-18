@@ -85,10 +85,10 @@ For the rest of this section, let us assume we have already generated a maze:
 
 If you want a low-key, fast way to view the maze you've generated, just use the library's built-in `tostring` method:
 
-    print(m.grid.tostring())            # print walls only
-    print(m.grid.tostring(True))        # print walls and entrances
-    print(m.grid.tostring(True, True))  # print walls, entrances, and solution
-    print(str(m.grid))                  # print everything that is available
+    print(m.tostring())            # print walls only
+    print(m.tostring(True))        # print walls and entrances
+    print(m.tostring(True, True))  # print walls, entrances, and solution
+    print(str(m))                  # print everything that is available
 
 The above `print` calls would generate these types of plots, respectively:
 

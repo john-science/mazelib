@@ -36,11 +36,11 @@ class ShortestPaths(MazeSolveAlgo):
 
         # 1) create a solution for each starting position
         solutions = []
-        for s in start_posis:
+        for sp in start_posis:
             if self.start_edge:
-                solutions.append([start, self._midpoint(start, s), s])
+                solutions.append([start, self._midpoint(start, sp), sp])
             else:
-                solutions.append([self._midpoint(start, s), s])
+                solutions.append([self._midpoint(start, sp), sp])
 
         # 2) loop through each solution, and find the neighbors of the last element
         num_unfinished = len(solutions)
@@ -79,7 +79,7 @@ class ShortestPaths(MazeSolveAlgo):
                         solutions[s].append(self._midpoint(ns[0], solutions[s][-1]))
                         solutions[s].append(ns[0])
 
-            # 3) a solution reaches the end or a dead end when we mark it by appending a None.
+            # 3) a solution reaches the end or a dead end when we mark it by appending a None. 
             num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
 
         # 4) clean-up solutions
@@ -166,6 +166,5 @@ class ShortestPaths(MazeSolveAlgo):
         return sol
 
     def _remove_duplicate_sols(self, sols):
-        """Remove duplicate solutions using subsetting"""
-        temp = list(set(map(tuple, sols)))
-        return [list(s) for s in temp]
+        """ Remove duplicate solutions using subsetting """
+        return [list(s) for s in set(map(tuple, sols))]

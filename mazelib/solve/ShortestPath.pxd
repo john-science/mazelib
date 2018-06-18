@@ -8,6 +8,6 @@ cdef class ShortestPath(MazeSolveAlgo):
     cdef readonly bint end_edge
 
 
-    @cython.locals(start=tuple, start_posis=tuple, solutions=list, s=tuple, num_unfinished=cython.int,
-                   ns=list, s=tuple, j=cython.int, nxt=list)
+    @cython.locals(start=tuple, start_posis=list, solutions=list, s=tuple, num_unfinished=cython.int,
+                   ns=list, s=cython.int, sp=tuple, j=cython.int, nxt=list)
     cpdef list _solve(self)

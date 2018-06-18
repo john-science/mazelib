@@ -26,7 +26,7 @@ class SolversTest(unittest.TestCase):
         #
         #######
         """
-        g = np.ones((7, 7), dtype=np.bool_)
+        g = np.ones((7, 7), dtype=np.int8)
         g[1] = [1,0,0,0,0,0,1]
         g[2] = [1,0,1,0,1,0,1]
         g[3] = [1,0,1,0,0,0,1]

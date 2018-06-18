@@ -8,8 +8,8 @@ cdef class ShortestPaths(MazeSolveAlgo):
     cdef readonly bint end_edge
 
 
-    @cython.locals(start=tuple, start_posis=tuple, solutions=list, s=tuple, num_unfinished=cython.int,
-                   ns=list, s=tuple, j=cython.int, nxt=list)
+    @cython.locals(start=tuple, start_posis=list, solutions=list, s=cython.int, num_unfinished=cython.int,
+                   ns=list, j=cython.int, nxt=list, sp=tuple)
     cpdef list _solve(self)
 
 
@@ -21,5 +21,5 @@ cdef class ShortestPaths(MazeSolveAlgo):
     cpdef list _prune_solution(self, list sol)
 
 
-    @cython.locals(temp=list, s=tuple)
+    @cython.locals(s=tuple)
     cdef inline list _remove_duplicate_sols(self, list sols)

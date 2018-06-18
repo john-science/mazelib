@@ -36,11 +36,11 @@ class ShortestPath(MazeSolveAlgo):
 
         # 1) create a solution for each starting position
         solutions = []
-        for s in start_posis:
+        for sp in start_posis:
             if self.start_edge:
-                solutions.append([start, self._midpoint(start, s), s])
+                solutions.append([start, self._midpoint(start, sp), sp])
             else:
-                solutions.append([self._midpoint(start, s), s])
+                solutions.append([self._midpoint(start, sp), sp])
 
         # 2) loop through each solution, and find the neighbors of the last element
         num_unfinished = len(solutions)

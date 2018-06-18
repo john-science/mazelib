@@ -1,4 +1,5 @@
 
+from random import choice
 import cython
 if not cython.compiled:
     print('WARNING: Running uncompiled Python')

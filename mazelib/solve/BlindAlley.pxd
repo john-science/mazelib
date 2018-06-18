@@ -38,7 +38,7 @@ cdef class BlindAlley(MazeSolveAlgo):
     cdef inline bint _wall_is_culdesac(self, list border)
 
 
-    @cython.locals(border=list, r=cython.int, c=cython.int, rdiff=cython.int, cdiff=cython.int, b=tuple)
+    @cython.locals(border=list, r=cython.int, c=cython.int, rdiff=cython.int, cdiff=cython.int, b=tuple, cell=tuple)
     cdef inline list _find_bordering_cells(self, list wall)
 
 

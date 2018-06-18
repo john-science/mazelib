@@ -29,7 +29,6 @@ class CuldeSacFiller(MazeSolveAlgo):
 
     def _seal_culdesacs(self):
         """identify and seal off all culdesacs"""
-
         # identify all fully-connected wall systems
         walls = self._find_wall_systems()
         # connect wall systems that are disconnected above
@@ -105,9 +104,9 @@ class CuldeSacFiller(MazeSolveAlgo):
         # buffer each wall cell by one, add those buffer cells to a set
         for cell in wall:
             r, c = cell
-            for rdiff in range(-1, 2):
-                for cdiff in range(-1, 2):
-                    border.add((r + rdiff, c + cdiff))
+            for rdiff in [-1, 0, 1]:
+                for cdiff in [-1, 0, 1]:
+                    border.append((r + rdiff, c + cdiff))
 
         # remove non-unique values
         border = list(set(border))
@@ -116,7 +115,7 @@ class CuldeSacFiller(MazeSolveAlgo):
         border = [b for b in border if b not in wall]
 
         # remove all non-navigable cells from the buffer
-        border = [b[0] % 2 == 1 and b[1] % 2 == 1 for b in border]
+        border = [b for b in border if b[0] % 2 == 1 and b[1] % 2 == 1]
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)

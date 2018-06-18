@@ -3,7 +3,7 @@ cimport cython
 from numpy cimport ndarray
 
 
-ctypedef cython.char[:,:] ndarray_grid
+#ctypedef cython.char[:,:] ndarray_grid
 
 
 cdef class MazeSolveAlgo:
@@ -48,5 +48,6 @@ cdef class MazeSolveAlgo:
     cpdef bint _within_one(self, tuple cell, tuple desire)
 
 
-    @cython.locals(found=bint, diff=cython.int, i=cython.uint, index=cython.uint, ind=cython.int)
+    @cython.locals(found=bint, attempt=cython.int, first_i=cython.int, last_i=cython.int, i=cython.int,
+                   max_attempt=cython.int, first=tuple)
     cpdef list _prune_solution(self, list solution)

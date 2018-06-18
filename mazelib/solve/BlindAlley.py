@@ -112,12 +112,12 @@ class BlindAlley(MazeSolveAlgo):
         """ build a buffer, one cell wide, around the wall """
         border = []
 
-        # buffer each wall cell by one, add those buffer cells to a set
+        # buffer each wall cell by one, append those buffer cells to a list
         for cell in wall:
-            r,c = cell
+            r, c = cell
             for rdiff in range(-1, 2):
                 for cdiff in range(-1, 2):
-                    border.add((r + rdiff, c + cdiff))
+                    border.append((r + rdiff, c + cdiff))
 
         # remove all non-unique cells
         border = list(set(border))
@@ -126,7 +126,7 @@ class BlindAlley(MazeSolveAlgo):
         border = [b for b in border if b not in wall]
 
         # remove all non-navigable cells from the buffer
-        border = [b[0] % 2 == 1 and b[1] % 2 == 1 for b in border]
+        border = [b for b in border if b[0] % 2 == 1 and b[1] % 2 == 1]
 
         # remove all dead ends within the cul-de-sac
         return self._remove_internal_deadends(border)

@@ -12,7 +12,7 @@ cdef class CuldeSacFiller(MazeSolveAlgo):
     cpdef list _solve(self)
 
 
-    @cython.locals(walls=list, wall=tuple, border=list)
+    @cython.locals(walls=list, wall=list, border=list)
     cdef inline void _seal_culdesacs(self)
 
 
@@ -21,7 +21,7 @@ cdef class CuldeSacFiller(MazeSolveAlgo):
 
 
     @cython.locals(cell1=tuple, cell2=tuple)
-    cdef inline bint _walls_are_connected(self, tuple wall1, tuple wall2)
+    cdef inline bint _walls_are_connected(self, list wall1, list wall2)
 
 
     cdef inline list _build_solutions(self)
@@ -34,7 +34,7 @@ cdef class CuldeSacFiller(MazeSolveAlgo):
     cdef inline bint _wall_is_culdesac(self, list border)
 
 
-    @cython.locals(cell=tuple, r=cython.int, c=cython.int, rdiff=cython.int, cdiff=cython.int, b=tuple)
+    @cython.locals(cell=tuple, r=cython.int, c=cython.int, rdiff=cython.int, cdiff=cython.int, b=tuple, border=list)
     cdef inline list _find_bordering_cells(self, list wall)
 
 

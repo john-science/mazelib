@@ -162,15 +162,13 @@ class Chain(MazeSolveAlgo):
                 solution.append((r + rdiff, c))
                 return True
         else:
-            if self.grid[r + rdiff//2, c] == 0 and \
-                self.grid[r + rdiff, c + cdiff//2] == 0:
+            if self.grid[r + rdiff//2, c] == 0 and self.grid[r + rdiff, c + cdiff//2] == 0:
                 solution.append((r + rdiff//2, c))
                 solution.append((r + rdiff, c))
                 solution.append((r + rdiff, c + cdiff//2))
                 solution.append((r + rdiff, c + cdiff))
                 return True
-            elif self.grid[r, c + cdiff//2] == 0 and \
-                self.grid[r + rdiff//2, c + cdiff] == 0:
+            elif self.grid[r, c + cdiff//2] == 0 and self.grid[r + rdiff//2, c + cdiff] == 0:
                 solution.append((r, c + cdiff//2))
                 solution.append((r, c + cdiff))
                 solution.append((r + rdiff//2, c + cdiff))
