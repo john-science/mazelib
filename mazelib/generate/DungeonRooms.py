@@ -269,7 +269,7 @@ class DungeonRooms(MazeGenAlgo):
                     continue
                 intersect = list_of_sets[i].intersection(list_of_sets[j])
                 if len(intersect) > 0:
-                    list_of_sets[i] = intersect
+                    list_of_sets[i] = list_of_sets[i].union(list_of_sets[j])
                     list_of_sets[j] = None
 
         return list(filter(lambda l: l is not None, list_of_sets))
