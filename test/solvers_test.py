@@ -42,7 +42,7 @@ class SolversTest(unittest.TestCase):
 
         if r1 == r2 and abs(c1 - c2) == 1:
             return True
-        if c1 == c2 and abs(r1 - r2) == 1:
+        elif c1 == c2 and abs(r1 - r2) == 1:
             return True
 
         return False

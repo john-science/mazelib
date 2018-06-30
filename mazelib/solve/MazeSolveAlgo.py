@@ -139,7 +139,7 @@ class MazeSolveAlgo:
         while found and len(solution) > 2 and attempt < max_attempt:
             found = False
 
-            for i in range(1, len(solution) - 1):
+            for i in range(len(solution) - 1):
                 first = solution[i]
                 if first in solution[i + 1:]:
                     first_i = i
@@ -148,7 +148,7 @@ class MazeSolveAlgo:
                     break
 
             if found:
-                solution = solution[:first_i] + solution[last_i + 1:]
+                solution = solution[:first_i] + solution[last_i:]
 
         # solution does not include entrances
         if solution[0] == self.start:

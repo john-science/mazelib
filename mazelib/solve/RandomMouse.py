@@ -63,8 +63,14 @@ class RandomMouse(MazeSolveAlgo):
             i = solution.index(self.start)
             solution = solution[i+1:]
 
+        # prune if end is found in solution
+        if self.end in solution:
+            i = solution.index(self.end)
+            solution = solution[:i]
+
+
         # fix solution so it doesn't overlap endpoints
-        if not self._on_edge(self.end):
-            solution = solution[:-1]
+        #if not self._on_edge(self.end):
+        #    solution = solution[:-1]
 
         return solution
