@@ -31,7 +31,7 @@ cdef class BlindAlley(MazeSolveAlgo):
 
 
     @cython.locals(r=cython.int, c=cython.int)
-    cdef inline void _fix_culdesac(self, tuple border)
+    cdef inline void _fix_culdesac(self, list border)
 
 
     @cython.locals(num_entrances=cython.int, num_neighbors=cython.int, cell=tuple)

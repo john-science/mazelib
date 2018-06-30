@@ -96,7 +96,6 @@ class GeneratorsTest(unittest.TestCase):
 
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
-        self.assertTrue(self.all_corners_complete(m.grid))
 
     def testDivision(self):
         m = Maze()
