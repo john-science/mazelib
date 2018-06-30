@@ -11,7 +11,7 @@ from timeit import Timer
     standard basis for comparison.
 '''
 SIZES = [5, 10, 25, 50, 100, 200]
-ITERATIONS = [1000, 100, 100, 50, 1, 1]
+ITERATIONS = [100, 100, 100, 50, 1, 1]
 GENERATORS = ['AldousBroder', 'AldousBroder',
               'BacktrackingGenerator', 'BacktrackingGenerator',
               'BinaryTree', 'BinaryTree',
