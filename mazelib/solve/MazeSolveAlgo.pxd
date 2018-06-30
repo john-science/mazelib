@@ -1,9 +1,5 @@
 cimport cython
-#cython: language_level=3, boundscheck=False, wraparound=False, initializedcheck=False, cdivision=True
 from numpy cimport ndarray
-
-
-#ctypedef cython.char[:,:] ndarray_grid
 
 
 cdef class MazeSolveAlgo:

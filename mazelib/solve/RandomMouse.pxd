@@ -1,7 +1,5 @@
-
 from random import choice, shuffle
 cimport cython
-#cython: language_level=3, boundscheck=False, wraparound=False, initializedcheck=False, cdivision=True
 from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 
 

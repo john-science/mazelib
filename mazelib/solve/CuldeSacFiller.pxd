@@ -1,5 +1,4 @@
 cimport cython
-#cython: language_level=3, boundscheck=False, wraparound=False, initializedcheck=False, cdivision=True
 from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 from mazelib.solve.DeadEndFiller cimport DeadEndFiller
 from mazelib.solve.ShortestPaths cimport ShortestPaths

@@ -1,5 +1,4 @@
 cimport cython
-#cython: language_level=3, boundscheck=False, wraparound=False, initializedcheck=False, cdivision=True
 from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 
 cdef tuple END = (-999, -9)
