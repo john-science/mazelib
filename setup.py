@@ -34,7 +34,7 @@ from mazelib import __version__
 # CONSTANTS
 FORCE_REBUILD = True if "-f" in argv else False
 IS_WINDOWS = True if (os_name.lower() == 'nt' or 'win' in platform.lower()) else False
-
+COMP_DIRS = {'language_level': 3, 'boundscheck': False, 'initializedcheck': False, 'cdivision': True}
 
 # find all the extension modules in the project
 sep = '\\' if IS_WINDOWS else '/'
@@ -65,7 +65,7 @@ setup(
     license='GPLv3',
     long_description=open('README.md').read(),
     packages=find_packages(),
-    ext_modules=cythonize(ext_modules, annotate=False, force=FORCE_REBUILD),
+    ext_modules=cythonize(ext_modules, annotate=False, force=FORCE_REBUILD, compiler_directives=COMP_DIRS),
     platforms='any',
     test_suite="test",
     install_requires=[
