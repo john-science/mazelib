@@ -9,21 +9,20 @@ To build/install locally, not system-wide:
     python setup.py install --inplace
 
 To force all Cython code to rebuild/reinstall locally:
-    python setup.py install --inplace --f
+    python setup.py install --inplace -f
 
 To run the test suit:
 
     python setup.py test
 
-
-Caveat, one user reported having to set an environment variable to install:
+Though I could not reproduce this, one user reported having to set an environment variable to install:
 
     export CFLAGS="-I /usr/local/lib/python3.6/site-packages/numpy/core/include"
 '''
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 from distutils.extension import Extension
-from Cython.Distutils import build_ext as build_pyx
+from Cython.Distutils import build_ext
 from Cython.Build import cythonize
 from glob import glob
 import numpy as np
@@ -32,7 +31,8 @@ from sys import argv, platform
 from mazelib import __version__
 
 # CONSTANTS
-FORCE_REBUILD = True if "-f" in argv else False
+FORCE_FLAGS = ['-f', '--f', '--force']
+FORCE_REBUILD = True if any([f in argv for f in FORCE_FLAGS]) else False
 IS_WINDOWS = True if (os_name.lower() == 'nt' or 'win' in platform.lower()) else False
 COMP_DIRS = {'language_level': 3, 'boundscheck': False, 'initializedcheck': False, 'cdivision': True}
 
@@ -46,7 +46,7 @@ ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_di
 setup(
     cmdclass={
         'install': install,
-        'build_ext': build_pyx,
+        'build_ext': build_ext,
     },
     name='mazelib',
     version=__version__,
