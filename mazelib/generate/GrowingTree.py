@@ -35,7 +35,6 @@ class GrowingTree(MazeGenAlgo):
 
         current_row, current_col = (randrange(1, self.H, 2), randrange(1, self.W, 2))
         grid[current_row][current_col] = 0
-        active = self._find_neighbors(current_row, current_col, grid, True)
         active = [(current_row, current_col)]
 
         # continue until you have no more neighbors to move to
