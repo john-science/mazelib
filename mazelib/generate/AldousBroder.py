@@ -1,10 +1,6 @@
 
 import numpy as np
 from random import choice, randrange
-import cython
-if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
-    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class AldousBroder(MazeGenAlgo):
