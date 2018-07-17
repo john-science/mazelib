@@ -1,6 +1,9 @@
 
 import numpy as np
 from random import choice, randrange
+import cython
+if not cython.compiled:
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class AldousBroder(MazeGenAlgo):

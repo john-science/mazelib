@@ -3,7 +3,6 @@ from random import randint
 import numpy as np
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 SERPENTINE = 1

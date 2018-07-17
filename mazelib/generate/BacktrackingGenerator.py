@@ -3,7 +3,6 @@ import numpy as np
 from random import randrange
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 

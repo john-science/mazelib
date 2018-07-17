@@ -5,7 +5,6 @@ from numpy.random import shuffle
 import cython
 if not cython.compiled:
     print('WARNING: Running uncompiled Python')
-    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class MazeGenAlgo: 
@@ -13,7 +12,7 @@ class MazeGenAlgo:
 
     def __init__(self, h, w):
         if w < 3 or h < 3:
-            raise ValueError('A maze smaller than 3x3 is not a maze.')
+            raise ValueError('Mazes cannot be smaller than 3x3.')
         self.h = h
         self.w = w
         self.H = (2 * self.h) + 1
