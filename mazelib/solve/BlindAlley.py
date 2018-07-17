@@ -2,7 +2,6 @@
 from random import choice,shuffle
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
     from mazelib.solve.ShortestPaths import ShortestPaths
 

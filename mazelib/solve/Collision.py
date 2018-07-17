@@ -2,7 +2,6 @@
 from numpy.random import choice, shuffle
 import cython
 if not cython.compiled:
-    print('WARNING: Running uncompiled Python')  # TODO: Remove in production code
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 # CONSTANTS
