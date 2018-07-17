@@ -2,6 +2,10 @@
 import abc
 import numpy as np
 from numpy.random import shuffle
+import cython
+if not cython.compiled:
+    print('WARNING: Running uncompiled Python')
+    from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class MazeGenAlgo: 
