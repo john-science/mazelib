@@ -2,9 +2,10 @@
 
 ##### Go back to the main [README](../README.md)
 
-The mazelib library provides tools for creating and solving 2D mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these algorithms are implemented with optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
+The `mazelib` library provides tools for creating and solving 2D mazes in Python. The library includes all of the classic algorithms for creating and solving mazes. Most of these have optional parameters to customize the result. Several more modern methods are also provided, to help expedite practical use-cases.
 
-The mazelib library supports Python versions 3.3.x to 3.6.x.
+The mazelib library supports Python versions 3.3 and up.
+
 
 ## How to Create a Maze
 
@@ -18,9 +19,8 @@ Let us look at the simplest example:
 
 First, there was the obligatory import statement, to include mazelib in your Python code: `from mazelib import *`.
 
-Then, a `Maze` object was created:
+Then, a `Maze` object was created. Maze objects have the following attributes:
 
-* Maze
  * grid: 2D array of data representing the maze itself
  * start: starting location in the maze
  * end: exit location in the maze
@@ -31,6 +31,7 @@ Then, a `Maze` object was created:
 Finally, an algorithm was selected to generate the maze. In this case, the `Prims` algorithm was used to generate a maze that was 27 rows tall and 34 rows wide. And the Prims algorithm was run.
 
 A complete listing of available maze-generating algorithms can be found [here](MAZE_GEN_ALGOS.md).
+
 
 ## How to Solve a Maze
 
@@ -53,6 +54,7 @@ By default, entrances will be generated on the outer edge of the maze. However, 
 Finally, the maze `m` was solved for the given entrances, using the `WallFollower` algorithm.
 
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
+
 
 ## Advanced: The Monte Carlo Method
 
