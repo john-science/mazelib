@@ -28,7 +28,6 @@ class DungeonRooms(MazeGenAlgo):
         Determines how the next cell to hunt from will be chosen. (default 'random')
     """
 
-
     def __init__(self, h0, w0, rooms=None, grid=None, hunt_order='random'):
         # if the user provides a grid, that overrides h & w
         if grid is not None:
@@ -57,8 +56,6 @@ class DungeonRooms(MazeGenAlgo):
 
         # select start position for algorithm
         current = self._choose_start()
-        if current == None:
-            return None
         self.grid[current[0]][current[1]] = 0
 
         # perform many random walks, to fill the maze
@@ -95,7 +92,7 @@ class DungeonRooms(MazeGenAlgo):
 
     def _carve_door(self, top_left, bottom_right):
         """ Open up a single door in a user-defined room,
-            IF that room does not already have a whole wall of doors.
+        IF that room does not already have a whole wall of doors.
         """
         even_squares = [i for i in list(top_left) + list(bottom_right) if i % 2 == 0]
         if len(even_squares) > 0:
@@ -120,7 +117,7 @@ class DungeonRooms(MazeGenAlgo):
 
     def _walk(self, start):
         """ This is a standard random walk. It must start from a visited cell.
-            And it completes when the current cell has no unvisited neighbors.
+        And it completes when the current cell has no unvisited neighbors.
         """
         if self.grid[start[0], start[1]] == 0:
             current = start
@@ -165,7 +162,7 @@ class DungeonRooms(MazeGenAlgo):
         return cell
 
     def _choose_start(self):
-        """Choose a random starting location, that is not already inside a room.
+        """ Choose a random starting location, that is not already inside a room.
         If no such room exists, the input grid was invalid.
         """
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
@@ -181,18 +178,17 @@ class DungeonRooms(MazeGenAlgo):
             num_tries += 1
 
         if num_tries >= LIMIT:
-            #raise UnboundError('The grid input to DungeonRooms was invalid.')
-            return None
+            raise UnboundError('The grid input to DungeonRooms was invalid.')
 
         return current
 
     def _reconnect_maze(self):
-        """If a maze is not fully connected, open up walls until it is."""
+        """ If a maze is not fully connected, open up walls until it is. """
         self._fix_disjoint_passages(self._find_all_passages())
 
     def _find_all_passages(self):
         """ Place all connected passage cells into a set.
-            Disjoint passages will be in different sets.
+        Disjoint passages will be in different sets.
         """
         passages = []
 

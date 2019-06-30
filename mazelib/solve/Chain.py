@@ -101,8 +101,8 @@ class Chain(MazeSolveAlgo):
 
     def _follow_walls(self, last_dir, current, solution, goal):
         """ Perform the wall following logic.
-            Loop until you have found the end,
-            or prove you won't solve the maze.
+        Loop until you have found the end,
+        or prove you won't solve the maze.
         """
         path = list(solution)
         first_diff = (path[2][0] - path[0][0], path[2][1] - path[0][1])
