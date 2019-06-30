@@ -64,7 +64,7 @@ class WallFollower(MazeSolveAlgo):
         return [solution]
 
     def _follow_walls(self, last_dir, current, solution):
-        """Perform the wall following logic.
+        """ Perform the wall following logic.
         Loop until you have found the end,
         or prove you won't solve the maze.
         """
@@ -83,12 +83,13 @@ class WallFollower(MazeSolveAlgo):
             current = temp
 
         if len(solution) >= limit:
-            raise RuntimeError('This algorithm was not able to converge on a solution.')
+            raise RuntimeError('{0} can only solve perfect mazes - '.format(self.__class__.__name__) +
+                'it can not solve mazes with loops.')
 
         return solution
 
     def _follow_one_step(self, last_dir, current):
-        """At each new cell you reach, take the rightmost turn.
+        """ At each new cell you reach, take the rightmost turn.
         Turn around if you reach a dead end.
         if right is not available, then straight, if not straight, left, etc...
         """
@@ -105,7 +106,7 @@ class WallFollower(MazeSolveAlgo):
         return (last_dir, current)
 
     def _fix_entrances(self, solution):
-        """Ensure the start and end are appropriately placed in the solution."""
+        """ Ensure the start and end are appropriately placed in the solution. """
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)

@@ -178,7 +178,7 @@ class DungeonRooms(MazeGenAlgo):
             num_tries += 1
 
         if num_tries >= LIMIT:
-            raise UnboundError('The grid input to DungeonRooms was invalid.')
+            raise TypeError('The grid input to DungeonRooms was invalid.')
 
         return current
 
