@@ -1,6 +1,9 @@
 '''
 Installing the mazelib package into your system Python is a short process.
 
+    pip install mazelib
+
+But if you want to use this file to build the package, you can do as follows:
 
 To build mazelib and install the package on your computer:
     python setup.py install
@@ -44,10 +47,8 @@ ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_di
 
 # perform the actual build/install
 setup(
-    cmdclass={
-        'install': install,
-        'build_ext': build_ext,
-    },
+    cmdclass={'install': install,
+              'build_ext': build_ext},
     name='mazelib',
     version=__version__,
     description='A Python API for creating and solving mazes.',
@@ -63,13 +64,11 @@ setup(
                  'Natural Language :: English',
                  'Topic :: Software Development :: Libraries :: Python Modules'],
     license='GPLv3',
-    long_description=open('README.md').read(),
+    long_description='A Python library for creating and solving mazes.',
     packages=find_packages(),
     ext_modules=cythonize(ext_modules, annotate=False, force=FORCE_REBUILD, compiler_directives=COMP_DIRS),
     platforms='any',
     test_suite="test",
-    install_requires=[
-    	"cython",
-        "numpy"
-    ],
+    install_requires=["cython",
+                      "numpy"],
     zip_safe=False)
