@@ -156,7 +156,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testKruskal(self):
+    def test_kruskal(self):
         m = Maze()
         m.generator = Kruskal(4, 5)
         m.generate()
@@ -165,7 +165,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testPrims(self):
+    def test_prims(self):
         m = Maze()
         m.generator = Prims(4, 5)
         m.generate()
@@ -174,7 +174,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testPerturbation(self):
+    def test_perturbation(self):
         m1 = Maze()
         m1.generator = TrivialMaze(4, 5)
         m1.generate()
@@ -187,7 +187,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testSidewinder(self):
+    def test_sidewinder(self):
         m = Maze()
         m.generator = Sidewinder(4, 5)
         m.generate()
@@ -196,7 +196,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testTrivialMaze(self):
+    def test_trivial_maze_spiral(self):
         m = Maze()
         m.generator = TrivialMaze(4, 5)
         m.generate()
@@ -204,8 +204,20 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testWilsons(self):
+    def test_trivial_maze_serpentine(self):
+        # run this test enough times to trip the different skewness parameters
+        for _ in range(10):
+            m = Maze()
+            m.generator = TrivialMaze(4, 5, 'serpentine')
+            m.generate()
+
+            self.assertTrue(self.boundary_is_solid(m.grid))
+            self.assertTrue(self.all_passages_open(m.grid))
+            self.assertTrue(self.all_corners_complete(m.grid))
+
+    def test_wilsons(self):
         m = Maze()
         m.generator = Wilsons(4, 5)
         m.generate()

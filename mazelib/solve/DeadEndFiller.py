@@ -29,7 +29,7 @@ class DeadEndFiller(MazeSolveAlgo):
         return self._build_solutions()
 
     def _build_solutions(self):
-        """Now that all of the dead ends have been cut out, the maze still needs to be solved."""
+        """ Now that all of the dead ends have been cut out, the maze still needs to be solved. """
         return self.solver.solve(self.grid, self.start, self.end)
 
     def _fill_dead_ends(self):
@@ -56,7 +56,7 @@ class DeadEndFiller(MazeSolveAlgo):
             dead_end = self._find_dead_end()
 
     def _fill_dead_end(self, dead_end):
-        """After moving from a dead end, we want to fill in it and all
+        """ After moving from a dead end, we want to fill in it and all
         the walls around it.
         """
         r,c = dead_end
@@ -67,7 +67,7 @@ class DeadEndFiller(MazeSolveAlgo):
         self.grid[r, c + 1] = 1
 
     def _find_dead_end(self):
-        """A "dead end" is a cell with only zero or one open neighbors.
+        """ A "dead end" is a cell with only zero or one open neighbors.
         The start end end count as open.
         """
         for r in range(1, self.grid.shape[0], 2):
@@ -80,7 +80,7 @@ class DeadEndFiller(MazeSolveAlgo):
         return (-1, -1)
 
     def _is_dead_end(self, cell):
-        """A dead end has zero or one open neighbors."""
+        """ A dead end has zero or one open neighbors. """
         ns = self._find_neighbors(cell)
 
         if self.grid[cell[0], cell[1]] == 1:

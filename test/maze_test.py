@@ -1,4 +1,5 @@
 
+import numpy as np
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.Collision import Collision
@@ -8,8 +9,7 @@ from mazelib.mazelib import Maze
 class MazeTest(unittest.TestCase):
     
     def _on_edge(self, grid, cell):
-        """ test helper method to determine if a point
-            is on the edge of a maze
+        """ test helper method to determine if a point is on the edge of a maze
         """
         r, c = cell
         
@@ -35,7 +35,7 @@ class MazeTest(unittest.TestCase):
     
         return num
 
-    def testGridSize(self):
+    def test_grid_size(self):
         h = 4
         w = 5
         H = 2 * h + 1
@@ -48,7 +48,7 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(m.grid.shape[0], H)
         self.assertEqual(m.grid.shape[1], W)
 
-    def testInnerEntrances(self):
+    def test_inner_entrances(self):
         h = 4
         w = 5
 
@@ -60,7 +60,7 @@ class MazeTest(unittest.TestCase):
         self.assertFalse(self._on_edge(m.grid, m.start))
         self.assertFalse(self._on_edge(m.grid, m.end))
 
-    def testOuterEntrances(self):
+    def test_outer_entrances(self):
         h = 4
         w = 5
 
@@ -72,7 +72,7 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(self._on_edge(m.grid, m.start))
         self.assertTrue(self._on_edge(m.grid, m.end))
 
-    def testGeneratorWipe(self):
+    def test_generator_wipe(self):
         h = 4
         w = 5
 
@@ -86,7 +86,7 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(m.end is None)
         self.assertTrue(m.solutions is None)
 
-    def testMonteCarlo(self):
+    def test_monte_carlo(self):
         h = 4
         w = 5
         H = 2 * h + 1
@@ -105,7 +105,7 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(self._on_edge(m.grid, m.start))
         self.assertTrue(self._on_edge(m.grid, m.end))
 
-    def testMonteCarloReducer(self):
+    def test_monte_carlo_reducer(self):
         h = 4
         w = 5
         H = 2 * h + 1
@@ -123,6 +123,31 @@ class MazeTest(unittest.TestCase):
         # test entrances are outer
         self.assertTrue(self._on_edge(m.grid, m.start))
         self.assertTrue(self._on_edge(m.grid, m.end))
+
+    def test_maze_to_string(self):
+        """ test that the 'to string' functionality is sane
+        """
+        m = Maze()
+        m.generator = Prims(3, 3)
+
+        # fake some maze results, to test against
+        m.grid = np.array([[1, 1, 1, 1, 1, 1, 1],
+                           [1, 0, 0, 0, 0, 0, 1],
+                           [1, 0, 1, 0, 1, 1, 1],
+                           [1, 0, 1, 0, 0, 0, 1],
+                           [1, 1, 1, 0, 1, 1, 1],
+                           [1, 0, 0, 0, 0, 0, 1],
+                           [1, 1, 1, 1, 1, 1, 1]])
+        m.start = (5, 0)
+        m.end = (3, 6)
+
+        s = str(m).split('\n')
+        
+        self.assertEqual(s[0].strip(), "#######")
+        self.assertEqual(s[2].strip(), "# # ###")
+        self.assertEqual(s[3].strip(), "# #   E")
+        self.assertEqual(s[5].strip(), "S     #")
+        self.assertEqual(s[6].strip(), "#######")
 
 
 def main():

@@ -37,8 +37,8 @@ class TrivialMaze(MazeGenAlgo):
             return self._generate_spiral_maze(grid)
 
     def _generate_serpentine_maze(self, grid):
-        """Create a simple maze that snakes around the grid.
-            This is a unicursal maze (with no dead ends).
+        """ Create a simple maze that snakes around the grid.
+        This is a unicursal maze (with no dead ends).
         """
         vertical_skew = randint(0, 1)
         height = grid.shape[0]
@@ -66,7 +66,7 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _generate_spiral_maze(self, grid):
-        """Create a simple maze that has a spiral path from
+        """ Create a simple maze that has a spiral path from
         start to end. This is a unicursal maze (with no dead ends).
         """
         clockwise = randint(0, 1)
@@ -94,11 +94,11 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
+        """ Find the wall cell between to passage cells """
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
     def _move(self, start, direction):
-        """Convolve a position tuple with a direction tuple to
+        """ Convolve a position tuple with a direction tuple to
         generate a new position.
         """
         return (start[0] + direction[0], start[1] + direction[1])
