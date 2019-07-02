@@ -10,7 +10,8 @@ SERPENTINE = 2
 
 
 class Wilsons(MazeGenAlgo):
-    """
+    """ The Algorithm
+
     1. Choose a random cell and add it to the Uniform Spanning Tree (UST).
     2. Select any cell that is not in the UST and perform a random walk until you find a cell that is.
     3. Add the cells and walls visited in the random walk to the UST.
@@ -45,8 +46,7 @@ class Wilsons(MazeGenAlgo):
         return grid
 
     def _hunt(self, grid, count):
-        """Based on how this algorithm was configured,
-        choose hunt for the next starting point.
+        """ Based on how this algorithm was configured, choose hunt for the next starting point.
         """
         if self._hunt_order == SERPENTINE:
             return self._hunt_serpentine(grid, count)
@@ -54,15 +54,14 @@ class Wilsons(MazeGenAlgo):
             return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
-        """Select the next cell to walk from, randomly."""
+        """ Select the next cell to walk from, randomly. """
         if count >= (self.h * self.w):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
-        """Select the next cell to walk from
-        by cycling through every grid cell in order.
+        """ Select the next cell to walk from by cycling through every grid cell in order.
         """
         cell = (1, -1)
         found = False
@@ -80,7 +79,7 @@ class Wilsons(MazeGenAlgo):
         return cell
 
     def _generate_random_walk(self, grid, start):
-        """From a given starting position,
+        """ From a given starting position,
         walk randomly until you hit a visited cell.
 
         The returned walk object is a dictionary mapping your location (cell) to a
@@ -115,13 +114,12 @@ class Wilsons(MazeGenAlgo):
         else:                return (0, 2)   # West
 
     def _move(self, start, direction):
-        """Convolve a position tuple with a direction tuple to
-        generate a new position.
+        """ Convolve a position tuple with a direction tuple to generate a new position.
         """
         return (start[0] + direction[0], start[1] + direction[1])
 
     def _solve_random_walk(self, grid, walk, start):
-        """Move through the random walk, visiting all the cells you touch,
+        """ Move through the random walk, visiting all the cells you touch,
         and breaking down the walls you cross.
         """
         visits = 0

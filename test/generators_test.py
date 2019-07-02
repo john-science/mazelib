@@ -62,7 +62,7 @@ class GeneratorsTest(unittest.TestCase):
 
         return True
 
-    def testAldousBroder(self):
+    def test_aldous_broder(self):
         m = Maze()
         m.generator = AldousBroder(4, 5)
         m.generate()
@@ -71,7 +71,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testBacktrackingGenerator(self):
+    def test_backtracking_generator(self):
         m = Maze()
         m.generator = BacktrackingGenerator(4, 5)
         m.generate()
@@ -80,7 +80,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testBinaryTree(self):
+    def test_binary_tree(self):
         m = Maze()
         m.generator = BinaryTree(4, 5)
         m.generate()
@@ -89,7 +89,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testCellularAutomaton(self):
+    def test_cellular_automaton(self):
         m = Maze()
         m.generator = CellularAutomaton(4, 5)
         m.generate()
@@ -97,7 +97,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
 
-    def testDivision(self):
+    def test_division(self):
         m = Maze()
         m.generator = Division(4, 5)
         m.generate()
@@ -106,7 +106,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testDungeonRoomsGrid(self):
+    def test_dungeon_rooms_grid(self):
         g = np.ones((7, 7), dtype=np.int8)
         g[1] = [1,1,1,1,1,1,1]
         g[2] = [1,1,1,1,1,1,1]
@@ -121,15 +121,23 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
 
-    def testDungeonRoomsRooms(self):
+    def test_dungeon_rooms_random_rooms(self):
         m = Maze()
-        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]])
+        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='random')
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
         self.assertTrue(self.all_passages_open(m.grid))
 
-    def testEllers(self):
+    def test_dungeon_rooms_serpentine_rooms(self):
+        m = Maze()
+        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='serpentine')
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+
+    def test_ellers(self):
         m = Maze()
         m.generator = Ellers(4, 5)
         m.generate()
@@ -138,7 +146,7 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testGrowingTree(self):
+    def test_growing_tree(self):
         m = Maze()
         m.generator = GrowingTree(4, 5)
         m.generate()
@@ -147,9 +155,18 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(self.all_passages_open(m.grid))
         self.assertTrue(self.all_corners_complete(m.grid))
 
-    def testHuntAndKill(self):
+    def test_hunt_and_kill_random_order(self):
         m = Maze()
-        m.generator = HuntAndKill(4, 5)
+        m.generator = HuntAndKill(4, 5, 'random')
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
+
+    def test_hunt_and_kill_serpentine_order(self):
+        m = Maze()
+        m.generator = HuntAndKill(4, 5, 'serpentine')
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))
@@ -217,9 +234,18 @@ class GeneratorsTest(unittest.TestCase):
             self.assertTrue(self.all_passages_open(m.grid))
             self.assertTrue(self.all_corners_complete(m.grid))
 
-    def test_wilsons(self):
+    def test_wilsons_random_order(self):
         m = Maze()
-        m.generator = Wilsons(4, 5)
+        m.generator = Wilsons(4, 5, hunt_order='random')
+        m.generate()
+
+        self.assertTrue(self.boundary_is_solid(m.grid))
+        self.assertTrue(self.all_passages_open(m.grid))
+        self.assertTrue(self.all_corners_complete(m.grid))
+
+    def test_wilsons_serpentine_order(self):
+        m = Maze()
+        m.generator = Wilsons(4, 5, hunt_order='serpentine')
         m.generate()
 
         self.assertTrue(self.boundary_is_solid(m.grid))

@@ -10,7 +10,8 @@ SEALER = 2
 
 
 class BlindAlley(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     1. Scan the maze, identify all fully-connected wall systems.
     2. Any wall system that touches the border is not a cul-de-sac, remove it.
     3. Determine if remaining wall systems are cul-de-sacs.
@@ -29,7 +30,8 @@ class BlindAlley(MazeSolveAlgo):
             self._remove_dead_end = FILLER
 
     def _solve(self):
-        self._seal_culdesacs()
+        # TODO: There is a wall detection problem here. Seal cul-de-sacs fails on rare occassion.
+        #self._seal_culdesacs()
         self._fill_dead_ends()
 
         return self._build_solutions()
@@ -51,7 +53,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _reduce_wall_systems(self, walls):
         """ Reduce a collection of walls in a maze to realize
-            when two walls are actually connected and should be one.
+        when two walls are actually connected and should be one.
         """
         N = len(walls)
 
@@ -82,7 +84,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _build_solutions(self):
         """ Now that all of the cul-de-sac have been cut out,
-            the maze still needs to be solved.
+        the maze still needs to be solved.
         """
         return self.solver.solve(self.grid, self.start, self.end)
 
@@ -132,7 +134,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _remove_internal_deadends(self, border):
         """ Complicated cul-de-Sacs can have internal dead ends.
-            These seriously complicate the logic and need to be removed.
+        These seriously complicate the logic and need to be removed.
         """
         found = True
         while found:
@@ -168,7 +170,7 @@ class BlindAlley(MazeSolveAlgo):
         for r in range(self.grid.shape[0]):
             for c in range(self.grid.shape[1]):
                 # if the cell is a wall
-                if self.grid[r, c] == 1:
+                if self.grid[r, c] == 1 and (r, c) not in (self.start, self.end):
                     found = False
                     # determine which wall system it belongs in
                     for i in range(len(walls)):
@@ -214,7 +216,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _dead_end_filler(self, dead_end):
         """ Back away from the dead end until you reach an intersection.
-            Fill the path as you go.
+        Fill the path as you go.
         """
         r, c = dead_end
         ns = self._find_unblocked_neighbors((r, c))
@@ -226,7 +228,7 @@ class BlindAlley(MazeSolveAlgo):
 
     def _dead_end_sealer(self, dead_end):
         """ Back away from the dead end until you reach an intersection.
-            Block off the dead end passage.
+        Block off the dead end passage.
         """
         current = dead_end
         ns = self._find_unblocked_neighbors(current)
@@ -235,8 +237,8 @@ class BlindAlley(MazeSolveAlgo):
             last = current
             current = ns[0]
 
-        r, c = self._midpoint(last, current)
-        self.grid[r, c] = 1
+            r, c = self._midpoint(last, current)
+            self.grid[r, c] = 1
 
     def _is_dead_end(self, cell):
         """ A dead end has zero or one open neighbors. """

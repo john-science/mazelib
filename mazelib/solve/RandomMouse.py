@@ -6,8 +6,7 @@ if not cython.compiled:
 
 
 class RandomMouse(MazeSolveAlgo):
-    """
-    The Algorithm
+    """ The Algorithm
 
     A mouse just randomly wanders around the maze until it finds the cheese.
     """
@@ -38,25 +37,8 @@ class RandomMouse(MazeSolveAlgo):
 
         return [solution]
 
-    def _move_to_next_cell(self, last_dir, current):
-        """ At each new cell you reach, take the rightmost turn.
-        Turn around if you reach a dead end.
-        if right is not available, then straight, if not straight, left, etc...
-        """
-        for d in range(4):
-            next_dir = (last_dir - 1 + d) % 4
-            next_cell = self._move(current, self.directions[next_dir])
-            r, c = (self._midpoint(next_cell, current))
-
-            if self.grid[r, c] == 0 and (r, c) != self.start:
-                return (next_dir, next_cell)
-            elif (r, c) == self.end:
-                return (next_dir, self.end)
-
-        return (last_dir, current)
-
     def _fix_entrances(self, solution):
-        """Ensure the start and end are appropriately placed in the solution."""
+        """ Ensure the start and end are appropriately placed in the solution. """
         # prune if start is found in solution
         if self.start in solution:
             i = solution.index(self.start)
@@ -66,10 +48,5 @@ class RandomMouse(MazeSolveAlgo):
         if self.end in solution:
             i = solution.index(self.end)
             solution = solution[:i]
-
-
-        # fix solution so it doesn't overlap endpoints
-        #if not self._on_edge(self.end):
-        #    solution = solution[:-1]
 
         return solution

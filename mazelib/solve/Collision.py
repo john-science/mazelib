@@ -10,7 +10,8 @@ DEAD_END = (-9, -999)
 
 
 class Collision(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     1. step through the maze, flooding all directions equally
     2. if two flood paths meet, create a wall where they meet
     3. fill in all dead ends
@@ -39,7 +40,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _flood_maze(self, start):
-        """from the start, flood the maze one cell at a time,
+        """ from the start, flood the maze one cell at a time,
         keep track of where the water flows as paths through the maze
         """
         paths = self._one_time_step([[start]])
@@ -52,7 +53,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _one_time_step(self, paths):
-        """Move all open paths forward one grid cell"""
+        """ Move all open paths forward one grid cell """
         temp_paths = []
         step_made = False
 
@@ -65,7 +66,8 @@ class Collision(MazeSolveAlgo):
 
             ns = self._find_unblocked_neighbors(path[-1])
             if len(path) > 2:
-                ns.remove(path[-3])
+                if path[-3] in ns:
+                    ns.remove(path[-3])
 
             if len(ns) == 0:
                 temp_paths.append(path + [DEAD_END])

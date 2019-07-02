@@ -6,14 +6,13 @@ if not cython.compiled:
 
 
 class ShortestPaths(MazeSolveAlgo):
-    """
-    The Algorithm:
+    """ The Algorithm:
 
     1) create a solution for each starting position
     2) loop through each solution, and find the neighbors of the last element
     3) The first solution to reach the end wins.
 
-    Results
+    Results:
 
     The shortest unique solutions. Works against imperfect mazes.
     """
@@ -21,7 +20,7 @@ class ShortestPaths(MazeSolveAlgo):
     def _solve(self):
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
-        self.end_edge = self._on_edge(self.start)
+        self.end_edge = self._on_edge(self.end)
 
         # a first move has to be made
         start = self.start

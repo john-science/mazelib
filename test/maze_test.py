@@ -149,6 +149,30 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(s[5].strip(), "S     #")
         self.assertEqual(s[6].strip(), "#######")
 
+    def test_invalid_inputs(self):
+        """ There are several errors that should be thrown from the master Maze class,
+        if the inputs given are invalid.  Let's just verify some of those.
+        """
+        m = Maze()
+
+        # should not be able to generate or solve if neither algorithm was set
+        self.assertRaises(UnboundLocalError, m.generate)
+        self.assertRaises(UnboundLocalError, m.solve)
+
+        # even if the generator algorithm is set, you have to run it
+        m.generator = Prims(3, 3)
+        self.assertRaises(UnboundLocalError, m.solve)
+
+        # the pretty-print, sring formats should fail gracefully
+        m.start = (1, 1)
+        m.end = (3, 3)
+        self.assertEqual(str(m), '')
+        self.assertEqual(repr(m), '')
+
+        # the Monte Carlo method has a special zero-to-one input scalar
+        self.assertRaises(ValueError, m.generate_monte_carlo, True, 3, -1.0)
+        self.assertRaises(ValueError, m.generate_monte_carlo, True, 3, 10.0)
+
 
 def main():
     unittest.main()

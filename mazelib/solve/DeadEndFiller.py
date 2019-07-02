@@ -7,7 +7,8 @@ if not cython.compiled:
 
 
 class DeadEndFiller(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     1. Scan the maze in any order, looking for dead ends.
     2. Fill in each dead end, and any dead-end passages attached to them.
     3. What you will get is a maze with only solution tiles.
@@ -56,8 +57,7 @@ class DeadEndFiller(MazeSolveAlgo):
             dead_end = self._find_dead_end()
 
     def _fill_dead_end(self, dead_end):
-        """ After moving from a dead end, we want to fill in it and all
-        the walls around it.
+        """ After moving from a dead end, we want to fill in it and all the walls around it.
         """
         r,c = dead_end
         self.grid[r, c] = 1
@@ -72,20 +72,22 @@ class DeadEndFiller(MazeSolveAlgo):
         """
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
-                if (r, c) in [self.start, self.end]:
+                if self._within_one((r, c), self.start):
                     continue
-                if self._is_dead_end((r, c)):
+                elif self._within_one((r, c), self.end):
+                    continue
+                elif self._is_dead_end((r, c)):
                     return (r, c)
 
         return (-1, -1)
 
     def _is_dead_end(self, cell):
         """ A dead end has zero or one open neighbors. """
-        ns = self._find_neighbors(cell)
+        ns = self._find_unblocked_neighbors(cell)
 
         if self.grid[cell[0], cell[1]] == 1:
             return False
-        elif len(ns) in [0, 1]:
+        elif len(ns) < 2:
             return True
         else:
             return False

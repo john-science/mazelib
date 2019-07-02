@@ -10,8 +10,7 @@ SERPENTINE = 2
 
 
 class DungeonRooms(MazeGenAlgo):
-    """
-    The Algorithm
+    """ The Algorithm
 
     This is a variation on Hunt-and-Kill where the initial maze has rooms carved out of
     it, instead of being completely flat.
@@ -156,7 +155,7 @@ class DungeonRooms(MazeGenAlgo):
                 if cell[0] > (self.H - 2):
                     return (-1, -1)
 
-            if self.grid[cell[0]][cell[1]] == 0 and len(self._find_neighbors(cell, self.grid, True)) > 0:
+            if self.grid[cell[0]][cell[1]] == 0 and len(self._find_neighbors(cell[0], cell[1], self.grid, True)) > 0:
                 found = True
 
         return cell

@@ -114,7 +114,7 @@ class MazeSolveAlgo:
             return (r, c - 1)
 
     def _within_one(self, cell, desire):
-        """Is the current cell within one move of the desired cell?
+        """ Is the current cell within one move of the desired cell?
         Note, this might be one full more, or one half move.
         """
         if not cell or not desire:
