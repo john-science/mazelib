@@ -4,11 +4,11 @@ from sysconfig import get_python_version
 from timeit import Timer
 
 ''' The reason that this particular combination of runs was chosen is
-    not meant to be obvious.
-    A standard set of runs were designed to test the mazelib library
-    in the most typical use-case of the target audience.
-    The only really important part of this benchmark is that there is a
-    standard basis for comparison.
+not meant to be obvious.
+A standard set of runs were designed to test the mazelib library
+in the most typical use-case of the target audience.
+The only really important part of this benchmark is that there is a
+standard basis for comparison.
 '''
 SIZES = [5, 10, 25, 50, 100, 200]
 ITERATIONS = [100, 100, 100, 50, 1, 1]
@@ -32,8 +32,8 @@ def main():
 
 def run_benchmarks():
     ''' Run the benchmarks.
-        An annoying screen-print will occur so that you know your
-        progress, as these tests might take a while.
+    An annoying screen-print will occur so that you know your
+    progress, as these tests might take a while.
     '''
     times = [[0.0]*len(SIZES) for _ in range(len(GENERATORS))]
 
@@ -61,14 +61,16 @@ m.solve()
 
 
 def print_benchmarks(times):
-    ''' Pretty print for the benchmark results,
-        with a detailed CSV at the end.
+    ''' Pretty print for the benchmark results, with a detailed CSV at the end.
+
+    Args:
+        times (list): timing results for the benchmark runs
+    Results: None
     '''
     print('\nmazelib benchmarking')
     print(datetime.now().strftime('%Y-%m-%d %H:%M'))
     print('Python version: ' + get_python_version())
-    print('\nTotal Time (seconds): %.5f\n' %
-          sum([sum(times_row) for times_row in times]))
+    print('\nTotal Time (seconds): %.5f\n' % sum([sum(times_row) for times_row in times]))
 
     print('\nmaze size,' + ','.join([str(s) for s in SIZES]))
     for row in range(len(times)):

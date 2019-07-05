@@ -86,6 +86,7 @@ setup(
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
+                 'Programming Language :: Python :: 3.7',
                  'Natural Language :: English'],
     license='GPLv3',
     long_description='A Python library for creating and solving mazes.',
@@ -94,6 +95,6 @@ setup(
     platforms='any',
     test_suite="test",
     setup_requires=["numpy>=1.13.1,<=1.16.4"],
-    install_requires=["cython>=0.27.0,<=0.28.0",
+    install_requires=["cython>=0.27.0,<=0.29.11",
                       "numpy>=1.13.1,<=1.16.4"],
     zip_safe=False)
