@@ -2,9 +2,6 @@
 import abc
 import numpy as np
 from numpy.random import shuffle
-import cython
-if not cython.compiled:
-    print('WARNING: Running uncompiled Python')
 
 
 class MazeGenAlgo: 

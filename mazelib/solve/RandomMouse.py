@@ -1,14 +1,16 @@
 
 from random import choice
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class RandomMouse(MazeSolveAlgo):
-    """ The Algorithm
-
-    A mouse just randomly wanders around the maze until it finds the cheese.
+    """ This mouse just randomly wanders around the maze until it finds the cheese.
     """
     def __init__(self, prune=True):
         self.prune = prune

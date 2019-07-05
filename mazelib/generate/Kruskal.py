@@ -1,8 +1,12 @@
 
 from numpy.random import shuffle
 import numpy as np
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 

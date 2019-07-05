@@ -1,8 +1,12 @@
 
 from mazelib.generate.MazeGenAlgo import np
 from random import randrange
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 # CONSTANTS
@@ -11,6 +15,8 @@ HORIZONTAL = 1
 
 
 class Division(MazeGenAlgo):
+    """ TODO: describe algorithm
+    """
 
     def __init__(self, h, w):
         super(Division, self).__init__(h, w)

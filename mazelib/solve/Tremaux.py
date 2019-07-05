@@ -1,14 +1,16 @@
 
 from random import choice
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class Tremaux(MazeSolveAlgo):
     """
-    The Algorithm:
-
     1. When you hit a dead end turn around and go back.
     2. When you hit a junction you haven't visited, pick a new passage at random.
     3. If you're walking down a new passage and hit a junction you have visited,

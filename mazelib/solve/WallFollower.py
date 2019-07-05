@@ -1,14 +1,16 @@
 
 from random import choice, shuffle
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class WallFollower(MazeSolveAlgo):
     """
-    The Algorithm
-
     Follow the right wall and you will eventually end up at the end.
 
     details:

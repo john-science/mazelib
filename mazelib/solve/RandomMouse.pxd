@@ -11,9 +11,5 @@ cdef class RandomMouse(MazeSolveAlgo):
     cpdef list _solve(self)
 
 
-    @cython.locals(d=cython.int, next_dir=cython.int, next_cell=tuple, r=cython.int, c=cython.int)
-    cdef inline tuple _move_to_next_cell(self, cython.int last_dir, tuple current)
-
-
     @cython.locals(i=cython.int)
     cdef inline list _fix_entrances(self, list solution)

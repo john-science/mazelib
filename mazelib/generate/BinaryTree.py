@@ -1,12 +1,18 @@
 
 from mazelib.generate.MazeGenAlgo import np
 from random import choice
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class BinaryTree(MazeGenAlgo):
+    """ TODO: describe algorithm
+    """
 
     def __init__(self, w, h, skew=None):
         super(BinaryTree, self).__init__(w, h)

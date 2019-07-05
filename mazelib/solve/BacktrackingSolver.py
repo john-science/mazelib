@@ -1,14 +1,16 @@
 
 from random import choice
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class BacktrackingSolver(MazeSolveAlgo):
     """
-    The Algorithm
-
     1. Pick a random direction and follow it
     2. Backtrack if and only if you hit a dead end.
     """

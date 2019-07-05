@@ -1,7 +1,11 @@
 
 from numpy.random import choice, shuffle
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 # CONSTANTS
@@ -10,8 +14,7 @@ DEAD_END = (-9, -999)
 
 
 class Collision(MazeSolveAlgo):
-    """ The Algorithm
-
+    """
     1. step through the maze, flooding all directions equally
     2. if two flood paths meet, create a wall where they meet
     3. fill in all dead ends

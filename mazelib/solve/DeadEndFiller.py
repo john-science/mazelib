@@ -1,14 +1,17 @@
 
 from random import choice, shuffle
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
     from mazelib.solve.ShortestPaths import ShortestPaths
 
 
 class DeadEndFiller(MazeSolveAlgo):
-    """ The Algorithm
-
+    """
     1. Scan the maze in any order, looking for dead ends.
     2. Fill in each dead end, and any dead-end passages attached to them.
     3. What you will get is a maze with only solution tiles.

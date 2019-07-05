@@ -1,14 +1,16 @@
 
-from random import choice,shuffle
-import cython
-if not cython.compiled:
+from random import choice, shuffle
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class ShortestPath(MazeSolveAlgo):
     """
-    The Algorithm:
-
     1) create a solution for each starting position
     2) loop through each solution, and find the neighbors of the last element
     3) a solution reaches the end or a dead end when we mark it by appending a None.

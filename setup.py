@@ -1,17 +1,25 @@
-'''
-Installing the mazelib package into your system Python is a short process.
+''' How to Install
+
+The easiest solution it so install via PyPI:
 
     pip install mazelib
 
-But if you want to use this file to build the package, you can do as follows:
+But you can build mazelib locally using this file.
+
+First things first:
+
+    pip install -r requirements.txt
 
 To build mazelib and install the package on your computer:
+
     python setup.py install
 
 To build/install locally, not system-wide:
+
     python setup.py install --inplace
 
 To force all Cython code to rebuild/reinstall locally:
+
     python setup.py install --inplace -f
 
 To run the test suit:
@@ -22,33 +30,50 @@ Though I could not reproduce this, one user reported having to set an environmen
 
     export CFLAGS="-I /usr/local/lib/python3.6/site-packages/numpy/core/include"
 '''
+# non-controversial imports
 from setuptools import setup, find_packages
 from setuptools.command.install import install
-from distutils.extension import Extension
-from Cython.Distutils import build_ext
-from Cython.Build import cythonize
 from glob import glob
-import numpy as np
 from os import name as os_name
 from sys import argv, platform
 from mazelib import __version__
 
-# CONSTANTS
-FORCE_FLAGS = ['-f', '--f', '--force']
-FORCE_REBUILD = True if any([f in argv for f in FORCE_FLAGS]) else False
-IS_WINDOWS = True if (os_name.lower() == 'nt' or 'win' in platform.lower()) else False
-COMP_DIRS = {'language_level': 3, 'boundscheck': False, 'initializedcheck': False, 'cdivision': True}
+# Ideally, you install Cython *before* you install mazelib, so you can compile it.
+try:
+    from distutils.extension import Extension
+    from Cython.Distutils import build_ext
+    from Cython.Build import cythonize
+    cmdclass={'install': install,
+              'build_ext': build_ext}
+    has_cython = True
+except:
+    print('WARNING: You do not have Cython installed. Installation preceeding without Cython.')
+    cmdclass={'install': install}
+    has_cython = False
+# You will also need NumPy to compile this Cython
+try:
+    import numpy as np
+except:
+    print('WARNING: You do not have NumPy installed. Installation preceeding without Cython.')
+    has_cython = False
 
-# find all the extension modules in the project
-sep = '\\' if IS_WINDOWS else '/'
-ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_dirs=[np.get_include(), '.'])
-               for p in glob(sep.join(['mazelib', '*', '*.pxd']))]
+# find all the extension modules in the project, for a Cython build
+if has_cython:
+    FORCE_FLAGS = ['-f', '--f', '--force']
+    FORCE_REBUILD = True if any([f in argv for f in FORCE_FLAGS]) else False
+    IS_WINDOWS = True if (os_name.lower() == 'nt' or 'win' in platform.lower()) else False
+    COMP_DIRS = {'language_level': 3, 'boundscheck': False, 'initializedcheck': False, 'cdivision': True}
+    sep = '\\' if IS_WINDOWS else '/'
+    ext_modules = [Extension(p[:-4].replace(sep, '.'), [p, p[:-2] + 'y'], include_dirs=[np.get_include(), '.'])
+                   for p in glob(sep.join(['mazelib', '*', '*.pxd']))]
+    ext_modules_list = cythonize(ext_modules, annotate=False, force=FORCE_REBUILD, compiler_directives=COMP_DIRS)
+else:
+    ext_modules_list = []
 
 
 # perform the actual build/install
 setup(
-    cmdclass={'install': install,
-              'build_ext': build_ext},
+    cmdclass=cmdclass,
     name='mazelib',
     version=__version__,
     description='A Python API for creating and solving mazes.',
@@ -61,14 +86,13 @@ setup(
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
-                 'Natural Language :: English',
-                 'Topic :: Software Development :: Libraries :: Python Modules'],
+                 'Natural Language :: English'],
     license='GPLv3',
     long_description='A Python library for creating and solving mazes.',
     packages=find_packages(),
-    ext_modules=cythonize(ext_modules, annotate=False, force=FORCE_REBUILD, compiler_directives=COMP_DIRS),
+    ext_modules=ext_modules_list,
     platforms='any',
     test_suite="test",
-    install_requires=["cython",
-                      "numpy"],
+    install_requires=["cython>=0.27.0,<=0.28.0",
+                      "numpy>=1.13.1,<=1.16.4"],
     zip_safe=False)

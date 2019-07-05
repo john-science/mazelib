@@ -2,18 +2,22 @@
 from random import choice, randrange
 from numpy.random import shuffle
 import numpy as np
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class CellularAutomaton(MazeGenAlgo):
     """ Cells survive if they have one to four neighbours.
-        If a cell has exactly three neighbours, it is born.
+    If a cell has exactly three neighbours, it is born.
 
-        It is similar to Conway's Game of Life in that patterns
-        that do not have a living cell adjacent to 1, 4, or 5 other
-        living cells in any generation will behave identically to it.
+    It is similar to Conway's Game of Life in that patterns
+    that do not have a living cell adjacent to 1, 4, or 5 other
+    living cells in any generation will behave identically to it.
     """
 
     def __init__(self, w, h, complexity=1.0, density=1.0):

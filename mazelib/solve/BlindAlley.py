@@ -1,7 +1,11 @@
 
 from random import choice,shuffle
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
     from mazelib.solve.ShortestPaths import ShortestPaths
 
@@ -10,8 +14,7 @@ SEALER = 2
 
 
 class BlindAlley(MazeSolveAlgo):
-    """ The Algorithm
-
+    """
     1. Scan the maze, identify all fully-connected wall systems.
     2. Any wall system that touches the border is not a cul-de-sac, remove it.
     3. Determine if remaining wall systems are cul-de-sacs.

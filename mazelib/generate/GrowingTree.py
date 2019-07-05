@@ -1,15 +1,17 @@
 
 from random import choice, random, randrange
 import numpy as np
-import cython
-if not cython.compiled:
+# If the code is not Cython-compiled, we need to add some imports.
+try:
+    from cython import compiled
+except ModuleNotFoundError:
+    compiled = False
+if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class GrowingTree(MazeGenAlgo):
     """
-    The Algorithm
-
     1. Let C be a list of cells, initially empty. Add one cell to C, at random.
     2. Choose a cell from C, and carve a passage to any unvisited neighbor of that cell,
         adding that neighbor to C as well. If there are no unvisited neighbors,
