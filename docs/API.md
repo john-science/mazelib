@@ -11,7 +11,8 @@ The mazelib library supports Python versions 3.3 and up.
 
 Let us look at the simplest example:
 
-    from mazelib import *
+    from mazelib import Maze
+    from mazelib.generate.Prims import Prims
 
     m = Maze()
     m.generator = Prims(27, 34)
@@ -37,6 +38,7 @@ A complete listing of available maze-generating algorithms can be found [here](M
 
 Again, let's look at the simplest example:
 
+    from mazelib.solve.WallFollower import WallFollower
     m.solver = WallFollower()
     m.generate_entrances()
     m.solve()
