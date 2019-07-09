@@ -46,7 +46,7 @@ class CellularAutomaton(MazeGenAlgo):
             for j in range(int(self.complexity)):
                 neighbors = self._find_neighbors(y, x, grid, True)  # is wall
                 if len(neighbors) > 0 and len(neighbors) < 5:
-                    neighbors = self._find_neighbors(y, x, grid)       # is open
+                    neighbors = self._find_neighbors(y, x, grid, False)  # is open
                     if not len(neighbors):
                         continue
                     r,c = choice(neighbors)

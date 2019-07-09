@@ -38,12 +38,12 @@ A complete listing of available maze-generating algorithms can be found [here](M
 
 Again, let's look at the simplest example:
 
-    from mazelib.solve.WallFollower import WallFollower
-    m.solver = WallFollower()
+    from mazelib.solve.BacktrackingSolver import BacktrackingSolver
+    m.solver = BacktrackingSolver()
     m.generate_entrances()
     m.solve()
 
-The `WallFollower` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. If you prefer, you can manually set the entrances using:
+The `BacktrackingSolver` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. If you prefer, you can manually set the entrances using:
 
     m.start = (1, 1)
     m.end = (5, 5)
@@ -53,7 +53,7 @@ By default, entrances will be generated on the outer edge of the maze. However, 
     m.generate_entrances(False, True)
     m.generate_entrances(start_outer=False, end_outer=False)
 
-Finally, the maze `m` was solved for the given entrances, using the `WallFollower` algorithm.
+Finally, the maze `m` was solved for the given entrances, using the `BacktrackingSolver` algorithm.
 
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
 
@@ -68,7 +68,7 @@ Let us do an example:
 
     m = Maze()
     m.generator = Prims(50, 51)
-    m.solver = WallFollower()
+    m.solver = BacktrackingSolver()
     m.generate_monte_carlo(100, 10, 1.0)
 
 The above code will generate 100 different mazes, and for each maze generate 10 different pairs of start/end entrances (on the outermost border of the maze). For each of the 10 pairs of entrances, one will be selected that generates the longest solution. Then the 100 mazes will be organized by the length of their solutions. In this case, the maze with the longest solution, as defined by the `1.0`, will be returned. If you wanted the maze with the shortest, and hence easiest, solution you would put `m.generate_monte_carlo(100, 10, 0.0)`.  A value of `0.5` would give you a maze with middle-of-the-road difficulty, and so on.

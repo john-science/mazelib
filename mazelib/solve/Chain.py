@@ -105,8 +105,7 @@ class Chain(MazeSolveAlgo):
 
     def _follow_walls(self, last_dir, current, solution, goal):
         """ Perform the wall following logic.
-        Loop until you have found the end,
-        or prove you won't solve the maze.
+        Loop until you have found the end, or prove you won't solve the maze.
         """
         path = list(solution)
         first_diff = (path[2][0] - path[0][0], path[2][1] - path[0][1])
@@ -130,8 +129,8 @@ class Chain(MazeSolveAlgo):
 
     def _follow_one_step(self, last_dir, current):
         """ At each new cell you reach, take the rightmost turn.
-            Turn around if you reach a dead end.
-            if right is not available, then straight, if not straight, left, etc...
+        Turn around if you reach a dead end.
+        if right is not available, then straight, if not straight, left, etc...
         """
         for d in range(4):
             next_dir = (last_dir - 1 + d) % 4
@@ -145,8 +144,8 @@ class Chain(MazeSolveAlgo):
 
     def _try_direct_move(self, solution, guiding_line, i):
         """ The path to the next spot on the guiding line might be open.
-            If so, add a couple steps to the solution.
-            If not, return False.
+        If so, add a couple steps to the solution.
+        If not, return False.
         """
         r, c = guiding_line[i]
         next = guiding_line[i + 1]
