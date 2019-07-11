@@ -28,6 +28,7 @@ class WallFollower(MazeSolveAlgo):
     """
 
     def __init__(self, turn='right', prune=True):
+        raise DeprecationWarning('WallFollower will soon be removed from mazelib.')
         # turn can take on values 'left' or 'right'
         if turn == 'left':
             self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
