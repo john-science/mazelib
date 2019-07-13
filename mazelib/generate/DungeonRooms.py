@@ -236,8 +236,7 @@ class DungeonRooms(MazeGenAlgo):
                         break
 
     def _find_unblocked_neighbors(self, posi):
-        """ Find all the grid neighbors of the current position;
-            visited, or not.
+        """ Find all the grid neighbors of the current position; visited, or not.
         """
         r, c = posi
         ns = []
@@ -255,7 +254,7 @@ class DungeonRooms(MazeGenAlgo):
 
         return ns
 
-    def _join_intersecting_sets(self, list_of_sets):  # TODO: method could be a function
+    def _join_intersecting_sets(self, list_of_sets):
         """ combine sets that have non-zero intersections """
         for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
@@ -271,6 +270,6 @@ class DungeonRooms(MazeGenAlgo):
 
         return list(filter(lambda l: l is not None, list_of_sets))
 
-    def _midpoint(self, a, b):  # TODO: method could be a function or static
+    def _midpoint(self, a, b):
         """ Find the wall cell between to passage cells """
         return ((a[0] + b[0]) // 2, (a[1] + b[1]) // 2)

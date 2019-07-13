@@ -15,7 +15,11 @@ HORIZONTAL = 1
 
 
 class Division(MazeGenAlgo):
-    """ TODO: describe algorithm
+    """
+    1. Start with an empty grid.
+    2. Build a wall that bisects the grid (horizontal or vertical). Add a single passage through the wall.
+    3. Repeat step 2 with the areas on either side of the wall.
+    4. Continue, recursively, until the maze passages are the desired resolution.
     """
 
     def __init__(self, h, w):

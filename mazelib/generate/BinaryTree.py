@@ -11,7 +11,7 @@ if not compiled:
 
 
 class BinaryTree(MazeGenAlgo):
-    """ TODO: describe algorithm
+    """ For every cell in the grid, knock down a wall either North or West.
     """
 
     def __init__(self, w, h, skew=None):
