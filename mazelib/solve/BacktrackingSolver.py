@@ -42,19 +42,4 @@ class BacktrackingSolver(MazeSolveAlgo):
         if self.prune:
             solution = self._prune_solution(solution)
 
-        solution = self._fix_entrances(solution)
-
         return [solution]
-
-    def _fix_entrances(self, solution):
-        """Ensure the start and end are appropriately placed in the solution."""
-        # prune if start is found in solution
-        if self.start in solution:
-            i = solution.index(self.start)
-            solution = solution[i+1:]
-
-        # fix solution so it doesn't overlap endpoints
-        if not self._on_edge(self.end):
-            [solution] = [solution[:-1]]
-
-        return solution

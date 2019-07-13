@@ -85,9 +85,8 @@ class SolversTest(unittest.TestCase):
 
                 for sol in m.solutions:
                     self.assertFalse(self._duplicates_in_solution(sol))
-                    # TODO: Should these below pass for BacktrackingSolver? Or not?
-                    #self.assertTrue(self._one_away(m.start, sol[0]))
-                    #self.assertTrue(self._one_away(m.end, sol[-1]))
+                    self.assertTrue(self._one_away(m.start, sol[0]))
+                    self.assertTrue(self._one_away(m.end, sol[-1]))
 
     def test_blind_alley_filler(self):
         """ test BlindAlley against a maze with outer/inner entraces using filler approach """
