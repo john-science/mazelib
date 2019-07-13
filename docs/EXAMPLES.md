@@ -22,6 +22,8 @@ Let's do an example of each method for defining input rooms:
 
 Here we create a 24x33 maze with one rectangular 4x4 room, open between the corners (3, 3) and (7, 7):
 
+    from mazelib.generate.DungeonRooms import DungeonRooms
+    
     m = Maze()
     m.generator = DungeonRooms(24, 33, rooms=[[(3,3), (7,7)]])
     m.generate()
@@ -61,6 +63,8 @@ First, start with a simple spiral maze (which is trivial to solve):
     g[8] = array('b', [1,0,1,1,1,1,1,1,1,0,1])
     g[9] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
 
+    from mazelib.generate.Perturbation import Perturbation
+
     m = Maze()
     m.generator = Perturbation(grid=g, repeat=1, new_walls=3)
     m.generate()
@@ -75,7 +79,8 @@ WORK IN PROGRESS
 
 For the rest of this section, let us assume we have already generated a maze:
 
-    from mazelib import *
+    from mazelib import Maze
+    from mazelib.generate.Prims import Prims
 
     m = Maze()
     m.generator = Prims(27, 34)
