@@ -3,8 +3,6 @@ from numpy cimport ndarray
 
 
 cdef class MazeSolveAlgo:
-    #cdef public ndarray_grid grid
-    #cdef public ndarray[cython.char, ndim=2] grid
     cdef public ndarray grid
     cdef public tuple start  # TODO: Would start/end be faster as size-2 arrays?
     cdef public tuple end

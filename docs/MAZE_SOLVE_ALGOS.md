@@ -2,6 +2,8 @@
 
 ##### Go back to the main [README](../README.md)
 
+Because users are allowed to create and modify mazes in such a great variety of way, the `mazelib` library will only support universal maze-solving algorithms. That is, `mazelib` will not implement any maze-solving algorithm that can't, for instance, solve imperfect mazes (those with loops or more than one solution). Otherwise, the user will have to know internal details about the maze generating / soliving algorithms they use, and if they are compatible.
+
 
 ## Blind Alley
 
@@ -28,7 +30,7 @@ This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Fill
 1. draw a straight-ish line from start to end, ignore the walls.
 2. Follow the line from start to end.
     1. If you bump into a wall, you have to go around.
-    2. Send out wall-following robots in the 1 or 2 open directions.
+    2. Send out backtracking robots in the 1 or 2 open directions.
     3. If the robot can find your new point, continue on.
     4 .If the robot intersects your line at a point that is further down stream, pick up the path there.
 3. repeat step 2 until you are at the end.
