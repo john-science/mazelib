@@ -185,6 +185,7 @@ class SolversTest(unittest.TestCase):
                 m = Maze()
                 m.generator = Prims(3, 3)
                 m.grid = g
+                assert m.grid[(1, 5)] == 0, "before fixing cul-de-sacs"
 
                 if s and e:
                     m.start = (1, 0)
@@ -202,6 +203,9 @@ class SolversTest(unittest.TestCase):
 
                 m.solver = CuldeSacFiller()
                 m.solve()
+
+                # test the actual point in the cul-de-sac that we expect to block
+                assert m.solver.grid[(1, 5)] == 1, "after fixing cul-de-sacs"
 
                 for sol in m.solutions:
                     self.assertFalse(self._duplicates_in_solution(sol))

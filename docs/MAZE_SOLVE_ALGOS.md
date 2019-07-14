@@ -59,11 +59,10 @@ On a perfect maze, this is little different than the Dead End Filler algorithm. 
 
 ###### The Algorithm
 
-1. Scan the maze, identify all fully-connected wall systems.
-2. Any wall system that touches the border is not a cul-de-sac, remove it.
-3. Determine if remaining wall systems are cul-de-sacs.
-4. If so, add a wall segment to turn the cul-de-sac into a dead end.
-5. Solve the remaining maze using Dead End Filler.
+1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
+2. At each of these places, travel in both directions until you find your first intersection.
+3. If the first intersection for both paths is the same, you have a loop.
+4. Fill in the cell you started at with a wall, breaking the loop.
 
 ###### Results
 
@@ -71,7 +70,7 @@ On a perfect maze, this is little different than the Dead End Filler algorithm. 
 
 ###### Notes
 
-This is a classic maze-solving algorithm.  However, it seems to add a lot of complexity to solving a maze. But perhaps if your maze has many cul-de-sacs it would be very helpful.
+This is a classic maze-solving algorithm. However, it seems fairly slow by design. Still, if your maze has many cul-de-sacs it could be very helpful.
 
 
 ## Dead End Filler
