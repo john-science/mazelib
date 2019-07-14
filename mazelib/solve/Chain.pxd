@@ -4,7 +4,6 @@ from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 
 cdef class Chain(MazeSolveAlgo):
     cdef readonly list directions
-    cdef readonly bint prune
 
 
     @cython.locals(guiding_line=list, current=cython.int, solution=list, len_guiding_line=cython.int,
@@ -28,7 +27,3 @@ cdef class Chain(MazeSolveAlgo):
     @cython.locals(r1=cython.int, c1=cython.int, r2=cython.int, c2=cython.int, path=list, current=tuple,
                    rdiff=cython.int, cdiff=cython.int)
     cdef inline list _draw_guiding_line(self)
-
-
-    @cython.locals(i=cython.int)
-    cdef inline list _fix_entrances(self, list solution)

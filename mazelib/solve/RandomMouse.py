@@ -12,8 +12,6 @@ if not compiled:
 class RandomMouse(MazeSolveAlgo):
     """ This mouse just randomly wanders around the maze until it finds the cheese.
     """
-    def __init__(self, prune=True):
-        self.prune = prune
 
     def _solve(self):
         solution = []
@@ -32,23 +30,4 @@ class RandomMouse(MazeSolveAlgo):
             solution.append(self._midpoint(solution[-1], nxt))
             solution.append(nxt)
 
-        if self.prune:
-            solution = self._prune_solution(solution)
-
-        solution = self._fix_entrances(solution)
-
         return [solution]
-
-    def _fix_entrances(self, solution):
-        """ Ensure the start and end are appropriately placed in the solution. """
-        # prune if start is found in solution
-        if self.start in solution:
-            i = solution.index(self.start)
-            solution = solution[i+1:]
-
-        # prune if end is found in solution
-        if self.end in solution:
-            i = solution.index(self.end)
-            solution = solution[:i]
-
-        return solution

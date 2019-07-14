@@ -11,7 +11,8 @@ cdef class MazeSolveAlgo:
     cpdef list solve(self, ndarray[cython.char, ndim=2] grid, tuple start, tuple end)
 
 
-    cdef inline void _solve_preprocessor(self, ndarray[cython.char, ndim=2] grid, tuple start, tuple end)  # TODO: needs expect -1
+    cdef inline void _solve_preprocessor(self, ndarray[cython.char, ndim=2] grid, tuple start,
+                                         tuple end)  # TODO: needs expect -1
 
 
     cpdef list _solve(self)
@@ -42,6 +43,10 @@ cdef class MazeSolveAlgo:
     cpdef bint _within_one(self, tuple cell, tuple desire)
 
 
-    @cython.locals(found=bint, attempt=cython.int, first_i=cython.int, last_i=cython.int, i=cython.int,
-                   max_attempt=cython.int, first=tuple)
+    @cython.locals(found=bint, attempt=cython.int, first_i=cython.int, last_i=cython.int,
+                   i=cython.int, max_attempt=cython.int, first=tuple)
     cpdef list _prune_solution(self, list solution)
+
+
+    @cython.locals(s=list)
+    cpdef list prune_solutions(self, list solutions)

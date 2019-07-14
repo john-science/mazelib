@@ -22,14 +22,12 @@ class Chain(MazeSolveAlgo):
         a. If both robots return to their original location and direction,
             the maze is unsolvable.
     """
-    def __init__(self, turn='right', prune=True):
+    def __init__(self, turn='right'):
         # turn can take on values 'left' or 'right'
         if turn == 'left':
             self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
         else:  # default to right turns
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
-
-        self.prune = prune
 
     def _solve(self):
         guiding_line = self._draw_guiding_line()
@@ -45,11 +43,6 @@ class Chain(MazeSolveAlgo):
                 current += 1
             else:
                 current = self._send_out_robots(solution, guiding_line, current)
-
-        if self.prune:
-            solution = self._prune_solution(solution)
-
-        solution = self._fix_entrances(solution)
 
         return [solution]
 
@@ -161,25 +154,3 @@ class Chain(MazeSolveAlgo):
             path.append(current)
 
         return path
-
-    def _fix_entrances(self, solution):
-        """ Ensure the start and end are appropriately placed in the solution. """
-        # prune if start is found in solution
-        if self.start in solution:
-            i = solution.index(self.start)
-            solution = solution[i+1:]
-
-        # prune if first position is repeated
-        if solution[0] in solution[1:]:
-            i = solution[1:].index(solution[0])
-            solution = solution[i+1:]
-
-        # prune duplicate end points
-        if len(solution) > 1 and solution[-2] == solution[-1]:
-            solution = solution[:-1]
-
-        # prune end point
-        if solution[-1] == self.end:
-            solution = solution[:-1]
-
-        return solution

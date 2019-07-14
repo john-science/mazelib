@@ -16,9 +16,5 @@ cdef class ShortestPaths(MazeSolveAlgo):
     cdef inline list _clean_up(self, list solutions)
 
 
-    @cython.locals(found=bint, i=cython.int, diff=cython.int, index=cython.int, ind=cython.int)
-    cpdef list _prune_solution(self, list sol)
-
-
     @cython.locals(s=tuple)
     cdef inline list _remove_duplicate_sols(self, list sols)

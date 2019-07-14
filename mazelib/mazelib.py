@@ -4,8 +4,8 @@ from random import randrange
 
 class Maze(object):
     """ This is a master object meant to hold a rectangular, 2D maze.
-        This object includes the methods used to generate and solve the maze,
-        as well as the start and end points.
+    This object includes the methods used to generate and solve the maze,
+    as well as the start and end points.
     """
 
     def __init__(self):
@@ -15,6 +15,7 @@ class Maze(object):
         self.end = None
         self.solver = None
         self.solutions = None
+        self.prune = True
 
     def generate(self):
         """ public method to generate a new maze, and handle some clean-up """
@@ -27,8 +28,7 @@ class Maze(object):
             self.solutions = None
 
     def generate_entrances(self, start_outer=True, end_outer=True):
-        """ Generate maze entrances.
-            Entrances can be on the walls, or inside the maze.
+        """ Generate maze entrances. Entrances can be on the walls, or inside the maze.
         """
         if start_outer and end_outer:
             self._generate_outer_entrances()
@@ -147,12 +147,14 @@ class Maze(object):
 
     def solve(self):
         """ public method to solve a new maze, if possible """
-        if self.generator is None:
+        if self.solver is None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
         elif self.start is None or self.end is None:
             raise UnboundLocalError('Start and end times must be set first.')
         else:
             self.solutions = self.solver.solve(self.grid, self.start, self.end)
+            if self.prune:
+                self.solutions = self.solver.prune_solutions(self.solutions)
 
     def tostring(self, entrances=False, solutions=False):
         """ Return a string representation of the maze. """

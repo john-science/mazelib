@@ -116,55 +116,13 @@ class ShortestPaths(MazeSolveAlgo):
             if new_sol:
                 if new_sol[-1] == self.end:
                     new_sol = new_sol[:-1]
-                new_solutions.append(self._prune_solution(new_sol))
+                new_solutions.append(new_sol)
 
         # 2) remove duplicate solutions
         solutions = self._remove_duplicate_sols(new_solutions)
 
         # order the solutions by length (short to long)
-        solutions = sorted(solutions, key=len)
-
-        return solutions
-
-    def _prune_solution(self, sol):
-        """In the process of solving a maze, the algorithm might go down
-        the wrong corridor then backtrack.
-
-        These extraneous branches need to be removed.
-        """
-        found = True
-        while found and len(sol) > 2:
-            found = False
-
-            for i in range(1, len(sol) - 1):
-                if sol[i - 1] != sol[i + 1]:
-                    continue
-                diff = 1
-
-                while i-diff >= 0 and i+diff < len(sol) and sol[i-diff] == sol[i+diff]:
-                    diff += 1
-                diff -= 1
-                index = i
-                found = True
-                break
-
-            if found:
-                for ind in range(index + diff, index - diff, - 1):
-                    del sol[ind]
-
-        # prune if start is found in solution
-        if self.start in sol:
-            i = sol.index(self.start)
-            sol = sol[i+1:]
-        # prune if first position is repeated
-        if sol[0] in sol[1:]:
-            i = sol[1:].index(sol[0])
-            sol = sol[i+1:]
-        # prune duplicate end points
-        if len(sol) > 1 and sol[-2] == sol[-1]:
-            sol = sol[:-1]
-
-        return sol
+        return sorted(solutions, key=len)
 
     def _remove_duplicate_sols(self, sols):
         """ Remove duplicate solutions using subsetting """

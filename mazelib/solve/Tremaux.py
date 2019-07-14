@@ -58,9 +58,7 @@ class Tremaux(MazeSolveAlgo):
             solution.append(nxt)
             self._visit(nxt)
 
-        # TODO: special pruning method, to backtrack through only cells marked with a '1'
-
-        solution = self._fix_entrances(solution)
+        # TODO: special routing method, to backtrack through only cells marked with a '1'
 
         return [solution]
 
@@ -77,16 +75,3 @@ class Tremaux(MazeSolveAlgo):
             return 0
         else:
             return self.visited_coords[cell]
-
-    def _fix_entrances(self, solution):
-        """Ensure the start and end are appropriately placed in the solution."""
-        # prune if start is found in solution
-        if self.start in solution:
-            i = solution.index(self.start)
-            solution = solution[i+1:]
-
-        # fix solution so it doesn't overlap endpoints
-        if not self._on_edge(self.end):
-            [solution] = [solution[:-1]]
-
-        return solution

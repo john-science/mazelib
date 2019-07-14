@@ -127,10 +127,9 @@ class MazeSolveAlgo:
         return False
 
     def _prune_solution(self, solution):
-        """In the process of solving a maze, the algorithm might go down
-        the wrong corridor then backtrack.
-
-        These extraneous branches need to be removed.
+        """ In the process of solving a maze, the algorithm might go down
+        the wrong corridor then backtrack. These extraneous steps need to be removed.
+        Also, clean up the end points.
         """
         found = True
         attempt = 0
@@ -138,6 +137,7 @@ class MazeSolveAlgo:
 
         while found and len(solution) > 2 and attempt < max_attempt:
             found = False
+            attempt += 1
 
             for i in range(len(solution) - 1):
                 first = solution[i]
@@ -151,9 +151,20 @@ class MazeSolveAlgo:
                 solution = solution[:first_i] + solution[last_i:]
 
         # solution does not include entrances
-        if solution[0] == self.start:
-            solution = solution[1:]
-        if solution[-1] == self.end:
-            solution = solution[:-1]
+        if len(solution) > 1:
+            if solution[0] == self.start:
+                solution = solution[1:]
+            if solution[-1] == self.end:
+                solution = solution[:-1]
 
         return solution
+
+    def prune_solutions(self, solutions):
+        """ prune all the duplicate cells from all solutions, and fix end points
+
+        Args:
+            solutions (list): multiple raw solutions
+        Returns:
+            list: the above solutions, cleaned up
+        """
+        return [self._prune_solution(s) for s in solutions]
