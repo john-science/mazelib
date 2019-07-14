@@ -5,24 +5,6 @@
 Because users are allowed to create and modify mazes in such a great variety of way, the `mazelib` library will only support universal maze-solving algorithms. That is, `mazelib` will not implement any maze-solving algorithm that can't, for instance, solve imperfect mazes (those with loops or more than one solution). Otherwise, the user will have to know internal details about the maze generating / soliving algorithms they use, and if they are compatible.
 
 
-## Blind Alley
-
-###### The Algorithm
-1. Scan the maze, identify all fully-connected wall systems.
-2. Any wall system that touches the border is not a cul-de-sac, remove it.
-3. Determine if remaining wall systems are cul-de-sacs.
-4. If so, add a wall segment to turn the cul-de-sac into a dead end.
-5. Solve remaining maze using Shortest Paths.
-
-###### Results
-
-* maze-reduction algorithm only, will not solve maze alone
-
-###### Notes
-
-This algorithm is a more flexible version of Cul-de-Sac Filler and Dead End Filler. It can fill or seal the offending portions of the maze, and finds all solutions to even imperfect mazes.
-
-
 ## Chain Algorithm
 
 ###### The Algorithm

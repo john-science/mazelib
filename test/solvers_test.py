@@ -3,7 +3,6 @@ import numpy as np
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.BacktrackingSolver import BacktrackingSolver
-from mazelib.solve.BlindAlley import BlindAlley
 from mazelib.solve.Chain import Chain
 from mazelib.solve.Collision import Collision
 from mazelib.solve.CuldeSacFiller import CuldeSacFiller
@@ -135,38 +134,6 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self._create_maze_with_varied_entrances(s, e)
                 m.solver = BacktrackingSolver()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def test_blind_alley_filler(self):
-        """ test BlindAlley against a maze with outer/inner entraces using filler approach """
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = BlindAlley()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def test_blind_alley_sealer(self):
-        """ test BlindAlley against a maze with outer/inner entraces using sealer approach """
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = BlindAlley(fill_type='sealer', solver=Collision())
                 m.solve()
 
                 for sol in m.solutions:
