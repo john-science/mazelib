@@ -5,11 +5,10 @@ try:
 except ModuleNotFoundError:
     compiled = False
 if not compiled:
-    from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
-    from mazelib.solve.ShortestPaths import ShortestPaths
+    from mazelib.simplify.MazeSimplifyAlgo import MazeSimplifyAlgo
 
 
-class CuldeSacFiller(MazeSolveAlgo):
+class CuldeSacFiller(MazeSimplifyAlgo):
     """ This algorithm could be called LoopFiller, because it breaks up loop in the maze.
 
     1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
@@ -17,21 +16,15 @@ class CuldeSacFiller(MazeSolveAlgo):
     3. If the first intersection for both paths is the same, you have a loop.
     4. Fill in the cell you started at with a wall, breaking the loop.
     """
-    def __init__(self, solver=None):
-        # TODO: to be removed when this solver moves to MazeSimplifierAlgo
-        if not solver:
-            self.solver = ShortestPaths()
-        else:
-            self.solver = solver
 
-    def _solve(self):
+    def _simplify(self):
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
                 if (r, c) in (self.start, self.end):
                     # we don't want to block off an exit
                     continue
                 elif self.grid[(r, c)] == 1:
-                    # we don't want to 
+                    # it's a wall, who cares
                     continue
 
                 # determine if we could even possibly be in a loop
@@ -49,8 +42,6 @@ class CuldeSacFiller(MazeSolveAlgo):
                 # Found a loop!
                 if end1 == end2:
                     self.grid[(r, c)] = 1
-
-        return self.solver.solve(self.grid, self.start, self.end)
 
     def _find_next_intersection(self, path_start):
         """ Starting with the first two cells in a path, follow the path until you hit the next

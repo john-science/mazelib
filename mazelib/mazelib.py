@@ -13,6 +13,7 @@ class Maze(object):
         self.grid = None
         self.start = None
         self.end = None
+        self.simplifiers = []
         self.solver = None
         self.solutions = None
         self.prune = True
@@ -145,16 +146,24 @@ class Maze(object):
         self.end = mazes[posi]['end']
         self.solutions = mazes[posi]['solutions']
 
+    def simplify(self):
+        """ simplifiy an existing maze grid """
+        if self.grid is None:
+            raise UnboundLocalError('No maze grid yet exists to simplify.')
+
+        for simplifier in self.simplifiers:
+            simplifier.simplify(self.grid, self.start, self.end)
+
     def solve(self):
         """ public method to solve a new maze, if possible """
         if self.solver is None:
             raise UnboundLocalError('No maze-solving algorithm has been set.')
         elif self.start is None or self.end is None:
             raise UnboundLocalError('Start and end times must be set first.')
-        else:
-            self.solutions = self.solver.solve(self.grid, self.start, self.end)
-            if self.prune:
-                self.solutions = self.solver.prune_solutions(self.solutions)
+
+        self.solutions = self.solver.solve(self.grid, self.start, self.end)
+        if self.prune:
+            self.solutions = self.solver.prune_solutions(self.solutions)
 
     def tostring(self, entrances=False, solutions=False):
         """ Return a string representation of the maze. """

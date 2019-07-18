@@ -1,6 +1,6 @@
 # mazelib
 
-#### A Python API for creating and solving mazes.  --  WORK IN PROGRESS
+#### A Python API for creating and solving mazes.
 
 ## [The mazelib API](https://github.com/theJollySin/mazelib/blob/master/docs/API.md)
 

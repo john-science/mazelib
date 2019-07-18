@@ -11,12 +11,12 @@ The mazelib library supports Python versions 3.3 and up.
 
 Let us look at the simplest example:
 
-    from mazelib import Maze
-    from mazelib.generate.Prims import Prims
+from mazelib import Maze
+from mazelib.generate.Prims import Prims
 
-    m = Maze()
-    m.generator = Prims(27, 34)
-    m.generate()
+m = Maze()
+m.generator = Prims(27, 34)
+m.generate()
 
 First, there was the obligatory import statement, to include mazelib in your Python code: `from mazelib import *`.
 
@@ -56,6 +56,72 @@ By default, entrances will be generated on the outer edge of the maze. However, 
 Finally, the maze `m` was solved for the given entrances, using the `BacktrackingSolver` algorithm.
 
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
+
+
+## Optional: Simplifying a Maze
+
+Many classic Maze-Solving algorithms boil down to simplifying the maze, and then solving with some other algorithm. For instance, say you have a maze with a loop in it:
+
+    # force-create a maze with a loop in it
+    import numpy as np
+    g = np.ones((7, 7), dtype=np.int8)
+    g[1] = [0,0,0,0,0,0,1]
+    g[2] = [1,0,1,0,1,0,1]
+    g[3] = [1,0,1,0,0,0,1]
+    g[4] = [1,0,1,1,1,1,1]
+    g[5] = [1,0,0,0,0,0,0]
+
+    from mazelib import Maze
+    m = Maze()
+    m.grid = g
+    print(m)
+
+    #######
+    S     #
+    # # # #
+    # #   #
+    # #####
+    #     E
+    #######
+
+Let's say we want to find and break all loops in a maze. Who knows why, perhaps our maze-solving algorithm can't handle loops. Or maybe we just don't like them.
+
+    m.simplifiers = [CuldeSacFiller()]
+    m.simplify()
+
+    #######
+    S    ##
+    # # # #
+    # #   #
+    # #####
+    #     E
+    #######
+
+Or perhaps you want to get rid of some dead ends:
+
+    m.simplifiers = [CuldeSacFiller(), DeadEndFiller()]
+    m.simplify()
+
+    #######
+    S    ##
+    # # ###
+    # # ###
+    # #####
+    #     E
+    #######
+
+Or you might want to get ri of *all* the dead ends:
+
+    m.simplifiers = [CuldeSacFiller(), DeadEndFiller(999)]
+    m.simplify()
+
+    #######
+    S #####
+    # #####
+    # #####
+    # #####
+    #     E
+    #######
 
 
 ## Advanced: The Monte Carlo Method

@@ -17,7 +17,7 @@ class MazeSolveAlgo:
 
         # validating checks
         if grid is None:
-            raise UnboundLocalError('Maze grid is not set.')
+            raise UnboundLocalError('Maze grid is not set.')  # TODO: These should be asserts. We just have to fix some unit tests.
         elif start is None or end is None:
             raise UnboundLocalError('Entrances are not set.')
         elif start[0] < 0 or start[0] >= grid.shape[0]:

@@ -33,10 +33,10 @@ Here we create a 24x33 maze with one rectangular 4x4 room, open between the corn
 Here we create a 4x4 maze with one rectangular 2x2 room, open between the corners (5, 5) and (7, 7):
 
     import numpy as np
-    g = np.ones((9, 9), dtype=np.bool_)
-    g[5] = array('b', [1,1,1,0,0,0,1])
-    a[6] = array('b', [1,1,1,0,0,0,1])
-    g[7] = array('b', [1,1,1,0,0,0,1])
+    g = np.ones((9, 9), dtype=np.int8)
+    g[5] = np.array([1,1,1,0,0,0,1])
+    a[6] = np.array([1,1,1,0,0,0,1])
+    g[7] = np.array([1,1,1,0,0,0,1])
     
     m = Maze()
     m.generator = DungeonRooms(4, 4, grid=g)
@@ -52,16 +52,18 @@ Perhaps you want more control over your maze. You have ideas in you imagine spir
 First, start with a simple spiral maze (which is trivial to solve):
 
     import numpy as np
-    g = np.ones((11, 11), dtype=np.bool_)
-    g[1] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
-    g[2] = array('b', [1,1,1,1,1,1,1,1,1,0,1])
-    g[3] = array('b', [1,0,0,0,0,0,0,0,1,0,1])
-    g[4] = array('b', [1,0,1,1,1,1,1,0,1,0,1])
-    g[5] = array('b', [1,0,1,0,0,0,1,0,1,0,1])
-    g[6] = array('b', [1,0,1,0,1,1,1,0,1,0,1])
-    g[7] = array('b', [1,0,1,0,0,0,0,0,1,0,1])
-    g[8] = array('b', [1,0,1,1,1,1,1,1,1,0,1])
-    g[9] = array('b', [1,0,0,0,0,0,0,0,0,0,1])
+    g = np.ones((11, 11), dtype=np.int8)
+    g[1] = np.array([1,0,0,0,0,0,0,0,0,0,1])
+    g[2] = np.array([1,1,1,1,1,1,1,1,1,0,1])
+    g[3] = np.array([1,0,0,0,0,0,0,0,1,0,1])
+    g[4] = np.array([1,0,1,1,1,1,1,0,1,0,1])
+    g[5] = np.array([1,0,1,0,0,0,1,0,1,0,1])
+    g[6] = np.array([1,0,1,0,1,1,1,0,1,0,1])
+    g[7] = np.array([1,0,1,0,0,0,0,0,1,0,1])
+    g[8] = np.array([1,0,1,1,1,1,1,1,1,0,1])
+    g[9] = np.array([1,0,0,0,0,0,0,0,0,0,1])
+
+![sprial maze](images/spiral_1.png?raw=true)
 
     from mazelib.generate.Perturbation import Perturbation
 
@@ -73,7 +75,7 @@ First, start with a simple spiral maze (which is trivial to solve):
 
 The end result is a maze that is *almost* a spiral, but enough different to still make a decent maze.
 
-WORK IN PROGRESS
+![permuted sprial maze](images/permutation_1.png?raw=true)
 
 ## Displaying a Maze
 
