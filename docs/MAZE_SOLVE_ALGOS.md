@@ -55,43 +55,6 @@ This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such,
 On a perfect maze, this is little different than the Dead End Filler algorithm. But in heavily braided and imperfect mazes, this algorithm simply iterates over the whole maze a few more times and finds the optimal solutions. It is quite elegant.
 
 
-## Cul-de-sac Filler
-
-###### The Algorithm
-
-1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
-2. At each of these places, travel in both directions until you find your first intersection.
-3. If the first intersection for both paths is the same, you have a loop.
-4. Fill in the cell you started at with a wall, breaking the loop.
-
-###### Results
-
-* maze-reduction algorithm only, will not solve maze alone
-
-###### Notes
-
-This is a classic maze-solving algorithm. However, it seems fairly slow by design. Still, if your maze has many cul-de-sacs it could be very helpful.
-
-
-## Dead End Filler
-
-###### The Algorithm
-
-1. Scan the maze in any order, looking for dead ends.
-2. Fill in each dead end, and the dead-end passages attached to them.
-3. Use a different solver to build a solution path.
-
-###### Results
-
-* maze-reduction algorithm only, will not solve maze alone
-
-###### Notes
-
-This is a simple Maze solving algorithm.
-It focuses on the Maze, is always very fast, and uses no extra memory.
-
-This will always find the one unique solution for perfect Mazes, but won't do much in heavily braid Mazes, and in fact won't do anything useful at all for those Mazes without dead ends.
-
 
 ## Random Mouse
 
@@ -173,35 +136,6 @@ Though this version is optimized to improve speed, nothing could be done about t
 ## Trémaux's Algorithm
 
 WORK IN PROGRESS
-
-
-## Wall Follower
-
-###### The Algorithm
-
-Follow the right wall and you will eventually end up at the end.
-
-The details:
-
-1. Choose a random starting direction.
-2. At each intersection, take the rightmost turn. At dead-ends, turn around.
-3. If you have gone more than (H * W) + 2 cells, stop; the maze will not be solved.
-4. Prune the extraneous branches from the solution before returning it.
-
-###### Optional Parameters
-
-* *Turn*: String ['left', 'right']
- * Do you want to follow the right wall or the left wall? (default 'right')
-
-###### Results
-
-* 1 solution
-* not the shortest solution
-* does not solve imperfect mazes
-
-###### Notes
-
-To the human brain, this is the easiest way to solve a maze. Drunk college kids use this algorithm every year to solve corn mazes. But if we go by the number of lines of code, this is one of the hardest maze-solving algorithms to implement on a computer. Which is really interesting.
 
 
 ## Vocabulary
