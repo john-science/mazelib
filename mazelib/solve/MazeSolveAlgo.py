@@ -39,9 +39,7 @@ class MazeSolveAlgo:
     """
 
     def _find_neighbors(self, posi, is_wall=False):
-        """Find all the grid neighbors of the current position;
-        wall or open passage.
-        """
+        """ Find all the grid neighbors of the current position; wall or open passage. """
         r, c = posi
         ns = []
 
@@ -55,11 +53,10 @@ class MazeSolveAlgo:
             ns.append((r, c+2))
 
         shuffle(ns)
-
         return ns
 
     def _find_unblocked_neighbors(self, posi):
-        """Find all the grid neighbors of the current position; visited, or not. """
+        """ Find all the grid neighbors of the current position; visited, or not. """
         r, c = posi
         ns = []
 
@@ -73,21 +70,18 @@ class MazeSolveAlgo:
             ns.append((r, c+2))
 
         shuffle(ns)
-
         return ns
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells"""
+        """ Find the wall cell between to passage cells """
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
     def _move(self, start, direction):
-        """Convolve a position tuple with a direction tuple to
-        generate a new position.
-        """
+        """ Convolve a position tuple with a direction tuple to generate a new position. """
         return tuple(map(sum, zip(start, direction)))
 
     def _on_edge(self, cell):
-        """Does the cell lay on the edge, rather inside of the maze grid?"""
+        """ Does the cell lay on the edge, rather inside of the maze grid? """
         r, c = cell
 
         if r == 0 or r == self.grid.shape[0] - 1:

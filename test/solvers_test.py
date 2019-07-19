@@ -5,8 +5,6 @@ from mazelib.generate.Prims import Prims
 from mazelib.solve.BacktrackingSolver import BacktrackingSolver
 from mazelib.solve.Chain import Chain
 from mazelib.solve.Collision import Collision
-from mazelib.solve.CuldeSacFiller import CuldeSacFiller
-from mazelib.solve.DeadEndFiller import DeadEndFiller
 from mazelib.solve.RandomMouse import RandomMouse
 from mazelib.solve.ShortestPath import ShortestPath
 from mazelib.solve.ShortestPaths import ShortestPaths
@@ -14,25 +12,6 @@ from mazelib.mazelib import Maze
 
 
 class SolversTest(unittest.TestCase):
-    
-    def _example_cul_de_sac_maze(self):
-        """
-        #######
-              #
-        # # # #
-        # #   #
-        # #####
-        #
-        #######
-        """
-        g = np.ones((7, 7), dtype=np.int8)
-        g[1] = [1,0,0,0,0,0,1]
-        g[2] = [1,0,1,0,1,0,1]
-        g[3] = [1,0,1,0,0,0,1]
-        g[4] = [1,0,1,1,1,1,1]
-        g[5] = [1,0,0,0,0,0,1]
-    
-        return g
 
     def _one_away(self, cell1, cell2):
         """ Is one cell exactly one move from another? """
@@ -166,61 +145,6 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self._create_maze_with_varied_entrances(s, e)
                 m.solver = Collision()
-                m.solve()
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def test_cul_de_sac_filler(self):
-        """ test against a maze with outer/inner entraces """
-        starts = [True, False]
-        ends = [True, False]
-
-        g = self._example_cul_de_sac_maze()
-
-        for s in starts:
-            for e in ends:
-                m = Maze()
-                m.generator = Prims(3, 3)
-                m.grid = g
-                assert m.grid[(1, 5)] == 0, "before fixing cul-de-sacs"
-
-                if s and e:
-                    m.start = (1, 0)
-                    m.end = (5, 6)
-                elif not s and not e:
-                    m.start = (1, 1)
-                    m.end = (5, 5)
-                else:
-                    if s:
-                        m.start = (1, 1)
-                        m.end = (5, 5)
-                    else:
-                        m.start = (1, 1)
-                        m.end = (5, 6)
-
-                m.solver = CuldeSacFiller()
-                m.solve()
-
-                # test the actual point in the cul-de-sac that we expect to block
-                assert m.solver.grid[(1, 5)] == 1, "after fixing cul-de-sacs"
-
-                for sol in m.solutions:
-                    self.assertFalse(self._duplicates_in_solution(sol))
-                    self.assertTrue(self._one_away(m.start, sol[0]))
-                    self.assertTrue(self._one_away(m.end, sol[-1]))
-
-    def test_dead_end_filler(self):
-        """ test DeadEndFiller against a maze with outer/inner entraces """
-        starts = [True, False]
-        ends = [True, False]
-
-        for s in starts:
-            for e in ends:
-                m = self._create_maze_with_varied_entrances(s, e)
-                m.solver = DeadEndFiller()
                 m.solve()
 
                 for sol in m.solutions:

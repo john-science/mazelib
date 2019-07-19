@@ -69,8 +69,7 @@ if has_cython:
     ext_modules_list = cythonize(ext_modules, annotate=False, force=FORCE_REBUILD, compiler_directives=COMP_DIRS)
 else:
     ext_modules_list = []
-#print(find_packages())  # TODO: This is the problem!
-#exit()
+
 
 # perform the actual build/install
 setup(
