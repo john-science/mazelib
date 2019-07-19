@@ -32,8 +32,7 @@ class ShortestPath(MazeSolveAlgo):
 
         # find the starting positions
         start_posis = self._find_unblocked_neighbors(start)
-        if len(start_posis) == 0:
-            raise ValueError('Input maze is invalid.')
+        assert len(start_posis) > 0, 'Input maze is invalid.'
 
         # 1) create a solution for each starting position
         solutions = []
@@ -88,7 +87,6 @@ class ShortestPath(MazeSolveAlgo):
         # 4) clean-up solutions
         solutions = self._clean_up(solutions)
 
-        if len(solutions) == 0 or len(solutions[0]) == 0:
-            raise ValueError('No valid solutions found.')
+        assert (len(solutions) > 0 and len(solutions[0]) > 0), 'No valid solutions found.'
 
         return solutions

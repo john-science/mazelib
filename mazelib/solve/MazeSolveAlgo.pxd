@@ -4,15 +4,15 @@ from numpy cimport ndarray
 
 cdef class MazeSolveAlgo:
     cdef public ndarray grid
-    cdef public tuple start  # TODO: Would start/end be faster as size-2 arrays?
+    cdef public tuple start
     cdef public tuple end
 
 
     cpdef list solve(self, ndarray[cython.char, ndim=2] grid, tuple start, tuple end)
 
 
-    cdef inline void _solve_preprocessor(self, ndarray[cython.char, ndim=2] grid, tuple start,
-                                         tuple end)  # TODO: needs expect -1
+    cdef inline int _solve_preprocessor(self, ndarray[cython.char, ndim=2] grid, tuple start,
+                                         tuple end) except -1
 
 
     cpdef list _solve(self)

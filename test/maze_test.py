@@ -156,12 +156,12 @@ class MazeTest(unittest.TestCase):
         m = Maze()
 
         # should not be able to generate or solve if neither algorithm was set
-        self.assertRaises(UnboundLocalError, m.generate)
-        self.assertRaises(UnboundLocalError, m.solve)
+        self.assertRaises(AssertionError, m.generate)
+        self.assertRaises(AssertionError, m.solve)
 
         # even if the generator algorithm is set, you have to run it
         m.generator = Prims(3, 3)
-        self.assertRaises(UnboundLocalError, m.solve)
+        self.assertRaises(AssertionError, m.solve)
 
         # the pretty-print, sring formats should fail gracefully
         m.start = (1, 1)
@@ -170,8 +170,8 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(repr(m), '')
 
         # the Monte Carlo method has a special zero-to-one input scalar
-        self.assertRaises(ValueError, m.generate_monte_carlo, True, 3, -1.0)
-        self.assertRaises(ValueError, m.generate_monte_carlo, True, 3, 10.0)
+        self.assertRaises(AssertionError, m.generate_monte_carlo, True, 3, -1.0)
+        self.assertRaises(AssertionError, m.generate_monte_carlo, True, 3, 10.0)
 
 
 def main():

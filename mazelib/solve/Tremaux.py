@@ -33,7 +33,7 @@ class Tremaux(MazeSolveAlgo):
         self.visited_coords = {}
 
     def _solve(self):
-        raise Exception('This algorithm under development.')
+        raise NotImplementedError('This algorithm under development.')
         self.visited_coords = {}
         solution = []
 

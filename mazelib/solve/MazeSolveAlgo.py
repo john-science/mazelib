@@ -16,18 +16,12 @@ class MazeSolveAlgo:
         self.end = end
 
         # validating checks
-        if grid is None:
-            raise UnboundLocalError('Maze grid is not set.')  # TODO: These should be asserts. We just have to fix some unit tests.
-        elif start is None or end is None:
-            raise UnboundLocalError('Entrances are not set.')
-        elif start[0] < 0 or start[0] >= grid.shape[0]:
-            raise ValueError('Entrance is outside the grid.')
-        elif start[1] < 0 or start[1] >= grid.shape[1]:
-            raise ValueError('Entrance is outside the grid.')
-        elif end[0] < 0 or end[0] >= grid.shape[0]:
-            raise ValueError('Entrance is outside the grid.')
-        elif end[1] < 0 or end[1] >= grid.shape[1]:
-            raise ValueError('Entrance is outside the grid.')
+        assert not grid is None, 'Maze grid is not set.'
+        assert not (start is None) and not (end is None), 'Entrances are not set.'
+        assert start[0] >= 0 and start[0] < grid.shape[0], 'Entrance is outside the grid.'
+        assert start[1] >= 0 and start[1] < grid.shape[1], 'Entrance is outside the grid.'
+        assert end[0] >= 0 and end[0] < grid.shape[0], 'Entrance is outside the grid.'
+        assert end[1] >= 0 and end[1] < grid.shape[1], 'Entrance is outside the grid.'
 
     @abc.abstractmethod
     def _solve(self):
@@ -60,14 +54,14 @@ class MazeSolveAlgo:
         r, c = posi
         ns = []
 
-        if r > 1 and self.grid[r-1, c] == False and self.grid[r-2, c] == False:
-            ns.append((r-2, c))
+        if r > 1 and self.grid[r - 1, c] == False and self.grid[r - 2, c] == False:
+            ns.append((r - 2, c))
         if r < self.grid.shape[0]-2 and self.grid[r+1, c] == False and self.grid[r+2, c] == False:
-            ns.append((r+2, c))
-        if c > 1 and self.grid[r, c-1] == False and self.grid[r, c-2] == False:
-            ns.append((r, c-2))
+            ns.append((r + 2, c))
+        if c > 1 and self.grid[r, c - 1] == False and self.grid[r, c - 2] == False:
+            ns.append((r, c - 2))
         if c < self.grid.shape[1]-2 and self.grid[r, c+1] == False and self.grid[r, c+2] == False:
-            ns.append((r, c+2))
+            ns.append((r, c + 2))
 
         shuffle(ns)
         return ns
@@ -92,7 +86,7 @@ class MazeSolveAlgo:
         return False
 
     def _push_edge(self, cell):
-        """You may need to find the cell directly inside of a start or end cell."""
+        """ You may need to find the cell directly inside of a start or end cell. """
         r, c = cell
 
         if r == 0:

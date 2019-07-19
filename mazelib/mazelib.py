@@ -20,13 +20,12 @@ class Maze(object):
 
     def generate(self):
         """ public method to generate a new maze, and handle some clean-up """
-        if self.generator is None:
-            raise UnboundLocalError('No maze-generation algorithm has been set.')
-        else:
-            self.grid = self.generator.generate()
-            self.start = None
-            self.end = None
-            self.solutions = None
+        assert not (self.generator is None), 'No maze-generation algorithm has been set.'
+
+        self.grid = self.generator.generate()
+        self.start = None
+        self.end = None
+        self.solutions = None
 
     def generate_entrances(self, start_outer=True, end_outer=True):
         """ Generate maze entrances. Entrances can be on the walls, or inside the maze.
@@ -113,8 +112,7 @@ class Maze(object):
             solutions. By default, this reducer will return the solution length.
         6. Based on the 'difficulty' parameter, select one of the mazes.
         """
-        if difficulty < 0.0 or difficulty > 1.0:
-            raise ValueError('Maze difficulty must be set from 0 to 1.')
+        assert (difficulty >= 0.0 and difficulty <= 1.0), 'Maze difficulty must be between 0 to 1.'
 
         # generate different mazes
         mazes = []
@@ -148,18 +146,16 @@ class Maze(object):
 
     def simplify(self):
         """ simplifiy an existing maze grid """
-        if self.grid is None:
-            raise UnboundLocalError('No maze grid yet exists to simplify.')
+        assert not (self.grid is None), 'No maze grid yet exists to simplify.'
 
         for simplifier in self.simplifiers:
             simplifier.simplify(self.grid, self.start, self.end)
 
     def solve(self):
         """ public method to solve a new maze, if possible """
-        if self.solver is None:
-            raise UnboundLocalError('No maze-solving algorithm has been set.')
-        elif self.start is None or self.end is None:
-            raise UnboundLocalError('Start and end times must be set first.')
+        assert not (self.solver is None), 'No maze-solving algorithm has been set.'
+        assert not (self.start is None) and not (self.end is None), \
+            'Start and end times must be set first.'
 
         self.solutions = self.solver.solve(self.grid, self.start, self.end)
         if self.prune:

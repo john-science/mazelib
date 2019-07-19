@@ -10,8 +10,8 @@ in the most typical use-case of the target audience.
 The only really important part of this benchmark is that there is a
 standard basis for comparison.
 '''
-SIZES = [5, 10]  #, 25, 50, 100, 200]
-ITERATIONS = [100, 100]  #, 100, 50, 1, 1]
+SIZES = [5, 10, 25, 50, 100, 200]
+ITERATIONS = [100, 100, 100, 50, 1, 1]
 GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'Division', 'GrowingTree',
               'HuntAndKill', 'Prims', 'Sidewinder', 'TrivialMaze', 'Wilsons']
 SOLVERS = ['BacktrackingSolver', 'Collision']

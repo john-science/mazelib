@@ -8,8 +8,7 @@ class MazeGenAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
-        if w < 3 or h < 3:
-            raise ValueError('Mazes cannot be smaller than 3x3.')
+        assert (w >= 3 and h >= 3), 'Mazes cannot be smaller than 3x3.'
         self.h = h
         self.w = w
         self.H = (2 * self.h) + 1
