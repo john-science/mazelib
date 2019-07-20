@@ -44,6 +44,24 @@ class MazeTransmuteAlgo:
 
         return ns
 
+    def _find_neighbors(self, r, c, is_wall=False):
+        """ Find all the grid neighbors of the current position; visited, or not.
+        """
+        ns = []
+
+        if r > 1 and self.grid[r - 2][c] == is_wall:
+            ns.append((r - 2, c))
+        if r < self.grid.shape[0] - 2 and self.grid[r + 2][c] == is_wall:
+            ns.append((r + 2, c))
+        if c > 1 and self.grid[r][c - 2] == is_wall:
+            ns.append((r, c - 2))
+        if c < self.grid.shape[1] - 2 and self.grid[r][c + 2] == is_wall:
+            ns.append((r, c + 2))
+
+        shuffle(ns)
+
+        return ns
+
     def _within_one(self, cell, desire):
         """ Is the current cell within one move of the desired cell?
         Note, this might be one full more, or one half move.
@@ -59,3 +77,7 @@ class MazeTransmuteAlgo:
                 return True
 
         return False
+
+    def _midpoint(self, a, b):
+        """ Find the wall cell between to passage cells """
+        return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2

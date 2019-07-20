@@ -21,12 +21,15 @@ class DeadEndFiller(MazeTransmuteAlgo):
 
     def __init__(self, iterations=1):
         self.iterations = int(iterations) if iterations > 0 else 100
+        super(DeadEndFiller, self).__init__()
 
     def _transmute(self):
         # make sure we don't block off the entrances
         r, c = self.start
+        start_save = self.grid[r, c]
         self.grid[r, c] = 0
         r, c = self.end
+        end_save = self.grid[r, c]
         self.grid[r, c] = 0
 
         # block off all the dead ends N times
@@ -35,6 +38,12 @@ class DeadEndFiller(MazeTransmuteAlgo):
         while found and i < self.iterations:
             i += 1
             found = self._fill_dead_ends()
+
+        # re-set start and end
+        r, c = self.start
+        self.grid[r, c] = start_save
+        r, c = self.end
+        self.grid[r, c] = end_save
 
     def _fill_dead_ends(self):
         """ fill all dead ends in the maze """

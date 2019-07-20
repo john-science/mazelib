@@ -3,8 +3,11 @@ import numpy as np
 import unittest
 from mazelib.mazelib import Maze
 from mazelib.generate.Prims import Prims
+from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
 from mazelib.transmute.DeadEndFiller import DeadEndFiller
+from mazelib.transmute.Perturbation import Perturbation
+from .generators_test import all_corners_complete, all_passages_open, boundary_is_solid
 
 
 class SolversTest(unittest.TestCase):
@@ -41,6 +44,9 @@ class SolversTest(unittest.TestCase):
 
         assert m.grid[(1, 5)] == 1
 
+        self.assertTrue(boundary_is_solid(m.grid))
+        self.assertTrue(all_corners_complete(m.grid))
+
     def test_dead_end_filler(self):
         m = Maze()
         m.generator = Prims(3, 3)
@@ -59,6 +65,22 @@ class SolversTest(unittest.TestCase):
         assert m.grid[(1, 5)] == 1
         assert m.grid[(1, 2)] == 1
         assert m.grid[(3, 3)] == 1
+
+        self.assertTrue(boundary_is_solid(m.grid))
+        self.assertTrue(all_corners_complete(m.grid))
+
+    def test_perturbation(self):
+        m = Maze()
+        m.generator = TrivialMaze(4, 5)
+        m.generate()
+
+        #m = Maze()
+        m.transmuters = [Perturbation()]
+        m.transmute()
+
+        self.assertTrue(boundary_is_solid(m.grid))
+        self.assertTrue(all_passages_open(m.grid))
+        self.assertTrue(all_corners_complete(m.grid))
 
 
 def main():

@@ -45,7 +45,7 @@ Here we create a 4x4 maze with one rectangular 2x2 room, open between the corner
 ![Dungeon Rooms Example](images/dungeon_rooms_4x4_plain.png?raw=true)
 
 
-#### Generating Attractive Mazes
+#### Transmuting Attractive Mazes
 
 Perhaps you want more control over your maze. You have ideas in you imagine spiral mazes, or circular mazes with a room at the very center. The Perturbation algorithm will allow you to do all of these things.
 
@@ -65,11 +65,15 @@ First, start with a simple spiral maze (which is trivial to solve):
 
 ![sprial maze](images/spiral_1.png?raw=true)
 
-    from mazelib.generate.Perturbation import Perturbation
+    from mazelib.generate.Prims import Prims
+    from mazelib.transmute.Perturbation import Perturbation
 
     m = Maze()
-    m.generator = Perturbation(grid=g, repeat=1, new_walls=3)
+    m.generator = Prims(5, 5)
     m.generate()
+    m.grid = g  # for a good example
+    m.transmuters = [Perturbation(repeat=1, new_walls=3)]
+    m.transmute()
     m.start = (1, 0)
     m.end = (5, 5)
 

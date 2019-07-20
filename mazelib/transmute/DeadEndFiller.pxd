@@ -6,7 +6,8 @@ cdef class DeadEndFiller(MazeTransmuteAlgo):
     cdef public cython.int iterations
 
 
-    @cython.locals(r=cython.int, c=cython.int, found=cython.bint, i=cython.int)
+    @cython.locals(r=cython.int, c=cython.int, found=cython.bint, i=cython.int,
+                   start_save=cython.char, end_save=cython.char)
     cpdef void _transmute(self)
 
 

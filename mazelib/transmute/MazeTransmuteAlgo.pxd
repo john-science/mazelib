@@ -18,4 +18,11 @@ cdef class MazeTransmuteAlgo:
     cpdef _find_unblocked_neighbors(self, tuple posi)
 
 
+    @cython.locals(ns=list)
+    cdef list _find_neighbors(self, int r, int c, bint is_wall=*)
+
+
     cpdef bint _within_one(self, tuple cell, tuple desire)
+
+
+    cdef inline tuple _midpoint(self, tuple a, tuple b)
