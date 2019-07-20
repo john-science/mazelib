@@ -1,4 +1,4 @@
-# Maze-Simplifying Algorithms
+# Maze-Transmuting Algorithms
 
 ##### Go back to the main [README](../README.md)
 

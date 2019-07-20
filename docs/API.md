@@ -58,7 +58,7 @@ Finally, the maze `m` was solved for the given entrances, using the `Backtrackin
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
 
 
-## Optional: Simplifying a Maze
+## Optional: Transmuting a Maze
 
 Many classic Maze-Solving algorithms boil down to simplifying the maze, and then solving with some other algorithm. For instance, say you have a maze with a loop in it:
 
@@ -86,8 +86,9 @@ Many classic Maze-Solving algorithms boil down to simplifying the maze, and then
 
 Let's say we want to find and break all loops in a maze. Who knows why, perhaps our maze-solving algorithm can't handle loops. Or maybe we just don't like them.
 
-    m.simplifiers = [CuldeSacFiller()]
-    m.simplify()
+    from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
+    m.transmuters = [CuldeSacFiller()]
+    m.transmute()
 
     #######
     S    ##
@@ -99,8 +100,9 @@ Let's say we want to find and break all loops in a maze. Who knows why, perhaps 
 
 Or perhaps you want to get rid of some dead ends:
 
-    m.simplifiers = [CuldeSacFiller(), DeadEndFiller()]
-    m.simplify()
+    from mazelib.transmute.DeadEndFiller import DeadEndFiller
+    m.transmuters = [CuldeSacFiller(), DeadEndFiller()]
+    m.transmute()
 
     #######
     S    ##
@@ -112,8 +114,8 @@ Or perhaps you want to get rid of some dead ends:
 
 Or you might want to get ri of *all* the dead ends:
 
-    m.simplifiers = [CuldeSacFiller(), DeadEndFiller(999)]
-    m.simplify()
+    m.transmuters = [CuldeSacFiller(), DeadEndFiller(999)]
+    m.transmute()
 
     #######
     S #####

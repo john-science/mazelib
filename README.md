@@ -18,6 +18,6 @@ The heart of this library is the huge collection of algorithms available to crea
 
 ### [Maze-Generating Algorithms](https://github.com/theJollySin/mazelib/blob/master/docs/MAZE_GEN_ALGOS.md)
 
-### [Maze-Simplifying Algorithms](https://github.com/theJollySin/mazelib/blob/master/docs/MAZE_SIMPLIFY_ALGOS.md)
+### [Maze-Transmuting Algorithms](https://github.com/theJollySin/mazelib/blob/master/docs/MAZE_TRANSMUTE_ALGOS.md)
 
 ### [Maze-Solving Algorithms](https://github.com/theJollySin/mazelib/blob/master/docs/MAZE_SOLVE_ALGOS.md)

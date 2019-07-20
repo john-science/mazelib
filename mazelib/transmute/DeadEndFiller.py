@@ -6,10 +6,10 @@ try:
 except ModuleNotFoundError:
     compiled = False
 if not compiled:
-    from mazelib.simplify.MazeSimplifyAlgo import MazeSimplifyAlgo
+    from mazelib.transmute.MazeTransmuteAlgo import MazeTransmuteAlgo
 
 
-class DeadEndFiller(MazeSimplifyAlgo):
+class DeadEndFiller(MazeTransmuteAlgo):
     """
     1. Scan the maze in any order, looking for dead ends.
     2. Fill in each dead end, and any dead-end passages attached to them.
@@ -22,7 +22,7 @@ class DeadEndFiller(MazeSimplifyAlgo):
     def __init__(self, iterations=1):
         self.iterations = int(iterations) if iterations > 0 else 100
 
-    def _simplify(self):
+    def _transmute(self):
         # make sure we don't block off the entrances
         r, c = self.start
         self.grid[r, c] = 0

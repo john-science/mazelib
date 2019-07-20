@@ -3,7 +3,7 @@ import abc
 from numpy.random import shuffle
 
 
-class MazeSimplifyAlgo:
+class MazeTransmuteAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
@@ -11,19 +11,19 @@ class MazeSimplifyAlgo:
         self.start = None
         self.end = None
 
-    def simplify(self, grid, start, end):
+    def transmute(self, grid, start, end):
         self.grid = grid
         self.start = start
         self.end = end
-        self._simplify()
+        self._transmute()
 
     @abc.abstractmethod
-    def _simplify(self):
+    def _transmute(self):
         pass
 
     """
     All of the methods below this are helper methods,
-    common to many maze-simplifying algorithms.
+    common to many maze-transmuting algorithms.
     """
 
     def _find_unblocked_neighbors(self, posi):

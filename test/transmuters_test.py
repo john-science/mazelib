@@ -3,8 +3,8 @@ import numpy as np
 import unittest
 from mazelib.mazelib import Maze
 from mazelib.generate.Prims import Prims
-from mazelib.simplify.CuldeSacFiller import CuldeSacFiller
-from mazelib.simplify.DeadEndFiller import DeadEndFiller
+from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
+from mazelib.transmute.DeadEndFiller import DeadEndFiller
 
 
 class SolversTest(unittest.TestCase):
@@ -36,8 +36,8 @@ class SolversTest(unittest.TestCase):
 
         assert m.grid[(1, 5)] == 0
 
-        m.simplifiers = [CuldeSacFiller()]
-        m.simplify()
+        m.transmuters = [CuldeSacFiller()]
+        m.transmute()
 
         assert m.grid[(1, 5)] == 1
 
@@ -53,8 +53,8 @@ class SolversTest(unittest.TestCase):
         assert m.grid[(1, 2)] == 0
         assert m.grid[(3, 3)] == 0
 
-        m.simplifiers = [CuldeSacFiller(), DeadEndFiller(99)]
-        m.simplify()
+        m.transmuters = [CuldeSacFiller(), DeadEndFiller(99)]
+        m.transmute()
 
         assert m.grid[(1, 5)] == 1
         assert m.grid[(1, 2)] == 1

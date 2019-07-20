@@ -1,13 +1,13 @@
 cimport cython
-from mazelib.simplify.MazeSimplifyAlgo cimport MazeSimplifyAlgo
+from mazelib.transmute.MazeTransmuteAlgo cimport MazeTransmuteAlgo
 
 
-cdef class DeadEndFiller(MazeSimplifyAlgo):
+cdef class DeadEndFiller(MazeTransmuteAlgo):
     cdef public cython.int iterations
 
 
     @cython.locals(r=cython.int, c=cython.int, found=cython.bint, i=cython.int)
-    cpdef void _simplify(self)
+    cpdef void _transmute(self)
 
 
     @cython.locals(dead_end=tuple, ns=list, found=cython.int)

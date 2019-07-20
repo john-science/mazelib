@@ -13,7 +13,7 @@ class Maze(object):
         self.grid = None
         self.start = None
         self.end = None
-        self.simplifiers = []
+        self.transmuters = []
         self.solver = None
         self.solutions = None
         self.prune = True
@@ -144,12 +144,12 @@ class Maze(object):
         self.end = mazes[posi]['end']
         self.solutions = mazes[posi]['solutions']
 
-    def simplify(self):
-        """ simplifiy an existing maze grid """
-        assert not (self.grid is None), 'No maze grid yet exists to simplify.'
+    def transmute(self):
+        """ transmute an existing maze grid """
+        assert not (self.grid is None), 'No maze grid yet exists to transmute.'
 
-        for simplifier in self.simplifiers:
-            simplifier.simplify(self.grid, self.start, self.end)
+        for transmuter in self.transmuters:
+            transmuter.transmute(self.grid, self.start, self.end)
 
     def solve(self):
         """ public method to solve a new maze, if possible """

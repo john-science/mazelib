@@ -5,10 +5,10 @@ try:
 except ModuleNotFoundError:
     compiled = False
 if not compiled:
-    from mazelib.simplify.MazeSimplifyAlgo import MazeSimplifyAlgo
+    from mazelib.transmute.MazeTransmuteAlgo import MazeTransmuteAlgo
 
 
-class CuldeSacFiller(MazeSimplifyAlgo):
+class CuldeSacFiller(MazeTransmuteAlgo):
     """ This algorithm could be called LoopFiller, because it breaks up loop in the maze.
 
     1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
@@ -17,7 +17,7 @@ class CuldeSacFiller(MazeSimplifyAlgo):
     4. Fill in the cell you started at with a wall, breaking the loop.
     """
 
-    def _simplify(self):
+    def _transmute(self):
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
                 if (r, c) in (self.start, self.end):

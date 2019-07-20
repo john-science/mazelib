@@ -1,12 +1,12 @@
 cimport cython
-from mazelib.simplify.MazeSimplifyAlgo cimport MazeSimplifyAlgo
+from mazelib.transmute.MazeTransmuteAlgo cimport MazeTransmuteAlgo
 
 
-cdef class CuldeSacFiller(MazeSimplifyAlgo):
+cdef class CuldeSacFiller(MazeTransmuteAlgo):
 
 
     @cython.locals(r=cython.int, c=cython.int, ns=list, end1=tuple, end2=tuple)
-    cpdef void _simplify(self)
+    cpdef void _transmute(self)
 
 
     @cython.locals(first=tuple, previous=tuple, current=tuple, ns=list)
