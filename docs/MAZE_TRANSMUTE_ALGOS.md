@@ -50,14 +50,14 @@ If you generate a maze which is just *all* loops (called a heavily braided maze)
 
 ###### Optional Parameters
 
-* *new_walls*: Integer [1, ...)
+* *new_walls*: Integer [1, 2, ...]
  * The number of randomly positioned new walls you create throughout the maze. (default 1)
-* *repeat*: Integer [1, ...)
+* *repeat*: Integer [1, 2, ...]
  * The number of times sets of new walls will be added to the maze; the maze being fixed after each set. (default 1)
 
 ###### Results
 
-perfect if-and-only-if the input maze was perfect
+This usually produces perfect mazes (if the input maze was perfect). But there is a small chance that not all inner walls of the maze will be fully connected.
 
 ###### Notes
 
