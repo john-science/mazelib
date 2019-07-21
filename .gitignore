@@ -36,6 +36,7 @@ htmlcov/
 .coverage
 cover/
 .cache
+.idea/
 nosetests.xml
 coverage.xml
 
