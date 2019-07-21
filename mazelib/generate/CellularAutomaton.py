@@ -35,17 +35,30 @@ class CellularAutomaton(MazeGenAlgo):
 
         # adjust complexity and density relative to maze size
         if self.complexity <= 1.0:
-            self.complexity = self.complexity * 10 * (self.H + self.W)
+            self.complexity = self.complexity * (self.h + self.w)
         if self.density <= 1.0:
             self.density = self.density * (self.h * self.w)
 
         # create walls
-        for i in range(int(self.density)):
-            y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
+        for i in range(int(2 * self.density)):
+            # choose a starting location
+            if i < (self.density):
+                # we want to make sure we have a lot of walls that touch the outsie of the maze
+                if choice([0, 1]):
+                    y = choice([0, self.H - 1])
+                    x = randrange(0, self.W, 2)
+                else:
+                    x = choice([0, self.W - 1])
+                    y = randrange(0, self.H, 2)
+            else:
+                # let's try to fill in any voids we left in the maze
+                y, x = randrange(0, self.H, 2), randrange(0, self.W, 2)
+
+            # build a wall through the maze
             grid[y, x] = 1
             for j in range(int(self.complexity)):
                 neighbors = self._find_neighbors(y, x, grid, True)  # is wall
-                if len(neighbors) > 0 and len(neighbors) < 5:
+                if len(neighbors) > 0 and len(neighbors) < 4:
                     neighbors = self._find_neighbors(y, x, grid, False)  # is open
                     if not len(neighbors):
                         continue

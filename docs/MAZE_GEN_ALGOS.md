@@ -76,7 +76,7 @@ On the positive side, this algorithm is extremely fast and very easy to implemen
 
 ###### The Algorithm
 
-Cells survive if they have one to four neighbours. If a cell has exactly three neighbours, it is born. It is similar to Conway's Game of Life in that patterns that do not have a living cell adjacent to 1, 4, or 5 other living cells in any generation will behave identically to it.
+Cells survive if they have one to three neighbours. If a cell has exactly three neighbours, it is born. It is similar to Conway's Game of Life, but adapted to fix the rules of maze walls.
 
 ###### Optional Parameters
 
@@ -87,13 +87,11 @@ Cells survive if they have one to four neighbours. If a cell has exactly three n
 
 ###### Results
 
-perfect, biased
+imperfect, slightly biased
 
 ###### Notes
 
-Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. And even though the result is a "perfect" maze, it is frequently very easy to solve.
-
-More research is needed to create a post-processing step to remove the typical Cellular Automaton defects.
+Using Cellular Automation to generate a maze is a really fun idea, but it is definitely the slowest maze-generating algorithm. The algorithm does not guarantee a "perfect" maze. In fact, mazes generated like this have all kinds of strange and unique problems. That, if you are a maze purist, you will hate. But if you are trying to make mazes hard to solve you might find interesting.
 
 
 ## Dungeon Rooms
