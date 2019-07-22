@@ -11,12 +11,12 @@ The mazelib library supports Python versions 3.3 and up.
 
 Let us look at the simplest example:
 
-from mazelib import Maze
-from mazelib.generate.Prims import Prims
+    from mazelib import Maze
+    from mazelib.generate.Prims import Prims
 
-m = Maze()
-m.generator = Prims(27, 34)
-m.generate()
+    m = Maze()
+    m.generator = Prims(27, 34)
+    m.generate()
 
 First, there was the obligatory import statement, to include mazelib in your Python code: `from mazelib import *`.
 
