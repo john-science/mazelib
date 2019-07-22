@@ -11,12 +11,12 @@ The mazelib library supports Python versions 3.3 and up.
 
 Let us look at the simplest example:
 
-from mazelib import Maze
-from mazelib.generate.Prims import Prims
+    from mazelib import Maze
+    from mazelib.generate.Prims import Prims
 
-m = Maze()
-m.generator = Prims(27, 34)
-m.generate()
+    m = Maze()
+    m.generator = Prims(27, 34)
+    m.generate()
 
 First, there was the obligatory import statement, to include mazelib in your Python code: `from mazelib import *`.
 
@@ -89,6 +89,7 @@ Let's say we want to find and break all loops in a maze. Who knows why, perhaps 
     from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
     m.transmuters = [CuldeSacFiller()]
     m.transmute()
+    print(m)
 
     #######
     S    ##
@@ -103,6 +104,7 @@ Or perhaps you want to get rid of some dead ends:
     from mazelib.transmute.DeadEndFiller import DeadEndFiller
     m.transmuters = [CuldeSacFiller(), DeadEndFiller()]
     m.transmute()
+    print(m)
 
     #######
     S    ##
@@ -116,6 +118,7 @@ Or you might want to get ri of *all* the dead ends:
 
     m.transmuters = [CuldeSacFiller(), DeadEndFiller(999)]
     m.transmute()
+    print(m)
 
     #######
     S #####
