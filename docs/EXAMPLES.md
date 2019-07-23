@@ -23,7 +23,7 @@ Let's do an example of each method for defining input rooms:
 Here we create a 24x33 maze with one rectangular 4x4 room, open between the corners (3, 3) and (7, 7):
 
     from mazelib.generate.DungeonRooms import DungeonRooms
-    
+
     m = Maze()
     m.generator = DungeonRooms(24, 33, rooms=[[(3,3), (7,7)]])
     m.generate()
@@ -37,7 +37,7 @@ Here we create a 4x4 maze with one rectangular 2x2 room, open between the corner
     g[5] = np.array([1,1,1,0,0,0,1])
     a[6] = np.array([1,1,1,0,0,0,1])
     g[7] = np.array([1,1,1,0,0,0,1])
-    
+
     m = Maze()
     m.generator = DungeonRooms(4, 4, grid=g)
     m.generate()
@@ -79,7 +79,7 @@ First, start with a simple spiral maze (which is trivial to solve):
 
 The end result is a maze that is *almost* a spiral, but enough different to still make a decent maze.
 
-![permuted sprial maze](images/permutation_1.png?raw=true)
+![perturbated sprial maze](images/perturbation_1.png?raw=true)
 
 ## Displaying a Maze
 
@@ -100,6 +100,7 @@ If you want a low-key, fast way to view the maze you've generated, just use the 
     print(m.tostring(True))        # print walls and entrances
     print(m.tostring(True, True))  # print walls, entrances, and solution
     print(str(m))                  # print everything that is available
+    print(m)                       # print everything that is available
 
 The above `print` calls would generate these types of plots, respectively:
 
@@ -112,6 +113,7 @@ The above `print` calls would generate these types of plots, respectively:
     ### #######         ### #######         ###*#######
     #         E         #         E         #  *******E
     ###########         ###########         ###########
+
 
 #### Example 2: Plotting the Maze with Matplotlib
 
@@ -128,9 +130,10 @@ Sometimes it is hard to see the finer points of a maze in plain text. You may wa
 
 ![Prims Example](images/prims_5x5_plain.png?raw=true)
 
+
 #### Example 3: Displaying the Maze as CSS
 
-CSS and HTML are universal and easy to use. Here is a simple example to display your maze in CSS and HTML:
+CSS and HTML are universal and easy to use. Here is a simple (if illegible) example to display your maze in CSS and HTML:
 
     def toHTML(grid, start, end, cell_size=10):
         row_max = grid.height
@@ -171,29 +174,30 @@ CSS and HTML are universal and easy to use. Here is a simple example to display 
 
 ![CSS/HTML Example](images/css_4x5.png?raw=true)
 
+
 #### Example 4: Drawing the Maze with XKCD style
 
 Chances are, if you're reading this you probably like XKCD. So, let's make the maze look like Randal drew it.
-    
+
     import numpy as np
     from matplotlib.path import Path
     from matplotlib.patches import PathPatch
     import matplotlib.pyplot as plt
-    
+
     def plotXKCD(grid):
         """ Generate an XKCD-styled line-drawn image of the maze. """
         H = len(grid)
         W = len(grid[0])
         h = (H - 1) // 2
         w = (W - 1) // 2
-    
+
         with plt.xkcd():
             fig = plt.figure()
             ax = fig.add_subplot(111)
-    
+
             vertices = []
             codes = []
-    
+
             # loop over horizontals
             for r,rr in enumerate(xrange(1, H, 2)):
                 run = []
@@ -206,7 +210,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                         use_run(codes, vertices, run)
                         run = []
                 use_run(codes, vertices, run)
-    
+
             # grab bottom side of last row
             run = []
             for c,cc in enumerate(xrange(1, W, 2)):
@@ -218,7 +222,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                     use_run(codes, vertices, run)
                     run = []
                 use_run(codes, vertices, run)
-    
+
             # loop over verticles
             for c,cc in enumerate(xrange(1, W, 2)):
                 run = []
@@ -231,7 +235,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                         use_run(codes, vertices, run)
                         run = []
                 use_run(codes, vertices, run)
-    
+
             # grab far right column
             run = []
             for r,rr in enumerate(xrange(1, H, 2)):
@@ -243,28 +247,28 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                     use_run(codes, vertices, run)
                     run = []
                 use_run(codes, vertices, run)
-    
+
             vertices = np.array(vertices, float)
             path = Path(vertices, codes)
-    
+
             # for a line maze
             pathpatch = PathPatch(path, facecolor='None', edgecolor='black', lw=2)
             ax.add_patch(pathpatch)
-    
+
             # hide axis and labels
             ax.axis('off')
             #ax.set_title('XKCD Maze')
             ax.dataLim.update_from_data_xy([(-0.1,-0.1), (h + 0.1, w + 0.1)])
             ax.autoscale_view()
-    
+
             plt.show()
-    
+
     def use_run(codes, vertices, run):
         """Helper method for plotXKCD. Updates path with newest run."""
         if run:
             codes += [Path.MOVETO] + [Path.LINETO] * (len(run) - 1)
             vertices += run
-    
+
     plotXKCD(m.grid)
 
 ![XKCD Example](images/xkcd_5x6.png?raw=true)

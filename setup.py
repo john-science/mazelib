@@ -4,31 +4,16 @@ The easiest solution it so install via PyPI:
 
     pip install mazelib
 
-But you can build mazelib locally using this file.
-
-First things first:
+But if you know setuputils/distutils, you can build locally:
 
     pip install -r requirements.txt
-
-To build mazelib and install the package on your computer:
-
     python setup.py install
 
-To build/install locally, not system-wide:
-
-    python setup.py install --inplace
-
-To force all Cython code to rebuild/reinstall locally:
-
-    python setup.py install --inplace -f
-
-To run the test suit:
+To run the test suite any of the following will work:
 
     python setup.py test
-
-Though I could not reproduce this, one user reported having to set an environment variable to install:
-
-    export CFLAGS="-I /usr/local/lib/python3.6/site-packages/numpy/core/include"
+    nosetests test/
+    pytest test/
 '''
 # non-controversial imports
 from setuptools import setup, find_packages
@@ -79,8 +64,10 @@ setup(
     description='A Python API for creating and solving mazes.',
     url='https://github.com/theJollySin/mazelib',
     author='John Stilley',
-    classifiers=['Development Status :: 3 - Alpha',
+    classifiers=['Development Status :: 4 - Beta',
                  'Topic :: Software Development :: Libraries :: Python Modules',
+                 'Topic :: Scientific/Engineering :: Mathematics',
+                 'Topic :: Games/Entertainment :: Puzzle Games',
                  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
                  'Programming Language :: Python :: 3.3',
                  'Programming Language :: Python :: 3.4',

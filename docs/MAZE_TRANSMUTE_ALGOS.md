@@ -5,6 +5,8 @@
 
 ## Cul-de-sac Filler
 
+![Cul-de-Sac Filler results](images/cul_de_sac_filling.png)
+
 ###### The Algorithm
 
 1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
@@ -23,6 +25,8 @@ This is a classic algorithm. However, it seems fairly slow by design. Still, if 
 
 ## Dead End Filler
 
+![Dead End Filler results](images/dead_end_steps.png)
+
 ###### The Algorithm
 
 1. Scan the maze in any order, looking for dead ends.
@@ -39,7 +43,7 @@ If you generate a maze which is just *all* loops (called a heavily braided maze)
 
 ## Perturbation
 
-> TODO: Image needed
+![Perturbation results](images/perturbation_sprial.png)
 
 ###### The Algorithm
 

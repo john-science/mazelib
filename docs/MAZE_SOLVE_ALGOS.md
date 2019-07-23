@@ -135,8 +135,9 @@ Though this version is optimized to improve speed, nothing could be done about t
 
 ## Trémaux's Algorithm
 
-WORK IN PROGRESS
+> COMING SOON: Not Yet Fully Implemented or Tested
 
+Feel free to volunteer to help implement Trémaux's!
 
 ## Vocabulary
 
