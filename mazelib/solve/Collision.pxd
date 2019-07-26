@@ -20,4 +20,4 @@ cdef class Collision(MazeSolveAlgo):
     cdef inline list _fix_collisions(self, list paths)
 
     @cython.locals(p=list)
-    cpdef list _fix_entrances(self, list paths)
+    cdef inline list _fix_entrances(self, list paths)

@@ -1,4 +1,3 @@
-
 from numpy.random import choice, shuffle
 # If the code is not Cython-compiled, we need to add some imports.
 try:

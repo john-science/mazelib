@@ -26,14 +26,14 @@ cdef class DungeonRooms(MazeGenAlgo):
 
 
     @cython.locals(i=cython.int, even_squares=list, possible_doors=list, odd_rows=list, odd_cols=list, door=tuple)
-    cpdef void _carve_door(self, tuple top_left, tuple bottom_right)
+    cdef inline void _carve_door(self, tuple top_left, tuple bottom_right)
 
 
     @cython.locals(current=tuple, unvisited_neighbors=list, neighbor=tuple)
     cdef inline void _walk(self, tuple start)
 
 
-    cpdef _hunt(self, int count)
+    cdef inline _hunt(self, int count)
 
 
     cdef inline tuple _hunt_random(self, int count)

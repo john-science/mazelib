@@ -1,5 +1,6 @@
 import numpy as np
 import unittest
+from mazelib.mazelib import Maze
 from mazelib.generate.AldousBroder import AldousBroder
 from mazelib.generate.BacktrackingGenerator import BacktrackingGenerator
 from mazelib.generate.BinaryTree import BinaryTree
@@ -14,10 +15,32 @@ from mazelib.generate.Prims import Prims
 from mazelib.generate.Sidewinder import Sidewinder
 from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.generate.Wilsons import Wilsons
-from mazelib.mazelib import Maze
 
 
 class GeneratorsTest(unittest.TestCase):
+
+    def test_abstract_constructor(self):
+        """ test the MazeGenAlgo constructor """
+        # example 1 of maze dimension definitions
+        m = Maze()
+        m.generator = Prims(3, 3)
+        self.assertEqual(m.generator.h, 3)
+        self.assertEqual(m.generator.w, 3)
+        self.assertEqual(m.generator.H, 7)
+        self.assertEqual(m.generator.W, 7)
+
+        # example 2 of maze dimension definitions
+        m.generator = Prims(24, 12)
+        self.assertEqual(m.generator.h, 24)
+        self.assertEqual(m.generator.w, 12)
+        self.assertEqual(m.generator.H, 49)
+        self.assertEqual(m.generator.W, 25)
+
+        # ensure assertions are failed when invalid maze dimensions are provided
+        self.assertRaises(AssertionError, Prims, 2, 2)
+        self.assertRaises(AssertionError, Prims, 0, 2)
+        self.assertRaises(AssertionError, Prims, -2, 3)
+        self.assertRaises(AssertionError, Prims, 224, -2)
 
     def test_aldous_broder(self):
         m = Maze()

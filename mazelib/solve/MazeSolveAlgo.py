@@ -1,4 +1,3 @@
-
 import abc
 from numpy.random import shuffle
 
