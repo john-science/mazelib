@@ -1,4 +1,3 @@
-
 from random import choice
 # If the code is not Cython-compiled, we need to add some imports.
 try:
@@ -22,7 +21,7 @@ class Tremaux(MazeSolveAlgo):
 
     Results
 
-    Find one non-optimal solution.
+    Finds one non-optimal solution.
     Works against imperfect mazes.
 
     Notes
@@ -48,7 +47,7 @@ class Tremaux(MazeSolveAlgo):
         while not self._within_one(solution[-1], self.end):
             ns = self._find_unblocked_neighbors(solution[-1])
 
-            # do no go where you've just been
+            # do not go where you've just been
             if len(ns) > 1 and len(solution) > 2:
                 if solution[-3] in ns:
                     ns.remove(solution[-3])
@@ -63,14 +62,14 @@ class Tremaux(MazeSolveAlgo):
         return [solution]
 
     def _visit(self, cell):
-        """Increment the number of times a cell has been visited."""
+        """ Increment the number of times a cell has been visited. """
         if cell not in self.visited_coords:
             self.visited_coords[cell] = 1
         else:
             self.visited_coords[cell] += 1
 
     def _get_visit_count(self, cell):
-        """How many times has a cell been visited?"""
+        """ How many times has a cell been visited? """
         if cell not in self.visited_coords:
             return 0
         else:
