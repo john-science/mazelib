@@ -3,10 +3,10 @@ from mazelib.solve.MazeSolveAlgo cimport MazeSolveAlgo
 
 
 cdef class Tremaux(MazeSolveAlgo):
-    cdef readonly dict visited_coords
+    cdef readonly dict visited_cells
 
 
-    @cython.locals(solution=list, current=tuple, ns=list, nxt=tuple)
+    @cython.locals(solution=list, ns=list, current=tuple, nxt=tuple)
     cpdef list _solve(self)
 
 
@@ -14,3 +14,7 @@ cdef class Tremaux(MazeSolveAlgo):
 
 
     cdef inline cython.int _get_visit_count(self, tuple cell)
+
+
+    @cython.locals(visit_counts=dict, neighbor=tuple, visit_count=tuple)
+    cdef inline tuple _what_next(self, list ns, list solution)
