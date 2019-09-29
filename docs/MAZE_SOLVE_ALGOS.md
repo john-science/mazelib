@@ -133,11 +133,28 @@ In CS terms, this is a Breadth-First Search algorithm. It finds all unique, non-
 
 Though this version is optimized to improve speed, nothing could be done about the fact that this algorithm uses substantially more memory than just the maze grid itself.
 
+
 ## Trémaux's Algorithm
 
-> COMING SOON: Not Yet Fully Implemented or Tested
+###### The Algorithm
 
-Feel free to volunteer to help implement Trémaux's!
+1) Every time you visit a cell, mark it once.
+2) When you hit a dead end, turn around and go back.
+3) When you hit a junction you haven't visited, pick a new passage at random.
+4) If you're walking down a new passage and hit a junction you have visited, treat it like a dead end and go back.
+5) If walking down a passage you have visited before (i.e. marked once) and you hit a junction, take any new passage available, otherwise take an old passage (i.e. marked once).
+6) When you finally reach the end, follow cells marked exactly once back to the start.
+7) If the Maze has no solution, you'll find yourself at the start with all cells marked twice.
+
+###### Results
+
+* Finds one non-optimal solution.
+* Works against imperfect mazes.
+
+###### Notes
+
+This Maze-solving method is designed to be used by a human inside the Maze.
+
 
 ## Vocabulary
 
