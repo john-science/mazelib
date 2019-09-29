@@ -16,5 +16,5 @@ cdef class Tremaux(MazeSolveAlgo):
     cdef inline cython.int _get_visit_count(self, tuple cell)
 
 
-    @cython.locals(visit_counts=dict, neighbor=tuple, visit_count=tuple)
+    @cython.locals(visit_counts=dict, neighbor=tuple, visit_count=int)
     cdef inline tuple _what_next(self, list ns, list solution)

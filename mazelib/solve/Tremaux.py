@@ -33,7 +33,6 @@ class Tremaux(MazeSolveAlgo):
         self.visited_cells = {}
 
     def _solve(self):
-        #raise NotImplementedError('This algorithm under development.')
         self.visited_cells = {}
         solution = []
 
@@ -65,10 +64,10 @@ class Tremaux(MazeSolveAlgo):
 
     def _visit(self, cell):
         """ Increment the number of times a cell has been visited. """
-        if cell not in self.visited_coords:
-            self.visited_coords[cell] = 0
+        if cell not in self.visited_cells:
+            self.visited_cells[cell] = 0
 
-        self.visited_coords[cell] += 1
+        self.visited_cells[cell] += 1
 
     def _get_visit_count(self, cell):
         """ How many times has a cell been visited?

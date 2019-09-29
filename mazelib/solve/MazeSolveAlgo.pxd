@@ -49,5 +49,5 @@ cdef class MazeSolveAlgo:
 
 
     @cython.locals(s=list)
-    cdef inline list prune_solutions(self, list solutions)
+    cpdef list prune_solutions(self, list solutions)
 
