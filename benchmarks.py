@@ -1,11 +1,12 @@
-
+''' The benchmarks below are useful for testing performance
+when making changes to the maze algorithms.
+'''
 from datetime import datetime
 from sysconfig import get_python_version
 from timeit import Timer
+from mazelib import __version__ as version
 
-''' The benchmarks below are useful for testing performance when
-making changes to the maze algorithms.
-'''
+# CONFIG
 SIZES = [5, 10, 25, 50, 100]
 ITERATIONS = [100, 50, 20, 5, 1]
 GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'HuntAndKill', 'Prims',
@@ -60,9 +61,9 @@ def print_benchmarks(times):
     '''
     print('\nmazelib benchmarking')
     print(datetime.now().strftime('%Y-%m-%d %H:%M'))
-    print('Python version: ' + get_python_version())
+    print('Python version: {0}'.format(get_python_version()))
+    print('mazelib version: {0}'.format(version))
     print('\nTotal Time (seconds): %.5f\n' % sum([sum(times_row) for times_row in times]))
-
     print('\nmaze size,' + ','.join([str(s) for s in SIZES]))
 
     row = -1
