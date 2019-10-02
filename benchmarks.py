@@ -1,20 +1,17 @@
-
+''' The benchmarks below are useful for testing performance
+when making changes to the maze algorithms.
+'''
 from datetime import datetime
 from sysconfig import get_python_version
 from timeit import Timer
+from mazelib import __version__ as version
 
-''' The reason that this particular combination of runs was chosen is
-not meant to be obvious.
-A standard set of runs were designed to test the mazelib library
-in the most typical use-case of the target audience.
-The only really important part of this benchmark is that there is a
-standard basis for comparison.
-'''
-SIZES = [5, 10, 25, 50, 100, 200]
-ITERATIONS = [100, 100, 100, 50, 1, 1]
-GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'Division', 'GrowingTree',
-              'HuntAndKill', 'Prims', 'Sidewinder', 'TrivialMaze', 'Wilsons']
-SOLVERS = ['BacktrackingSolver', 'Collision']
+# CONFIG
+SIZES = [5, 10, 25, 50, 100]
+ITERATIONS = [100, 50, 20, 5, 1]
+GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'HuntAndKill', 'Prims',
+              'Sidewinder', 'TrivialMaze', 'Wilsons']
+SOLVERS = ['Collision', 'Tremaux']
 
 
 def main():
@@ -64,9 +61,9 @@ def print_benchmarks(times):
     '''
     print('\nmazelib benchmarking')
     print(datetime.now().strftime('%Y-%m-%d %H:%M'))
-    print('Python version: ' + get_python_version())
+    print('Python version: {0}'.format(get_python_version()))
+    print('mazelib version: {0}'.format(version))
     print('\nTotal Time (seconds): %.5f\n' % sum([sum(times_row) for times_row in times]))
-
     print('\nmaze size,' + ','.join([str(s) for s in SIZES]))
 
     row = -1
