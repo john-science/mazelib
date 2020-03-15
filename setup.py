@@ -76,6 +76,7 @@ setup(
                  'Programming Language :: Python :: 3.6',
                  'Programming Language :: Python :: 3.7',
                  'Natural Language :: English'],
+    python_requires='>=3.3, !=3.8.* , !=3.9.* ',
     license='GPLv3',
     long_description='A Python library for creating and solving mazes.',
     long_description_content_type='text/markdown',
