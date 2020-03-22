@@ -1,4 +1,5 @@
 # mazelib
+[![Build Status](https://travis-ci.com/theJollySin/mazelib.svg?branch=master)](https://travis-ci.com/theJollySin/mazelib)
 
 #### A Python API for creating and solving mazes.
 
