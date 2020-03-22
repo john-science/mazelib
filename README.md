@@ -1,5 +1,6 @@
 # mazelib
 [![Build Status](https://travis-ci.com/theJollySin/mazelib.svg?branch=master)](https://travis-ci.com/theJollySin/mazelib)
+[![codecov](https://codecov.io/gh/theJollySin/mazelib/branch/master/graph/badge.svg)](https://codecov.io/gh/theJollySin/mazelib)
 
 #### A Python API for creating and solving mazes.
 
