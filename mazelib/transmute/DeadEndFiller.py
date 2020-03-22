@@ -1,10 +1,6 @@
-
 from random import choice, shuffle
 # If the code is not Cython-compiled, we need to add some imports.
-try:
-    from cython import compiled
-except ModuleNotFoundError:
-    compiled = False
+from cython import compiled
 if not compiled:
     from mazelib.transmute.MazeTransmuteAlgo import MazeTransmuteAlgo
 
