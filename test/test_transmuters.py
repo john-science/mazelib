@@ -74,7 +74,6 @@ class SolversTest(unittest.TestCase):
         m.generator = TrivialMaze(4, 5)
         m.generate()
 
-        #m = Maze()
         m.transmuters = [Perturbation()]
         m.transmute()
 
@@ -83,9 +82,6 @@ class SolversTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
 
-def main():
-    unittest.main()
-
-
 if __name__ == '__main__':
-    main()
+    unittest.main()  #argv=['first-arg-is-ignored'], exit=False)
+

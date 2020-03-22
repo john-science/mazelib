@@ -47,7 +47,7 @@ cdef class DungeonRooms(MazeGenAlgo):
     cdef inline tuple _choose_start(self)
 
 
-    cdef inline void _reconnect_maze(self)
+    cpdef void reconnect_maze(self)
 
 
     @cython.locals(passages=list, r=cython.int, c=cython.int, ns=list, current=set, found=bint, i=cython.int,

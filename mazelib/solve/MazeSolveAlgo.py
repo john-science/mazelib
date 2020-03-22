@@ -31,23 +31,6 @@ class MazeSolveAlgo:
     common to many maze-solving algorithms.
     """
 
-    def _find_neighbors(self, posi, is_wall=False):
-        """ Find all the grid neighbors of the current position; wall or open passage. """
-        r, c = posi
-        ns = []
-
-        if r > 1 and self.grid[r-2][c] == is_wall:
-            ns.append((r-2, c))
-        if r < self.grid.shape[0]-2 and self.grid[r+2][c] == is_wall:
-            ns.append((r+2, c))
-        if c > 1 and self.grid[r][c-2] == is_wall:
-            ns.append((r, c-2))
-        if c < self.grid.shape[1]-2 and self.grid[r, c+2] == is_wall:
-            ns.append((r, c+2))
-
-        shuffle(ns)
-        return ns
-
     def _find_unblocked_neighbors(self, posi):
         """ Find all the grid neighbors of the current position; visited, or not. """
         r, c = posi

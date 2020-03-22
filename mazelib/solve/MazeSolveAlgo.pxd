@@ -19,10 +19,6 @@ cdef class MazeSolveAlgo:
 
 
     @cython.locals(r=cython.int, c=cython.int, ns=list)
-    cdef inline list _find_neighbors(self, tuple posi, bint is_wall=*)
-
-
-    @cython.locals(r=cython.int, c=cython.int, ns=list)
     cdef inline list _find_unblocked_neighbors(self, tuple posi)
 
 

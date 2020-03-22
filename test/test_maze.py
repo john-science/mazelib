@@ -7,32 +7,32 @@ from mazelib.mazelib import Maze
 
 
 class MazeTest(unittest.TestCase):
-    
+
     def _on_edge(self, grid, cell):
         """ test helper method to determine if a point is on the edge of a maze
         """
         r, c = cell
-        
+
         if r == 0 or r == (grid.shape[0] - 1):
             return True
         elif c == 0 or c == (grid.shape[1] - 1):
             return True
-        
+
         return False
 
     def _num_turns(self, path):
         """ count the number of turns in a path """
         if len(path) < 3:
             return 0
-    
+
         num = 0
-    
+
         for i in range(1, len(path)-1):
             same_col = path[i-1][0] == path[i][0] == path[i+1][0]
             same_row = path[i-1][1] == path[i][1] == path[i+1][1]
             if not same_row and not same_col:
                 num += 1
-    
+
         return num
 
     def test_grid_size(self):
@@ -140,13 +140,14 @@ class MazeTest(unittest.TestCase):
                            [1, 1, 1, 1, 1, 1, 1]])
         m.start = (5, 0)
         m.end = (3, 6)
+        m.solutions = [[(5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (4, 5), (3, 5)]]
 
         s = str(m).split('\n')
-        
+
         self.assertEqual(s[0].strip(), "#######")
         self.assertEqual(s[2].strip(), "# # ###")
-        self.assertEqual(s[3].strip(), "# #   E")
-        self.assertEqual(s[5].strip(), "S     #")
+        self.assertEqual(s[3].strip(), "# #  +E")
+        self.assertEqual(s[5].strip(), "S+++++#")
         self.assertEqual(s[6].strip(), "#######")
 
     def test_invalid_inputs(self):

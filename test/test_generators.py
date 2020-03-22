@@ -101,6 +101,21 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(boundary_is_solid(m.grid))
         self.assertTrue(all_passages_open(m.grid))
 
+    def test_dungeon_reconnect_maze(self):
+        g = np.ones((7, 7), dtype=np.int8)
+        g[1] = [1,0,0,0,1,0,1]
+        g[2] = [1,0,1,1,1,0,1]
+        g[3] = [1,0,0,0,1,0,1]
+        g[4] = [1,0,0,0,1,0,1]
+        g[5] = [1,0,0,0,1,0,1]
+
+        m = Maze()
+        m.generator = DungeonRooms(4, 4, grid=g)
+        m.generator.reconnect_maze()
+
+        self.assertTrue(boundary_is_solid(m.generator.grid))
+        self.assertTrue(all_passages_open(m.generator.grid))
+
     def test_dungeon_rooms_random_rooms(self):
         m = Maze()
         m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='random')
@@ -264,9 +279,6 @@ def all_corners_complete(grid):
     return True
 
 
-def main():
-    unittest.main()
-
-
 if __name__ == '__main__':
-    main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+

@@ -40,7 +40,7 @@ class DungeonRooms(MazeGenAlgo):
             w = w0
             self.backup_grid = np.empty((2 * h + 1, 2 * w + 1), dtype=np.int8)
             self.backup_grid.fill(1)
-        self.grid = None
+        self.grid = grid
         self.rooms = rooms
         super(DungeonRooms, self).__init__(h, w)
 
@@ -67,7 +67,7 @@ class DungeonRooms(MazeGenAlgo):
             num_trials += 1
 
         # fix any unconnected wall sections
-        self._reconnect_maze()
+        self.reconnect_maze()
 
         return self.grid
 
@@ -182,7 +182,7 @@ class DungeonRooms(MazeGenAlgo):
 
         return current
 
-    def _reconnect_maze(self):
+    def reconnect_maze(self):
         """ If a maze is not fully connected, open up walls until it is. """
         self._fix_disjoint_passages(self._find_all_passages())
 

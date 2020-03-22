@@ -239,9 +239,6 @@ class SolversTester(unittest.TestCase):
                     self.assertTrue(self.solution_is_sane(sol))
 
 
-def main():
-    unittest.main()
-
-
 if __name__ == '__main__':
-    main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+
