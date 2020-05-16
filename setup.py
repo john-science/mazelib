@@ -14,6 +14,7 @@ To run the test suite any of the following will work:
     python setup.py test
     nosetests test/
     pytest test/
+    make test
 '''
 # non-controversial imports
 from setuptools import setup, find_packages
@@ -28,8 +29,7 @@ try:
     from distutils.extension import Extension
     from Cython.Distutils import build_ext
     from Cython.Build import cythonize
-    cmdclass={'install': install,
-              'build_ext': build_ext}
+    cmdclass={'install': install, 'build_ext': build_ext}
     has_cython = True
 except:
     print('WARNING: You do not have Cython installed. Installation preceeding without Cython.')
