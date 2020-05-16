@@ -70,14 +70,13 @@ setup(
                  'Topic :: Scientific/Engineering :: Mathematics',
                  'Topic :: Games/Entertainment :: Puzzle Games',
                  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-                 'Programming Language :: Python :: 3.3',
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
                  'Programming Language :: Python :: 3.7',
                  'Programming Language :: Python :: 3.8',
                  'Natural Language :: English'],
-    python_requires='>=3.3, <3.9 ',
+    python_requires='>=3.4, <3.9 ',
     license='GPLv3',
     long_description='A Python library for creating and solving mazes.',
     long_description_content_type='text/markdown',
@@ -89,3 +88,4 @@ setup(
     install_requires=["cython>=0.27.0,<=0.29.16",
                       "numpy>=1.13.1,<=1.16.4"],
     zip_safe=False)
+
