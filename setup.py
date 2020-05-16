@@ -39,7 +39,7 @@ except:
 try:
     import numpy as np
 except:
-    print('WARNING: You do not have NumPy installed. Installation preceeding without Cython.')
+    print('WARNING: You do not have NumPy installed. Installation preceeding without NumPy.')
     has_cython = False
 
 # find all the extension modules in the project, for a Cython build
