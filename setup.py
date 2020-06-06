@@ -81,6 +81,7 @@ setup(
     long_description='A Python library for creating and solving mazes.',
     long_description_content_type='text/markdown',
     packages=find_packages(),
+    package_data={'mazelib': ['generate/*.pxd', 'solve/*.pxd', 'transmute/*.pxd']},
     ext_modules=ext_modules_list,
     platforms='any',
     test_suite="test",
