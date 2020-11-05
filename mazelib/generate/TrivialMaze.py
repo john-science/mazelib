@@ -20,6 +20,15 @@ class TrivialMaze(MazeGenAlgo):
     """
 
     def __init__(self, h, w, maze_type='spiral'):
+        """
+        Initialize a texture.
+
+        Args:
+            self: (todo): write your description
+            h: (int): write your description
+            w: (int): write your description
+            maze_type: (str): write your description
+        """
         if maze_type.lower().strip() == 'serpentine':
             self.maze_type = SERPENTINE
         else:
@@ -28,6 +37,12 @@ class TrivialMaze(MazeGenAlgo):
         super(TrivialMaze, self).__init__(h, w)
 
     def generate(self):
+        """
+        Generate a sparse matrix.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

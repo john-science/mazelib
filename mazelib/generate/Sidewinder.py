@@ -27,10 +27,25 @@ class Sidewinder(MazeGenAlgo):
     """
 
     def __init__(self, h, w, skew=0.5):
+        """
+        Initialize the superclassifier.
+
+        Args:
+            self: (todo): write your description
+            h: (int): write your description
+            w: (int): write your description
+            skew: (list): write your description
+        """
         super(Sidewinder, self).__init__(h, w)
         self.skew = skew
 
     def generate(self):
+        """
+        Generate a set of data.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

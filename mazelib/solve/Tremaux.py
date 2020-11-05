@@ -27,9 +27,21 @@ class Tremaux(MazeSolveAlgo):
     This Maze-solving method is designed to be used by a human inside the Maze.
     """
     def __init__(self):
+        """
+        Initialize all cells
+
+        Args:
+            self: (todo): write your description
+        """
         self.visited_cells = {}
 
     def _solve(self):
+        """
+        Solve a solution solution.
+
+        Args:
+            self: (todo): write your description
+        """
         self.visited_cells = {}
         solution = []
 

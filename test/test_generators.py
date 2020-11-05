@@ -43,6 +43,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertRaises(AssertionError, Prims, 224, -2)
 
     def test_aldous_broder(self):
+        """
+        Generate all cross - test cross - test results
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = AldousBroder(4, 5)
         m.generate()
@@ -52,6 +58,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_backtracking_generator(self):
+        """
+        Generate a generator elements
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = BacktrackingGenerator(4, 5)
         m.generate()
@@ -61,6 +73,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_binary_tree(self):
+        """
+        Generate a binary tree.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = BinaryTree(4, 5)
         m.generate()
@@ -70,6 +88,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_cellular_automaton(self):
+        """
+        Test if the cellular cellular.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = CellularAutomaton(4, 5)
         m.generate()
@@ -78,6 +102,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_passages_open(m.grid))
 
     def test_division(self):
+        """
+        Test if all the division
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Division(4, 5)
         m.generate()
@@ -87,6 +117,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_dungeon_rooms_grid(self):
+        """
+        Generate the dungeon of all the grid.
+
+        Args:
+            self: (todo): write your description
+        """
         g = np.ones((7, 7), dtype=np.int8)
         g[1] = [1,1,1,1,1,1,1]
         g[2] = [1,1,1,1,1,1,1]
@@ -102,6 +138,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_passages_open(m.grid))
 
     def test_dungeon_reconnect_maze(self):
+        """
+        Performats the dungeon.
+
+        Args:
+            self: (todo): write your description
+        """
         g = np.ones((7, 7), dtype=np.int8)
         g[1] = [1,0,0,0,1,0,1]
         g[2] = [1,0,1,1,1,0,1]
@@ -117,6 +159,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_passages_open(m.generator.grid))
 
     def test_dungeon_rooms_random_rooms(self):
+        """
+        Generate a random rooms.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='random')
         m.generate()
@@ -125,6 +173,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_passages_open(m.grid))
 
     def test_dungeon_rooms_serpentine_rooms(self):
+        """
+        Generate all rooms in the database.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='serpentine')
         m.generate()
@@ -133,6 +187,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_passages_open(m.grid))
 
     def test_ellers(self):
+        """
+        Generate all ellipses
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Ellers(4, 5)
         m.generate()
@@ -142,6 +202,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_growing_tree(self):
+        """
+        Generate the test tree
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = GrowingTree(4, 5)
         m.generate()
@@ -151,6 +217,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_hunt_and_kill_random_order(self):
+        """
+        Kill random random random random random and random.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = HuntAndKill(4, 5, 'random')
         m.generate()
@@ -160,6 +232,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_hunt_and_kill_serpentine_order(self):
+        """
+        Test if the hunt has been placed.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = HuntAndKill(4, 5, 'serpentine')
         m.generate()
@@ -169,6 +247,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_kruskal(self):
+        """
+        Test if kruskal kruskal kruskal.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Kruskal(4, 5)
         m.generate()
@@ -178,6 +262,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_prims(self):
+        """
+        Check if all generators of the same grid
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Prims(4, 5)
         m.generate()
@@ -187,6 +277,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_sidewinder(self):
+        """
+        Test if all the last day
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Sidewinder(4, 5)
         m.generate()
@@ -196,6 +292,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_trivial_maze_spiral(self):
+        """
+        Make sure all the states in the best match
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = TrivialMaze(4, 5)
         m.generate()
@@ -206,6 +308,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_trivial_maze_serpentine(self):
+        """
+        Generate all sequences of the same sequences in - place.
+
+        Args:
+            self: (todo): write your description
+        """
         # run this test enough times to trip the different skewness parameters
         for _ in range(10):
             m = Maze()
@@ -217,6 +325,12 @@ class GeneratorsTest(unittest.TestCase):
             self.assertTrue(all_corners_complete(m.grid))
 
     def test_wilsons_random_order(self):
+        """
+        Test if a random random random population order.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Wilsons(4, 5, hunt_order='random')
         m.generate()
@@ -226,6 +340,12 @@ class GeneratorsTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_wilsons_serpentine_order(self):
+        """
+        Test if all milsine order is_wils.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Wilsons(4, 5, hunt_order='serpentine')
         m.generate()

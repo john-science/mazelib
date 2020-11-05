@@ -27,6 +27,15 @@ class HuntAndKill(MazeGenAlgo):
     """
 
     def __init__(self, w, h, hunt_order='random'):
+        """
+        Initialize hunt
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            hunt_order: (str): write your description
+        """
         super(HuntAndKill, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
@@ -36,6 +45,12 @@ class HuntAndKill(MazeGenAlgo):
             self.ho = RANDOM
 
     def generate(self):
+        """
+        Generate a random grid.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

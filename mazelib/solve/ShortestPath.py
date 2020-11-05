@@ -17,6 +17,12 @@ class ShortestPath(MazeSolveAlgo):
     Find all unique solutions. Works against imperfect mazes.
     """
     def _solve(self):
+        """
+        Api : math : class : c.
+
+        Args:
+            self: (todo): write your description
+        """
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.start)

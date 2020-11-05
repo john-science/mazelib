@@ -12,6 +12,15 @@ class BinaryTree(MazeGenAlgo):
     """
 
     def __init__(self, w, h, skew=None):
+        """
+        Initialize a h w and w.
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            skew: (list): write your description
+        """
         super(BinaryTree, self).__init__(w, h)
         skewes = {'NW': [(1, 0), (0, -1)],
                   'NE': [(1, 0), (0, 1)],
@@ -24,6 +33,12 @@ class BinaryTree(MazeGenAlgo):
             self.skew = skewes[key]
 
     def generate(self):
+        """
+        Generate a grid of the grid
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid, with walls
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

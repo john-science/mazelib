@@ -12,6 +12,12 @@ class BacktrackingSolver(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """
+        Solve the solution solution.
+
+        Args:
+            self: (todo): write your description
+        """
         solution = []
 
         # a first move has to be made

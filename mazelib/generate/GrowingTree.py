@@ -23,10 +23,25 @@ class GrowingTree(MazeGenAlgo):
     """
 
     def __init__(self, w, h, backtrack_chance=1.0):
+        """
+        Initialize the backtrack.
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            backtrack_chance: (todo): write your description
+        """
         super(GrowingTree, self).__init__(w, h)
         self.backtrack_chance = backtrack_chance
 
     def generate(self):
+        """
+        Generate a set of the graph
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

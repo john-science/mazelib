@@ -14,6 +14,12 @@ class CuldeSacFiller(MazeTransmuteAlgo):
     """
 
     def _transmute(self):
+        """
+        Transmute the grid to the grid.
+
+        Args:
+            self: (todo): write your description
+        """
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
                 if (r, c) in (self.start, self.end):

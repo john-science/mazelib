@@ -8,6 +8,14 @@ class MazeGenAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
+        """
+        Initialize h w h w.
+
+        Args:
+            self: (todo): write your description
+            h: (int): write your description
+            w: (int): write your description
+        """
         assert (w >= 3 and h >= 3), 'Mazes cannot be smaller than 3x3.'
         self.h = h
         self.w = w
@@ -16,6 +24,12 @@ class MazeGenAlgo:
 
     @abc.abstractmethod
     def generate(self):
+        """
+        Generate a new instance.
+
+        Args:
+            self: (todo): write your description
+        """
         return None
 
     """ All of the methods below this are helper methods,

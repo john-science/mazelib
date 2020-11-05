@@ -17,6 +17,12 @@ class ShortestPaths(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """
+        Solve the solution.
+
+        Args:
+            self: (todo): write your description
+        """
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.end)

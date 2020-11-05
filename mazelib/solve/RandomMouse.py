@@ -10,6 +10,12 @@ class RandomMouse(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """
+        Solve a solution.
+
+        Args:
+            self: (todo): write your description
+        """
         solution = []
 
         # a first move has to be made

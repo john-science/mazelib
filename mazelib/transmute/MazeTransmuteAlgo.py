@@ -6,11 +6,26 @@ class MazeTransmuteAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
+        """
+        Initialize the game.
+
+        Args:
+            self: (todo): write your description
+        """
         self.grid = None
         self.start = None
         self.end = None
 
     def transmute(self, grid, start, end):
+        """
+        Transmute a transmute.
+
+        Args:
+            self: (todo): write your description
+            grid: (array): write your description
+            start: (todo): write your description
+            end: (array): write your description
+        """
         self.grid = grid
         self.start = start
         self.end = end
@@ -18,6 +33,12 @@ class MazeTransmuteAlgo:
 
     @abc.abstractmethod
     def _transmute(self):
+        """
+        Transmute the given transaction.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     """

@@ -8,6 +8,12 @@ class Maze(object):
     """
 
     def __init__(self):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+        """
         self.generator = None
         self.grid = None
         self.start = None

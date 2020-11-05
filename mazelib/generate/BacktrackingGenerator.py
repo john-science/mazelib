@@ -17,9 +17,23 @@ class BacktrackingGenerator(MazeGenAlgo):
     """
 
     def __init__(self, w, h):
+        """
+        Initialize the underlying h.
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+        """
         super(BacktrackingGenerator, self).__init__(w, h)
 
     def generate(self):
+        """
+        Generate a list of the grid.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid, with walls
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

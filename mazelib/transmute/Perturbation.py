@@ -26,11 +26,25 @@ class Perturbation(MazeTransmuteAlgo):
     """
 
     def __init__(self, repeat=1, new_walls=1):
+        """
+        Initialize a new pipe.
+
+        Args:
+            self: (todo): write your description
+            repeat: (int): write your description
+            new_walls: (todo): write your description
+        """
         self.repeat = repeat
         self.new_walls = new_walls
         super(Perturbation, self).__init__()
 
     def _transmute(self):
+        """
+        Transmute the pool.
+
+        Args:
+            self: (todo): write your description
+        """
         for i in range(self.repeat):
             # Add a small number of random walls, blocking current passages
             for j in range(self.new_walls):

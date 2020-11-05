@@ -20,6 +20,15 @@ class Wilsons(MazeGenAlgo):
     """
 
     def __init__(self, w, h, hunt_order='random'):
+        """
+        Initialize hunt hunt
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            hunt_order: (str): write your description
+        """
         super(Wilsons, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
@@ -29,6 +38,12 @@ class Wilsons(MazeGenAlgo):
             self._hunt_order = RANDOM
 
     def generate(self):
+        """
+        Generate a random grid and returns.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

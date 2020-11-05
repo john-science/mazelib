@@ -19,6 +19,13 @@ class Chain(MazeSolveAlgo):
             the maze is unsolvable.
     """
     def __init__(self, turn='right'):
+        """
+        Initialize the lines.
+
+        Args:
+            self: (todo): write your description
+            turn: (int): write your description
+        """
         # turn can take on values 'left' or 'right'
         if turn == 'left':
             self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
@@ -26,6 +33,12 @@ class Chain(MazeSolveAlgo):
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def _solve(self):
+        """
+        Solve a solution.
+
+        Args:
+            self: (todo): write your description
+        """
         guiding_line = self._draw_guiding_line()
         len_guiding_line = len(guiding_line)
 

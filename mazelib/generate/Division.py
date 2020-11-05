@@ -20,9 +20,23 @@ class Division(MazeGenAlgo):
     """
 
     def __init__(self, h, w):
+        """
+        Initialize the underlying h.
+
+        Args:
+            self: (todo): write your description
+            h: (int): write your description
+            w: (int): write your description
+        """
         super(Division, self).__init__(h, w)
 
     def generate(self):
+        """
+        Generate a list of positions.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(0)

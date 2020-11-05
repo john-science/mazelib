@@ -16,10 +16,23 @@ class DeadEndFiller(MazeTransmuteAlgo):
     """
 
     def __init__(self, iterations=1):
+        """
+        Initialize iterations.
+
+        Args:
+            self: (todo): write your description
+            iterations: (todo): write your description
+        """
         self.iterations = int(iterations) if iterations > 0 else 100
         super(DeadEndFiller, self).__init__()
 
     def _transmute(self):
+        """
+        Transmute a transmute.
+
+        Args:
+            self: (todo): write your description
+        """
         # make sure we don't block off the entrances
         r, c = self.start
         start_save = self.grid[r, c]

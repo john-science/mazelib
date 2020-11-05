@@ -18,6 +18,12 @@ class Collision(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """
+        Solve the linear system.
+
+        Args:
+            self: (todo): write your description
+        """
         # deal with the case where the start is on the edge
         start = self.start
         if self._on_edge(self.start):

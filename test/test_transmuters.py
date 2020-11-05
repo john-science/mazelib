@@ -32,6 +32,12 @@ class SolversTest(unittest.TestCase):
         return g
 
     def test_cul_de_sac_filler(self):
+        """
+        Generate the test test for each test is_corn.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -48,6 +54,12 @@ class SolversTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_dead_end_filler(self):
+        """
+        Test for dead dead dead dead dead dead.
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -70,6 +82,12 @@ class SolversTest(unittest.TestCase):
         self.assertTrue(all_corners_complete(m.grid))
 
     def test_perturbation(self):
+        """
+        Generate all massers
+
+        Args:
+            self: (todo): write your description
+        """
         m = Maze()
         m.generator = TrivialMaze(4, 5)
         m.generate()

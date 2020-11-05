@@ -19,11 +19,27 @@ class Ellers(MazeGenAlgo):
     """
 
     def __init__(self, w, h, xskew=0.5, yskew=0.5):
+        """
+        Initialize the state
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            xskew: (list): write your description
+            yskew: (list): write your description
+        """
         super(Ellers, self).__init__(w, h)
         self.xskew = 0.0 if xskew < 0.0 else 1.0 if xskew > 1.0 else xskew
         self.yskew = 0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
 
     def generate(self):
+        """
+        Generate a set of sets
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid, with walls
         sets = np.empty((self.H, self.W), dtype=np.int8)
         sets.fill(-1)

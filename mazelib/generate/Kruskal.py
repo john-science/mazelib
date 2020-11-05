@@ -10,9 +10,23 @@ if not compiled:
 class Kruskal(MazeGenAlgo):
 
     def __init__(self, h, w):
+        """
+        Initialize hrusk
+
+        Args:
+            self: (todo): write your description
+            h: (int): write your description
+            w: (int): write your description
+        """
         super(Kruskal, self).__init__(h, w)
 
     def generate(self):
+        """
+        Generate the graph.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

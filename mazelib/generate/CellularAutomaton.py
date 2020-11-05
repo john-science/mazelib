@@ -18,11 +18,27 @@ class CellularAutomaton(MazeGenAlgo):
     """
 
     def __init__(self, w, h, complexity=1.0, density=1.0):
+        """
+        Initialize the underlying gradient.
+
+        Args:
+            self: (todo): write your description
+            w: (int): write your description
+            h: (int): write your description
+            complexity: (todo): write your description
+            density: (todo): write your description
+        """
         super(CellularAutomaton, self).__init__(w, h)
         self.complexity = complexity
         self.density = density
 
     def generate(self):
+        """
+        Generate a 2d grid.
+
+        Args:
+            self: (todo): write your description
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(0)

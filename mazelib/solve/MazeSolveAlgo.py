@@ -6,10 +6,28 @@ class MazeSolveAlgo:
     __metaclass__ = abc.ABCMeta
 
     def solve(self, grid, start, end):
+        """
+        Solve the given start and end times.
+
+        Args:
+            self: (todo): write your description
+            grid: (array): write your description
+            start: (array): write your description
+            end: (array): write your description
+        """
         self._solve_preprocessor(grid, start, end)
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
+        """
+        Solve the preprocessor.
+
+        Args:
+            self: (todo): write your description
+            grid: (array): write your description
+            start: (todo): write your description
+            end: (todo): write your description
+        """
         self.grid = grid.copy()
         self.start = start
         self.end = end
@@ -24,6 +42,12 @@ class MazeSolveAlgo:
 
     @abc.abstractmethod
     def _solve(self):
+        """
+        Solve the given module.
+
+        Args:
+            self: (todo): write your description
+        """
         return None
 
     """

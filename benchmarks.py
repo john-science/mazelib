@@ -15,6 +15,11 @@ SOLVERS = ['Collision', 'Tremaux']
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     times = run_benchmarks()
     print_benchmarks(times)
 

@@ -27,6 +27,17 @@ class DungeonRooms(MazeGenAlgo):
     """
 
     def __init__(self, h0, w0, rooms=None, grid=None, hunt_order='random'):
+        """
+        Initialize the hunt.
+
+        Args:
+            self: (todo): write your description
+            h0: (int): write your description
+            w0: (int): write your description
+            rooms: (todo): write your description
+            grid: (array): write your description
+            hunt_order: (str): write your description
+        """
         # if the user provides a grid, that overrides h & w
         if grid is not None:
             h = (grid.shape[0] - 1) // 2
@@ -48,6 +59,12 @@ class DungeonRooms(MazeGenAlgo):
             self._hunt_order = RANDOM
 
     def generate(self):
+        """
+        Generate a new grid
+
+        Args:
+            self: (todo): write your description
+        """
         # define grid and rooms
         self.grid = self.backup_grid.copy()
         self._carve_rooms(self.rooms)

@@ -36,6 +36,12 @@ class MazeTest(unittest.TestCase):
         return num
 
     def test_grid_size(self):
+        """
+        Generate a new grid size.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -49,6 +55,12 @@ class MazeTest(unittest.TestCase):
         self.assertEqual(m.grid.shape[1], W)
 
     def test_inner_entrances(self):
+        """
+        Determine the inner inner inner neighbors.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
 
@@ -61,6 +73,12 @@ class MazeTest(unittest.TestCase):
         self.assertFalse(self._on_edge(m.grid, m.end))
 
     def test_outer_entrances(self):
+        """
+        Generate the outer hyd hyd hyd hydrograph.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
 
@@ -73,6 +91,12 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(self._on_edge(m.grid, m.end))
 
     def test_generator_wipe(self):
+        """
+        Generate a test generator.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
 
@@ -87,6 +111,12 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(m.solutions is None)
 
     def test_monte_carlo(self):
+        """
+        Test if the monte convex.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -106,6 +136,12 @@ class MazeTest(unittest.TestCase):
         self.assertTrue(self._on_edge(m.grid, m.end))
 
     def test_monte_carlo_reducer(self):
+        """
+        Test if the monte convex hull.
+
+        Args:
+            self: (todo): write your description
+        """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -176,6 +212,11 @@ class MazeTest(unittest.TestCase):
 
 
 def main():
+    """
+    Main entry point.
+
+    Args:
+    """
     unittest.main()
 
 
