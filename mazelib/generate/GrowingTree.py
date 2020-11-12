@@ -27,6 +27,11 @@ class GrowingTree(MazeGenAlgo):
         self.backtrack_chance = backtrack_chance
 
     def generate(self):
+        """ highest-level method that implements the maze-generating algorithm
+
+        Returns:
+            np.array: returned matrix
+        """
         # create empty grid
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)

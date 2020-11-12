@@ -24,6 +24,11 @@ class Ellers(MazeGenAlgo):
         self.yskew = 0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
 
     def generate(self):
+        """ highest-level method that implements the maze-generating algorithm
+
+        Returns:
+            np.array: returned matrix
+        """
         # create empty grid, with walls
         sets = np.empty((self.H, self.W), dtype=np.int8)
         sets.fill(-1)

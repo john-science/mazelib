@@ -48,6 +48,11 @@ class DungeonRooms(MazeGenAlgo):
             self._hunt_order = RANDOM
 
     def generate(self):
+        """ highest-level method that implements the maze-generating algorithm
+
+        Returns:
+            np.array: returned matrix
+        """
         # define grid and rooms
         self.grid = self.backup_grid.copy()
         self._carve_rooms(self.rooms)

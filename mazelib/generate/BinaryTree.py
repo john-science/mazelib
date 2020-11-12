@@ -8,8 +8,7 @@ if not compiled:
 
 
 class BinaryTree(MazeGenAlgo):
-    """ For every cell in the grid, knock down a wall either North or West.
-    """
+    """ For every cell in the grid, knock down a wall either North or West. """
 
     def __init__(self, w, h, skew=None):
         super(BinaryTree, self).__init__(w, h)
@@ -24,6 +23,11 @@ class BinaryTree(MazeGenAlgo):
             self.skew = skewes[key]
 
     def generate(self):
+        """ highest-level method that implements the maze-generating algorithm
+
+        Returns:
+            np.array: returned matrix
+        """
         # create empty grid, with walls
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(1)
