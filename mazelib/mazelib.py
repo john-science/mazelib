@@ -7,7 +7,7 @@ class Maze(object):
     as well as the start and end points.
     """
 
-    def __init__(self):
+    def __init__(self, seed=None):
         self.generator = None
         self.grid = None
         self.start = None
@@ -16,6 +16,21 @@ class Maze(object):
         self.solver = None
         self.solutions = None
         self.prune = True
+        Maze.set_seed(seed)
+
+    @staticmethod
+    def set_seed(seed):
+        """ helper method to set the random seeds for all the random seed for all the random libraries we are using
+
+        Args:
+            seed (int): random seed number
+        Returns: None
+        """
+        if seed is not None:
+            import random
+            random.seed(seed)
+            import numpy as np
+            np.random.seed(seed)
 
     def generate(self):
         """ public method to generate a new maze, and handle some clean-up

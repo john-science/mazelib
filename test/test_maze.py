@@ -1,4 +1,3 @@
-
 import numpy as np
 import unittest
 from mazelib.generate.Prims import Prims
@@ -9,8 +8,7 @@ from mazelib.mazelib import Maze
 class MazeTest(unittest.TestCase):
 
     def _on_edge(self, grid, cell):
-        """ test helper method to determine if a point is on the edge of a maze
-        """
+        """ helper method to determine if a point is on the edge of a maze """
         r, c = cell
 
         if r == 0 or r == (grid.shape[0] - 1):
@@ -21,7 +19,7 @@ class MazeTest(unittest.TestCase):
         return False
 
     def _num_turns(self, path):
-        """ count the number of turns in a path """
+        """ helper method to count the number of turns in a path """
         if len(path) < 3:
             return 0
 
@@ -36,6 +34,7 @@ class MazeTest(unittest.TestCase):
         return num
 
     def test_grid_size(self):
+        """ Test that the array representation for the maze is the exact size we want it to be """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -45,10 +44,11 @@ class MazeTest(unittest.TestCase):
         m.generator = Prims(h, w)
         m.generate()
 
-        self.assertEqual(m.grid.shape[0], H)
-        self.assertEqual(m.grid.shape[1], W)
+        assert m.grid.shape[0] == H
+        assert m.grid.shape[1] == W
 
     def test_inner_entrances(self):
+        """ Test that the entrances can be correctly generated not on the edges of the map """
         h = 4
         w = 5
 
@@ -57,10 +57,11 @@ class MazeTest(unittest.TestCase):
         m.generate()
         m.generate_entrances(False, False)
 
-        self.assertFalse(self._on_edge(m.grid, m.start))
-        self.assertFalse(self._on_edge(m.grid, m.end))
+        assert not self._on_edge(m.grid, m.start)
+        assert not self._on_edge(m.grid, m.end)
 
     def test_outer_entrances(self):
+        """ Test that the entrances can be correctly generated on the edges of the map """
         h = 4
         w = 5
 
@@ -69,10 +70,11 @@ class MazeTest(unittest.TestCase):
         m.generate()
         m.generate_entrances()
 
-        self.assertTrue(self._on_edge(m.grid, m.start))
-        self.assertTrue(self._on_edge(m.grid, m.end))
+        assert self._on_edge(m.grid, m.start)
+        assert self._on_edge(m.grid, m.end)
 
     def test_generator_wipe(self):
+        """ Test that the running the master generate() method twice correctly wipes the entrances and solutions """
         h = 4
         w = 5
 
@@ -82,11 +84,12 @@ class MazeTest(unittest.TestCase):
         m.generate_entrances()
         m.generate()
 
-        self.assertTrue(m.start is None)
-        self.assertTrue(m.end is None)
-        self.assertTrue(m.solutions is None)
+        assert m.start is None
+        assert m.end is None
+        assert m.solutions is None
 
     def test_monte_carlo(self):
+        """ Test that the basic Monte Carlo maze generator """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -98,14 +101,15 @@ class MazeTest(unittest.TestCase):
         m.generate_monte_carlo(3)
 
         # grid size
-        self.assertEqual(m.grid.shape[0], H)
-        self.assertEqual(m.grid.shape[1], W)
+        assert m.grid.shape[0] == H
+        assert m.grid.shape[1] == W
 
         # test entrances are outer
-        self.assertTrue(self._on_edge(m.grid, m.start))
-        self.assertTrue(self._on_edge(m.grid, m.end))
+        assert self._on_edge(m.grid, m.start)
+        assert self._on_edge(m.grid, m.end)
 
     def test_monte_carlo_reducer(self):
+        """ Test that the reducer functionality on the Monte Carlo maze generator """
         h = 4
         w = 5
         H = 2 * h + 1
@@ -117,16 +121,15 @@ class MazeTest(unittest.TestCase):
         m.generate_monte_carlo(3, reducer=self._num_turns)
 
         # grid size
-        self.assertEqual(m.grid.shape[0], H)
-        self.assertEqual(m.grid.shape[1], W)
+        assert m.grid.shape[0] == H
+        assert m.grid.shape[1] == W
 
         # test entrances are outer
-        self.assertTrue(self._on_edge(m.grid, m.start))
-        self.assertTrue(self._on_edge(m.grid, m.end))
+        assert self._on_edge(m.grid, m.start)
+        assert self._on_edge(m.grid, m.end)
 
     def test_maze_to_string(self):
-        """ test that the 'to string' functionality is sane
-        """
+        """ Test that the 'to string' functionality is sane """
         m = Maze()
         m.generator = Prims(3, 3)
 
@@ -144,16 +147,14 @@ class MazeTest(unittest.TestCase):
 
         s = str(m).split('\n')
 
-        self.assertEqual(s[0].strip(), "#######")
-        self.assertEqual(s[2].strip(), "# # ###")
-        self.assertEqual(s[3].strip(), "# #  +E")
-        self.assertEqual(s[5].strip(), "S+++++#")
-        self.assertEqual(s[6].strip(), "#######")
+        assert s[0].strip() == "#######"
+        assert s[2].strip() == "# # ###"
+        assert s[3].strip() == "# #  +E"
+        assert s[5].strip() == "S+++++#"
+        assert s[6].strip() == "#######"
 
     def test_invalid_inputs(self):
-        """ There are several errors that should be thrown from the master Maze class,
-        if the inputs given are invalid.  Let's just verify some of those.
-        """
+        """ Test that the correct errors are thrown when the top-level methods are called incorrectly """
         m = Maze()
 
         # should not be able to generate or solve if neither algorithm was set
@@ -167,12 +168,32 @@ class MazeTest(unittest.TestCase):
         # the pretty-print, sring formats should fail gracefully
         m.start = (1, 1)
         m.end = (3, 3)
-        self.assertEqual(str(m), '')
-        self.assertEqual(repr(m), '')
+        assert str(m) == ''
+        assert repr(m) == ''
 
         # the Monte Carlo method has a special zero-to-one input scalar
         self.assertRaises(AssertionError, m.generate_monte_carlo, True, 3, -1.0)
         self.assertRaises(AssertionError, m.generate_monte_carlo, True, 3, 10.0)
+
+    def test_set_seed(self):
+        """ Test the Maze.set_seed staticmethod, to make sure we can control the random seeding """
+        m = Maze(123)
+        m.generator = Prims(7, 7)
+        m.generate()
+        grid0 = str(m)
+
+        m = Maze(123)
+        m.generator = Prims(7, 7)
+        m.generate()
+        grid1 = str(m)
+
+        assert grid0 == grid1
+
+        m.generator = Prims(7, 7)
+        m.generate()
+        grid2 = str(m)
+
+        assert grid0 != grid2
 
 
 def main():

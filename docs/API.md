@@ -58,6 +58,17 @@ Finally, the maze `m` was solved for the given entrances, using the `Backtrackin
 A complete listing of available maze-solving algorithms can be found [here](MAZE_SOLVE_ALGOS.md).
 
 
+## Fixing the Random Seed
+
+At any point you want, you can set / reset the random seeds for all the libraries used in this project using:
+
+    Maze.set_seed(123)
+
+Or, when you create the `Maze` object in the first place:
+
+    m = Maze(345)
+
+
 ## Optional: Transmuting a Maze
 
 Many classic Maze-Solving algorithms boil down to simplifying the maze, and then solving with some other algorithm. For instance, say you have a maze with a loop in it:
