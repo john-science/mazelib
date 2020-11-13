@@ -6,7 +6,8 @@ if not compiled:
 
 
 class Tremaux(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     0. Every time you visit a cell, mark it once.
     1. When you hit a dead end, turn around and go back.
     2. When you hit a junction you haven't visited, pick a new passage at random.
@@ -30,6 +31,11 @@ class Tremaux(MazeSolveAlgo):
         self.visited_cells = {}
 
     def _solve(self):
+        """ implementing the algorithm
+
+        Return:
+            list: a single maze solution
+        """
         self.visited_cells = {}
         solution = []
 
@@ -60,7 +66,12 @@ class Tremaux(MazeSolveAlgo):
         return [solution]
 
     def _visit(self, cell):
-        """ Increment the number of times a cell has been visited. """
+        """ Increment the number of times a cell has been visited.
+
+        Args:
+            cell (tuple): cell of interest
+        Returns: None
+        """
         if cell not in self.visited_cells:
             self.visited_cells[cell] = 0
 
@@ -70,7 +81,7 @@ class Tremaux(MazeSolveAlgo):
         """ How many times has a cell been visited?
 
         Args:
-            ns (tuple): cell of interest
+            cell (tuple): cell of interest
         Returns:
             int: How many times has that cell been visited?
         """

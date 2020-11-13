@@ -6,10 +6,16 @@ if not compiled:
 
 
 class RandomMouse(MazeSolveAlgo):
-    """ This mouse just randomly wanders around the maze until it finds the cheese.
-    """
+    """ This mouse just randomly wanders around the maze until it finds the cheese. """
 
     def _solve(self):
+        """ Solve a maze as stupidly as possible: just wander randomly until you find the end.
+        This should be basically optimally slow and should have just obsurdly long solutions,
+        with lots of double backs.
+
+        Returns:
+            list: solution to the maze
+        """
         solution = []
 
         # a first move has to be made

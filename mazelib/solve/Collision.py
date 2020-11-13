@@ -10,7 +10,7 @@ DEAD_END = (-9, -999)
 
 
 class Collision(MazeSolveAlgo):
-    """
+    """ The Algorithm
     1. step through the maze, flooding all directions equally
     2. if two flood paths meet, create a wall where they meet
     3. fill in all dead ends
@@ -18,6 +18,13 @@ class Collision(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """ solve a maze by sending out robots in all directions at the same speed,
+        More robots are created at each new intersections.
+        And all robots that collide, stop running.
+
+        Returns:
+            list: all the solutions what were found
+        """
         # deal with the case where the start is on the edge
         start = self.start
         if self._on_edge(self.start):
@@ -41,6 +48,11 @@ class Collision(MazeSolveAlgo):
     def _flood_maze(self, start):
         """ from the start, flood the maze one cell at a time,
         keep track of where the water flows as paths through the maze
+
+        Args:
+            start (tuple): position to start studying from
+        Returns:
+            list: all the paths taken, flooding from the start location
         """
         paths = self._one_time_step([[start]])
         temp_paths = paths
@@ -52,7 +64,13 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _one_time_step(self, paths):
-        """ Move all open paths forward one grid cell """
+        """ Move all open paths forward one grid cell
+
+        Args:
+            paths (list): all the currently-running robots
+        Returns:
+            list: the next step for all robots that are left
+        """
         temp_paths = []
         step_made = False
 
@@ -89,8 +107,14 @@ class Collision(MazeSolveAlgo):
         return temp_paths
 
     def _fix_collisions(self, paths):
-        """look through paths for collsions
-        If a collision exists, build a wall in the maze at that point."""
+        """ Look through paths for collsions.
+        If a collision exists, build a wall in the maze at that point.
+
+        Args:
+            paths (list): all the currently-running robots
+        Returns:
+            list: all working robot paths that are left
+        """
         N = len(paths)
 
         for i in range(N - 1):
@@ -108,7 +132,13 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _fix_entrances(self, paths):
-        """Ensure the start and end are appropriately placed in the solution."""
+        """ Ensure the start and end are appropriately placed in the solution.
+
+        Args:
+            paths (list): all the currently-running robots
+        Returns:
+            list: spruced-up solution paths
+        """
         # Filter out paths ending in 'dead_end'
         # (also: remove 'end' from solution paths)
         paths = [p[:-1] for p in paths if p[-1] != DEAD_END]

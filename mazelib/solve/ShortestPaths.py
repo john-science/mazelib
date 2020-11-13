@@ -6,7 +6,8 @@ if not compiled:
 
 
 class ShortestPaths(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     1) create a solution for each starting position
     2) loop through each solution, and find the neighbors of the last element
     3) The first solution to reach the end wins.
@@ -17,6 +18,11 @@ class ShortestPaths(MazeSolveAlgo):
     """
 
     def _solve(self):
+        """ bredth-first search solutions to the maze
+
+        Returns:
+            list: valid maze solutions
+        """
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.end)
@@ -75,7 +81,7 @@ class ShortestPaths(MazeSolveAlgo):
                         solutions[s].append(self._midpoint(ns[0], solutions[s][-1]))
                         solutions[s].append(ns[0])
 
-            # 3) a solution reaches the end or a dead end when we mark it by appending a None. 
+            # 3) a solution reaches the end or a dead end when we mark it by appending a None.
             num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
 
         # 4) clean-up solutions
@@ -90,6 +96,11 @@ class ShortestPaths(MazeSolveAlgo):
         1) remove incomplete solutions
         2) remove duplicate solutions
         3) order the solutions by length (short to long)
+
+        Args:
+            solutions (list): collection of maze solutions
+        Returns:
+            list: cleaner collection of solutions
         """
         # 1) remove incomplete solutions
         new_solutions = []
@@ -119,5 +130,11 @@ class ShortestPaths(MazeSolveAlgo):
         return sorted(solutions, key=len)
 
     def _remove_duplicate_sols(self, sols):
-        """ Remove duplicate solutions using subsetting """
+        """ Remove duplicate solutions using subsetting
+
+        Args:
+            solutions (list): collection of maze solutions
+        Returns:
+            list: collection of unique maze solutions
+        """
         return [list(s) for s in set(map(tuple, sols))]

@@ -6,7 +6,8 @@ if not compiled:
 
 
 class ShortestPath(MazeSolveAlgo):
-    """
+    """ The Algorithm
+
     1) create a solution for each starting position
     2) loop through each solution, and find the neighbors of the last element
     3) a solution reaches the end or a dead end when we mark it by appending a None.
@@ -16,7 +17,13 @@ class ShortestPath(MazeSolveAlgo):
 
     Find all unique solutions. Works against imperfect mazes.
     """
+
     def _solve(self):
+        """ bredth-first search solution to the maze
+
+        Returns:
+            list: valid maze solutions
+        """
         # determine if edge or body entrances
         self.start_edge = self._on_edge(self.start)
         self.end_edge = self._on_edge(self.start)

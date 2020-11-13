@@ -18,6 +18,7 @@ class Chain(MazeSolveAlgo):
         a. If both robots return to their original location and direction,
             the maze is unsolvable.
     """
+
     def __init__(self, turn='right'):
         # turn can take on values 'left' or 'right'
         if turn == 'left':
@@ -26,6 +27,13 @@ class Chain(MazeSolveAlgo):
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def _solve(self):
+        """ solve a maze by trying to head directly, diagonally across the maze,
+        when you hit a barrier, send out a back-tracking robot until you get to the next
+        cell along the diagonal.
+
+        Returns:
+            list: maze solution path
+        """
         guiding_line = self._draw_guiding_line()
         len_guiding_line = len(guiding_line)
 
@@ -43,8 +51,14 @@ class Chain(MazeSolveAlgo):
         return [solution]
 
     def _send_out_robots(self, solution, guiding_line, i):
-        """ send out backtracking robots in all directions,
-        to look for the next point in the guiding line
+        """ send out backtracking robots in all directions, to look for the next point in the guiding line
+
+        Args:
+            solutions (list): The current solution path
+            guiding_line (list): diagonal to the maze finish
+            i (int): index of next step in maze
+        Returns:
+            int: position along the solution diagonal
         """
         ns = self._find_unblocked_neighbors(guiding_line[i])
 
@@ -73,7 +87,14 @@ class Chain(MazeSolveAlgo):
         return guiding_line.index(solution[-1])
 
     def _backtracking_solve(self, solution, goal):
-        """ our robots will attempt to solve the sub-maze using backtracking solver """
+        """ our robots will attempt to solve the sub-maze using backtracking solver
+
+        Args:
+            solution (list): current path to the finish
+            goal (tuple): next cell along the diagonal path to the finish
+        Returns:
+            list: new solution
+        """
         path = list(solution)
         first_diff = (path[2][0] - path[0][0], path[2][1] - path[0][1])
         first_dir = self.directions.index(first_diff)
@@ -96,6 +117,13 @@ class Chain(MazeSolveAlgo):
     def _try_direct_move(self, solution, guiding_line, i):
         """ The path to the next spot on the guiding line might be open.
         If so, add a couple steps to the solution. If not, return False.
+
+        Args:
+            solutions (list): The current solution path
+            guiding_line (list): diagonal to the maze finish
+            i (int): index of next step in maze
+        Returns:
+            bool: Did we find a better partial solution to the maze?
         """
         r, c = guiding_line[i]
         next = guiding_line[i + 1]
@@ -105,21 +133,21 @@ class Chain(MazeSolveAlgo):
 
         # calculate the cell next door and see if it's open
         if rdiff == 0 or cdiff == 0:
-            if self.grid[r + rdiff//2, c + cdiff//2] == 0:
-                solution.append((r + rdiff//2, c + cdiff//2))
+            if self.grid[r + rdiff // 2, c + cdiff // 2] == 0:
+                solution.append((r + rdiff // 2, c + cdiff // 2))
                 solution.append((r + rdiff, c + cdiff))
                 return True
         else:
-            if self.grid[r + rdiff//2, c] == 0 and self.grid[r + rdiff, c + cdiff//2] == 0:
+            if self.grid[r + rdiff // 2, c] == 0 and self.grid[r + rdiff, c + cdiff // 2] == 0:
                 solution.append((r + rdiff//2, c))
                 solution.append((r + rdiff, c))
-                solution.append((r + rdiff, c + cdiff//2))
+                solution.append((r + rdiff, c + cdiff // 2))
                 solution.append((r + rdiff, c + cdiff))
                 return True
-            elif self.grid[r, c + cdiff//2] == 0 and self.grid[r + rdiff//2, c + cdiff] == 0:
-                solution.append((r, c + cdiff//2))
+            elif self.grid[r, c + cdiff // 2] == 0 and self.grid[r + rdiff // 2, c + cdiff] == 0:
+                solution.append((r, c + cdiff // 2))
                 solution.append((r, c + cdiff))
-                solution.append((r + rdiff//2, c + cdiff))
+                solution.append((r + rdiff // 2, c + cdiff))
                 solution.append((r + rdiff, c + cdiff))
                 return True
             else:
@@ -128,7 +156,11 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _draw_guiding_line(self):
-        """ draw a (mostly) straight line from start to end """
+        """ draw a (mostly) straight line from start to end
+
+        Returns:
+            list: the (probably digonal) straight line across the maze to the end
+        """
         r2, c2 = self.end
         path = []
 
