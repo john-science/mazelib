@@ -1,4 +1,3 @@
-
 from random import choice, randrange, shuffle
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
@@ -19,11 +18,10 @@ class HuntAndKill(MazeGenAlgo):
     4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
         not being visited is extremely small.
 
-    In this implementation of Hunt-and-kill there are two different ways to select a new grid
-        cell in step 2.  The first is serpentine through the grid (the classic solution), the
-        second is to randomly select a new cell enough times that the probability of an
-        unexplored cell is very, very low. The second option includes a small amount of risk,
-        but it creates a more interesting, harder maze.
+    In this implementation of Hunt-and-kill there are two different ways to select a new grid cell in step 2.  The first
+    is serpentine through the grid (the classic solution), the second is to randomly select a new cell enough times that
+    the probability of an unexplored cell is very, very low. The second option includes a small amount of risk, but it
+    creates a more interesting, harder maze.
     """
 
     def __init__(self, w, h, hunt_order='random'):
@@ -59,9 +57,14 @@ class HuntAndKill(MazeGenAlgo):
         return grid
 
     def _walk(self, grid, row, col):
-        """
-        This is a standard random walk. It must start from a visited cell.
+        """ This is a standard random walk. It must start from a visited cell.
         And it completes when the current cell has no unvisited neighbors.
+
+        Args:
+            grid (np.array): maze array
+            row (int): row index
+            col (int): col index
+        Returns: None
         """
         if grid[row][col] == 0:
             this_row = row
@@ -76,21 +79,42 @@ class HuntAndKill(MazeGenAlgo):
                 unvisited_neighbors = self._find_neighbors(this_row, this_col, grid, True)
 
     def _hunt(self, grid, count):
-        """ Based on how this algorithm was configured, choose hunt for the next starting point. """
+        """ Based on how this algorithm was configured, choose hunt for the next starting point.
+
+        Args:
+            grid (np.array): maze array
+            count (int): how long to iterate
+        Returns:
+            tuple: position of next cell
+        """
         if self.ho == SERPENTINE:
             return self._hunt_serpentine(grid, count)
         else:
             return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
-        """ Select the next cell to walk from, randomly. """
+        """ Select the next cell to walk from, randomly.
+
+        Args:
+            grid (np.array): maze array
+            count (int): row index
+        Returns:
+            tuple: position of next cell
+        """
         if count >= (self.H * self.W):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
-        """ Select the next cell to walk from by cycling through every grid cell in order. """
+        """ Select the next cell to walk from by cycling through every grid cell in order.
+
+        Args:
+            grid (np.array): maze array
+            count (int): how long to iterate
+        Returns:
+            tuple: position of next cell
+        """
         row, col = (1, 1)
         found = False
 

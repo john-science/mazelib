@@ -1,4 +1,3 @@
-
 from numpy.random import shuffle
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.

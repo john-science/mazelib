@@ -49,7 +49,15 @@ class Ellers(MazeGenAlgo):
         return self._create_grid_from_sets(sets)
 
     def _init_row(self, sets, row, max_set_number):
-        """ Initialize each cell in a row to its own set """
+        """ Initialize each cell in a row to its own set
+
+        Args:
+            sets (np.array): grid representation of row sets
+            row (int): row number
+            max_set_number (int): counter used to determine how many rows/sets are left to work on
+        Returns:
+            int: latest counter for number of sets left to work on
+        """
         for c in range(1, self.W, 2):
             if sets[row][c] < 0:
                 sets[row][c] = max_set_number
@@ -58,16 +66,27 @@ class Ellers(MazeGenAlgo):
         return max_set_number
 
     def _merge_one_row(self, sets, r):
-        """ randomly decide to merge cells within a column """
+        """ randomly decide to merge cells within a column
+
+        Args:
+            sets (np.array): grid representation of row sets
+            r (int): row number
+        Returns: None
+        """
         for c in range(1, self.W - 2, 2):
             if random() < self.xskew:
-                if sets[r][c] != sets[r][c+2]:
-                    sets[r][c+1] = sets[r][c]
-                    self._merge_sets(sets, sets[r][c+2], sets[r][c], max_row=r)
+                if sets[r][c] != sets[r][c + 2]:
+                    sets[r][c + 1] = sets[r][c]
+                    self._merge_sets(sets, sets[r][c + 2], sets[r][c], max_row=r)
 
     def _merge_down_a_row(self, sets, start_row):
         """ Create vertical connections in the maze.
         For the current row, cut down at least one passage for each cell set.
+
+        Args:
+            sets (np.array): grid representation of row sets
+            start_row (int): index of row to start merging from
+        Returns: None
         """
         # this is not meant for the bottom row
         if start_row == self.H - 2:
@@ -85,19 +104,26 @@ class Ellers(MazeGenAlgo):
         # merge down randomly, but at least once per set
         for s in set_counts:
             c = choice(set_counts[s])
-            sets[start_row+1][c] = s
-            sets[start_row+2][c] = s
+            sets[start_row + 1][c] = s
+            sets[start_row + 2][c] = s
 
         for c in range(1, self.W - 2, 2):
             if random() < self.yskew:
                 s = sets[start_row][c]
-                if sets[start_row+1][c] == -1:
-                    sets[start_row+1][c] = s
-                    sets[start_row+2][c] = s
+                if sets[start_row + 1][c] == -1:
+                    sets[start_row + 1][c] = s
+                    sets[start_row + 2][c] = s
 
     def _merge_sets(self, sets, from_set, to_set, max_row=-1):
         """ merge two different sets of grid cells into one
         To improve performance, the grid will only be searched up to some maximum row number.
+
+        Args:
+            sets (np.array): grid representation of row sets
+            from_set (int): set to merge FROM
+            to_set (int): set to merge TO
+            max_row (int): index of last row in the maze
+        Returns: None
         """
         if max_row < 0:
             max_row = self.H - 1
@@ -109,6 +135,10 @@ class Ellers(MazeGenAlgo):
 
     def _process_last_row(self, sets):
         """ join all adjacent cells that do not share a set, and omit the vertical connections
+
+        Args:
+            sets (np.array): grid representation of row sets
+        Returns: None
         """
         r = self.H - 2
         for c in range(1, self.W - 2, 2):
@@ -117,7 +147,13 @@ class Ellers(MazeGenAlgo):
                 self._merge_sets(sets, sets[r][c+2], sets[r][c])
 
     def _create_grid_from_sets(self, sets):
-        """ translate the maze sets into a maze grid """
+        """ translate the maze sets into a maze grid
+
+        Args:
+            sets (np.array): grid representation of row sets
+        Returns:
+            np.array: final maze grid
+        """
         grid = np.empty((self.H, self.W), dtype=np.int8)
         grid.fill(0)
 

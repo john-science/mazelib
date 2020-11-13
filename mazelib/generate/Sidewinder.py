@@ -1,4 +1,3 @@
-
 from random import choice, random
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
@@ -8,8 +7,7 @@ if not compiled:
 
 
 class Sidewinder(MazeGenAlgo):
-    """
-    The Algorithm
+    """ The Algorithm
 
     1. Work through the grid row-wise, starting with the cell at 0,0.
     2. Add the current cell to a "run" set.

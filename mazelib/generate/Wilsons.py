@@ -1,4 +1,3 @@
-
 from random import choice, randrange
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
@@ -53,6 +52,12 @@ class Wilsons(MazeGenAlgo):
 
     def _hunt(self, grid, count):
         """ Based on how this algorithm was configured, choose hunt for the next starting point.
+
+        Args:
+            grid (np.array): maze array
+            count (int): max number of times to iterate
+        Returns:
+            tuple: next cell
         """
         if self._hunt_order == SERPENTINE:
             return self._hunt_serpentine(grid, count)
@@ -60,7 +65,14 @@ class Wilsons(MazeGenAlgo):
             return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
-        """ Select the next cell to walk from, randomly. """
+        """ Select the next cell to walk from, randomly.
+
+        Args:
+            grid (np.array): maze array
+            count (int): max number of times to iterate
+        Returns:
+            tuple: next cell
+        """
         if count >= (self.h * self.w):
             return (-1, -1)
 
@@ -68,6 +80,12 @@ class Wilsons(MazeGenAlgo):
 
     def _hunt_serpentine(self, grid, count):
         """ Select the next cell to walk from by cycling through every grid cell in order.
+
+        Args:
+            grid (np.array): maze array
+            count (int): max number of times to iterate
+        Returns:
+            tuple: next cell
         """
         cell = (1, -1)
         found = False
@@ -85,12 +103,17 @@ class Wilsons(MazeGenAlgo):
         return cell
 
     def _generate_random_walk(self, grid, start):
-        """ From a given starting position,
-        walk randomly until you hit a visited cell.
+        """ From a given starting position, walk randomly until you hit a visited cell.
 
         The returned walk object is a dictionary mapping your location (cell) to a
         direction. If you randomly walk over the same cell twice, you overwrite
         the direction at that location.
+
+        Args:
+            grid (np.array): maze array
+            start (tuple): position to start from
+        Returns:
+            dict: map of your location to the direction you want to travel
         """
         direction = self._random_dir(start)
         walk = {}
@@ -105,8 +128,14 @@ class Wilsons(MazeGenAlgo):
         return walk
 
     def _random_dir(self, current):
-        """ Take a step on one random (but valid) direction """
-        r,c = current
+        """ Take a step on one random (but valid) direction
+
+        Args:
+            current (tuple): cell to start from
+        Returns:
+            tuple: random, valid direction to travel to
+        """
+        r, c = current
         options = []
         if r > 1:            options.append(0)  # North
         if r < (self.H - 2): options.append(1)  # South
@@ -121,12 +150,25 @@ class Wilsons(MazeGenAlgo):
 
     def _move(self, start, direction):
         """ Convolve a position tuple with a direction tuple to generate a new position.
+
+        Args:
+            start (tuple): position to start from
+            direction (tuple): vector direction to travel to
+        Returns:
+            tuple: position of next cell to travel to
         """
         return (start[0] + direction[0], start[1] + direction[1])
 
     def _solve_random_walk(self, grid, walk, start):
         """ Move through the random walk, visiting all the cells you touch,
         and breaking down the walls you cross.
+
+        Args:
+            grid (np.array): maze array
+            walk (dict): random walk directions, from each cell
+            start (tuple): position of cell to star the process at
+        Returns:
+            int: number of steps taken to complete the process
         """
         visits = 0
         current = start

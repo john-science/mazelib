@@ -1,4 +1,3 @@
-
 from random import randint
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
@@ -11,8 +10,7 @@ SPIRAL = 2
 
 
 class TrivialMaze(MazeGenAlgo):
-    """
-    The Algorithm
+    """ The Algorithm
 
     This is actually a collection of little tools to make simple,
     unicursal mazes. Currently, there are two trivial mazes available:
@@ -45,6 +43,11 @@ class TrivialMaze(MazeGenAlgo):
     def _generate_serpentine_maze(self, grid):
         """ Create a simple maze that snakes around the grid.
         This is a unicursal maze (with no dead ends).
+
+        Args:
+            grid (np.array): maze array
+        Returns:
+            np.array: update maze array
         """
         vertical_skew = randint(0, 1)
         height = grid.shape[0]
@@ -74,6 +77,11 @@ class TrivialMaze(MazeGenAlgo):
     def _generate_spiral_maze(self, grid):
         """ Create a simple maze that has a spiral path from
         start to end. This is a unicursal maze (with no dead ends).
+
+        Args:
+            grid (np.array): maze array
+        Returns:
+            np.array: update maze array
         """
         clockwise = randint(0, 1)
         # define the directions you will turn
@@ -95,16 +103,28 @@ class TrivialMaze(MazeGenAlgo):
             elif len(ns) == 0:
                 break
             else:
-                next_dir = (next_dir + 1) %4
+                next_dir = (next_dir + 1) % 4
 
         return grid
 
     def _midpoint(self, a, b):
-        """ Find the wall cell between to passage cells """
+        """ Find the wall cell between to passage cells
+
+        Args:
+            a (tuple): first cell position
+            b (tuple): second cell position
+        Returns:
+            tuple: cell position at the half-way point between the other two
+        """
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
     def _move(self, start, direction):
-        """ Convolve a position tuple with a direction tuple to
-        generate a new position.
+        """ Convolve a position tuple with a direction tuple to generate a new position.
+
+        Args:
+            start (tuple): first cell position
+            direction (tuple): direction to travel from start
+        Returns:
+            tuple: end result of start position plus direction vector
         """
         return (start[0] + direction[0], start[1] + direction[1])
