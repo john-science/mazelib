@@ -1,4 +1,3 @@
-
 from mazelib.generate.MazeGenAlgo import np
 from random import choice
 # If the code is not Cython-compiled, we need to add some imports.
@@ -42,6 +41,12 @@ class BinaryTree(MazeGenAlgo):
 
     def _find_neighbor(self, current_row, current_col):
         """ Find a neighbor in the skewed direction.
+
+        Args:
+            current_row (int): row number
+            current_col (int): col number
+        Returns:
+            tuple: position of the randomly-chosen neighbor
         """
         neighbors = []
         for b_row, b_col in self.skew:

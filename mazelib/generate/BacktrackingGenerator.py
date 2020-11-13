@@ -1,4 +1,3 @@
-
 import numpy as np
 from random import randrange
 # If the code is not Cython-compiled, we need to add some imports.

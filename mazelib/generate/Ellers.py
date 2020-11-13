@@ -1,4 +1,3 @@
-
 from random import choice, random
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
@@ -68,8 +67,7 @@ class Ellers(MazeGenAlgo):
 
     def _merge_down_a_row(self, sets, start_row):
         """ Create vertical connections in the maze.
-
-            For the current row, cut down at least one passage for each cell set.
+        For the current row, cut down at least one passage for each cell set.
         """
         # this is not meant for the bottom row
         if start_row == self.H - 2:
@@ -99,9 +97,7 @@ class Ellers(MazeGenAlgo):
 
     def _merge_sets(self, sets, from_set, to_set, max_row=-1):
         """ merge two different sets of grid cells into one
-
-            To improve performance, the grid will only be searched
-            up to some maximum row number.
+        To improve performance, the grid will only be searched up to some maximum row number.
         """
         if max_row < 0:
             max_row = self.H - 1
@@ -112,8 +108,7 @@ class Ellers(MazeGenAlgo):
                     sets[r][c] = to_set
 
     def _process_last_row(self, sets):
-        """ join all adjacent cells that do not share a set,
-        and omit the vertical connections
+        """ join all adjacent cells that do not share a set, and omit the vertical connections
         """
         r = self.H - 2
         for c in range(1, self.W - 2, 2):

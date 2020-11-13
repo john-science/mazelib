@@ -1,4 +1,3 @@
-
 from mazelib.generate.MazeGenAlgo import np
 from random import randrange
 # If the code is not Cython-compiled, we need to add some imports.

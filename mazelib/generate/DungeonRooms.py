@@ -74,7 +74,12 @@ class DungeonRooms(MazeGenAlgo):
         return self.grid
 
     def _carve_rooms(self, rooms):
-        """ Open up user-defined rooms in a maze. """
+        """ Open up user-defined rooms in a maze.
+
+        Args:
+            rooms (list): collection of room positions (corners of large rooms)
+        Returns: None
+        """
         if rooms is None:
             return
 
@@ -88,14 +93,24 @@ class DungeonRooms(MazeGenAlgo):
                 pass
 
     def _carve_room(self, top_left, bottom_right):
-        """ Open up a single user-defined room in a maze. """
+        """ Open up a single user-defined room in a maze.
+
+        Args:
+            top_left (tuple): position of top-left cell in the room
+            bottom_right (tuple): position of bottom-right cell in the room
+        Returns: None
+        """
         for row in range(top_left[0], bottom_right[0] + 1):
             for col in range(top_left[1], bottom_right[1] + 1):
                 self.grid[row, col] = 0
 
     def _carve_door(self, top_left, bottom_right):
-        """ Open up a single door in a user-defined room,
-        IF that room does not already have a whole wall of doors.
+        """ Open up a single door in a user-defined room, IF that room does not already have a whole wall of doors.
+
+        Args:
+            top_left (tuple): position of top-left cell in the room
+            bottom_right (tuple): position of bottom-right cell in the room
+        Returns: None
         """
         even_squares = [i for i in list(top_left) + list(bottom_right) if i % 2 == 0]
         if len(even_squares) > 0:
@@ -121,6 +136,10 @@ class DungeonRooms(MazeGenAlgo):
     def _walk(self, start):
         """ This is a standard random walk. It must start from a visited cell.
         And it completes when the current cell has no unvisited neighbors.
+
+        Args:
+            start (tuple): position of a grid cell
+        Returns: None
         """
         if self.grid[start[0], start[1]] == 0:
             current = start
@@ -134,21 +153,39 @@ class DungeonRooms(MazeGenAlgo):
                 unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
     def _hunt(self, count):
-        """ Based on how this algorithm was configured, choose hunt for the next starting point. """
+        """ Based on how this algorithm was configured, choose hunt for the next starting point.
+
+        Args:
+            count (int): number of trials left to hunt for
+        Returns:
+            tuple: position of next cell
+        """
         if self._hunt_order == SERPENTINE:
             return self._hunt_serpentine(count)
         else:
             return self._hunt_random(count)
 
     def _hunt_random(self, count):
-        """ Select the next cell to walk from, randomly. """
+        """ Select the next cell to walk from, randomly.
+
+        Args:
+            count (int): number of trials left to hunt for
+        Returns:
+            tuple: position of next cell
+        """
         if count >= (self.H * self.W):
             return (-1, -1)
 
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, count):
-        """ Select the next cell to walk from by cycling through every grid cell in order. """
+        """ Select the next cell to walk from by cycling through every grid cell in order.
+
+        Args:
+            count (int): number of trials left to hunt for
+        Returns:
+            tuple: position of next cell
+        """
         cell = (1, 1)
         found = False
 
@@ -167,6 +204,9 @@ class DungeonRooms(MazeGenAlgo):
     def _choose_start(self):
         """ Choose a random starting location, that is not already inside a room.
         If no such room exists, the input grid was invalid.
+
+        Returns:
+            tuple: arbitrarily-selected room in the maze, that is not part of a big room
         """
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
@@ -185,12 +225,17 @@ class DungeonRooms(MazeGenAlgo):
         return current
 
     def reconnect_maze(self):
-        """ If a maze is not fully connected, open up walls until it is. """
+        """ If a maze is not fully connected, open up walls until it is.
+
+        Returns: None
+        """
         self._fix_disjoint_passages(self._find_all_passages())
 
     def _find_all_passages(self):
-        """ Place all connected passage cells into a set.
-        Disjoint passages will be in different sets.
+        """ Place all connected passage cells into a set. Disjoint passages will be in different sets.
+
+        Returns:
+            list: collection of paths
         """
         passages = []
 
@@ -216,7 +261,12 @@ class DungeonRooms(MazeGenAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages):
-        """ All passages in a maze should be connected """
+        """ All passages in a maze should be connected
+
+        Args:
+            disjoint_passages (list): collections of paths in the maze which do not fully connect
+        Returns: None
+        """
         while len(disjoint_passages) > 1:
             found = False
             while not found:
@@ -237,6 +287,11 @@ class DungeonRooms(MazeGenAlgo):
 
     def _find_unblocked_neighbors(self, posi):
         """ Find all the grid neighbors of the current position; visited, or not.
+
+        Args:
+            posi (tuple): position of the cell of interest
+        Returns:
+            list: all the open, unblocked neighbor cells that you can go to from this one
         """
         r, c = posi
         ns = []
@@ -255,7 +310,13 @@ class DungeonRooms(MazeGenAlgo):
         return ns
 
     def _join_intersecting_sets(self, list_of_sets):
-        """ combine sets that have non-zero intersections """
+        """ combine sets that have non-zero intersections
+
+        Args:
+            list_of_sets (list): sets of paths that do not interesect
+        Returns:
+            list: a combined collection of paths, now intersection
+        """
         for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue
@@ -271,5 +332,12 @@ class DungeonRooms(MazeGenAlgo):
         return list(filter(lambda l: l is not None, list_of_sets))
 
     def _midpoint(self, a, b):
-        """ Find the wall cell between to passage cells """
+        """ Find the wall cell between to passage cells
+
+        Args:
+            a (tuple): position of one cell
+            b (tuple): position of a different cell
+        Returns:
+            tuple: position of a cell half-way between the two given
+        """
         return ((a[0] + b[0]) // 2, (a[1] + b[1]) // 2)

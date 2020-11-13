@@ -1,4 +1,3 @@
-
 from random import choice, randrange
 from numpy.random import shuffle
 import numpy as np

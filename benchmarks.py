@@ -1,6 +1,4 @@
-''' The benchmarks below are useful for testing performance
-when making changes to the maze algorithms.
-'''
+""" The benchmarks below are useful for testing performance when making changes to the maze algorithms. """
 from datetime import datetime
 from sysconfig import get_python_version
 from timeit import Timer
@@ -9,8 +7,8 @@ from mazelib import __version__ as version
 # CONFIG
 SIZES = [5, 10, 25, 50, 100]
 ITERATIONS = [100, 50, 20, 5, 1]
-GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'HuntAndKill', 'Prims',
-              'Sidewinder', 'TrivialMaze', 'Wilsons']
+GENERATORS = ['AldousBroder', 'BacktrackingGenerator', 'BinaryTree', 'HuntAndKill', 'Prims', 'Sidewinder',
+              'TrivialMaze', 'Wilsons']
 SOLVERS = ['Collision', 'Tremaux']
 
 
@@ -20,13 +18,12 @@ def main():
 
 
 def run_benchmarks():
-    ''' Run the benchmarks.
-    An annoying screen-print will occur so that you know your
-    progress, as these tests might take a while.
+    """ Run the benchmarks.
+    An annoying screen-print will occur so that you know your progress, as these tests might take a while.
     
     Returns:
         list: 2D list of the team each generator/solver combination took
-    '''
+    """
     times = [[0.0]*len(SIZES) for _ in range(len(GENERATORS) * len(SOLVERS))]
 
     row = -1
@@ -56,12 +53,12 @@ m.solve()
 
 
 def print_benchmarks(times):
-    ''' Pretty print for the benchmark results, with a detailed CSV at the end.
+    """ Pretty print for the benchmark results, with a detailed CSV at the end.
 
     Args:
         times (list): timing results for the benchmark runs
     Results: None
-    '''
+    """
     print('\nmazelib benchmarking')
     print(datetime.now().strftime('%Y-%m-%d %H:%M'))
     print('Python version: {0}'.format(get_python_version()))
