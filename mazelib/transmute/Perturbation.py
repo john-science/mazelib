@@ -7,8 +7,7 @@ if not compiled:
 
 
 class Perturbation(MazeTransmuteAlgo):
-    """
-    The Algorithm
+    """ The Algorithm
 
     1. Start with a complete, valid maze.
     2. Add a small number of random walls, blocking current passages.
@@ -31,6 +30,10 @@ class Perturbation(MazeTransmuteAlgo):
         super(Perturbation, self).__init__()
 
     def _transmute(self):
+        """ master method to slightly pertub the maze a set number of times
+
+        Returns: None
+        """
         for i in range(self.repeat):
             # Add a small number of random walls, blocking current passages
             for j in range(self.new_walls):
@@ -40,7 +43,10 @@ class Perturbation(MazeTransmuteAlgo):
             self._reconnect_maze()
 
     def _add_a_random_wall(self):
-        """ Add a single wall randomly within the maze """
+        """ Add a single wall randomly within the maze
+
+        Returns: None
+        """
         limit = 2 * self.grid.shape[0] * self.grid.shape[1]
         tries = 0
 
@@ -63,13 +69,18 @@ class Perturbation(MazeTransmuteAlgo):
                 return
 
     def _reconnect_maze(self):
-        """ If a maze is not fully connected, open up walls until it is. """
+        """ If a maze is not fully connected, open up walls until it is.
+
+        Returns: None
+        """
         passages = self._find_all_passages()
         self._fix_disjoint_passages(passages)
 
     def _find_all_passages(self):
-        """ Place all connected passage cells into a set.
-        Disjoint passages will be in different sets.
+        """ Place all connected passage cells into a set. Disjoint passages will be in different sets.
+
+        Returns:
+            list: all of the non-connected paths in the maze
         """
         passages = []
 
@@ -95,7 +106,12 @@ class Perturbation(MazeTransmuteAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages):
-        """ All passages in a maze should be connected """
+        """ All passages in a maze should be connected
+
+        Args:
+            disjoint_passages (list): presumably non-connected paths in the maze
+        Returns: None
+        """
         while len(disjoint_passages) > 1:
             found = False
             while not found:
@@ -115,7 +131,13 @@ class Perturbation(MazeTransmuteAlgo):
                         break
 
     def _join_intersecting_sets(self, list_of_sets):
-        """ combine sets that have non-zero intersections """
+        """ combine sets that have non-zero intersections
+
+        Args:
+            list_of_sets (list): presumably non-connected paths in the maze
+        Returns:
+            list: definitely non-connected paths in the maze
+        """
         for i in range(len(list_of_sets) - 1):
             if list_of_sets[i] is None:
                 continue
@@ -123,6 +145,7 @@ class Perturbation(MazeTransmuteAlgo):
             for j in range(i + 1, len(list_of_sets)):
                 if list_of_sets[j] is None:
                     continue
+
                 intersect = list_of_sets[i].intersection(list_of_sets[j])
                 if len(intersect) > 0:
                     list_of_sets[i] = list_of_sets[i].union(list_of_sets[j])

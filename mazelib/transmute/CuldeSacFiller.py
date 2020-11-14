@@ -14,6 +14,10 @@ class CuldeSacFiller(MazeTransmuteAlgo):
     """
 
     def _transmute(self):
+        """ Master methot to fill in all the loops in the maze
+
+        Returns: None
+        """
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
                 if (r, c) in (self.start, self.end):
