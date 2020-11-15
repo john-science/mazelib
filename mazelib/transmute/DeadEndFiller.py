@@ -1,4 +1,3 @@
-from random import choice, shuffle
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
 if not compiled:
@@ -64,7 +63,8 @@ class DeadEndFiller(MazeTransmuteAlgo):
             # from the dead end, travel one cell
             ns = self._find_unblocked_neighbors(dead_end)
 
-            if len(ns) == 0: break
+            if len(ns) == 0:
+                break
 
             # look at the next cell, if it is a dead end, restart the loop
             if len(ns) == 1:

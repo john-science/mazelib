@@ -44,13 +44,13 @@ class MazeTransmuteAlgo:
         r, c = posi
         ns = []
 
-        if r > 1 and self.grid[r - 1, c] == False and self.grid[r - 2, c] == False:
+        if r > 1 and not self.grid[r - 1, c] and not self.grid[r - 2, c]:
             ns.append((r - 2, c))
-        if r < self.grid.shape[0] - 2 and self.grid[r + 1, c] == False and self.grid[r + 2, c] == False:
+        if r < self.grid.shape[0] - 2 and not self.grid[r + 1, c] and not self.grid[r + 2, c]:
             ns.append((r + 2, c))
-        if c > 1 and self.grid[r, c - 1] == False and self.grid[r, c - 2] == False:
+        if c > 1 and not self.grid[r, c - 1] and not self.grid[r, c - 2]:
             ns.append((r, c - 2))
-        if c < self.grid.shape[1] - 2 and self.grid[r, c + 1] == False and self.grid[r, c + 2] == False:
+        if c < self.grid.shape[1] - 2 and not self.grid[r, c + 1] and not self.grid[r, c + 2]:
             ns.append((r, c + 2))
 
         shuffle(ns)

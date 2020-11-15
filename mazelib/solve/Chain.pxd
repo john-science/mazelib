@@ -16,7 +16,7 @@ cdef class Chain(MazeSolveAlgo):
     cdef inline cython.int _send_out_robots(self, list solution, list guiding_line, cython.int i)
 
 
-    @cython.locals(path=list, first_diff=tuple, first_dir=cython.int, ns=list, nxt=tuple)
+    @cython.locals(path=list, ns=list, nxt=tuple)
     cdef inline list _backtracking_solve(self, list solution, tuple goal)
 
 

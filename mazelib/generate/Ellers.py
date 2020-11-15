@@ -142,9 +142,9 @@ class Ellers(MazeGenAlgo):
         """
         r = self.H - 2
         for c in range(1, self.W - 2, 2):
-            if sets[r][c] != sets[r][c+2]:
-                sets[r][c+1] = sets[r][c]
-                self._merge_sets(sets, sets[r][c+2], sets[r][c])
+            if sets[r][c] != sets[r][c + 2]:
+                sets[r][c + 1] = sets[r][c]
+                self._merge_sets(sets, sets[r][c + 2], sets[r][c])
 
     def _create_grid_from_sets(self, sets):
         """ translate the maze sets into a maze grid

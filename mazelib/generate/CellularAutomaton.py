@@ -1,5 +1,4 @@
 from random import choice, randrange
-from numpy.random import shuffle
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
@@ -63,7 +62,7 @@ class CellularAutomaton(MazeGenAlgo):
                     neighbors = self._find_neighbors(y, x, grid, False)  # is open
                     if not len(neighbors):
                         continue
-                    r,c = choice(neighbors)
+                    r, c = choice(neighbors)
                     if grid[r, c] == 0:
                         grid[r, c] = 1
                         grid[r + (y - r) // 2, c + (x - c) // 2] = 1

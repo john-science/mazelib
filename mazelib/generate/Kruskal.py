@@ -23,7 +23,7 @@ class Kruskal(MazeGenAlgo):
 
         forest = []
         for row in range(1, self.H - 1, 2):
-            for col in range(1, self.W -1, 2):
+            for col in range(1, self.W - 1, 2):
                 forest.append([(row, col)])
                 grid[row][col] = 0
 

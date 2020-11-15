@@ -1,4 +1,3 @@
-from random import choice, shuffle
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
 if not compiled:
@@ -54,7 +53,7 @@ class ShortestPaths(MazeSolveAlgo):
                 elif self._within_one(solutions[s][-1], self.end):
                     # stop all solutions that have reached the end
                     solutions[s].append(None)
-                elif solutions[s][-1] != None:
+                elif solutions[s][-1] is not None:
                     # continue with all un-stopped solutions
                     if len(solutions[s]) > 1:
                         # check to see if you've gone past the endpoint
@@ -82,7 +81,7 @@ class ShortestPaths(MazeSolveAlgo):
                         solutions[s].append(ns[0])
 
             # 3) a solution reaches the end or a dead end when we mark it by appending a None.
-            num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1 , solutions))
+            num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1, solutions))
 
         # 4) clean-up solutions
         solutions = self._clean_up(solutions)

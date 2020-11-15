@@ -88,11 +88,11 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_grid(self):
         g = np.ones((7, 7), dtype=np.int8)
-        g[1] = [1,1,1,1,1,1,1]
-        g[2] = [1,1,1,1,1,1,1]
-        g[3] = [1,1,0,0,0,1,1]
-        g[4] = [1,1,0,0,0,1,1]
-        g[5] = [1,1,0,0,0,1,1]
+        g[1] = [1, 1, 1, 1, 1, 1, 1]
+        g[2] = [1, 1, 1, 1, 1, 1, 1]
+        g[3] = [1, 1, 0, 0, 0, 1, 1]
+        g[4] = [1, 1, 0, 0, 0, 1, 1]
+        g[5] = [1, 1, 0, 0, 0, 1, 1]
 
         m = Maze()
         m.generator = DungeonRooms(4, 4, grid=g)
@@ -103,11 +103,11 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_reconnect_maze(self):
         g = np.ones((7, 7), dtype=np.int8)
-        g[1] = [1,0,0,0,1,0,1]
-        g[2] = [1,0,1,1,1,0,1]
-        g[3] = [1,0,0,0,1,0,1]
-        g[4] = [1,0,0,0,1,0,1]
-        g[5] = [1,0,0,0,1,0,1]
+        g[1] = [1, 0, 0, 0, 1, 0, 1]
+        g[2] = [1, 0, 1, 1, 1, 0, 1]
+        g[3] = [1, 0, 0, 0, 1, 0, 1]
+        g[4] = [1, 0, 0, 0, 1, 0, 1]
+        g[5] = [1, 0, 0, 0, 1, 0, 1]
 
         m = Maze()
         m.generator = DungeonRooms(4, 4, grid=g)
@@ -118,7 +118,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_random_rooms(self):
         m = Maze()
-        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='random')
+        m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order='random')
         m.generate()
 
         self.assertTrue(boundary_is_solid(m.grid))
@@ -126,7 +126,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_serpentine_rooms(self):
         m = Maze()
-        m.generator = DungeonRooms(4, 4, rooms=[[(1,1), (3,3)]], hunt_order='serpentine')
+        m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order='serpentine')
         m.generate()
 
         self.assertTrue(boundary_is_solid(m.grid))
@@ -248,7 +248,7 @@ def boundary_is_solid(grid):
             return False
 
     # last row
-    for c in grid[grid.shape[0]-1]:
+    for c in grid[grid.shape[0] - 1]:
         if c == 0:
             return False
 
@@ -281,4 +281,3 @@ def all_corners_complete(grid):
 
 if __name__ == '__main__':
     unittest.main(argv=['first-arg-is-ignored'], exit=False)
-

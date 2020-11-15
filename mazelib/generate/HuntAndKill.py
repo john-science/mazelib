@@ -1,4 +1,4 @@
-from random import choice, randrange, shuffle
+from random import choice, randrange
 import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
@@ -71,7 +71,7 @@ class HuntAndKill(MazeGenAlgo):
             this_col = col
             unvisited_neighbors = self._find_neighbors(this_row, this_col, grid, True)
 
-            while len(unvisited_neighbors) >  0:
+            while len(unvisited_neighbors) > 0:
                 neighbor = choice(unvisited_neighbors)
                 grid[neighbor[0]][neighbor[1]] = 0
                 grid[(neighbor[0] + this_row) // 2][(neighbor[1] + this_col) // 2] = 0

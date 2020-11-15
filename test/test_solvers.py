@@ -1,4 +1,3 @@
-import numpy as np
 import unittest
 from mazelib.generate.Prims import Prims
 from mazelib.solve.BacktrackingSolver import BacktrackingSolver
@@ -22,8 +21,8 @@ class SolversTester(unittest.TestCase):
         Returns:
             bool: As the two cells next to each other?
         """
-        r1,c1 = cell1
-        r2,c2 = cell2
+        r1, c1 = cell1
+        r2, c2 = cell2
 
         if r1 == r2 and abs(c1 - c2) == 1:
             return True
@@ -42,7 +41,7 @@ class SolversTester(unittest.TestCase):
             bool: Does the same cell appear in the solution more than once?
         """
         for i in range(len(solution[:-1])):
-            if solution[i] in solution[i+1:]:
+            if solution[i] in solution[i + 1:]:
                 return True
 
         return False
@@ -76,9 +75,9 @@ class SolversTester(unittest.TestCase):
         elif not start_outer and not end_outer:
             m.generate_entrances(False, False)
         elif start_outer:
-             m.generate_entrances(True, False)
+            m.generate_entrances(True, False)
         else:
-             m.generate_entrances(False, True)
+            m.generate_entrances(False, True)
 
         return m
 
@@ -124,7 +123,7 @@ class SolversTester(unittest.TestCase):
                 (1, 4), (1, 5), (0, 5), (0, 5)]
         assert sol == m.solver._prune_solution(sol7)
         # bonus: let's tests a long, and heavily redundant, solution
-        assert sol == m.solver._prune_solution(sol7*100)
+        assert sol == m.solver._prune_solution(sol7 * 100)
 
         # let's also test a couple edge cases
         sol = []
@@ -134,7 +133,7 @@ class SolversTester(unittest.TestCase):
         sol = [(1, 1), (1, 2)]
         assert sol == m.solver._prune_solution(sol)
         sol = [(1, 1), (1, 2)]
-        assert sol == m.solver._prune_solution(sol*100)
+        assert sol == m.solver._prune_solution(sol * 100)
 
     def test_backtracking_solver(self):
         """ test BacktrackingSolver against a maze with outer/inner entraces """
@@ -241,4 +240,3 @@ class SolversTester(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main(argv=['first-arg-is-ignored'], exit=False)
-

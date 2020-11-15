@@ -46,7 +46,7 @@ class AldousBroder(MazeGenAlgo):
             for nrow, ncol in neighbors:
                 if grid[nrow][ncol] > 0:
                     # open up wall to new neighbor
-                    grid[(nrow + crow)//2][(ncol + ccol)//2] = 0
+                    grid[(nrow + crow) // 2][(ncol + ccol) // 2] = 0
                     # mark neighbor as visited
                     grid[nrow][ncol] = 0
                     # bump the number visited

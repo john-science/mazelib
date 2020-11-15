@@ -1,5 +1,4 @@
 from random import choice, randrange
-import numpy as np
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
 if not compiled:

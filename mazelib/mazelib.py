@@ -227,14 +227,14 @@ class Maze:
         # insert the start and end points
         if entrances and self.start and self.end:
             r, c = self.start
-            txt[r] = txt[r][:c] + 'S' + txt[r][c+1:]
+            txt[r] = txt[r][:c] + 'S' + txt[r][c + 1:]
             r, c = self.end
-            txt[r] = txt[r][:c] + 'E' + txt[r][c+1:]
+            txt[r] = txt[r][:c] + 'E' + txt[r][c + 1:]
 
         # if extant, insert the solution path
         if solutions and self.solutions:
             for r, c in self.solutions[0]:
-                txt[r] = txt[r][:c] + '+' + txt[r][c+1:]
+                txt[r] = txt[r][:c] + '+' + txt[r][c + 1:]
 
         return '\n'.join(txt)
 

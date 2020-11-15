@@ -11,9 +11,9 @@ from .test_generators import all_corners_complete, all_passages_open, boundary_i
 
 
 class SolversTest(unittest.TestCase):
-    
+
     def _example_cul_de_sac_maze(self):
-        """
+        """ helper method to generate a super-simpl little maze with a loop in it:
         #######
               #
         # # # #
@@ -23,12 +23,12 @@ class SolversTest(unittest.TestCase):
         #######
         """
         g = np.ones((7, 7), dtype=np.int8)
-        g[1] = [1,0,0,0,0,0,1]
-        g[2] = [1,0,1,0,1,0,1]
-        g[3] = [1,0,1,0,0,0,1]
-        g[4] = [1,0,1,1,1,1,1]
-        g[5] = [1,0,0,0,0,0,1]
-    
+        g[1] = [1, 0, 0, 0, 0, 0, 1]
+        g[2] = [1, 0, 1, 0, 1, 0, 1]
+        g[3] = [1, 0, 1, 0, 0, 0, 1]
+        g[4] = [1, 0, 1, 1, 1, 1, 1]
+        g[5] = [1, 0, 0, 0, 0, 0, 1]
+
         return g
 
     def test_cul_de_sac_filler(self):
@@ -83,5 +83,4 @@ class SolversTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()  #argv=['first-arg-is-ignored'], exit=False)
-
+    unittest.main()

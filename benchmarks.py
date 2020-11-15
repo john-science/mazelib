@@ -20,11 +20,11 @@ def main():
 def run_benchmarks():
     """ Run the benchmarks.
     An annoying screen-print will occur so that you know your progress, as these tests might take a while.
-    
+
     Returns:
         list: 2D list of the team each generator/solver combination took
     """
-    times = [[0.0]*len(SIZES) for _ in range(len(GENERATORS) * len(SOLVERS))]
+    times = [[0.0] * len(SIZES) for _ in range(len(GENERATORS) * len(SOLVERS))]
 
     row = -1
     for generator in GENERATORS:

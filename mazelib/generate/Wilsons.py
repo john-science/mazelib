@@ -137,16 +137,24 @@ class Wilsons(MazeGenAlgo):
         """
         r, c = current
         options = []
-        if r > 1:            options.append(0)  # North
-        if r < (self.H - 2): options.append(1)  # South
-        if c > 1:            options.append(2)  # East
-        if c < (self.W - 2): options.append(3)  # West
+        if r > 1:
+            options.append(0)  # North
+        if r < (self.H - 2):
+            options.append(1)  # South
+        if c > 1:
+            options.append(2)  # East
+        if c < (self.W - 2):
+            options.append(3)  # West
 
         direction = choice(options)
-        if direction == 0:   return (-2, 0)  # North
-        elif direction == 1: return (2, 0)   # South
-        elif direction == 2: return (0, -2)  # East
-        else:                return (0, 2)   # West
+        if direction == 0:
+            return (-2, 0)  # North
+        elif direction == 1:
+            return (2, 0)   # South
+        elif direction == 2:
+            return (0, -2)  # East
+        else:
+            return (0, 2)   # West
 
     def _move(self, start, direction):
         """ Convolve a position tuple with a direction tuple to generate a new position.

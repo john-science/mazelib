@@ -1,10 +1,10 @@
-.PHONY: all clean uninstall install benchmark test dist sdist twine
+.PHONY: all clean uninstall install benchmark lint test dist sdist twine
 
 all:
 	@grep -Ee '^[a-z].*:' Makefile | cut -d: -f1 | grep -vF all
 
 clean:
-	rm -rf build/ dist/ *.egg-info/ mazelib/*.c mazelib/*.so mazelib/*.h mazelib/__pycache__ mazelib/*/*.c mazelib/*/*.so mazelib/*/*.h mazelib/*/__pycache__ test/__pycache__
+	rm -rf build/ dist/ *.egg-info/ mazelib/*.c mazelib/*.so mazelib/*.h mazelib/__pycache__ mazelib/*/*.c mazelib/*/*.so mazelib/*/*.h mazelib/*/__pycache__ test/__pycache__ lint.html
 
 uninstall: clean
 	@echo pip uninstalling mazelib
@@ -29,3 +29,5 @@ sdist: dist
 twine: dist
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
+lint:
+	flake8 --statistics --max-line-length=120 --exit-zero --ignore=E221,E241,E272,E402,W503,W504,W292 mazelib/ test/ benchmarks.py setup.py > lint.html

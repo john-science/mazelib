@@ -96,8 +96,6 @@ class Chain(MazeSolveAlgo):
             list: new solution
         """
         path = list(solution)
-        first_diff = (path[2][0] - path[0][0], path[2][1] - path[0][1])
-        first_dir = self.directions.index(first_diff)
 
         # pick a random neighbor and travel to it, until you're at the end
         while not self._within_one(path[-1], goal):
@@ -139,7 +137,7 @@ class Chain(MazeSolveAlgo):
                 return True
         else:
             if self.grid[r + rdiff // 2, c] == 0 and self.grid[r + rdiff, c + cdiff // 2] == 0:
-                solution.append((r + rdiff//2, c))
+                solution.append((r + rdiff // 2, c))
                 solution.append((r + rdiff, c))
                 solution.append((r + rdiff, c + cdiff // 2))
                 solution.append((r + rdiff, c + cdiff))

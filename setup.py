@@ -29,16 +29,16 @@ try:
     from distutils.extension import Extension
     from Cython.Distutils import build_ext
     from Cython.Build import cythonize
-    cmdclass={'install': install, 'build_ext': build_ext}
+    cmdclass = {'install': install, 'build_ext': build_ext}
     has_cython = True
-except:
+except (ModuleNotFoundError, ImportError):
     print('WARNING: You do not have Cython installed. Installation preceeding without Cython.')
-    cmdclass={'install': install}
+    cmdclass = {'install': install}
     has_cython = False
 # You will also need NumPy to compile this Cython
 try:
     import numpy as np
-except:
+except (ModuleNotFoundError, ImportError):
     print('WARNING: You do not have NumPy installed. Installation preceeding without NumPy.')
     has_cython = False
 
@@ -62,7 +62,7 @@ setup(cmdclass=cmdclass,
       version=__version__,
       description='A Python API for creating and solving mazes.',
       url='https://github.com/theJollySin/mazelib',
-      keywords = "game mathematics algorithms maze mazes math games algorithm",
+      keywords="game mathematics algorithms maze mazes math games algorithm",
       author='John Stilley',
       classifiers=['Development Status :: 4 - Beta',
                    'Topic :: Software Development :: Libraries :: Python Modules',
