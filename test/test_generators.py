@@ -48,9 +48,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = AldousBroder(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_backtracking_generator(self):
         """ test the Backtracking method generates a reasonably sane maze """
@@ -58,9 +58,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = BacktrackingGenerator(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_binary_tree(self):
         """ test the Binary Tree method generates a reasonably sane maze """
@@ -68,9 +68,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = BinaryTree(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_cellular_automaton(self):
         """ test the Cellulator Automaton method generates a reasonably sane maze """
@@ -78,8 +78,8 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = CellularAutomaton(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
 
     def test_division(self):
         """ test the Division method generates a reasonably sane maze """
@@ -87,9 +87,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Division(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_dungeon_rooms_grid(self):
         """ test Dungeon Rooms maze-creation mazes a reasonably sane maze """
@@ -104,8 +104,8 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = DungeonRooms(4, 4, grid=g)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
 
     def test_dungeon_reconnect_maze(self):
         """ test Dungeon Rooms maze-creation mazes a reasonably sane maze when reconnecting a maze """
@@ -120,8 +120,8 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = DungeonRooms(4, 4, grid=g)
         m.generator.reconnect_maze()
 
-        self.assertTrue(boundary_is_solid(m.generator.grid))
-        self.assertTrue(all_passages_open(m.generator.grid))
+        assert boundary_is_solid(m.generator.grid)
+        assert all_passages_open(m.generator.grid)
 
     def test_dungeon_rooms_random_rooms(self):
         """ test Dungeon Rooms maze-creation mazes a reasonably sane maze when generating some random rooms """
@@ -129,8 +129,8 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order='random')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
 
     def test_dungeon_rooms_serpentine_rooms(self):
         """ test DungeonRooms mazes are reasonably when generating some random rooms in a serpentine fashion """
@@ -138,8 +138,8 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order='serpentine')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
 
     def test_ellers(self):
         """ test the Ellers method generates a reasonably sane maze """
@@ -147,9 +147,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Ellers(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_growing_tree(self):
         """ test the Growing Tree method generates a reasonably sane maze """
@@ -157,9 +157,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = GrowingTree(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_hunt_and_kill_random_order(self):
         """ test the Hunt and Kill method generates a reasonably sane maze, using the random order pathway """
@@ -167,9 +167,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = HuntAndKill(4, 5, 'random')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_hunt_and_kill_serpentine_order(self):
         """ test the Hunt and Kill method generates a reasonably sane maze, using the serpentine pathway """
@@ -177,9 +177,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = HuntAndKill(4, 5, 'serpentine')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_kruskal(self):
         """ test the Kruskal method generates a reasonably sane maze """
@@ -187,9 +187,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Kruskal(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_prims(self):
         """ test the Prims method generates a reasonably sane maze """
@@ -197,9 +197,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Prims(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_sidewinder(self):
         """ test the Sidewinder method generates a reasonably sane maze """
@@ -207,9 +207,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Sidewinder(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_trivial_maze_spiral(self):
         """ test that the trivial/spiral maze is reasonably sane """
@@ -217,10 +217,10 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = TrivialMaze(4, 5)
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_trivial_maze_serpentine(self):
         """ test that the trivial/spiral maze is reasonably sane when using the serpentine alternative
@@ -231,9 +231,9 @@ class GeneratorsTest(unittest.TestCase):
             m.generator = TrivialMaze(4, 5, 'serpentine')
             m.generate()
 
-            self.assertTrue(boundary_is_solid(m.grid))
-            self.assertTrue(all_passages_open(m.grid))
-            self.assertTrue(all_corners_complete(m.grid))
+            assert boundary_is_solid(m.grid)
+            assert all_passages_open(m.grid)
+            assert all_corners_complete(m.grid)
 
     def test_wilsons_random_order(self):
         """ test the Wilson method generates a reasonably sane maze, using the random order pathway """
@@ -241,9 +241,9 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Wilsons(4, 5, hunt_order='random')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_wilsons_serpentine_order(self):
         """ test the Wilson method generates a reasonably sane maze, using the serpentine pathway """
@@ -251,13 +251,20 @@ class GeneratorsTest(unittest.TestCase):
         m.generator = Wilsons(4, 5, hunt_order='serpentine')
         m.generate()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
 
 def boundary_is_solid(grid):
-    """ Algorithms should generate a maze with a solid boundary of walls. """
+    """ Helper method to test of the maze is sane
+    Algorithms should generate a maze with a solid boundary of walls.
+    
+    Args:
+        grid (np.array): maze array
+    Returns:
+        boolean: is the maze boundary solid?
+    """
     # first row
     for c in grid[0]:
         if c == 0:
@@ -277,7 +284,14 @@ def boundary_is_solid(grid):
 
 
 def all_passages_open(grid):
-    """ All of the (odd, odd) grid cells in a maze should be passages. """
+    """ Helper method to test of the maze is sane
+    All of the (odd, odd) grid cells in a maze should be passages.
+    
+    Args:
+        grid (np.array): maze array
+    Returns:
+        booean: Are all the odd/odd grid cells open?
+    """
     H, W = grid.shape
 
     for r in range(1, H, 2):
@@ -289,7 +303,14 @@ def all_passages_open(grid):
 
 
 def all_corners_complete(grid):
-    """ All of the (even, even) grid cells in a maze should be walls. """
+    """ Helper method to test of the maze is sane
+    All of the (even, even) grid cells in a maze should be walls.
+    
+    Args:
+        grid (np.array): maze array
+    Returns:
+        boolean: Are all of the grid corners solid?
+    """
     H, W = grid.shape
 
     for r in range(2, H, 2):
