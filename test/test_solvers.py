@@ -65,7 +65,14 @@ class SolversTester(unittest.TestCase):
 
     @staticmethod
     def create_maze_with_varied_entrances(start_outer=True, end_outer=True):
-        """ create a maze with entrances inside/outside """
+        """ create a maze with entrances inside/outside
+
+        Args:
+            start_outer (bool): should the start of the maze puzzle be on the boundary of the maze?
+            end_outer (bool): should the end of the maze puzzle be on the boundary of the maze?
+        Returns:
+            Maze: a small, test maze grid with entrance and exit initialized
+        """
         m = Maze()
         m.generator = Prims(4, 5)
         m.generate()

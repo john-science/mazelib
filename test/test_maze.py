@@ -8,7 +8,14 @@ from mazelib.mazelib import Maze
 class MazeTest(unittest.TestCase):
 
     def _on_edge(self, grid, cell):
-        """ helper method to determine if a point is on the edge of a maze """
+        """ helper method to determine if a point is on the edge of a maze
+
+        Args:
+            grid (np.array): maze array
+            cell (tuple): position of cell of interest
+        Returns:
+            boolean: Is this cell on the edge of the maze?
+        """
         r, c = cell
 
         if r == 0 or r == (grid.shape[0] - 1):
@@ -19,12 +26,17 @@ class MazeTest(unittest.TestCase):
         return False
 
     def _num_turns(self, path):
-        """ helper method to count the number of turns in a path """
+        """ helper method to count the number of turns in a path
+
+        Args:
+            path (list): sequence of cells to path through maze
+        Returns:
+            int: number of turns in the path
+        """
         if len(path) < 3:
             return 0
 
         num = 0
-
         for i in range(1, len(path) - 1):
             same_col = path[i - 1][0] == path[i][0] == path[i + 1][0]
             same_row = path[i - 1][1] == path[i][1] == path[i + 1][1]
