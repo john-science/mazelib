@@ -24,17 +24,17 @@ class GeneratorsTest(unittest.TestCase):
         # example 1 of maze dimension definitions
         m = Maze()
         m.generator = Prims(3, 3)
-        self.assertEqual(m.generator.h, 3)
-        self.assertEqual(m.generator.w, 3)
-        self.assertEqual(m.generator.H, 7)
-        self.assertEqual(m.generator.W, 7)
+        assert m.generator.h == 3
+        assert m.generator.w == 3
+        assert m.generator.H == 7
+        assert m.generator.W == 7
 
         # example 2 of maze dimension definitions
         m.generator = Prims(24, 12)
-        self.assertEqual(m.generator.h, 24)
-        self.assertEqual(m.generator.w, 12)
-        self.assertEqual(m.generator.H, 49)
-        self.assertEqual(m.generator.W, 25)
+        assert m.generator.h == 24
+        assert m.generator.w == 12
+        assert m.generator.H == 49
+        assert m.generator.W == 25
 
         # ensure assertions are failed when invalid maze dimensions are provided
         self.assertRaises(AssertionError, Prims, 2, 2)

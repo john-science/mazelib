@@ -154,10 +154,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
     def test_chain(self):
         """ test against a maze with outer/inner entraces """
@@ -171,10 +171,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
     def test_collision(self):
         """ test against a maze with outer/inner entraces """
@@ -188,10 +188,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
     def test_random_mouse(self):
         """ test against a maze with outer/inner entraces """
@@ -205,10 +205,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
     def test_shortest_path(self):
         """ test against a maze with outer/inner entraces """
@@ -222,10 +222,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
     def test_shortest_paths(self):
         """ test against a maze with outer/inner entraces """
@@ -239,10 +239,10 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    self.assertFalse(self.duplicates_in_solution(sol))
-                    self.assertTrue(self.one_away(m.start, sol[0]))
-                    self.assertTrue(self.one_away(m.end, sol[-1]))
-                    self.assertTrue(self.solution_is_sane(sol))
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
 
 
 if __name__ == '__main__':

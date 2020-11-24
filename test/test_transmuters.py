@@ -43,8 +43,8 @@ class SolversTest(unittest.TestCase):
 
         assert m.grid[(1, 5)] == 1
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_dead_end_filler(self):
         m = Maze()
@@ -65,8 +65,8 @@ class SolversTest(unittest.TestCase):
         assert m.grid[(1, 2)] == 1
         assert m.grid[(3, 3)] == 1
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_corners_complete(m.grid)
 
     def test_perturbation(self):
         m = Maze()
@@ -76,9 +76,9 @@ class SolversTest(unittest.TestCase):
         m.transmuters = [Perturbation()]
         m.transmute()
 
-        self.assertTrue(boundary_is_solid(m.grid))
-        self.assertTrue(all_passages_open(m.grid))
-        self.assertTrue(all_corners_complete(m.grid))
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
 
 
 if __name__ == '__main__':
