@@ -259,7 +259,7 @@ class GeneratorsTest(unittest.TestCase):
 def boundary_is_solid(grid):
     """ Helper method to test of the maze is sane
     Algorithms should generate a maze with a solid boundary of walls.
-    
+
     Args:
         grid (np.array): maze array
     Returns:
@@ -286,7 +286,7 @@ def boundary_is_solid(grid):
 def all_passages_open(grid):
     """ Helper method to test of the maze is sane
     All of the (odd, odd) grid cells in a maze should be passages.
-    
+
     Args:
         grid (np.array): maze array
     Returns:
@@ -305,7 +305,7 @@ def all_passages_open(grid):
 def all_corners_complete(grid):
     """ Helper method to test of the maze is sane
     All of the (even, even) grid cells in a maze should be walls.
-    
+
     Args:
         grid (np.array): maze array
     Returns:

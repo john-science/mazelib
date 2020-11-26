@@ -6,7 +6,6 @@ from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
 from mazelib.transmute.DeadEndFiller import DeadEndFiller
 from mazelib.transmute.Perturbation import Perturbation
-from test_generators import all_corners_complete, all_passages_open, boundary_is_solid
 
 
 class SolversTest(unittest.TestCase):
@@ -79,6 +78,71 @@ class SolversTest(unittest.TestCase):
         assert boundary_is_solid(m.grid)
         assert all_passages_open(m.grid)
         assert all_corners_complete(m.grid)
+
+
+def boundary_is_solid(grid):
+    """ Helper method to test of the maze is sane
+    Algorithms should generate a maze with a solid boundary of walls.
+
+    Args:
+        grid (np.array): maze array
+    Returns:
+        boolean: is the maze boundary solid?
+    """
+    # first row
+    for c in grid[0]:
+        if c == 0:
+            return False
+
+    # other rows
+    for row in grid[1: -1]:
+        if row[0] == 0 or row[-1] == 0:
+            return False
+
+    # last row
+    for c in grid[grid.shape[0] - 1]:
+        if c == 0:
+            return False
+
+    return True
+
+
+def all_passages_open(grid):
+    """ Helper method to test of the maze is sane
+    All of the (odd, odd) grid cells in a maze should be passages.
+
+    Args:
+        grid (np.array): maze array
+    Returns:
+        booean: Are all the odd/odd grid cells open?
+    """
+    H, W = grid.shape
+
+    for r in range(1, H, 2):
+        for c in range(1, W, 2):
+            if grid[r, c] == 1:
+                return False
+
+    return True
+
+
+def all_corners_complete(grid):
+    """ Helper method to test of the maze is sane
+    All of the (even, even) grid cells in a maze should be walls.
+
+    Args:
+        grid (np.array): maze array
+    Returns:
+        boolean: Are all of the grid corners solid?
+    """
+    H, W = grid.shape
+
+    for r in range(2, H, 2):
+        for c in range(2, W, 2):
+            if grid[r, c] == 0:
+                return False
+
+    return True
 
 
 if __name__ == '__main__':
