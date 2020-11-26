@@ -39,11 +39,10 @@ cdef class MazeSolveAlgo:
     cdef inline bint _within_one(self, tuple cell, tuple desire)
 
 
-    @cython.locals(found=bint, attempt=cython.int, first_i=cython.int, last_i=cython.int,
-                   i=cython.int, max_attempt=cython.int, first=tuple)
-    cdef inline list _prune_solution(self, list solution)
+    @cython.locals(found=bint, attempt=cython.int, first_i=cython.int, last_i=cython.int, i=cython.int,
+                   max_attempt=cython.int, first=tuple)
+    cpdef list _prune_solution(self, list solution)
 
 
     @cython.locals(s=list)
     cpdef list prune_solutions(self, list solutions)
-

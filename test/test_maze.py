@@ -208,9 +208,5 @@ class MazeTest(unittest.TestCase):
         assert grid0 != grid2
 
 
-def main():
-    unittest.main()
-
-
 if __name__ == '__main__':
-    main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)

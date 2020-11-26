@@ -19,7 +19,10 @@ benchmark:
 	python benchmarks/benchmarks.py
 
 test:
-	python test/test_*.py
+	python test/test_maze.py
+	python test/test_generators.py
+	python test/test_solvers.py
+	python test/test_transmuters.py
 
 dist: install
 	python setup.py sdist

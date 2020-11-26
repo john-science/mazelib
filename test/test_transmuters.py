@@ -6,7 +6,7 @@ from mazelib.generate.TrivialMaze import TrivialMaze
 from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
 from mazelib.transmute.DeadEndFiller import DeadEndFiller
 from mazelib.transmute.Perturbation import Perturbation
-from .test_generators import all_corners_complete, all_passages_open, boundary_is_solid
+from test_generators import all_corners_complete, all_passages_open, boundary_is_solid
 
 
 class SolversTest(unittest.TestCase):
@@ -82,4 +82,4 @@ class SolversTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(argv=['first-arg-is-ignored'], exit=False)

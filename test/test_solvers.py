@@ -9,7 +9,7 @@ from mazelib.solve.ShortestPaths import ShortestPaths
 from mazelib.mazelib import Maze
 
 
-class SolversTester(unittest.TestCase):
+class SolversTest(unittest.TestCase):
 
     @staticmethod
     def one_away(cell1, cell2):
@@ -58,7 +58,7 @@ class SolversTester(unittest.TestCase):
         assert len(solution) > 0
 
         for i in range(1, len(solution)):
-            if not SolversTester.one_away(solution[i - 1], solution[i]):
+            if not SolversTest.one_away(solution[i - 1], solution[i]):
                 return False
 
         return True
@@ -222,7 +222,7 @@ class SolversTester(unittest.TestCase):
                 m.solve()
 
                 for sol in m.solutions:
-                    assert self.duplicates_in_solution(sol)
+                    assert not self.duplicates_in_solution(sol)
                     assert self.one_away(m.start, sol[0])
                     assert self.one_away(m.end, sol[-1])
                     assert self.solution_is_sane(sol)
