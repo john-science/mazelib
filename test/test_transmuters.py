@@ -30,6 +30,7 @@ class SolversTest(unittest.TestCase):
         return g
 
     def test_cul_de_sac_filler(self):
+        """ Test the CuldeSacFiller leaves the maze in a solvable state """
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -41,11 +42,11 @@ class SolversTest(unittest.TestCase):
         m.transmute()
 
         assert m.grid[(1, 5)] == 1
-
         assert boundary_is_solid(m.grid)
         assert all_corners_complete(m.grid)
 
     def test_dead_end_filler(self):
+        """ Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state """
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -68,6 +69,7 @@ class SolversTest(unittest.TestCase):
         assert all_corners_complete(m.grid)
 
     def test_perturbation(self):
+        """ Test the Perturbation algorithm leaves the maze in a solvable state """
         m = Maze()
         m.generator = TrivialMaze(4, 5)
         m.generate()
