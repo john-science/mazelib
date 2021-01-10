@@ -140,9 +140,9 @@ Or you might want to get ri of *all* the dead ends:
     #######
 
 
-## Advanced: The Monte Carlo Method
+## Advanced: Controlling Maze Difficulty
 
-A common desire is to not to create just *any* maze but one of a particular difficulty level. The Monte Carlo method can be used to solve these problems.
+> How do you control the difficulty of the mazes you generate?
 
 The idea is simple: a number of equally-sized mazes are generated and solved, then these mazes are organized by the length of their shortest solution. To get a very hard maze, just select one of the ones at the end of the list.
 
