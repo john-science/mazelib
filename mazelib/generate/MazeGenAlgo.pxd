@@ -4,10 +4,10 @@ cimport numpy as np
 
 
 cdef class MazeGenAlgo:
-    cpdef public int h
-    cpdef public int w
-    cpdef public int H
-    cpdef public int W
+    cdef public int h
+    cdef public int w
+    cdef public int H
+    cdef public int W
 
     cpdef ndarray[cython.char, ndim=2] generate(self)
 
