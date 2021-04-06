@@ -51,7 +51,7 @@ class SolversTest(unittest.TestCase):
         m.generator = Prims(3, 3)
         m.generate()
         m.start = (1, 0)
-        m.end = (5, 6)
+        m.end = (5, 4)
         m.grid = self._example_cul_de_sac_maze()
 
         assert m.grid[(1, 5)] == 0

@@ -64,8 +64,18 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_binary_tree(self):
         """ test the Binary Tree method generates a reasonably sane maze """
+        # try without a skew parameter
         m = Maze()
         m.generator = BinaryTree(4, 5)
+        m.generate()
+
+        assert boundary_is_solid(m.grid)
+        assert all_passages_open(m.grid)
+        assert all_corners_complete(m.grid)
+
+        # try with a skew parameter
+        m = Maze()
+        m.generator = BinaryTree(4, 5, 'NW')
         m.generate()
 
         assert boundary_is_solid(m.grid)

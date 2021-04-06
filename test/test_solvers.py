@@ -74,7 +74,7 @@ class SolversTest(unittest.TestCase):
             Maze: a small, test maze grid with entrance and exit initialized
         """
         m = Maze()
-        m.generator = Prims(4, 5)
+        m.generator = Prims(6, 7)
         m.generate()
 
         if start_outer and end_outer:
