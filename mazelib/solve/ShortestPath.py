@@ -92,3 +92,51 @@ class ShortestPath(MazeSolveAlgo):
         assert (len(solutions) > 0 and len(solutions[0]) > 0), 'No valid solutions found.'
 
         return solutions
+
+    def _clean_up(self, solutions):
+        """ Cleaning up the solutions in three stages:
+        1) remove incomplete solutions
+        2) remove duplicate solutions
+        3) order the solutions by length (short to long)
+
+        Args:
+            solutions (list): collection of maze solutions
+        Returns:
+            list: cleaner collection of solutions
+        """
+        # 1) remove incomplete solutions
+        new_solutions = []
+        for sol in solutions:
+            new_sol = None
+            if self.end_edge:
+                last = self._push_edge(self.end)
+                # remove edge-case end cells
+                if len(sol) > 2 and self._within_one(sol[-2], self.end):
+                    new_sol = sol[:-1]
+                elif len(sol) > 2 and self._within_one(sol[-2], last):
+                    new_sol = sol[:-1] + [last]
+            else:
+                # remove inside-maze-case end cells
+                if len(sol) > 2 and self._within_one(sol[-2], self.end):
+                    new_sol = sol[:-1]
+
+            if new_sol:
+                if new_sol[-1] == self.end:
+                    new_sol = new_sol[:-1]
+                new_solutions.append(new_sol)
+
+        # 2) remove duplicate solutions
+        solutions = self._remove_duplicate_sols(new_solutions)
+
+        # order the solutions by length (short to long)
+        return sorted(solutions, key=len)
+
+    def _remove_duplicate_sols(self, sols):
+        """ Remove duplicate solutions using subsetting
+
+        Args:
+            solutions (list): collection of maze solutions
+        Returns:
+            list: collection of unique maze solutions
+        """
+        return [list(s) for s in set(map(tuple, sols))]
