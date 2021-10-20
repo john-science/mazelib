@@ -13,7 +13,7 @@ uninstall: clean
 	$(shell pip uninstall -y mazelib >/dev/null 2>/dev/null)
 
 install: uninstall
-	python setup.py install
+	pip install .
 
 benchmark:
 	python benchmarks/benchmarks.py

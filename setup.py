@@ -7,11 +7,10 @@ The easiest solution it so install via PyPI:
 But if you know setuputils/distutils, you can build locally:
 
     pip install -r requirements.txt
-    python setup.py install
+    pip install .
 
 To run the test suite any of the following will work:
 
-    python setup.py test
     nosetests test/
     pytest test/
     make test
