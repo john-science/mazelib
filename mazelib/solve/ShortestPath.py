@@ -56,13 +56,13 @@ class ShortestPath(MazeSolveAlgo):
                     if not self._on_edge(self.end):
                         # fix solution so it doesn't overlap endpoints
                         solutions[s] = solutions[s][:-1]
-                    return [solutions[s]]
+                    return self._clean_up([solutions[s]])
                 elif solutions[s][-1] is not None:
                     # continue with all un-stopped solutions
                     if len(solutions[s]) > 1:
                         # check to see if you've gone past the endpoint
                         if self._midpoint(solutions[s][-1], solutions[s][-2]) == self.end:
-                            return [solutions[s][:-1]]
+                            return self._clean_up([solutions[s][:-1]])
 
                     # find all the neighbors of the last cell in the solution
                     ns = self._find_unblocked_neighbors(solutions[s][-1])
@@ -87,11 +87,7 @@ class ShortestPath(MazeSolveAlgo):
             num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1, solutions))
 
         # 4) clean-up solutions
-        solutions = self._clean_up(solutions)
-
-        assert (len(solutions) > 0 and len(solutions[0]) > 0), 'No valid solutions found.'
-
-        return solutions
+        return self._clean_up(solutions)
 
     def _clean_up(self, solutions):
         """ Cleaning up the solutions in three stages:
