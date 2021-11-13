@@ -10,10 +10,9 @@ from mazelib.mazelib import Maze
 
 
 class SolversTest(unittest.TestCase):
-
     @staticmethod
     def one_away(cell1, cell2):
-        """ Is one cell exactly one move from another?
+        """Is one cell exactly one move from another?
 
         Args:
             cell1 (tuple): Maze position to compare
@@ -33,7 +32,7 @@ class SolversTest(unittest.TestCase):
 
     @staticmethod
     def duplicates_in_solution(solution):
-        """ No cell should appear twice in the same maze solution.
+        """No cell should appear twice in the same maze solution.
 
         Args:
             solution (list): path from start to finish
@@ -41,14 +40,14 @@ class SolversTest(unittest.TestCase):
             bool: Does the same cell appear in the solution more than once?
         """
         for i in range(len(solution[:-1])):
-            if solution[i] in solution[i + 1:]:
+            if solution[i] in solution[i + 1 :]:
                 return True
 
         return False
 
     @staticmethod
     def solution_is_sane(solution):
-        """ verify that each cell in a solution path is next to the previous cell
+        """verify that each cell in a solution path is next to the previous cell
 
         Args:
             solution (list): path from start to finish
@@ -65,7 +64,7 @@ class SolversTest(unittest.TestCase):
 
     @staticmethod
     def create_maze_with_varied_entrances(start_outer=True, end_outer=True):
-        """ create a maze with entrances inside/outside
+        """create a maze with entrances inside/outside
 
         Args:
             start_outer (bool): should the start of the maze puzzle be on the boundary of the maze?
@@ -89,7 +88,7 @@ class SolversTest(unittest.TestCase):
         return m
 
     def test_prune_solution(self):
-        """ test the solution-pruning helper method """
+        """test the solution-pruning helper method"""
         # build a test Maze and solver, just as placeholders
         m = Maze()
         m.solver = RandomMouse()
@@ -105,8 +104,21 @@ class SolversTest(unittest.TestCase):
         assert sol == m.solver._prune_solution(sol1)
 
         # test the pruner correctly prunes two duplicates
-        sol2 = [(1, 1), (1, 2), (1, 3), (1, 4), (2, 4), (3, 4), (2, 4), (1, 4), (2, 4), (3, 4),
-                (2, 4), (1, 4), (1, 5)]
+        sol2 = [
+            (1, 1),
+            (1, 2),
+            (1, 3),
+            (1, 4),
+            (2, 4),
+            (3, 4),
+            (2, 4),
+            (1, 4),
+            (2, 4),
+            (3, 4),
+            (2, 4),
+            (1, 4),
+            (1, 5),
+        ]
         assert sol == m.solver._prune_solution(sol2)
 
         # test the pruner correctly prunes the end point from the solution
@@ -122,12 +134,37 @@ class SolversTest(unittest.TestCase):
         assert sol == m.solver._prune_solution(sol5)
 
         # test the pruner correctly prunes multiple start points and end points from the solution
-        sol6 = [(0, 1), (0, 1), (0, 1), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (0, 5), (0, 5)]
+        sol6 = [
+            (0, 1),
+            (0, 1),
+            (0, 1),
+            (1, 1),
+            (1, 2),
+            (1, 3),
+            (1, 4),
+            (1, 5),
+            (0, 5),
+            (0, 5),
+        ]
         assert sol == m.solver._prune_solution(sol6)
 
         # test the pruner correctly prunes a complex mess of a solution
-        sol7 = [(0, 1), (0, 1), (0, 1), (1, 1), (1, 2), (1, 3), (1, 4), (2, 4), (3, 4), (2, 4),
-                (1, 4), (1, 5), (0, 5), (0, 5)]
+        sol7 = [
+            (0, 1),
+            (0, 1),
+            (0, 1),
+            (1, 1),
+            (1, 2),
+            (1, 3),
+            (1, 4),
+            (2, 4),
+            (3, 4),
+            (2, 4),
+            (1, 4),
+            (1, 5),
+            (0, 5),
+            (0, 5),
+        ]
         assert sol == m.solver._prune_solution(sol7)
         # bonus: let's tests a long, and heavily redundant, solution
         assert sol == m.solver._prune_solution(sol7 * 100)
@@ -143,7 +180,7 @@ class SolversTest(unittest.TestCase):
         assert sol == m.solver._prune_solution(sol * 100)
 
     def test_backtracking_solver(self):
-        """ test BacktrackingSolver against a maze with outer/inner entraces """
+        """test BacktrackingSolver against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -160,7 +197,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_chain(self):
-        """ test against a maze with outer/inner entraces """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -177,7 +214,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_collision(self):
-        """ test against a maze with outer/inner entraces """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -194,7 +231,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_random_mouse(self):
-        """ test against a maze with outer/inner entraces """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -211,7 +248,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_shortest_path(self):
-        """ test against a maze with outer/inner entraces """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -228,7 +265,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_shortest_paths(self):
-        """ test against a maze with outer/inner entraces """
+        """test against a maze with outer/inner entraces"""
         starts = [True, False]
         ends = [True, False]
 
@@ -245,5 +282,5 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
 
-if __name__ == '__main__':
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+if __name__ == "__main__":
+    unittest.main(argv=["first-arg-is-ignored"], exit=False)

@@ -9,9 +9,8 @@ from mazelib.transmute.Perturbation import Perturbation
 
 
 class SolversTest(unittest.TestCase):
-
     def _example_cul_de_sac_maze(self):
-        """ helper method to generate a super-simpl little maze with a loop in it:
+        """helper method to generate a super-simpl little maze with a loop in it:
         #######
               #
         # # # #
@@ -30,7 +29,7 @@ class SolversTest(unittest.TestCase):
         return g
 
     def test_cul_de_sac_filler(self):
-        """ Test the CuldeSacFiller leaves the maze in a solvable state """
+        """Test the CuldeSacFiller leaves the maze in a solvable state"""
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -46,7 +45,7 @@ class SolversTest(unittest.TestCase):
         assert all_corners_complete(m.grid)
 
     def test_dead_end_filler(self):
-        """ Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state """
+        """Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state"""
         m = Maze()
         m.generator = Prims(3, 3)
         m.generate()
@@ -69,7 +68,7 @@ class SolversTest(unittest.TestCase):
         assert all_corners_complete(m.grid)
 
     def test_perturbation(self):
-        """ Test the Perturbation algorithm leaves the maze in a solvable state """
+        """Test the Perturbation algorithm leaves the maze in a solvable state"""
         m = Maze()
         m.generator = TrivialMaze(4, 5)
         m.generate()
@@ -83,7 +82,7 @@ class SolversTest(unittest.TestCase):
 
 
 def boundary_is_solid(grid):
-    """ Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane
     Algorithms should generate a maze with a solid boundary of walls.
 
     Args:
@@ -97,7 +96,7 @@ def boundary_is_solid(grid):
             return False
 
     # other rows
-    for row in grid[1: -1]:
+    for row in grid[1:-1]:
         if row[0] == 0 or row[-1] == 0:
             return False
 
@@ -110,7 +109,7 @@ def boundary_is_solid(grid):
 
 
 def all_passages_open(grid):
-    """ Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane
     All of the (odd, odd) grid cells in a maze should be passages.
 
     Args:
@@ -129,7 +128,7 @@ def all_passages_open(grid):
 
 
 def all_corners_complete(grid):
-    """ Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane
     All of the (even, even) grid cells in a maze should be walls.
 
     Args:
@@ -147,5 +146,5 @@ def all_corners_complete(grid):
     return True
 
 
-if __name__ == '__main__':
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+if __name__ == "__main__":
+    unittest.main(argv=["first-arg-is-ignored"], exit=False)
