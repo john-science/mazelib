@@ -1,11 +1,12 @@
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.transmute.MazeTransmuteAlgo import MazeTransmuteAlgo
 
 
 class CuldeSacFiller(MazeTransmuteAlgo):
-    """ This algorithm could be called LoopFiller, because it breaks up loop in the maze.
+    """This algorithm could be called LoopFiller, because it breaks up loop in the maze.
 
     1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
     2. At each of these places, travel in both directions until you find your first intersection.
@@ -14,7 +15,7 @@ class CuldeSacFiller(MazeTransmuteAlgo):
     """
 
     def _transmute(self):
-        """ Master methot to fill in all the loops in the maze
+        """Master methot to fill in all the loops in the maze
 
         Returns: None
         """
@@ -44,7 +45,7 @@ class CuldeSacFiller(MazeTransmuteAlgo):
                     self.grid[(r, c)] = 1
 
     def _find_next_intersection(self, path_start):
-        """ Starting with the first two cells in a path, follow the path until you hit the next
+        """Starting with the first two cells in a path, follow the path until you hit the next
         intersection (or dead end)
 
         Args:

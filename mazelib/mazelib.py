@@ -2,7 +2,7 @@ from random import randrange
 
 
 class Maze:
-    """ This is a master object meant to hold a rectangular, 2D maze.
+    """This is a master object meant to hold a rectangular, 2D maze.
     This object includes the methods used to generate and solve the maze,
     as well as the start and end points.
     """
@@ -20,7 +20,7 @@ class Maze:
 
     @staticmethod
     def set_seed(seed):
-        """ helper method to set the random seeds for all the random seed for all the random libraries we are using
+        """helper method to set the random seeds for all the random seed for all the random libraries we are using
 
         Args:
             seed (int): random seed number
@@ -28,16 +28,20 @@ class Maze:
         """
         if seed is not None:
             import random
+
             random.seed(seed)
             import numpy as np
+
             np.random.seed(seed)
 
     def generate(self):
-        """ public method to generate a new maze, and handle some clean-up
+        """public method to generate a new maze, and handle some clean-up
 
         Returns: None
         """
-        assert not (self.generator is None), 'No maze-generation algorithm has been set.'
+        assert not (
+            self.generator is None
+        ), "No maze-generation algorithm has been set."
 
         self.grid = self.generator.generate()
         self.start = None
@@ -45,7 +49,7 @@ class Maze:
         self.solutions = None
 
     def generate_entrances(self, start_outer=True, end_outer=True):
-        """ Generate maze entrances. Entrances can be on the walls, or inside the maze.
+        """Generate maze entrances. Entrances can be on the walls, or inside the maze.
 
         Args:
             start_outer (bool): Do you want the start of the maze to be on an outer wall?
@@ -66,7 +70,7 @@ class Maze:
             self.generate_entrances(start_outer, end_outer)
 
     def _generate_outer_entrances(self):
-        """ Generate maze entrances, along the outer walls.
+        """Generate maze entrances, along the outer walls.
 
         Returns: None
         """
@@ -90,7 +94,7 @@ class Maze:
             self.end = (randrange(1, H, 2), 0)
 
     def _generate_inner_entrances(self):
-        """ Generate maze entrances, randomly within the maze.
+        """Generate maze entrances, randomly within the maze.
 
         Returns: None
         """
@@ -106,7 +110,7 @@ class Maze:
         self.end = end
 
     def _generate_opposite_entrances(self):
-        """ Generate one inner and one outer entrance.
+        """Generate one inner and one outer entrance.
 
         Returns:
             tuple: start cell, end cell
@@ -131,7 +135,7 @@ class Maze:
         return (first, second)
 
     def generate_monte_carlo(self, repeat, entrances=3, difficulty=1.0, reducer=len):
-        """ Use the Monte Carlo method to generate a maze of defined difficulty.
+        """Use the Monte Carlo method to generate a maze of defined difficulty.
 
         This method assumes the generator and solver algorithms are already set.
 
@@ -151,7 +155,9 @@ class Maze:
             reducer (function): How do you want to determine solution difficulty (default is length).
         Returns: None
         """
-        assert (difficulty >= 0.0 and difficulty <= 1.0), 'Maze difficulty must be between 0 to 1.'
+        assert (
+            difficulty >= 0.0 and difficulty <= 1.0
+        ), "Maze difficulty must be between 0 to 1."
 
         # generate different mazes
         mazes = []
@@ -163,51 +169,56 @@ class Maze:
             for _ in range(entrances):
                 self.generate_entrances()
                 self.solve()
-                this_maze.append({'grid': self.grid,
-                                  'start': self.start,
-                                  'end': self.end,
-                                  'solutions': self.solutions})
+                this_maze.append(
+                    {
+                        "grid": self.grid,
+                        "start": self.start,
+                        "end": self.end,
+                        "solutions": self.solutions,
+                    }
+                )
 
             # for each maze, find the longest solution
-            mazes.append(max(this_maze, key=lambda k: len(k['solutions'])))
+            mazes.append(max(this_maze, key=lambda k: len(k["solutions"])))
 
         # sort the mazes by the length of their solution
-        mazes = sorted(mazes, key=lambda k: reducer(k['solutions'][0]))
+        mazes = sorted(mazes, key=lambda k: reducer(k["solutions"][0]))
 
         # based on optional parameter, choose the maze of the correct difficulty
         posi = int((len(mazes) - 1) * difficulty)
 
         # save final results of Monte Carlo Simulations to this object
-        self.grid = mazes[posi]['grid']
-        self.start = mazes[posi]['start']
-        self.end = mazes[posi]['end']
-        self.solutions = mazes[posi]['solutions']
+        self.grid = mazes[posi]["grid"]
+        self.start = mazes[posi]["start"]
+        self.end = mazes[posi]["end"]
+        self.solutions = mazes[posi]["solutions"]
 
     def transmute(self):
-        """ transmute an existing maze grid
+        """transmute an existing maze grid
 
         Returns: None
         """
-        assert not (self.grid is None), 'No maze grid yet exists to transmute.'
+        assert not (self.grid is None), "No maze grid yet exists to transmute."
 
         for transmuter in self.transmuters:
             transmuter.transmute(self.grid, self.start, self.end)
 
     def solve(self):
-        """ public method to solve a new maze, if possible
+        """public method to solve a new maze, if possible
 
         Returns: None
         """
-        assert not (self.solver is None), 'No maze-solving algorithm has been set.'
-        assert not (self.start is None) and not (self.end is None), \
-            'Start and end times must be set first.'
+        assert not (self.solver is None), "No maze-solving algorithm has been set."
+        assert not (self.start is None) and not (
+            self.end is None
+        ), "Start and end times must be set first."
 
         self.solutions = self.solver.solve(self.grid, self.start, self.end)
         if self.prune:
             self.solutions = self.solver.prune_solutions(self.solutions)
 
     def tostring(self, entrances=False, solutions=False):
-        """ Return a string representation of the maze.
+        """Return a string representation of the maze.
         This can also display the maze entrances/solutions IF they already exist.
 
         Args:
@@ -217,29 +228,29 @@ class Maze:
             str: string representation of the maze
         """
         if self.grid is None:
-            return ''
+            return ""
 
         # build the walls of the grid
         txt = []
         for row in self.grid:
-            txt.append(''.join(['#' if cell else ' ' for cell in row]))
+            txt.append("".join(["#" if cell else " " for cell in row]))
 
         # insert the start and end points
         if entrances and self.start and self.end:
             r, c = self.start
-            txt[r] = txt[r][:c] + 'S' + txt[r][c + 1:]
+            txt[r] = txt[r][:c] + "S" + txt[r][c + 1 :]
             r, c = self.end
-            txt[r] = txt[r][:c] + 'E' + txt[r][c + 1:]
+            txt[r] = txt[r][:c] + "E" + txt[r][c + 1 :]
 
         # if extant, insert the solution path
         if solutions and self.solutions:
             for r, c in self.solutions[0]:
-                txt[r] = txt[r][:c] + '+' + txt[r][c + 1:]
+                txt[r] = txt[r][:c] + "+" + txt[r][c + 1 :]
 
-        return '\n'.join(txt)
+        return "\n".join(txt)
 
     def __str__(self):
-        """ display maze walls, entrances, and solutions, if available
+        """display maze walls, entrances, and solutions, if available
 
         Returns:
             str: string representation of the maze
@@ -247,7 +258,7 @@ class Maze:
         return self.tostring(True, True)
 
     def __repr__(self):
-        """ display maze walls, entrances, and solutions, if available
+        """display maze walls, entrances, and solutions, if available
 
         Returns:
             str: string representation of the maze

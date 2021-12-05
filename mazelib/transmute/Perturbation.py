@@ -1,12 +1,14 @@
 from random import choice, randrange
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.transmute.MazeTransmuteAlgo import MazeTransmuteAlgo
 
 
 class Perturbation(MazeTransmuteAlgo):
-    """ The Algorithm
+    """The Algorithm
 
     1. Start with a complete, valid maze.
     2. Add a small number of random walls, blocking current passages.
@@ -29,7 +31,7 @@ class Perturbation(MazeTransmuteAlgo):
         super(Perturbation, self).__init__()
 
     def _transmute(self):
-        """ master method to slightly pertub the maze a set number of times
+        """master method to slightly pertub the maze a set number of times
 
         Returns: None
         """
@@ -42,7 +44,7 @@ class Perturbation(MazeTransmuteAlgo):
             self._reconnect_maze()
 
     def _add_a_random_wall(self):
-        """ Add a single wall randomly within the maze
+        """Add a single wall randomly within the maze
 
         Returns: None
         """
@@ -68,7 +70,7 @@ class Perturbation(MazeTransmuteAlgo):
                 return
 
     def _reconnect_maze(self):
-        """ If a maze is not fully connected, open up walls until it is.
+        """If a maze is not fully connected, open up walls until it is.
 
         Returns: None
         """
@@ -76,7 +78,7 @@ class Perturbation(MazeTransmuteAlgo):
         self._fix_disjoint_passages(passages)
 
     def _find_all_passages(self):
-        """ Place all connected passage cells into a set. Disjoint passages will be in different sets.
+        """Place all connected passage cells into a set. Disjoint passages will be in different sets.
 
         Returns:
             list: all of the non-connected paths in the maze
@@ -105,7 +107,7 @@ class Perturbation(MazeTransmuteAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages):
-        """ All passages in a maze should be connected
+        """All passages in a maze should be connected
 
         Args:
             disjoint_passages (list): presumably non-connected paths in the maze
@@ -130,7 +132,7 @@ class Perturbation(MazeTransmuteAlgo):
                         break
 
     def _join_intersecting_sets(self, list_of_sets):
-        """ combine sets that have non-zero intersections
+        """combine sets that have non-zero intersections
 
         Args:
             list_of_sets (list): presumably non-connected paths in the maze
