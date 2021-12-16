@@ -1,6 +1,8 @@
 from random import choice
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
@@ -19,15 +21,15 @@ class Chain(MazeSolveAlgo):
             the maze is unsolvable.
     """
 
-    def __init__(self, turn='right'):
+    def __init__(self, turn="right"):
         # turn can take on values 'left' or 'right'
-        if turn == 'left':
+        if turn == "left":
             self.directions = [(-2, 0), (0, -2), (2, 0), (0, 2)]
         else:  # default to right turns
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def _solve(self):
-        """ solve a maze by trying to head directly, diagonally across the maze,
+        """solve a maze by trying to head directly, diagonally across the maze,
         when you hit a barrier, send out a back-tracking robot until you get to the next
         cell along the diagonal.
 
@@ -51,7 +53,7 @@ class Chain(MazeSolveAlgo):
         return [solution]
 
     def _send_out_robots(self, solution, guiding_line, i):
-        """ send out backtracking robots in all directions, to look for the next point in the guiding line
+        """send out backtracking robots in all directions, to look for the next point in the guiding line
 
         Args:
             solutions (list): The current solution path
@@ -87,7 +89,7 @@ class Chain(MazeSolveAlgo):
         return guiding_line.index(solution[-1])
 
     def _backtracking_solve(self, solution, goal):
-        """ our robots will attempt to solve the sub-maze using backtracking solver
+        """our robots will attempt to solve the sub-maze using backtracking solver
 
         Args:
             solution (list): current path to the finish
@@ -113,7 +115,7 @@ class Chain(MazeSolveAlgo):
         return path
 
     def _try_direct_move(self, solution, guiding_line, i):
-        """ The path to the next spot on the guiding line might be open.
+        """The path to the next spot on the guiding line might be open.
         If so, add a couple steps to the solution. If not, return False.
 
         Args:
@@ -136,13 +138,19 @@ class Chain(MazeSolveAlgo):
                 solution.append((r + rdiff, c + cdiff))
                 return True
         else:
-            if self.grid[r + rdiff // 2, c] == 0 and self.grid[r + rdiff, c + cdiff // 2] == 0:
+            if (
+                self.grid[r + rdiff // 2, c] == 0
+                and self.grid[r + rdiff, c + cdiff // 2] == 0
+            ):
                 solution.append((r + rdiff // 2, c))
                 solution.append((r + rdiff, c))
                 solution.append((r + rdiff, c + cdiff // 2))
                 solution.append((r + rdiff, c + cdiff))
                 return True
-            elif self.grid[r, c + cdiff // 2] == 0 and self.grid[r + rdiff // 2, c + cdiff] == 0:
+            elif (
+                self.grid[r, c + cdiff // 2] == 0
+                and self.grid[r + rdiff // 2, c + cdiff] == 0
+            ):
                 solution.append((r, c + cdiff // 2))
                 solution.append((r, c + cdiff))
                 solution.append((r + rdiff // 2, c + cdiff))
@@ -154,7 +162,7 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _draw_guiding_line(self):
-        """ draw a (mostly) straight line from start to end
+        """draw a (mostly) straight line from start to end
 
         Returns:
             list: the (probably digonal) straight line across the maze to the end

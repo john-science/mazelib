@@ -7,7 +7,7 @@ class MazeSolveAlgo:
     __metaclass__ = abc.ABCMeta
 
     def solve(self, grid, start, end):
-        """ helper method to solve a init the solver before solving the maze
+        """helper method to solve a init the solver before solving the maze
 
         Args:
             grid (np.array): maze array
@@ -20,7 +20,7 @@ class MazeSolveAlgo:
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
-        """ ensure the maze mazes any sense before you solve it
+        """ensure the maze mazes any sense before you solve it
 
         Args:
             grid (np.array): maze array
@@ -33,12 +33,16 @@ class MazeSolveAlgo:
         self.end = end
 
         # validating checks
-        assert grid is not None, 'Maze grid is not set.'
-        assert start is not None and end is not None, 'Entrances are not set.'
-        assert start[0] >= 0 and start[0] < grid.shape[0], 'Entrance is outside the grid.'
-        assert start[1] >= 0 and start[1] < grid.shape[1], 'Entrance is outside the grid.'
-        assert end[0] >= 0 and end[0] < grid.shape[0], 'Entrance is outside the grid.'
-        assert end[1] >= 0 and end[1] < grid.shape[1], 'Entrance is outside the grid.'
+        assert grid is not None, "Maze grid is not set."
+        assert start is not None and end is not None, "Entrances are not set."
+        assert (
+            start[0] >= 0 and start[0] < grid.shape[0]
+        ), "Entrance is outside the grid."
+        assert (
+            start[1] >= 0 and start[1] < grid.shape[1]
+        ), "Entrance is outside the grid."
+        assert end[0] >= 0 and end[0] < grid.shape[0], "Entrance is outside the grid."
+        assert end[1] >= 0 and end[1] < grid.shape[1], "Entrance is outside the grid."
 
     @abc.abstractmethod
     def _solve(self):
@@ -50,7 +54,7 @@ class MazeSolveAlgo:
     """
 
     def _find_unblocked_neighbors(self, posi):
-        """ Find all the grid neighbors of the current position; visited, or not.
+        """Find all the grid neighbors of the current position; visited, or not.
 
         Args:
             posi (tuple): cell of interest
@@ -62,18 +66,26 @@ class MazeSolveAlgo:
 
         if r > 1 and not self.grid[r - 1, c] and not self.grid[r - 2, c]:
             ns.append((r - 2, c))
-        if r < self.grid.shape[0] - 2 and not self.grid[r + 1, c] and not self.grid[r + 2, c]:
+        if (
+            r < self.grid.shape[0] - 2
+            and not self.grid[r + 1, c]
+            and not self.grid[r + 2, c]
+        ):
             ns.append((r + 2, c))
         if c > 1 and not self.grid[r, c - 1] and not self.grid[r, c - 2]:
             ns.append((r, c - 2))
-        if c < self.grid.shape[1] - 2 and not self.grid[r, c + 1] and not self.grid[r, c + 2]:
+        if (
+            c < self.grid.shape[1] - 2
+            and not self.grid[r, c + 1]
+            and not self.grid[r, c + 2]
+        ):
             ns.append((r, c + 2))
 
         shuffle(ns)
         return ns
 
     def _midpoint(self, a, b):
-        """ Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells
 
         Args:
             a (tuple): first cell
@@ -84,7 +96,7 @@ class MazeSolveAlgo:
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
     def _move(self, start, direction):
-        """ Convolve a position tuple with a direction tuple to generate a new position.
+        """Convolve a position tuple with a direction tuple to generate a new position.
 
         Args:
             start (tuple): position cell to start at
@@ -95,7 +107,7 @@ class MazeSolveAlgo:
         return tuple(map(sum, zip(start, direction)))
 
     def _on_edge(self, cell):
-        """ Does the cell lay on the edge, rather inside of the maze grid?
+        """Does the cell lay on the edge, rather inside of the maze grid?
 
         Args:
             cell (tuple): some place in the grid
@@ -112,7 +124,7 @@ class MazeSolveAlgo:
         return False
 
     def _push_edge(self, cell):
-        """ You may need to find the cell directly inside of a start or end cell.
+        """You may need to find the cell directly inside of a start or end cell.
 
         Args:
             cell (tuple): some place in the grid
@@ -131,7 +143,7 @@ class MazeSolveAlgo:
             return (r, c - 1)
 
     def _within_one(self, cell, desire):
-        """ Is the current cell within one move of the desired cell?
+        """Is the current cell within one move of the desired cell?
         Note, this might be one full more, or one half move.
 
         Args:
@@ -153,7 +165,7 @@ class MazeSolveAlgo:
         return False
 
     def _prune_solution(self, solution):
-        """ In the process of solving a maze, the algorithm might go down
+        """In the process of solving a maze, the algorithm might go down
         the wrong corridor then backtrack. These extraneous steps need to be removed.
         Also, clean up the end points.
 
@@ -172,9 +184,9 @@ class MazeSolveAlgo:
 
             for i in range(len(solution) - 1):
                 first = solution[i]
-                if first in solution[i + 1:]:
+                if first in solution[i + 1 :]:
                     first_i = i
-                    last_i = solution[i + 1:].index(first) + i + 1
+                    last_i = solution[i + 1 :].index(first) + i + 1
                     found = True
                     break
 
@@ -191,7 +203,7 @@ class MazeSolveAlgo:
         return solution
 
     def prune_solutions(self, solutions):
-        """ prune all the duplicate cells from all solutions, and fix end points
+        """prune all the duplicate cells from all solutions, and fix end points
 
         Args:
             solutions (list): multiple raw solutions

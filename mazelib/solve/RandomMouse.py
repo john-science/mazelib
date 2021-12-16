@@ -1,15 +1,17 @@
 from random import choice
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class RandomMouse(MazeSolveAlgo):
-    """ This mouse just randomly wanders around the maze until it finds the cheese. """
+    """This mouse just randomly wanders around the maze until it finds the cheese."""
 
     def _solve(self):
-        """ Solve a maze as stupidly as possible: just wander randomly until you find the end.
+        """Solve a maze as stupidly as possible: just wander randomly until you find the end.
         This should be basically optimally slow and should have just obsurdly long solutions,
         with lots of double backs.
 

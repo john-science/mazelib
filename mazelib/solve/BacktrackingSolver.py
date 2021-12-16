@@ -1,6 +1,8 @@
 from random import choice
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 

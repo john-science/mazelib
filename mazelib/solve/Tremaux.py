@@ -1,12 +1,14 @@
 from random import choice
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
 
 class Tremaux(MazeSolveAlgo):
-    """ The Algorithm
+    """The Algorithm
 
     0. Every time you visit a cell, mark it once.
     1. When you hit a dead end, turn around and go back.
@@ -27,11 +29,12 @@ class Tremaux(MazeSolveAlgo):
 
     This Maze-solving method is designed to be used by a human inside the Maze.
     """
+
     def __init__(self):
         self.visited_cells = {}
 
     def _solve(self):
-        """ implementing the algorithm
+        """implementing the algorithm
 
         Return:
             list: a single maze solution
@@ -66,7 +69,7 @@ class Tremaux(MazeSolveAlgo):
         return [solution]
 
     def _visit(self, cell):
-        """ Increment the number of times a cell has been visited.
+        """Increment the number of times a cell has been visited.
 
         Args:
             cell (tuple): cell of interest
@@ -78,7 +81,7 @@ class Tremaux(MazeSolveAlgo):
         self.visited_cells[cell] += 1
 
     def _get_visit_count(self, cell):
-        """ How many times has a cell been visited?
+        """How many times has a cell been visited?
 
         Args:
             cell (tuple): cell of interest
@@ -91,7 +94,7 @@ class Tremaux(MazeSolveAlgo):
             return self.visited_cells[cell] if self.visited_cells[cell] < 3 else 2
 
     def _what_next(self, ns, solution):
-        """ Find the cell to move to next, based on the Tremaux logic:
+        """Find the cell to move to next, based on the Tremaux logic:
         1. When you hit a dead end, turn around and go back.
         2. When you hit a junction you haven't visited, pick a new passage at random.
         3. If you're walking down a new passage and hit a junction you have visited,
@@ -123,11 +126,19 @@ class Tremaux(MazeSolveAlgo):
             return choice(visit_counts[0])
         elif 1 in visit_counts:
             # try not to backtrack, if you can
-            if len(visit_counts[1]) > 1 and len(solution) > 2 and solution[-3] in visit_counts[1]:
+            if (
+                len(visit_counts[1]) > 1
+                and len(solution) > 2
+                and solution[-3] in visit_counts[1]
+            ):
                 visit_counts[1].remove(solution[-3])
             return choice(visit_counts[1])
         else:
             # try not to backtrack, if you can
-            if len(visit_counts[2]) > 1 and len(solution) > 2 and solution[-3] in visit_counts[2]:
+            if (
+                len(visit_counts[2]) > 1
+                and len(solution) > 2
+                and solution[-3] in visit_counts[2]
+            ):
                 visit_counts[2].remove(solution[-3])
             return choice(visit_counts[2])

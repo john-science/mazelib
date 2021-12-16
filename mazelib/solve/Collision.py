@@ -1,5 +1,6 @@
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.solve.MazeSolveAlgo import MazeSolveAlgo
 
@@ -9,7 +10,7 @@ DEAD_END = (-9, -999)
 
 
 class Collision(MazeSolveAlgo):
-    """ The Algorithm
+    """The Algorithm
     1. step through the maze, flooding all directions equally
     2. if two flood paths meet, create a wall where they meet
     3. fill in all dead ends
@@ -17,7 +18,7 @@ class Collision(MazeSolveAlgo):
     """
 
     def _solve(self):
-        """ solve a maze by sending out robots in all directions at the same speed,
+        """solve a maze by sending out robots in all directions at the same speed,
         More robots are created at each new intersections.
         And all robots that collide, stop running.
 
@@ -45,7 +46,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _flood_maze(self, start):
-        """ from the start, flood the maze one cell at a time,
+        """from the start, flood the maze one cell at a time,
         keep track of where the water flows as paths through the maze
 
         Args:
@@ -63,7 +64,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _one_time_step(self, paths):
-        """ Move all open paths forward one grid cell
+        """Move all open paths forward one grid cell
 
         Args:
             paths (list): all the currently-running robots
@@ -106,7 +107,7 @@ class Collision(MazeSolveAlgo):
         return temp_paths
 
     def _fix_collisions(self, paths):
-        """ Look through paths for collsions.
+        """Look through paths for collsions.
         If a collision exists, build a wall in the maze at that point.
 
         Args:
@@ -131,7 +132,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _fix_entrances(self, paths):
-        """ Ensure the start and end are appropriately placed in the solution.
+        """Ensure the start and end are appropriately placed in the solution.
 
         Args:
             paths (list): all the currently-running robots
