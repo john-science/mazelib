@@ -1,7 +1,9 @@
 from random import choice, random
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -23,7 +25,7 @@ class Ellers(MazeGenAlgo):
         self.yskew = 0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -49,7 +51,7 @@ class Ellers(MazeGenAlgo):
         return self._create_grid_from_sets(sets)
 
     def _init_row(self, sets, row, max_set_number):
-        """ Initialize each cell in a row to its own set
+        """Initialize each cell in a row to its own set
 
         Args:
             sets (np.array): grid representation of row sets
@@ -66,7 +68,7 @@ class Ellers(MazeGenAlgo):
         return max_set_number
 
     def _merge_one_row(self, sets, r):
-        """ randomly decide to merge cells within a column
+        """randomly decide to merge cells within a column
 
         Args:
             sets (np.array): grid representation of row sets
@@ -80,7 +82,7 @@ class Ellers(MazeGenAlgo):
                     self._merge_sets(sets, sets[r][c + 2], sets[r][c], max_row=r)
 
     def _merge_down_a_row(self, sets, start_row):
-        """ Create vertical connections in the maze.
+        """Create vertical connections in the maze.
         For the current row, cut down at least one passage for each cell set.
 
         Args:
@@ -115,7 +117,7 @@ class Ellers(MazeGenAlgo):
                     sets[start_row + 2][c] = s
 
     def _merge_sets(self, sets, from_set, to_set, max_row=-1):
-        """ merge two different sets of grid cells into one
+        """merge two different sets of grid cells into one
         To improve performance, the grid will only be searched up to some maximum row number.
 
         Args:
@@ -134,7 +136,7 @@ class Ellers(MazeGenAlgo):
                     sets[r][c] = to_set
 
     def _process_last_row(self, sets):
-        """ join all adjacent cells that do not share a set, and omit the vertical connections
+        """join all adjacent cells that do not share a set, and omit the vertical connections
 
         Args:
             sets (np.array): grid representation of row sets
@@ -147,7 +149,7 @@ class Ellers(MazeGenAlgo):
                 self._merge_sets(sets, sets[r][c + 2], sets[r][c])
 
     def _create_grid_from_sets(self, sets):
-        """ translate the maze sets into a maze grid
+        """translate the maze sets into a maze grid
 
         Args:
             sets (np.array): grid representation of row sets

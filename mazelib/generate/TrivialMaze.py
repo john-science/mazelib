@@ -1,7 +1,9 @@
 from random import randint
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -10,15 +12,15 @@ SPIRAL = 2
 
 
 class TrivialMaze(MazeGenAlgo):
-    """ The Algorithm
+    """The Algorithm
 
     This is actually a collection of little tools to make simple,
     unicursal mazes. Currently, there are two trivial mazes available:
     serpentine and spiral.
     """
 
-    def __init__(self, h, w, maze_type='spiral'):
-        if maze_type.lower().strip() == 'serpentine':
+    def __init__(self, h, w, maze_type="spiral"):
+        if maze_type.lower().strip() == "serpentine":
             self.maze_type = SERPENTINE
         else:
             self.maze_type = SPIRAL
@@ -26,7 +28,7 @@ class TrivialMaze(MazeGenAlgo):
         super(TrivialMaze, self).__init__(h, w)
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -41,7 +43,7 @@ class TrivialMaze(MazeGenAlgo):
             return self._generate_spiral_maze(grid)
 
     def _generate_serpentine_maze(self, grid):
-        """ Create a simple maze that snakes around the grid.
+        """Create a simple maze that snakes around the grid.
         This is a unicursal maze (with no dead ends).
 
         Args:
@@ -75,7 +77,7 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _generate_spiral_maze(self, grid):
-        """ Create a simple maze that has a spiral path from
+        """Create a simple maze that has a spiral path from
         start to end. This is a unicursal maze (with no dead ends).
 
         Args:
@@ -108,7 +110,7 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _midpoint(self, a, b):
-        """ Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells
 
         Args:
             a (tuple): first cell position
@@ -119,7 +121,7 @@ class TrivialMaze(MazeGenAlgo):
         return (a[0] + b[0]) // 2, (a[1] + b[1]) // 2
 
     def _move(self, start, direction):
-        """ Convolve a position tuple with a direction tuple to generate a new position.
+        """Convolve a position tuple with a direction tuple to generate a new position.
 
         Args:
             start (tuple): first cell position

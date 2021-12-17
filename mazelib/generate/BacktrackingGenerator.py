@@ -1,7 +1,9 @@
 import numpy as np
 from random import randrange
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -19,7 +21,7 @@ class BacktrackingGenerator(MazeGenAlgo):
         super(BacktrackingGenerator, self).__init__(w, h)
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix

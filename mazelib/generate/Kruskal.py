@@ -1,18 +1,19 @@
 from numpy.random import shuffle
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class Kruskal(MazeGenAlgo):
-
     def __init__(self, h, w):
         super(Kruskal, self).__init__(h, w)
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -45,17 +46,39 @@ class Kruskal(MazeGenAlgo):
             tree2 = -1
 
             if ce_row % 2 == 0:  # even-numbered row: vertical wall
-                tree1 = sum([i if (ce_row - 1, ce_col) in j else 0 for i, j in enumerate(forest)])
-                tree2 = sum([i if (ce_row + 1, ce_col) in j else 0 for i, j in enumerate(forest)])
+                tree1 = sum(
+                    [
+                        i if (ce_row - 1, ce_col) in j else 0
+                        for i, j in enumerate(forest)
+                    ]
+                )
+                tree2 = sum(
+                    [
+                        i if (ce_row + 1, ce_col) in j else 0
+                        for i, j in enumerate(forest)
+                    ]
+                )
             else:  # odd-numbered row: horizontal wall
-                tree1 = sum([i if (ce_row, ce_col - 1) in j else 0 for i, j in enumerate(forest)])
-                tree2 = sum([i if (ce_row, ce_col + 1) in j else 0 for i, j in enumerate(forest)])
+                tree1 = sum(
+                    [
+                        i if (ce_row, ce_col - 1) in j else 0
+                        for i, j in enumerate(forest)
+                    ]
+                )
+                tree2 = sum(
+                    [
+                        i if (ce_row, ce_col + 1) in j else 0
+                        for i, j in enumerate(forest)
+                    ]
+                )
 
             if tree1 != tree2:
                 new_tree = forest[tree1] + forest[tree2]
                 temp1 = list(forest[tree1])
                 temp2 = list(forest[tree2])
-                forest = [x for x in forest if x != temp1]  # faster than forest.remove(temp1)
+                forest = [
+                    x for x in forest if x != temp1
+                ]  # faster than forest.remove(temp1)
                 forest = [x for x in forest if x != temp2]
                 forest.append(new_tree)
                 grid[ce_row][ce_col] = 0

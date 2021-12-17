@@ -1,20 +1,24 @@
 from mazelib.generate.MazeGenAlgo import np
 from random import choice
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class BinaryTree(MazeGenAlgo):
-    """ For every cell in the grid, knock down a wall either North or West. """
+    """For every cell in the grid, knock down a wall either North or West."""
 
     def __init__(self, w, h, skew=None):
         super(BinaryTree, self).__init__(w, h)
-        skewes = {'NW': [(1, 0), (0, -1)],
-                  'NE': [(1, 0), (0, 1)],
-                  'SW': [(-1, 0), (0, -1)],
-                  'SE': [(-1, 0), (0, 1)]}
+        skewes = {
+            "NW": [(1, 0), (0, -1)],
+            "NE": [(1, 0), (0, 1)],
+            "SW": [(-1, 0), (0, -1)],
+            "SE": [(-1, 0), (0, 1)],
+        }
         if skew in skewes:
             self.skew = skewes[skew]
         else:
@@ -22,7 +26,7 @@ class BinaryTree(MazeGenAlgo):
             self.skew = skewes[key]
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -40,7 +44,7 @@ class BinaryTree(MazeGenAlgo):
         return grid
 
     def _find_neighbor(self, current_row, current_col):
-        """ Find a neighbor in the skewed direction.
+        """Find a neighbor in the skewed direction.
 
         Args:
             current_row (int): row number

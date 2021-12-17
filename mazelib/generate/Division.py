@@ -1,7 +1,9 @@
 from mazelib.generate.MazeGenAlgo import np
 from random import randrange
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -22,7 +24,7 @@ class Division(MazeGenAlgo):
         super(Division, self).__init__(h, w)
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -52,7 +54,7 @@ class Division(MazeGenAlgo):
             if width < height:
                 cut_direction = HORIZONTAL  # with 100% chance
             elif width > height:
-                cut_direction = VERTICAL    # with 100% chance
+                cut_direction = VERTICAL  # with 100% chance
             else:
                 if width == 2:
                     continue

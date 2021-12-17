@@ -7,7 +7,7 @@ class MazeGenAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
-        assert (w >= 3 and h >= 3), 'Mazes cannot be smaller than 3x3.'
+        assert w >= 3 and h >= 3, "Mazes cannot be smaller than 3x3."
         self.h = h
         self.w = w
         self.H = (2 * self.h) + 1
@@ -22,7 +22,7 @@ class MazeGenAlgo:
     """
 
     def _find_neighbors(self, r, c, grid, is_wall=False):
-        """ Find all the grid neighbors of the current position; visited, or not.
+        """Find all the grid neighbors of the current position; visited, or not.
 
         Args:
             r (int): row of cell of interest

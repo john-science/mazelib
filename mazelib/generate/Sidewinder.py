@@ -1,13 +1,15 @@
 from random import choice, random
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
 
 class Sidewinder(MazeGenAlgo):
-    """ The Algorithm
+    """The Algorithm
 
     1. Work through the grid row-wise, starting with the cell at 0,0.
     2. Add the current cell to a "run" set.
@@ -29,7 +31,7 @@ class Sidewinder(MazeGenAlgo):
         self.skew = skew
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix

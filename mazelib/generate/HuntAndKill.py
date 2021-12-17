@@ -1,7 +1,9 @@
 from random import choice, randrange
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -24,17 +26,17 @@ class HuntAndKill(MazeGenAlgo):
     creates a more interesting, harder maze.
     """
 
-    def __init__(self, w, h, hunt_order='random'):
+    def __init__(self, w, h, hunt_order="random"):
         super(HuntAndKill, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order.lower().strip() == 'serpentine':
+        if hunt_order.lower().strip() == "serpentine":
             self.ho = SERPENTINE
         else:
             self.ho = RANDOM
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -57,7 +59,7 @@ class HuntAndKill(MazeGenAlgo):
         return grid
 
     def _walk(self, grid, row, col):
-        """ This is a standard random walk. It must start from a visited cell.
+        """This is a standard random walk. It must start from a visited cell.
         And it completes when the current cell has no unvisited neighbors.
 
         Args:
@@ -76,10 +78,12 @@ class HuntAndKill(MazeGenAlgo):
                 grid[neighbor[0]][neighbor[1]] = 0
                 grid[(neighbor[0] + this_row) // 2][(neighbor[1] + this_col) // 2] = 0
                 this_row, this_col = neighbor
-                unvisited_neighbors = self._find_neighbors(this_row, this_col, grid, True)
+                unvisited_neighbors = self._find_neighbors(
+                    this_row, this_col, grid, True
+                )
 
     def _hunt(self, grid, count):
-        """ Based on how this algorithm was configured, choose hunt for the next starting point.
+        """Based on how this algorithm was configured, choose hunt for the next starting point.
 
         Args:
             grid (np.array): maze array
@@ -93,7 +97,7 @@ class HuntAndKill(MazeGenAlgo):
             return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
-        """ Select the next cell to walk from, randomly.
+        """Select the next cell to walk from, randomly.
 
         Args:
             grid (np.array): maze array
@@ -107,7 +111,7 @@ class HuntAndKill(MazeGenAlgo):
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
-        """ Select the next cell to walk from by cycling through every grid cell in order.
+        """Select the next cell to walk from by cycling through every grid cell in order.
 
         Args:
             grid (np.array): maze array
@@ -126,7 +130,10 @@ class HuntAndKill(MazeGenAlgo):
                 if row > (self.H - 2):
                     return (-1, -1)
 
-            if grid[row][col] == 0 and len(self._find_neighbors(row, col, grid, True)) > 0:
+            if (
+                grid[row][col] == 0
+                and len(self._find_neighbors(row, col, grid, True)) > 0
+            ):
                 found = True
 
         return (row, col)

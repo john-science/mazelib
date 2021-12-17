@@ -1,7 +1,9 @@
 from random import choice, randrange
 import numpy as np
+
 # If the code is not Cython-compiled, we need to add some imports.
 from cython import compiled
+
 if not compiled:
     from mazelib.generate.MazeGenAlgo import MazeGenAlgo
 
@@ -10,7 +12,7 @@ SERPENTINE = 2
 
 
 class Wilsons(MazeGenAlgo):
-    """ The Algorithm
+    """The Algorithm
 
     1. Choose a random cell and add it to the Uniform Spanning Tree (UST).
     2. Select any cell that is not in the UST and perform a random walk until you find a cell that is.
@@ -18,17 +20,17 @@ class Wilsons(MazeGenAlgo):
     4. Repeat steps 2 and 3 until all cells have been added to the UST.
     """
 
-    def __init__(self, w, h, hunt_order='random'):
+    def __init__(self, w, h, hunt_order="random"):
         super(Wilsons, self).__init__(w, h)
 
         # the user can define what order to hunt for the next cell in
-        if hunt_order.lower().strip() == 'serpentine':
+        if hunt_order.lower().strip() == "serpentine":
             self._hunt_order = SERPENTINE
         else:
             self._hunt_order = RANDOM
 
     def generate(self):
-        """ highest-level method that implements the maze-generating algorithm
+        """highest-level method that implements the maze-generating algorithm
 
         Returns:
             np.array: returned matrix
@@ -51,7 +53,7 @@ class Wilsons(MazeGenAlgo):
         return grid
 
     def _hunt(self, grid, count):
-        """ Based on how this algorithm was configured, choose hunt for the next starting point.
+        """Based on how this algorithm was configured, choose hunt for the next starting point.
 
         Args:
             grid (np.array): maze array
@@ -65,7 +67,7 @@ class Wilsons(MazeGenAlgo):
             return self._hunt_random(grid, count)
 
     def _hunt_random(self, grid, count):
-        """ Select the next cell to walk from, randomly.
+        """Select the next cell to walk from, randomly.
 
         Args:
             grid (np.array): maze array
@@ -79,7 +81,7 @@ class Wilsons(MazeGenAlgo):
         return (randrange(1, self.H, 2), randrange(1, self.W, 2))
 
     def _hunt_serpentine(self, grid, count):
-        """ Select the next cell to walk from by cycling through every grid cell in order.
+        """Select the next cell to walk from by cycling through every grid cell in order.
 
         Args:
             grid (np.array): maze array
@@ -103,7 +105,7 @@ class Wilsons(MazeGenAlgo):
         return cell
 
     def _generate_random_walk(self, grid, start):
-        """ From a given starting position, walk randomly until you hit a visited cell.
+        """From a given starting position, walk randomly until you hit a visited cell.
 
         The returned walk object is a dictionary mapping your location (cell) to a
         direction. If you randomly walk over the same cell twice, you overwrite
@@ -128,7 +130,7 @@ class Wilsons(MazeGenAlgo):
         return walk
 
     def _random_dir(self, current):
-        """ Take a step on one random (but valid) direction
+        """Take a step on one random (but valid) direction
 
         Args:
             current (tuple): cell to start from
@@ -150,14 +152,14 @@ class Wilsons(MazeGenAlgo):
         if direction == 0:
             return (-2, 0)  # North
         elif direction == 1:
-            return (2, 0)   # South
+            return (2, 0)  # South
         elif direction == 2:
             return (0, -2)  # East
         else:
-            return (0, 2)   # West
+            return (0, 2)  # West
 
     def _move(self, start, direction):
-        """ Convolve a position tuple with a direction tuple to generate a new position.
+        """Convolve a position tuple with a direction tuple to generate a new position.
 
         Args:
             start (tuple): position to start from
@@ -168,7 +170,7 @@ class Wilsons(MazeGenAlgo):
         return (start[0] + direction[0], start[1] + direction[1])
 
     def _solve_random_walk(self, grid, walk, start):
-        """ Move through the random walk, visiting all the cells you touch,
+        """Move through the random walk, visiting all the cells you touch,
         and breaking down the walls you cross.
 
         Args:
