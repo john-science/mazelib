@@ -232,7 +232,7 @@ class DungeonRooms(MazeGenAlgo):
         while num_tries < LIMIT:
             current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
             if self.grid[current[0]][current[1]] == 1:
-                return current
+                break
             num_tries += 1
 
         assert num_tries < LIMIT, "The grid input to DungeonRooms was invalid."

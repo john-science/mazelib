@@ -1,16 +1,18 @@
 language: python
 python:
-          - "3.4"
-          - "3.5"
-          - "3.6"
-          - "3.7"
-          - "3.8"
-          - "3.9"
+  - 3.4
+  - 3.5
+  - 3.6
+  - 3.7
+  - 3.8
+  - 3.9
 install:
-        - pip install -r requirements.txt
-        - pip install codecov
+  - pip install -r requirements.txt
+  - pip install codecov
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.9 ]]; then pip install black; fi
 script:
-        - coverage run -m unittest discover
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.9 ]]; then black --check .; fi
+  - coverage run -m unittest discover
 after_success:
-        - codecov
+  - codecov
 
