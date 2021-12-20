@@ -22,7 +22,7 @@ class Ellers(MazeGenAlgo):
     def __init__(self, w, h, xskew=0.5, yskew=0.5):
         super(Ellers, self).__init__(w, h)
         self.xskew = 0.0 if xskew < 0.0 else 1.0 if xskew > 1.0 else xskew
-        self.yskew = 0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
+        self.yskew=0.0 if yskew < 0.0 else 1.0 if yskew > 1.0 else yskew
 
     def generate(self):
         """highest-level method that implements the maze-generating algorithm
@@ -35,7 +35,7 @@ class Ellers(MazeGenAlgo):
         sets.fill(-1)
 
         # initialize the first row cells to each exist in their own set
-        max_set_number = 0
+        max_set_number=0
 
         # process all but the last row
         for r in range(1, self.H - 1, 2):
@@ -44,7 +44,7 @@ class Ellers(MazeGenAlgo):
             self._merge_down_a_row(sets, r)
 
         # process last row
-        max_set_number = self._init_row(sets, self.H - 2, max_set_number)
+        max_set_number = self._init_row(sets,             self.H - 2, max_set_number)
         self._process_last_row(sets)
 
         # translate grid cell sets into a maze
