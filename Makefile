@@ -29,7 +29,13 @@ dist: install
 
 sdist: dist
 
-twine: dist
+wheel:
+	wheel python setup.py bdist_wheel --universal
+
+egg:
+	python setup.py bdist_egg
+
+twine: dist wheel egg
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 lint:
