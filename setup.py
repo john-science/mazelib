@@ -108,7 +108,7 @@ setup(
     ext_modules=ext_modules_list,
     platforms="any",
     test_suite="test",
-    setup_requires=["numpy>=1.13.1,<=1.20.1"],
-    install_requires=["cython>=0.27.0,<=0.29.22", "numpy>=1.13.1,<=1.20.1"],
+    setup_requires=["numpy>=1.13.1,<=1.22.1"],
+    install_requires=["cython>=0.27.0,<=0.29.27", "numpy>=1.13.1,<=1.22.1"],
     zip_safe=False,
 )
