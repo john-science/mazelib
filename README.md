@@ -1,5 +1,5 @@
 # mazelib
-[![Build Status](https://travis-ci.com/john-science/mazelib.svg?branch=master)](https://travis-ci.com/john-science/mazelib)
+[![Build Status](https://github.com/john-science/mazelib/actions/workflows/unittests.yaml/badge.svg?branch=master)](https://github.com/john-science/mazelib/blob/master/.github/workflows/unittests.yaml)
 [![codecov](https://codecov.io/gh/john-science/mazelib/branch/master/graph/badge.svg)](https://codecov.io/gh/john-science/mazelib)
 
 #### A Python API for creating and solving mazes.
