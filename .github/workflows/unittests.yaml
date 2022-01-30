@@ -19,6 +19,8 @@ jobs:
       - name: Update package index
         run: sudo apt-get update
       - name: Install PIP Packages
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
       - name: Run tests
-        run: python test/
+        run: pytest test/
