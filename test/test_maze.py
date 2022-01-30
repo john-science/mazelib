@@ -74,10 +74,10 @@ class MazeTest(unittest.TestCase):
 
     def test_outer_entrances(self):
         """Test that the entrances can be correctly generated on the edges of the map"""
-        h = 4
-        w = 5
+        h = 3
+        w = 3
 
-        for _ in range(10):
+        for _ in range(20):
             m = Maze()
             m.generator = Prims(h, w)
             m.generate()
@@ -91,15 +91,16 @@ class MazeTest(unittest.TestCase):
         h = 4
         w = 5
 
-        m = Maze()
-        m.generator = Prims(h, w)
-        m.generate()
-        m.generate_entrances()
-        m.generate()
+        for _ in range(10):
+            m = Maze()
+            m.generator = Prims(h, w)
+            m.generate()
+            m.generate_entrances()
+            m.generate()
 
-        assert m.start is None
-        assert m.end is None
-        assert m.solutions is None
+            assert m.start is None
+            assert m.end is None
+            assert m.solutions is None
 
     def test_monte_carlo(self):
         """Test that the basic Monte Carlo maze generator"""
