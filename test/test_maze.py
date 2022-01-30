@@ -63,26 +63,28 @@ class MazeTest(unittest.TestCase):
         h = 4
         w = 5
 
-        m = Maze()
-        m.generator = Prims(h, w)
-        m.generate()
-        m.generate_entrances(False, False)
+        for _ in range(10):
+            m = Maze()
+            m.generator = Prims(h, w)
+            m.generate()
+            m.generate_entrances(False, False)
 
-        assert not self._on_edge(m.grid, m.start)
-        assert not self._on_edge(m.grid, m.end)
+            assert not self._on_edge(m.grid, m.start)
+            assert not self._on_edge(m.grid, m.end)
 
     def test_outer_entrances(self):
         """Test that the entrances can be correctly generated on the edges of the map"""
         h = 4
         w = 5
 
-        m = Maze()
-        m.generator = Prims(h, w)
-        m.generate()
-        m.generate_entrances()
+        for _ in range(10):
+            m = Maze()
+            m.generator = Prims(h, w)
+            m.generate()
+            m.generate_entrances()
 
-        assert self._on_edge(m.grid, m.start)
-        assert self._on_edge(m.grid, m.end)
+            assert self._on_edge(m.grid, m.start)
+            assert self._on_edge(m.grid, m.end)
 
     def test_generator_wipe(self):
         """Test that the running the master generate() method twice correctly wipes the entrances and solutions"""

@@ -46,39 +46,41 @@ class SolversTest(unittest.TestCase):
 
     def test_dead_end_filler(self):
         """Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state"""
-        m = Maze()
-        m.generator = Prims(3, 3)
-        m.generate()
-        m.start = (1, 0)
-        m.end = (5, 4)
-        m.grid = self._example_cul_de_sac_maze()
+        for _ in range(10):
+            m = Maze()
+            m.generator = Prims(3, 3)
+            m.generate()
+            m.start = (1, 0)
+            m.end = (5, 4)
+            m.grid = self._example_cul_de_sac_maze()
 
-        assert m.grid[(1, 5)] == 0
-        assert m.grid[(1, 2)] == 0
-        assert m.grid[(3, 3)] == 0
+            assert m.grid[(1, 5)] == 0
+            assert m.grid[(1, 2)] == 0
+            assert m.grid[(3, 3)] == 0
 
-        m.transmuters = [CuldeSacFiller(), DeadEndFiller(99)]
-        m.transmute()
+            m.transmuters = [CuldeSacFiller(), DeadEndFiller(99)]
+            m.transmute()
 
-        assert m.grid[(1, 5)] == 1
-        assert m.grid[(1, 2)] == 1
-        assert m.grid[(3, 3)] == 1
+            assert m.grid[(1, 5)] == 1
+            assert m.grid[(1, 2)] == 1
+            assert m.grid[(3, 3)] == 1
 
-        assert boundary_is_solid(m.grid)
-        assert all_corners_complete(m.grid)
+            assert boundary_is_solid(m.grid)
+            assert all_corners_complete(m.grid)
 
     def test_perturbation(self):
         """Test the Perturbation algorithm leaves the maze in a solvable state"""
-        m = Maze()
-        m.generator = TrivialMaze(4, 5)
-        m.generate()
+        for _ in range(10):
+            m = Maze()
+            m.generator = TrivialMaze(4, 5)
+            m.generate()
 
-        m.transmuters = [Perturbation()]
-        m.transmute()
+            m.transmuters = [Perturbation()]
+            m.transmute()
 
-        assert boundary_is_solid(m.grid)
-        assert all_passages_open(m.grid)
-        assert all_corners_complete(m.grid)
+            assert boundary_is_solid(m.grid)
+            assert all_passages_open(m.grid)
+            assert all_corners_complete(m.grid)
 
 
 def boundary_is_solid(grid):
