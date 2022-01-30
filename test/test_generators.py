@@ -134,12 +134,15 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_random_rooms(self):
         """test Dungeon Rooms maze-creation mazes a reasonably sane maze when generating some random rooms"""
-        m = Maze()
-        m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="random")
-        m.generate()
+        for _ in range(20):
+            m = Maze()
+            m.generator = DungeonRooms(
+                4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="random"
+            )
+            m.generate()
 
-        assert boundary_is_solid(m.grid)
-        assert all_passages_open(m.grid)
+            assert boundary_is_solid(m.grid)
+            assert all_passages_open(m.grid)
 
     def test_dungeon_rooms_serpentine_rooms(self):
         """test DungeonRooms mazes are reasonably when generating some random rooms in a serpentine fashion"""
@@ -237,7 +240,7 @@ class GeneratorsTest(unittest.TestCase):
         """test that the trivial/spiral maze is reasonably sane when using the serpentine alternative
         run this test enough times to trip the different skewness parameters
         """
-        for _ in range(10):
+        for _ in range(20):
             m = Maze()
             m.generator = TrivialMaze(4, 5, "serpentine")
             m.generate()

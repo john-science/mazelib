@@ -1,0 +1,34 @@
+name: Mazelib code coverage
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Update package index
+        run: sudo apt-get update
+      - name: Install PIP Packages
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+          pip install codecov
+      - name: Run Coverage Tests
+        run: |
+          coverage run -m unittest discover
+          codecov
