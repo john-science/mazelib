@@ -31,11 +31,12 @@ sdist: dist
 
 wheel:
 	wheel python setup.py bdist_wheel --universal
+	auditwheel repair dist/*.whl -w .
 
 egg:
 	python setup.py bdist_egg
 
-twine: dist wheel egg
+twine: dist egg
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 lint:
