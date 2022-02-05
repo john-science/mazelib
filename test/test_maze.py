@@ -87,7 +87,7 @@ class MazeTest(unittest.TestCase):
             assert self._on_edge(m.grid, m.end)
 
     def test_generator_wipe(self):
-        """Test that the running the master generate() method twice correctly wipes the entrances and solutions"""
+        """Test that the running the primary generate() method twice correctly wipes the entrances and solutions"""
         h = 4
         w = 5
 

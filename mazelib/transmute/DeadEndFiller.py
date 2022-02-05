@@ -21,7 +21,7 @@ class DeadEndFiller(MazeTransmuteAlgo):
         super(DeadEndFiller, self).__init__()
 
     def _transmute(self):
-        """master method to fill in all the dead ends in the maze
+        """primary method to fill in all the dead ends in the maze
 
         Returns: None
         """

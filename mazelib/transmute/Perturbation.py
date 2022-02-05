@@ -31,7 +31,7 @@ class Perturbation(MazeTransmuteAlgo):
         super(Perturbation, self).__init__()
 
     def _transmute(self):
-        """master method to slightly pertub the maze a set number of times
+        """primary method to slightly pertub the maze a set number of times
 
         Returns: None
         """

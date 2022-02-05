@@ -11,7 +11,7 @@ class MazeTransmuteAlgo:
         self.end = None
 
     def transmute(self, grid, start, end):
-        """master transmute method, first setting the maze of interest
+        """primary transmute method, first setting the maze of interest
 
         Args:
             grid (np.array): maze array

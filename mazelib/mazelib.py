@@ -2,7 +2,7 @@ from random import randrange
 
 
 class Maze:
-    """This is a master object meant to hold a rectangular, 2D maze.
+    """This is a primary object meant to hold a rectangular, 2D maze.
     This object includes the methods used to generate and solve the maze,
     as well as the start and end points.
     """
