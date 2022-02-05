@@ -30,3 +30,5 @@ jobs:
         run: |
           coverage run -m unittest discover
           codecov
+        env:
+          PYTHONHASHSEED: 0
