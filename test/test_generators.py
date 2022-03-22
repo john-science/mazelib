@@ -21,7 +21,7 @@ class GeneratorsTest(unittest.TestCase):
     def test_abstract_constructor(self):
         """test the MazeGenAlgo constructor"""
         # example 1 of maze dimension definitions
-        m = Maze(123)
+        m = Maze(723)
         m.generator = Prims(3, 3)
         assert m.generator.h == 3
         assert m.generator.w == 3
@@ -43,7 +43,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_aldous_broder(self):
         """test the AlgousBroder method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(143)
         m.generator = AldousBroder(4, 5)
         m.generate()
 
@@ -53,7 +53,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_backtracking_generator(self):
         """test the Backtracking method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(23)
         m.generator = BacktrackingGenerator(4, 5)
         m.generate()
 
@@ -64,7 +64,7 @@ class GeneratorsTest(unittest.TestCase):
     def test_binary_tree(self):
         """test the Binary Tree method generates a reasonably sane maze"""
         # try without a skew parameter
-        m = Maze(123)
+        m = Maze(163)
         m.generator = BinaryTree(4, 5)
         m.generate()
 
@@ -73,7 +73,7 @@ class GeneratorsTest(unittest.TestCase):
         assert all_corners_complete(m.grid)
 
         # try with a skew parameter
-        m = Maze(123)
+        m = Maze(1298)
         m.generator = BinaryTree(4, 5, "NW")
         m.generate()
 
@@ -83,7 +83,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_cellular_automaton(self):
         """test the Cellulator Automaton method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(183)
         m.generator = CellularAutomaton(4, 5)
         m.generate()
 
@@ -92,7 +92,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_division(self):
         """test the Division method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(653)
         m.generator = Division(4, 5)
         m.generate()
 
@@ -109,7 +109,7 @@ class GeneratorsTest(unittest.TestCase):
         g[4] = [1, 1, 0, 0, 0, 1, 1]
         g[5] = [1, 1, 0, 0, 0, 1, 1]
 
-        m = Maze(123)
+        m = Maze(1293)
         m.generator = DungeonRooms(4, 4, grid=g)
         m.generate()
 
@@ -125,7 +125,7 @@ class GeneratorsTest(unittest.TestCase):
         g[4] = [1, 0, 0, 0, 1, 0, 1]
         g[5] = [1, 0, 0, 0, 1, 0, 1]
 
-        m = Maze(123)
+        m = Maze(865)
         m.generator = DungeonRooms(4, 4, grid=g)
         m.generator.reconnect_maze()
 
@@ -134,8 +134,8 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_random_rooms(self):
         """test Dungeon Rooms maze-creation mazes a reasonably sane maze when generating some random rooms"""
-        for _ in range(20):
-            m = Maze(123)
+        for i in range(20):
+            m = Maze(900 + i)
             m.generator = DungeonRooms(
                 4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="random"
             )
@@ -146,7 +146,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_dungeon_rooms_serpentine_rooms(self):
         """test DungeonRooms mazes are reasonably when generating some random rooms in a serpentine fashion"""
-        m = Maze(123)
+        m = Maze(443)
         m.generator = DungeonRooms(
             4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="serpentine"
         )
@@ -157,7 +157,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_ellers(self):
         """test the Ellers method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(563)
         m.generator = Ellers(4, 5)
         m.generate()
 
@@ -167,7 +167,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_growing_tree(self):
         """test the Growing Tree method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(743)
         m.generator = GrowingTree(4, 5)
         m.generate()
 
@@ -177,7 +177,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_hunt_and_kill_random_order(self):
         """test the Hunt and Kill method generates a reasonably sane maze, using the random order pathway"""
-        m = Maze(123)
+        m = Maze(8888)
         m.generator = HuntAndKill(4, 5, "random")
         m.generate()
 
@@ -187,7 +187,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_hunt_and_kill_serpentine_order(self):
         """test the Hunt and Kill method generates a reasonably sane maze, using the serpentine pathway"""
-        m = Maze(123)
+        m = Maze(808)
         m.generator = HuntAndKill(4, 5, "serpentine")
         m.generate()
 
@@ -197,7 +197,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_kruskal(self):
         """test the Kruskal method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(314)
         m.generator = Kruskal(4, 5)
         m.generate()
 
@@ -207,7 +207,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_prims(self):
         """test the Prims method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(159)
         m.generator = Prims(4, 5)
         m.generate()
 
@@ -217,7 +217,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_sidewinder(self):
         """test the Sidewinder method generates a reasonably sane maze"""
-        m = Maze(123)
+        m = Maze(26)
         m.generator = Sidewinder(4, 5)
         m.generate()
 
@@ -227,7 +227,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_trivial_maze_spiral(self):
         """test that the trivial/spiral maze is reasonably sane"""
-        m = Maze(123)
+        m = Maze(535)
         m.generator = TrivialMaze(4, 5)
         m.generate()
 
@@ -240,8 +240,8 @@ class GeneratorsTest(unittest.TestCase):
         """test that the trivial/spiral maze is reasonably sane when using the serpentine alternative
         run this test enough times to trip the different skewness parameters
         """
-        for _ in range(20):
-            m = Maze(123)
+        for i in range(20):
+            m = Maze(1967 + i)
             m.generator = TrivialMaze(4, 5, "serpentine")
             m.generate()
 
@@ -251,7 +251,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_wilsons_random_order(self):
         """test the Wilson method generates a reasonably sane maze, using the random order pathway"""
-        m = Maze(123)
+        m = Maze(432)
         m.generator = Wilsons(4, 5, hunt_order="random")
         m.generate()
 
@@ -261,7 +261,7 @@ class GeneratorsTest(unittest.TestCase):
 
     def test_wilsons_serpentine_order(self):
         """test the Wilson method generates a reasonably sane maze, using the serpentine pathway"""
-        m = Maze(123)
+        m = Maze(12345)
         m.generator = Wilsons(4, 5, hunt_order="serpentine")
         m.generate()
 

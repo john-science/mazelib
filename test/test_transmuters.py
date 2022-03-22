@@ -30,7 +30,7 @@ class SolversTest(unittest.TestCase):
 
     def test_cul_de_sac_filler(self):
         """Test the CuldeSacFiller leaves the maze in a solvable state"""
-        m = Maze(123)
+        m = Maze(8765)
         m.generator = Prims(3, 3)
         m.generate()
         m.grid = self._example_cul_de_sac_maze()
@@ -46,8 +46,8 @@ class SolversTest(unittest.TestCase):
 
     def test_dead_end_filler(self):
         """Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state"""
-        for _ in range(10):
-            m = Maze(123)
+        for i in range(10):
+            m = Maze(678 + i)
             m.generator = Prims(3, 3)
             m.generate()
             m.start = (1, 0)
@@ -70,8 +70,8 @@ class SolversTest(unittest.TestCase):
 
     def test_perturbation(self):
         """Test the Perturbation algorithm leaves the maze in a solvable state"""
-        for _ in range(10):
-            m = Maze(123)
+        for i in range(10):
+            m = Maze(9087)
             m.generator = TrivialMaze(4, 5)
             m.generate()
 

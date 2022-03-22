@@ -51,7 +51,7 @@ class MazeTest(unittest.TestCase):
         H = 2 * h + 1
         W = 2 * w + 1
 
-        m = Maze(135)
+        m = Maze(1337)
         m.generator = Prims(h, w)
         m.generate()
 
@@ -63,8 +63,8 @@ class MazeTest(unittest.TestCase):
         h = 4
         w = 5
 
-        for _ in range(10):
-            m = Maze(123)
+        for i in range(10):
+            m = Maze(999 + i)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances(False, False)
@@ -77,8 +77,8 @@ class MazeTest(unittest.TestCase):
         h = 3
         w = 3
 
-        for _ in range(10):
-            m = Maze(12)
+        for i in range(10):
+            m = Maze(1200 + 1)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
@@ -91,8 +91,8 @@ class MazeTest(unittest.TestCase):
         h = 4
         w = 5
 
-        for _ in range(10):
-            m = Maze(1033)
+        for i in range(10):
+            m = Maze(1033 + 1)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
@@ -195,12 +195,12 @@ class MazeTest(unittest.TestCase):
 
     def test_set_seed(self):
         """Test the Maze.set_seed staticmethod, to make sure we can control the random seeding"""
-        m = Maze(123)
+        m = Maze(9090)
         m.generator = Prims(7, 7)
         m.generate()
         grid0 = str(m)
 
-        m = Maze(123)
+        m = Maze(9090)
         m.generator = Prims(7, 7)
         m.generate()
         grid1 = str(m)

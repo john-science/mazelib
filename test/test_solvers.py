@@ -73,7 +73,7 @@ class SolversTest(unittest.TestCase):
         Returns:
             Maze: a small, test maze grid with entrance and exit initialized
         """
-        seed = 123 + 1 if start_outer else 0 + 3 if end_outer else 0
+        seed = 4444 + 1 if start_outer else 0 + 3 if end_outer else 0
         m = Maze(seed)
         m.generator = Prims(6, 7)
         m.generate()
@@ -92,7 +92,7 @@ class SolversTest(unittest.TestCase):
     def test_prune_solution(self):
         """test the solution-pruning helper method"""
         # build a test Maze and solver, just as placeholders
-        m = Maze(1234)
+        m = Maze(1834)
         m.solver = RandomMouse()
         m.solver.start = (0, 1)
         m.solver.end = (0, 5)
