@@ -6,6 +6,7 @@ from mazelib.solve.Collision import Collision
 from mazelib.solve.RandomMouse import RandomMouse
 from mazelib.solve.ShortestPath import ShortestPath
 from mazelib.solve.ShortestPaths import ShortestPaths
+from mazelib.solve.Tremaux import Tremaux
 from mazelib.mazelib import Maze
 
 
@@ -72,7 +73,8 @@ class SolversTest(unittest.TestCase):
         Returns:
             Maze: a small, test maze grid with entrance and exit initialized
         """
-        m = Maze(123)
+        seed = 123 + 1 if start_outer else 0 + 3 if end_outer else 0
+        m = Maze(seed)
         m.generator = Prims(6, 7)
         m.generate()
 
@@ -90,7 +92,7 @@ class SolversTest(unittest.TestCase):
     def test_prune_solution(self):
         """test the solution-pruning helper method"""
         # build a test Maze and solver, just as placeholders
-        m = Maze(123)
+        m = Maze(1234)
         m.solver = RandomMouse()
         m.solver.start = (0, 1)
         m.solver.end = (0, 5)
@@ -273,6 +275,23 @@ class SolversTest(unittest.TestCase):
             for e in ends:
                 m = self.create_maze_with_varied_entrances(s, e)
                 m.solver = ShortestPaths()
+                m.solve()
+
+                for sol in m.solutions:
+                    assert not self.duplicates_in_solution(sol)
+                    assert self.one_away(m.start, sol[0])
+                    assert self.one_away(m.end, sol[-1])
+                    assert self.solution_is_sane(sol)
+
+    def test_tremaux(self):
+        """test against a maze with outer/inner entraces"""
+        starts = [True, False]
+        ends = [True, False]
+
+        for s in starts:
+            for e in ends:
+                m = self.create_maze_with_varied_entrances(s, e)
+                m.solver = Tremaux()
                 m.solve()
 
                 for sol in m.solutions:

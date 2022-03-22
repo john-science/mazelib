@@ -51,7 +51,7 @@ class MazeTest(unittest.TestCase):
         H = 2 * h + 1
         W = 2 * w + 1
 
-        m = Maze(100)
+        m = Maze(135)
         m.generator = Prims(h, w)
         m.generate()
 
@@ -64,7 +64,7 @@ class MazeTest(unittest.TestCase):
         w = 5
 
         for _ in range(10):
-            m = Maze(101)
+            m = Maze(123)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances(False, False)
@@ -78,7 +78,7 @@ class MazeTest(unittest.TestCase):
         w = 3
 
         for _ in range(10):
-            m = Maze(102)
+            m = Maze(12)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
@@ -92,7 +92,7 @@ class MazeTest(unittest.TestCase):
         w = 5
 
         for _ in range(10):
-            m = Maze(103)
+            m = Maze(1033)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
