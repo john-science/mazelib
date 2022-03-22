@@ -51,7 +51,7 @@ class MazeTest(unittest.TestCase):
         H = 2 * h + 1
         W = 2 * w + 1
 
-        m = Maze()
+        m = Maze(100)
         m.generator = Prims(h, w)
         m.generate()
 
@@ -64,7 +64,7 @@ class MazeTest(unittest.TestCase):
         w = 5
 
         for _ in range(10):
-            m = Maze()
+            m = Maze(101)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances(False, False)
@@ -77,8 +77,8 @@ class MazeTest(unittest.TestCase):
         h = 3
         w = 3
 
-        for _ in range(20):
-            m = Maze()
+        for _ in range(10):
+            m = Maze(102)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
@@ -92,7 +92,7 @@ class MazeTest(unittest.TestCase):
         w = 5
 
         for _ in range(10):
-            m = Maze()
+            m = Maze(103)
             m.generator = Prims(h, w)
             m.generate()
             m.generate_entrances()
@@ -109,7 +109,7 @@ class MazeTest(unittest.TestCase):
         H = 2 * h + 1
         W = 2 * w + 1
 
-        m = Maze()
+        m = Maze(104)
         m.generator = Prims(h, w)
         m.solver = Collision()
         m.generate_monte_carlo(3)
@@ -129,7 +129,7 @@ class MazeTest(unittest.TestCase):
         H = 2 * h + 1
         W = 2 * w + 1
 
-        m = Maze()
+        m = Maze(105)
         m.generator = Prims(h, w)
         m.solver = Collision()
         m.generate_monte_carlo(3, reducer=self._num_turns)
@@ -144,7 +144,7 @@ class MazeTest(unittest.TestCase):
 
     def test_maze_to_string(self):
         """Test that the 'to string' functionality is sane"""
-        m = Maze()
+        m = Maze(106)
         m.generator = Prims(3, 3)
 
         # fake some maze results, to test against
@@ -173,7 +173,7 @@ class MazeTest(unittest.TestCase):
 
     def test_invalid_inputs(self):
         """Test that the correct errors are thrown when the top-level methods are called incorrectly"""
-        m = Maze()
+        m = Maze(107)
 
         # should not be able to generate or solve if neither algorithm was set
         self.assertRaises(AssertionError, m.generate)
