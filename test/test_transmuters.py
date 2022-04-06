@@ -71,7 +71,7 @@ class SolversTest(unittest.TestCase):
     def test_perturbation(self):
         """Test the Perturbation algorithm leaves the maze in a solvable state"""
         for i in range(10):
-            m = Maze(9087)
+            m = Maze(9087 + i)
             m.generator = TrivialMaze(4, 5)
             m.generate()
 
