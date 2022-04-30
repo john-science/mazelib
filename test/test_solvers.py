@@ -64,7 +64,7 @@ class SolversTest(unittest.TestCase):
         return True
 
     @staticmethod
-    def create_maze_with_varied_entrances(start_outer=True, end_outer=True):
+    def create_maze_with_varied_entrances(start_outer=True, end_outer=True, seed=0):
         """create a maze with entrances inside/outside
 
         Args:
@@ -73,7 +73,9 @@ class SolversTest(unittest.TestCase):
         Returns:
             Maze: a small, test maze grid with entrance and exit initialized
         """
-        seed = 4444 + 1 if start_outer else 0 + 3 if end_outer else 0
+        if not seed:
+            seed = 4444 + 1 if start_outer else 0 + 3 if end_outer else 0
+
         m = Maze(seed)
         m.generator = Prims(6, 7)
         m.generate()
@@ -186,9 +188,11 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 3456
         for s in starts:
             for e in ends:
-                m = self.create_maze_with_varied_entrances(s, e)
+                seed += 13
+                m = self.create_maze_with_varied_entrances(s, e, seed)
                 m.solver = BacktrackingSolver()
                 m.solve()
 
@@ -203,9 +207,11 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 1005
         for s in starts:
             for e in ends:
-                m = self.create_maze_with_varied_entrances(s, e)
+                seed += 19
+                m = self.create_maze_with_varied_entrances(s, e, seed)
                 m.solver = Chain()
                 m.solve()
 
@@ -220,8 +226,10 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 238
         for s in starts:
             for e in ends:
+                seed += 2
                 m = self.create_maze_with_varied_entrances(s, e)
                 m.solver = Collision()
                 m.solve()
@@ -237,8 +245,10 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 1074
         for s in starts:
             for e in ends:
+                seed += 27
                 m = self.create_maze_with_varied_entrances(s, e)
                 m.solver = RandomMouse()
                 m.solve()
@@ -254,9 +264,11 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 4321
         for s in starts:
             for e in ends:
-                m = self.create_maze_with_varied_entrances(s, e)
+                seed += 33
+                m = self.create_maze_with_varied_entrances(s, e, seed)
                 m.solver = ShortestPath()
                 m.solve()
 
@@ -271,8 +283,10 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 6109
         for s in starts:
             for e in ends:
+                seed += 11
                 m = self.create_maze_with_varied_entrances(s, e)
                 m.solver = ShortestPaths()
                 m.solve()
@@ -288,8 +302,10 @@ class SolversTest(unittest.TestCase):
         starts = [True, False]
         ends = [True, False]
 
+        seed = 2121
         for s in starts:
             for e in ends:
+                seed += 21
                 m = self.create_maze_with_varied_entrances(s, e)
                 m.solver = Tremaux()
                 m.solve()
