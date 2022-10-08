@@ -4,7 +4,7 @@ all:
 	@grep -Ee '^[a-z].*:' Makefile | cut -d: -f1 | grep -vF all
 
 clean:
-	rm -rf build/ dist/ *.egg-info/ mazelib/*.c mazelib/*.so mazelib/*.h mazelib/__pycache__ mazelib/*/*.c mazelib/*/*.so mazelib/*/*.h mazelib/*/__pycache__ test/__pycache__ lint.html
+	git clean -dfxq --exclude=*.py --exclude=*.pxd
 
 uninstall: clean
 	@echo pip uninstalling mazelib
