@@ -40,4 +40,4 @@ twine: dist egg
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 lint:
-	flake8 --statistics --max-line-length=120 --exit-zero --ignore=E221,E241,E272,E402,W503,W504,W292 mazelib/ test/ benchmarks.py setup.py > lint.html
+	black .
