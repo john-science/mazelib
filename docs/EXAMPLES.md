@@ -136,8 +136,8 @@ Sometimes it is hard to see the finer points of a maze in plain text. You may wa
 CSS and HTML are universal and easy to use. Here is a simple (if illegible) example to display your maze in CSS and HTML:
 
     def toHTML(grid, start, end, cell_size=10):
-        row_max = grid.height
-        col_max = grid.width
+        row_max = grid.shape[0]
+        col_max = grid.shape[1]
 
         html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' + \
                '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' + \
@@ -156,9 +156,9 @@ CSS and HTML are universal and easy to use. Here is a simple (if illegible) exam
                '</style></head><body>' + \
                '<div id="maze">'
 
-        for row in xrange(row_max):
+        for row in range(row_max):
             html += '<div class="maze_row">'
-            for col in xrange(col_max):
+            for col in range(col_max):
                 if (row, col) == start:
                     html += '<div class="gr"></div>'
                 elif (row, col) == end:
