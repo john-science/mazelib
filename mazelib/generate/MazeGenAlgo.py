@@ -7,6 +7,14 @@ class MazeGenAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
+        """Maze Generator Algorithm constructor
+        
+        Attributes:
+            h (int): height of maze, in number of hallways
+            w (int): width of maze, in number of hallways
+            H (int): height of maze, in number of hallways + walls
+            W (int): width of maze, in number of hallways + walls
+        """
         assert w >= 3 and h >= 3, "Mazes cannot be smaller than 3x3."
         self.h = h
         self.w = w
