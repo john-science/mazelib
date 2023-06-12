@@ -8,7 +8,7 @@ class MazeGenAlgo:
 
     def __init__(self, h, w):
         """Maze Generator Algorithm constructor
-        
+
         Attributes:
             h (int): height of maze, in number of hallways
             w (int): width of maze, in number of hallways
