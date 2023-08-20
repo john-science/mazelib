@@ -199,9 +199,9 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
             codes = []
 
             # loop over horizontals
-            for r,rr in enumerate(xrange(1, H, 2)):
+            for r,rr in enumerate(range1, H, 2)):
                 run = []
-                for c,cc in enumerate(xrange(1, W, 2)):
+                for c,cc in enumerate(range(1, W, 2)):
                     if grid[rr-1,cc]:
                         if not run:
                             run = [(r,c)]
@@ -213,7 +213,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 
             # grab bottom side of last row
             run = []
-            for c,cc in enumerate(xrange(1, W, 2)):
+            for c,cc in enumerate(range(1, W, 2)):
                 if grid[H-1,cc]:
                     if not run:
                         run = [(H//2,c)]
@@ -224,9 +224,9 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
                 use_run(codes, vertices, run)
 
             # loop over verticles
-            for c,cc in enumerate(xrange(1, W, 2)):
+            for c,cc in enumerate(range(1, W, 2)):
                 run = []
-                for r,rr in enumerate(xrange(1, H, 2)):
+                for r,rr in enumerate(range(1, H, 2)):
                     if grid[rr,cc-1]:
                         if not run:
                             run = [(r,c)]
@@ -238,7 +238,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
 
             # grab far right column
             run = []
-            for r,rr in enumerate(xrange(1, H, 2)):
+            for r,rr in enumerate(range(1, H, 2)):
                 if grid[rr,W-1]:
                     if not run:
                         run = [(r,W//2)]
