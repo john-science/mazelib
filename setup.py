@@ -75,6 +75,15 @@ else:
     ext_modules_list = []
 
 
+# grab the README.md text
+this_dir = os.path.abspath(os.path.dirname(__file__))
+try:
+    with open(os.path.join(this_dir, "README.md")) as f:
+        readme = f.read()
+except IOError:
+    readme = ""
+
+
 # perform the actual build/install
 setup(
     cmdclass=cmdclass,
@@ -102,7 +111,7 @@ setup(
     ],
     python_requires=">=3.4, <3.12",
     license="MIT",
-    long_description="A Python library for creating and solving mazes.",
+    long_description=readme,
     long_description_content_type="text/markdown",
     packages=find_packages(),
     package_data={"mazelib": ["generate/*.pxd", "solve/*.pxd", "transmute/*.pxd"]},
