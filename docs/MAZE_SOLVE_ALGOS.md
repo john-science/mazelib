@@ -48,7 +48,7 @@ This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such,
 ###### Results
 
 * finds shortests solutions
-* works against imperfect mazes
+* doesn't always work against imperfect mazes
 
 ###### Notes
 
