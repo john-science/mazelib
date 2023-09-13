@@ -199,7 +199,7 @@ Chances are, if you're reading this you probably like XKCD. So, let's make the m
             codes = []
 
             # loop over horizontals
-            for r,rr in enumerate(range1, H, 2)):
+            for r,rr in enumerate(range(1, H, 2)):
                 run = []
                 for c,cc in enumerate(range(1, W, 2)):
                     if grid[rr-1,cc]:
