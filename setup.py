@@ -16,6 +16,7 @@ To run the test suite any of the following will work:
     make test
 """
 # non-controversial imports
+import os
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 from glob import glob
