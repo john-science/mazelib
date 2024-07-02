@@ -72,7 +72,7 @@ A mouse just wanders randomly around the maze until it finds the cheese.
 
 Random mouse may never finish. Technically. It is certainly inefficient in time, but very efficient in memory.
 
-I highly recommen that this solver run in the default pruning mode, to get rid of all unnecessary branches, and backtracks, in the solution.
+I highly recommend that this solver run in the default pruning mode, to get rid of all unnecessary branches, and backtracks, in the solution.
 
 
 ## Recursive Backtracker
