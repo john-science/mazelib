@@ -6,7 +6,8 @@ if not compiled:
 
 
 class ShortestPath(MazeSolveAlgo):
-    """The Algorithm
+    """
+    The Shortest Path maze solving algorithm.
 
     1) create a solution for each starting position
     2) loop through each solution, and find the neighbors of the last element
@@ -19,7 +20,7 @@ class ShortestPath(MazeSolveAlgo):
     """
 
     def _solve(self):
-        """bredth-first search solution to the maze
+        """Bredth-first search solution to the maze.
 
         Returns
         -------
@@ -97,7 +98,8 @@ class ShortestPath(MazeSolveAlgo):
         return self._clean_up(solutions)
 
     def _clean_up(self, solutions):
-        """Cleaning up the solutions in three stages:
+        """Cleaning up the solutions in three stages.
+
         1) remove incomplete solutions
         2) remove duplicate solutions
         3) order the solutions by length (short to long)
@@ -135,7 +137,7 @@ class ShortestPath(MazeSolveAlgo):
         return sorted(solutions, key=len)
 
     def _remove_duplicate_sols(self, sols):
-        """Remove duplicate solutions using subsetting
+        """Remove duplicate solutions using subsetting.
 
         Args:
             solutions (list): collection of maze solutions

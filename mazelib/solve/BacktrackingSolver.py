@@ -9,6 +9,8 @@ if not compiled:
 
 class BacktrackingSolver(MazeSolveAlgo):
     """
+    The Backtracking Solver maze solving algorithm.
+
     1. Pick a random direction and follow it
     2. Backtrack if and only if you hit a dead end.
     """

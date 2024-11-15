@@ -9,6 +9,8 @@ if not compiled:
 
 class Chain(MazeSolveAlgo):
     """
+    The Chain maze solving algorithm.
+
     1. draw a straight-ish line from start to end, ignore the walls.
     2. Follow the line from start to end.
         a. If you bump into a wall, you have to go around.
@@ -54,7 +56,7 @@ class Chain(MazeSolveAlgo):
         return [solution]
 
     def _send_out_robots(self, solution, guiding_line, i):
-        """Send out backtracking robots in all directions, to look for the next point in the guiding line
+        """Send out backtracking robots in all directions, to look for the next point in the guiding line.
 
         Args:
             solutions (list): The current solution path
@@ -90,7 +92,7 @@ class Chain(MazeSolveAlgo):
         return guiding_line.index(solution[-1])
 
     def _backtracking_solve(self, solution, goal):
-        """Our robots will attempt to solve the sub-maze using backtracking solver
+        """Our robots will attempt to solve the sub-maze using backtracking solver.
 
         Args:
             solution (list): current path to the finish
@@ -163,7 +165,7 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _draw_guiding_line(self):
-        """Draw a (mostly) straight line from start to end
+        """Draw a (mostly) straight line from start to end.
 
         Returns
         -------
