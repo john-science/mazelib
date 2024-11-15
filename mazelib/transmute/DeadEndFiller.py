@@ -6,7 +6,8 @@ if not compiled:
 
 
 class DeadEndFiller(MazeTransmuteAlgo):
-    """The Algorithm
+    """
+    The Dead-End Filler maze transmutation algorithm.
 
     1. Scan the maze in any order, looking for dead ends.
     2. Fill in each dead end, and any dead-end passages attached to them.
@@ -21,10 +22,7 @@ class DeadEndFiller(MazeTransmuteAlgo):
         super(DeadEndFiller, self).__init__()
 
     def _transmute(self):
-        """Primary method to fill in all the dead ends in the maze
-
-        Returns: None
-        """
+        """Primary method to fill in all the dead ends in the maze."""
         # make sure we don't block off the entrances
         r, c = self.start
         start_save = self.grid[r, c]
@@ -47,7 +45,7 @@ class DeadEndFiller(MazeTransmuteAlgo):
         self.grid[r, c] = end_save
 
     def _fill_dead_ends(self):
-        """Fill all dead ends in the maze
+        """Fill all dead ends in the maze.
 
         Returns
         -------
@@ -113,7 +111,7 @@ class DeadEndFiller(MazeTransmuteAlgo):
         return (-1, -1)
 
     def _is_dead_end(self, cell):
-        """Is this cell a dead end? A dead end has zero or one open neighbors
+        """Test if this cell a dead end. A dead end has zero or one open neighbors.
 
         Args:
             cell (tuple): maze position of interest
@@ -124,7 +122,5 @@ class DeadEndFiller(MazeTransmuteAlgo):
 
         if self.grid[cell[0], cell[1]] == 1:
             return False
-        elif len(ns) < 2:
-            return True
         else:
-            return False
+            return len(ns) < 2

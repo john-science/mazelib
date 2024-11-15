@@ -6,7 +6,10 @@ if not compiled:
 
 
 class CuldeSacFiller(MazeTransmuteAlgo):
-    """This algorithm could be called LoopFiller, because it breaks up loop in the maze.
+    """
+    The Cul-de-Sac Filler maze transmutation algorithm.
+
+    This algorithm could be called LoopFiller, because it breaks up loop in the maze.
 
     1. Scan the maze, looking for cells with connecting halls that go in exactly two directions.
     2. At each of these places, travel in both directions until you find your first intersection.
@@ -15,10 +18,7 @@ class CuldeSacFiller(MazeTransmuteAlgo):
     """
 
     def _transmute(self):
-        """Master methot to fill in all the loops in the maze
-
-        Returns: None
-        """
+        """Master methot to fill in all the loops in the maze."""
         for r in range(1, self.grid.shape[0], 2):
             for c in range(1, self.grid.shape[1], 2):
                 if (r, c) in (self.start, self.end):
@@ -46,7 +46,7 @@ class CuldeSacFiller(MazeTransmuteAlgo):
 
     def _find_next_intersection(self, path_start):
         """Starting with the first two cells in a path, follow the path until you hit the next
-        intersection (or dead end)
+        intersection (or dead end).
 
         Args:
             path_start (list): the first two cells (tuples) in the path you want to travel
