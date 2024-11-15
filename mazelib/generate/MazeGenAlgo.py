@@ -1,4 +1,7 @@
 import abc
+
+# ruff: noqa: F401
+import numpy as np
 from numpy.random import shuffle
 
 
