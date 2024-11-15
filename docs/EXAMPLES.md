@@ -121,12 +121,21 @@ Sometimes it is hard to see the finer points of a maze in plain text. You may wa
 
     import matplotlib.pyplot as plt
 
-    def showPNG(grid):
+    def showPNG(grid, start=None, end=None, shortest_path=None):
         """Generate a simple image of the maze."""
         plt.figure(figsize=(10, 5))
         plt.imshow(grid, cmap=plt.cm.binary, interpolation='nearest')
         plt.xticks([]), plt.yticks([])
+        # plot start and end
+        if start is not None:
+            plt.plot(start[1], start[0], 'o', markersize=10, color='green')
+        if end is not None:
+            plt.plot(end[1], end[0], 'o', markersize=10, color='red')
+        # plot the shortest path
+        if shortest_path is not None:
+            plt.plot([p[1] for p in shortest_path], [p[0] for p in shortest_path], linewidth=3, color='cyan')
         plt.show()
+
 
 ![Prims Example](images/prims_5x5_plain.png?raw=true)
 
