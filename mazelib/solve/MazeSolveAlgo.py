@@ -1,5 +1,4 @@
 import abc
-import numpy as np
 from numpy.random import shuffle
 
 
@@ -7,7 +6,7 @@ class MazeSolveAlgo:
     __metaclass__ = abc.ABCMeta
 
     def solve(self, grid, start, end):
-        """helper method to solve a init the solver before solving the maze
+        """Helper method to solve a init the solver before solving the maze
 
         Args:
             grid (np.array): maze array
@@ -20,7 +19,7 @@ class MazeSolveAlgo:
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
-        """ensure the maze mazes any sense before you solve it
+        """Ensure the maze mazes any sense before you solve it
 
         Args:
             grid (np.array): maze array
@@ -203,7 +202,7 @@ class MazeSolveAlgo:
         return solution
 
     def prune_solutions(self, solutions):
-        """prune all the duplicate cells from all solutions, and fix end points
+        """Prune all the duplicate cells from all solutions, and fix end points
 
         Args:
             solutions (list): multiple raw solutions

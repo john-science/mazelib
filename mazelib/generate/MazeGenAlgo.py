@@ -1,5 +1,4 @@
 import abc
-import numpy as np
 from numpy.random import shuffle
 
 
@@ -9,7 +8,8 @@ class MazeGenAlgo:
     def __init__(self, h, w):
         """Maze Generator Algorithm constructor
 
-        Attributes:
+        Attributes
+        ----------
             h (int): height of maze, in number of hallways
             w (int): width of maze, in number of hallways
             H (int): height of maze, in number of hallways + walls

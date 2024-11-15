@@ -15,7 +15,8 @@ class RandomMouse(MazeSolveAlgo):
         This should be basically optimally slow and should have just obsurdly long solutions,
         with lots of double backs.
 
-        Returns:
+        Returns
+        -------
             list: solution to the maze
         """
         solution = []

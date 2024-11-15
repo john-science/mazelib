@@ -52,7 +52,8 @@ class DungeonRooms(MazeGenAlgo):
     def generate(self):
         """highest-level method that implements the maze-generating algorithm
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # define grid and rooms
@@ -220,7 +221,8 @@ class DungeonRooms(MazeGenAlgo):
         """Choose a random starting location, that is not already inside a room.
         If no such room exists, the input grid was invalid.
 
-        Returns:
+        Returns
+        -------
             tuple: arbitrarily-selected room in the maze, that is not part of a big room
         """
         current = (randrange(1, self.H, 2), randrange(1, self.W, 2))
@@ -249,7 +251,8 @@ class DungeonRooms(MazeGenAlgo):
     def _find_all_passages(self):
         """Place all connected passage cells into a set. Disjoint passages will be in different sets.
 
-        Returns:
+        Returns
+        -------
             list: collection of paths
         """
         passages = []
@@ -333,7 +336,7 @@ class DungeonRooms(MazeGenAlgo):
         return ns
 
     def _join_intersecting_sets(self, list_of_sets):
-        """combine sets that have non-zero intersections
+        """Combine sets that have non-zero intersections
 
         Args:
             list_of_sets (list): sets of paths that do not interesect

@@ -26,7 +26,7 @@ class Tremaux(MazeSolveAlgo):
     Works against imperfect mazes.
 
     Notes
-
+    -----
     This Maze-solving method is designed to be used by a human inside the Maze.
     """
 
@@ -34,7 +34,7 @@ class Tremaux(MazeSolveAlgo):
         self.visited_cells = {}
 
     def _solve(self):
-        """implementing the algorithm
+        """Implementing the algorithm
 
         Return:
             list: a single maze solution

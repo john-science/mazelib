@@ -21,7 +21,7 @@ class DeadEndFiller(MazeTransmuteAlgo):
         super(DeadEndFiller, self).__init__()
 
     def _transmute(self):
-        """primary method to fill in all the dead ends in the maze
+        """Primary method to fill in all the dead ends in the maze
 
         Returns: None
         """
@@ -47,9 +47,10 @@ class DeadEndFiller(MazeTransmuteAlgo):
         self.grid[r, c] = end_save
 
     def _fill_dead_ends(self):
-        """fill all dead ends in the maze
+        """Fill all dead ends in the maze
 
-        Returns:
+        Returns
+        -------
             bool: Where any dead ends found in the maze?
         """
         # loop through the maze serpentine, and find dead ends
@@ -96,7 +97,8 @@ class DeadEndFiller(MazeTransmuteAlgo):
     def _find_dead_end(self):
         """A "dead end" is a cell with only zero or one open neighbors. The start end end count as open.
 
-        Returns:
+        Returns
+        -------
             tuple: position of another dead end in the maze. (returns (-1, -1) if one can't be found)
         """
         for r in range(1, self.grid.shape[0], 2):

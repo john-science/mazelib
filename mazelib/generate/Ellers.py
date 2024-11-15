@@ -27,7 +27,8 @@ class Ellers(MazeGenAlgo):
     def generate(self):
         """highest-level method that implements the maze-generating algorithm
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid, with walls
@@ -68,7 +69,7 @@ class Ellers(MazeGenAlgo):
         return max_set_number
 
     def _merge_one_row(self, sets, r):
-        """randomly decide to merge cells within a column
+        """Randomly decide to merge cells within a column
 
         Args:
             sets (np.array): grid representation of row sets
@@ -117,7 +118,7 @@ class Ellers(MazeGenAlgo):
                     sets[start_row + 2][c] = s
 
     def _merge_sets(self, sets, from_set, to_set, max_row=-1):
-        """merge two different sets of grid cells into one
+        """Merge two different sets of grid cells into one
         To improve performance, the grid will only be searched up to some maximum row number.
 
         Args:
@@ -136,7 +137,7 @@ class Ellers(MazeGenAlgo):
                     sets[r][c] = to_set
 
     def _process_last_row(self, sets):
-        """join all adjacent cells that do not share a set, and omit the vertical connections
+        """Join all adjacent cells that do not share a set, and omit the vertical connections
 
         Args:
             sets (np.array): grid representation of row sets
@@ -149,7 +150,7 @@ class Ellers(MazeGenAlgo):
                 self._merge_sets(sets, sets[r][c + 2], sets[r][c])
 
     def _create_grid_from_sets(self, sets):
-        """translate the maze sets into a maze grid
+        """Translate the maze sets into a maze grid
 
         Args:
             sets (np.array): grid representation of row sets

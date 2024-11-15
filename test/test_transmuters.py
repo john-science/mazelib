@@ -1,8 +1,10 @@
-import numpy as np
 import unittest
-from mazelib.mazelib import Maze
+
+import numpy as np
+
 from mazelib.generate.Prims import Prims
 from mazelib.generate.TrivialMaze import TrivialMaze
+from mazelib.mazelib import Maze
 from mazelib.transmute.CuldeSacFiller import CuldeSacFiller
 from mazelib.transmute.DeadEndFiller import DeadEndFiller
 from mazelib.transmute.Perturbation import Perturbation
@@ -10,7 +12,8 @@ from mazelib.transmute.Perturbation import Perturbation
 
 class SolversTest(unittest.TestCase):
     def _example_cul_de_sac_maze(self):
-        """helper method to generate a super-simpl little maze with a loop in it:
+        """Helper method to generate a super-simple little maze with a loop in it.
+
         #######
               #
         # # # #
@@ -29,7 +32,7 @@ class SolversTest(unittest.TestCase):
         return g
 
     def test_cul_de_sac_filler(self):
-        """Test the CuldeSacFiller leaves the maze in a solvable state"""
+        """Test the CuldeSacFiller leaves the maze in a solvable state."""
         m = Maze(8765)
         m.generator = Prims(3, 3)
         m.generate()
@@ -45,7 +48,7 @@ class SolversTest(unittest.TestCase):
         assert all_corners_complete(m.grid)
 
     def test_dead_end_filler(self):
-        """Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state"""
+        """Test the CuldeSacFiller and DeadEndFiller leave the maze in a solvable state."""
         for i in range(10):
             m = Maze(678 + i)
             m.generator = Prims(3, 3)
@@ -69,7 +72,7 @@ class SolversTest(unittest.TestCase):
             assert all_corners_complete(m.grid)
 
     def test_perturbation(self):
-        """Test the Perturbation algorithm leaves the maze in a solvable state"""
+        """Test the Perturbation algorithm leaves the maze in a solvable state."""
         for i in range(10):
             m = Maze(9087 + i)
             m.generator = TrivialMaze(4, 5)
@@ -84,7 +87,7 @@ class SolversTest(unittest.TestCase):
 
 
 def boundary_is_solid(grid):
-    """Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane.
     Algorithms should generate a maze with a solid boundary of walls.
 
     Args:
@@ -111,7 +114,7 @@ def boundary_is_solid(grid):
 
 
 def all_passages_open(grid):
-    """Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane.
     All of the (odd, odd) grid cells in a maze should be passages.
 
     Args:
@@ -130,7 +133,7 @@ def all_passages_open(grid):
 
 
 def all_corners_complete(grid):
-    """Helper method to test of the maze is sane
+    """Helper method to test of the maze is sane.
     All of the (even, even) grid cells in a maze should be walls.
 
     Args:

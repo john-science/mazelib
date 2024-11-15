@@ -31,7 +31,7 @@ class Perturbation(MazeTransmuteAlgo):
         super(Perturbation, self).__init__()
 
     def _transmute(self):
-        """primary method to slightly pertub the maze a set number of times
+        """Primary method to slightly pertub the maze a set number of times
 
         Returns: None
         """
@@ -80,7 +80,8 @@ class Perturbation(MazeTransmuteAlgo):
     def _find_all_passages(self):
         """Place all connected passage cells into a set. Disjoint passages will be in different sets.
 
-        Returns:
+        Returns
+        -------
             list: all of the non-connected paths in the maze
         """
         passages = []
@@ -132,7 +133,7 @@ class Perturbation(MazeTransmuteAlgo):
                         break
 
     def _join_intersecting_sets(self, list_of_sets):
-        """combine sets that have non-zero intersections
+        """Combine sets that have non-zero intersections
 
         Args:
             list_of_sets (list): presumably non-connected paths in the maze

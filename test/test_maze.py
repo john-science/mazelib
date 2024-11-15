@@ -7,7 +7,7 @@ from mazelib.mazelib import Maze
 
 class MazeTest(unittest.TestCase):
     def _on_edge(self, grid, cell):
-        """helper method to determine if a point is on the edge of a maze
+        """Helper method to determine if a point is on the edge of a maze.
 
         Args:
             grid (np.array): maze array
@@ -25,7 +25,7 @@ class MazeTest(unittest.TestCase):
         return False
 
     def _num_turns(self, path):
-        """helper method to count the number of turns in a path
+        """Helper method to count the number of turns in a path.
 
         Args:
             path (list): sequence of cells to path through maze
@@ -45,7 +45,7 @@ class MazeTest(unittest.TestCase):
         return num
 
     def test_grid_size(self):
-        """Test that the array representation for the maze is the exact size we want it to be"""
+        """Test that the array representation for the maze is the exact size we want it to be."""
         h = 4
         w = 5
         H = 2 * h + 1
@@ -59,7 +59,7 @@ class MazeTest(unittest.TestCase):
         assert m.grid.shape[1] == W
 
     def test_inner_entrances(self):
-        """Test that the entrances can be correctly generated not on the edges of the map"""
+        """Test that the entrances can be correctly generated not on the edges of the map."""
         h = 4
         w = 5
 
@@ -73,7 +73,7 @@ class MazeTest(unittest.TestCase):
             assert not self._on_edge(m.grid, m.end)
 
     def test_outer_entrances(self):
-        """Test that the entrances can be correctly generated on the edges of the map"""
+        """Test that the entrances can be correctly generated on the edges of the map."""
         h = 3
         w = 3
 
@@ -87,7 +87,7 @@ class MazeTest(unittest.TestCase):
             assert self._on_edge(m.grid, m.end)
 
     def test_generator_wipe(self):
-        """Test that the running the primary generate() method twice correctly wipes the entrances and solutions"""
+        """Test that the running the primary generate() method twice correctly wipes the entrances and solutions."""
         h = 4
         w = 5
 
@@ -103,7 +103,7 @@ class MazeTest(unittest.TestCase):
             assert m.solutions is None
 
     def test_monte_carlo(self):
-        """Test that the basic Monte Carlo maze generator"""
+        """Test that the basic Monte Carlo maze generator."""
         h = 4
         w = 5
         H = 2 * h + 1
@@ -123,7 +123,7 @@ class MazeTest(unittest.TestCase):
         assert self._on_edge(m.grid, m.end)
 
     def test_monte_carlo_reducer(self):
-        """Test that the reducer functionality on the Monte Carlo maze generator"""
+        """Test that the reducer functionality on the Monte Carlo maze generator."""
         h = 4
         w = 5
         H = 2 * h + 1
@@ -143,7 +143,7 @@ class MazeTest(unittest.TestCase):
         assert self._on_edge(m.grid, m.end)
 
     def test_maze_to_string(self):
-        """Test that the 'to string' functionality is sane"""
+        """Test that the 'to string' functionality is sane."""
         m = Maze(106)
         m.generator = Prims(3, 3)
 
@@ -172,7 +172,7 @@ class MazeTest(unittest.TestCase):
         assert s[6].strip() == "#######"
 
     def test_invalid_inputs(self):
-        """Test that the correct errors are thrown when the top-level methods are called incorrectly"""
+        """Test that the correct errors are thrown when the top-level methods are called incorrectly."""
         m = Maze(107)
 
         # should not be able to generate or solve if neither algorithm was set
@@ -194,7 +194,7 @@ class MazeTest(unittest.TestCase):
         self.assertRaises(AssertionError, m.generate_monte_carlo, True, 3, 10.0)
 
     def test_set_seed(self):
-        """Test the Maze.set_seed staticmethod, to make sure we can control the random seeding"""
+        """Test the Maze.set_seed staticmethod, to make sure we can control the random seeding."""
         m = Maze(9090)
         m.generator = Prims(7, 7)
         m.generate()

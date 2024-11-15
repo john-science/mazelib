@@ -18,11 +18,12 @@ class Collision(MazeSolveAlgo):
     """
 
     def _solve(self):
-        """solve a maze by sending out robots in all directions at the same speed,
+        """Solve a maze by sending out robots in all directions at the same speed,
         More robots are created at each new intersections.
         And all robots that collide, stop running.
 
-        Returns:
+        Returns
+        -------
             list: all the solutions what were found
         """
         # deal with the case where the start is on the edge
@@ -46,7 +47,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _flood_maze(self, start):
-        """from the start, flood the maze one cell at a time,
+        """From the start, flood the maze one cell at a time,
         keep track of where the water flows as paths through the maze
 
         Args:

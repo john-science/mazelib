@@ -22,7 +22,8 @@ class AldousBroder(MazeGenAlgo):
     def generate(self):
         """highest-level method that implements the maze-generating algorithm
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid, with walls

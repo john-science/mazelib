@@ -21,7 +21,8 @@ class ShortestPath(MazeSolveAlgo):
     def _solve(self):
         """bredth-first search solution to the maze
 
-        Returns:
+        Returns
+        -------
             list: valid maze solutions
         """
         # determine if edge or body entrances
