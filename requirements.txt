@@ -1,3 +1,0 @@
-# this file is redundant if you are installing using setup.py
-numpy >= 1.13.1, <= 1.23.4
-cython >= 0.27.0, <= 0.29.32
