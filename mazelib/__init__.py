@@ -1,3 +1,5 @@
-__version__ = "0.9.14"
+import importlib.metadata
+
+__version__ = importlib.metadata.version("mazelib")
 
 from .mazelib import Maze

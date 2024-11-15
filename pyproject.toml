@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "Cython"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mazelib"
+version = "0.9.16"
+authors = [{ name="John Stilley" }]
+description = "A Python API for creating and solving mazes."
+readme = "README.md"
+requires-python = ">=3.7.0, <3.14"
+dependencies = [
+    "cython",
+    "numpy",
+]
+license = { file="LICENSE" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Natural Language :: English",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/john-science/mazelib"
+"Bug Tracker" = "https://github.com/john-science/mazelib/issues"
+
+
+[project.optional-dependencies]
+dev = [
+    "black ~=23.7.0",
+    "toml ~=0.10.2",
+    "twine ~=4.0.2",
+]
+pytest = [
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.setuptools.package-data]
+myModule = ["mazelib/generate/*.pxd", "mazelib/solve/*.pxd", "mazelib/transmute/*.pxd"]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+# (BETA) tells setuptools you will be using a readme file for the long description field for your pypi profile.
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+

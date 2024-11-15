@@ -23,7 +23,7 @@ jobs:
         run: sudo apt-get update
       - name: Install PIP Packages
         run: |
-          pip install -r requirements.txt
+          pip install -e .
           pip install pytest
           pip install codecov
       - name: Run Coverage Tests
