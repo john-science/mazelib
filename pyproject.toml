@@ -1,17 +1,16 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "Cython>=0.27.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mazelib"
 version = "0.9.16"
-authors = [{ name="Example Author" }]
+authors = [{ name="John Stilley" }]
 description = "A Python API for creating and solving mazes."
 readme = "README.md"
 requires-python = ">=3.7.0, <3.14"
 dependencies = [
-    "cython>=0.27.0,<=0.29.32",
-    "numpy>=1.13.1,<=1.23.4",
+    "numpy",
 ]
 license = { file="LICENSE" }
 classifiers = [
