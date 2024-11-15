@@ -13,8 +13,8 @@ Because users are allowed to create and modify mazes in such a great variety of 
 2. Follow the line from start to end.
     1. If you bump into a wall, you have to go around.
     2. Send out backtracking robots in the 1 or 2 open directions.
-    3. If the robot can find your new point, continue on.
-    4 .If the robot intersects your line at a point that is further down stream, pick up the path there.
+        1. If the robot can find your new point, continue on.
+        2. If the robot intersects your line at a point that is further down stream, pick up the path there.
 3. repeat step 2 until you are at the end.
     1. If both robots return to their original location and direction, the maze is unsolvable.
 
@@ -48,7 +48,7 @@ This algorithm uses the Wall Follower algorithm to solve the sub-mazes. As such,
 ###### Results
 
 * finds shortests solutions
-* works against imperfect mazes
+* doesn't always work against imperfect mazes
 
 ###### Notes
 
@@ -72,7 +72,7 @@ A mouse just wanders randomly around the maze until it finds the cheese.
 
 Random mouse may never finish. Technically. It is certainly inefficient in time, but very efficient in memory.
 
-I highly recommen that this solver run in the default pruning mode, to get rid of all unnecessary branches, and backtracks, in the solution.
+I highly recommend that this solver run in the default pruning mode, to get rid of all unnecessary branches, and backtracks, in the solution.
 
 
 ## Recursive Backtracker
