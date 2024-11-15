@@ -1,0 +1,1 @@
+"""Algorithms to generate mazes."""

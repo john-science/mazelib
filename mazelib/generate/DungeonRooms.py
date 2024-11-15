@@ -12,7 +12,8 @@ SERPENTINE = 2
 
 
 class DungeonRooms(MazeGenAlgo):
-    """
+    """The Dungeon Rooms maze-generating algorithm.
+
     This is a variation on Hunt-and-Kill where the initial maze has rooms carved out of
     it, instead of being completely flat.
 
@@ -50,7 +51,7 @@ class DungeonRooms(MazeGenAlgo):
             self._hunt_order = RANDOM
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
         Returns
         -------
@@ -279,7 +280,7 @@ class DungeonRooms(MazeGenAlgo):
         return self._join_intersecting_sets(passages)
 
     def _fix_disjoint_passages(self, disjoint_passages):
-        """All passages in a maze should be connected
+        """All passages in a maze should be connected.
 
         Args:
             disjoint_passages (list): collections of paths in the maze which do not fully connect
@@ -336,7 +337,7 @@ class DungeonRooms(MazeGenAlgo):
         return ns
 
     def _join_intersecting_sets(self, list_of_sets):
-        """Combine sets that have non-zero intersections
+        """Combine sets that have non-zero intersections.
 
         Args:
             list_of_sets (list): sets of paths that do not interesect
@@ -358,7 +359,7 @@ class DungeonRooms(MazeGenAlgo):
         return list(filter(lambda l: l is not None, list_of_sets))
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells.
 
         Args:
             a (tuple): position of one cell

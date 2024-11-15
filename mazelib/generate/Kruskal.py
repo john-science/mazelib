@@ -9,11 +9,13 @@ if not compiled:
 
 
 class Kruskal(MazeGenAlgo):
+    """The Kruskal maze-generating algorithm."""
+
     def __init__(self, h, w):
         super(Kruskal, self).__init__(h, w)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
         Returns
         -------

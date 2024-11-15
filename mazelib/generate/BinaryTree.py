@@ -9,7 +9,11 @@ if not compiled:
 
 
 class BinaryTree(MazeGenAlgo):
-    """For every cell in the grid, knock down a wall either North or West."""
+    """
+    The Binary Tree maze-generating algorithm.
+
+    For every cell in the grid, knock down a wall either North or West.
+    """
 
     def __init__(self, w, h, skew=None):
         super(BinaryTree, self).__init__(w, h)
@@ -26,7 +30,7 @@ class BinaryTree(MazeGenAlgo):
             self.skew = skewes[key]
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
         Returns
         -------

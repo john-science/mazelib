@@ -13,7 +13,8 @@ HORIZONTAL = 1
 
 
 class Division(MazeGenAlgo):
-    """
+    """The Division maze-generating algorithm.
+
     1. Start with an empty grid.
     2. Build a wall that bisects the grid (horizontal or vertical). Add a single passage through the wall.
     3. Repeat step 2 with the areas on either side of the wall.
@@ -24,7 +25,7 @@ class Division(MazeGenAlgo):
         super(Division, self).__init__(h, w)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
         Returns
         -------

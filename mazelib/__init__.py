@@ -1,4 +1,5 @@
 """Mazelib: a Python tool for creating and solving mazes."""
+
 import importlib.metadata
 
 __version__ = importlib.metadata.version("mazelib")

@@ -6,7 +6,7 @@ class MazeGenAlgo:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, h, w):
-        """Maze Generator Algorithm constructor
+        """Maze Generator Algorithm constructor.
 
         Attributes
         ----------

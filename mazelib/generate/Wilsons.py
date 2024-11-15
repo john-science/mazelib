@@ -12,7 +12,7 @@ SERPENTINE = 2
 
 
 class Wilsons(MazeGenAlgo):
-    """The Algorithm
+    """The Wilsons maze-generating algorithm.
 
     1. Choose a random cell and add it to the Uniform Spanning Tree (UST).
     2. Select any cell that is not in the UST and perform a random walk until you find a cell that is.
@@ -30,7 +30,7 @@ class Wilsons(MazeGenAlgo):
             self._hunt_order = RANDOM
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
         Returns
         -------
@@ -131,7 +131,7 @@ class Wilsons(MazeGenAlgo):
         return walk
 
     def _random_dir(self, current):
-        """Take a step on one random (but valid) direction
+        """Take a step on one random (but valid) direction.
 
         Args:
             current (tuple): cell to start from
