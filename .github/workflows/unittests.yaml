@@ -1,4 +1,4 @@
-name: Mazelib unit tests
+name: unit tests
 
 permissions:
   contents: read

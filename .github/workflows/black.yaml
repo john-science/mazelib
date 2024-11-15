@@ -5,7 +5,6 @@ permissions:
 
 on: [push, pull_request]
 
-# use workaround due to: https://github.com/psf/black/issues/2079#issuecomment-812359146
 jobs:
     check-formatting:
         runs-on: ubuntu-24.04

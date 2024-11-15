@@ -1,4 +1,4 @@
-name: Mazelib code coverage
+name: code coverage
 
 permissions:
   contents: read

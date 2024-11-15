@@ -1,4 +1,4 @@
-name: Linting
+name: Ruff Linting
 
 permissions:
   contents: read
