@@ -10,7 +10,9 @@ DEAD_END = (-9, -999)
 
 
 class Collision(MazeSolveAlgo):
-    """The Algorithm
+    """
+    The Collision maze solving algorithm.
+
     1. step through the maze, flooding all directions equally
     2. if two flood paths meet, create a wall where they meet
     3. fill in all dead ends
@@ -18,11 +20,12 @@ class Collision(MazeSolveAlgo):
     """
 
     def _solve(self):
-        """solve a maze by sending out robots in all directions at the same speed,
+        """Solve a maze by sending out robots in all directions at the same speed,
         More robots are created at each new intersections.
         And all robots that collide, stop running.
 
-        Returns:
+        Returns
+        -------
             list: all the solutions what were found
         """
         # deal with the case where the start is on the edge
@@ -46,8 +49,8 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _flood_maze(self, start):
-        """from the start, flood the maze one cell at a time,
-        keep track of where the water flows as paths through the maze
+        """From the start, flood the maze one cell at a time,
+        keep track of where the water flows as paths through the maze.
 
         Args:
             start (tuple): position to start studying from
@@ -64,7 +67,7 @@ class Collision(MazeSolveAlgo):
         return paths
 
     def _one_time_step(self, paths):
-        """Move all open paths forward one grid cell
+        """Move all open paths forward one grid cell.
 
         Args:
             paths (list): all the currently-running robots

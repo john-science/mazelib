@@ -37,9 +37,10 @@ classifiers = [
 
 [project.optional-dependencies]
 dev = [
-    "black ~=23.7.0",
-    "toml ~=0.10.2",
-    "twine ~=4.0.2",
+    "black == 24.10.0",
+    "ruff == 0.7.4",
+    "toml == 0.10.2",
+    "twine == 4.0.2",
 ]
 pytest = [
     "pytest",
@@ -52,7 +53,94 @@ myModule = ["mazelib/generate/*.pxd", "mazelib/solve/*.pxd", "mazelib/transmute/
 [tool.distutils.bdist_wheel]
 universal = true
 
-# (BETA) tells setuptools you will be using a readme file for the long description field for your pypi profile.
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"]}
+
+
+#######################################################################
+#                             RUFF CONFIG                             #
+#######################################################################
+[tool.ruff]
+# This is the exact version of Ruff we use.
+required-version = "0.7.4"
+
+# Assume Python 3.13
+target-version = "py313"
+
+# Setting line-length to 100 (though blacks default is 88)
+line-length = 120
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+[tool.ruff.lint]
+# Enable pycodestyle (E) and Pyflakes (F) codes by default.
+# D - NumPy docstring rules
+# N801 - Class name should use CapWords convention
+# SIM - code simplification rules
+# TID - tidy imports
+# TODO: We want to support PLW0603 - don't use the global keyword
+select = ["E", "F", "D", "N801", "SIM", "TID"]
+
+# Ruff rules we ignore (for now) because they are not 100% automatable
+#
+# D100 - Missing docstring in public module
+# D101 - Missing docstring in public class
+# D102 - Missing docstring in public method
+# D103 - Missing docstring in public function
+# D106 - Missing docstring in public nested class
+# D401 - First line of docstring should be in imperative mood
+# D404 - First word of the docstring should not be "This"
+# SIM102 - Use a single if statement instead of nested if statements
+# SIM105 - Use contextlib.suppress({exception}) instead of try-except-pass
+# SIM108 - Use ternary operator {contents} instead of if-else-block
+# SIM114 - Combine if branches using logical or operator
+# SIM115 - Use context handler for opening files
+# SIM117 - Use a single with statement with multiple contexts instead of nested with statements
+
+# Ruff rules we ignore because we don't want them
+#
+# D105 - we don't need to document well-known magic methods
+# D205 - 1 blank line required between summary line and description
+# E731 - we can use lambdas however we want
+# RUF100 - no unused noqa statements (not consistent enough yet)
+# SIM118 - this does not work where we overload the .keys() method
+#
+ignore = ["D100", "D101", "D102", "D103", "D105", "D106", "D205", "D401", "D404", "E731",  "E741", "RUF100", "SIM102", "SIM105", "SIM108", "SIM110", "SIM114", "SIM115", "SIM116", "SIM117", "SIM118"]
+
+[tool.ruff.lint.per-file-ignores]
+# D1XX - enforces writing docstrings
+# E741 - ambiguous variable name
+# N - We have our own naming conventions for unit tests.
+# SLF001 - private member access
+"*/tests/*" = ["D1", "E741", "N", "SLF001"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
 

@@ -11,7 +11,7 @@ class MazeTransmuteAlgo:
         self.end = None
 
     def transmute(self, grid, start, end):
-        """primary transmute method, first setting the maze of interest
+        """Primary transmute method, first setting the maze of interest.
 
         Args:
             grid (np.array): maze array
@@ -91,7 +91,8 @@ class MazeTransmuteAlgo:
         return ns
 
     def _within_one(self, cell, desire):
-        """Is the current cell within one move of the desired cell?
+        """Test if the current cell within one move of the desired cell.
+
         Note, this might be one full more, or one half move.
 
         Args:
@@ -113,7 +114,7 @@ class MazeTransmuteAlgo:
         return False
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells.
 
         Args:
             a (tuple): cell of interest

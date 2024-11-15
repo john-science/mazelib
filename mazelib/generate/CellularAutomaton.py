@@ -9,7 +9,9 @@ if not compiled:
 
 
 class CellularAutomaton(MazeGenAlgo):
-    """Cells survive if they have one to four neighbours.
+    """The Cellular Automaton maze-generating algorithm.
+
+    Cells survive if they have one to four neighbours.
     If a cell has exactly three neighbours, it is born.
 
     It is similar to Conway's Game of Life in that patterns
@@ -23,9 +25,10 @@ class CellularAutomaton(MazeGenAlgo):
         self.density = density
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid

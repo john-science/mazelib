@@ -12,7 +12,7 @@ SPIRAL = 2
 
 
 class TrivialMaze(MazeGenAlgo):
-    """The Algorithm
+    """A algorithm for generating a trivial maze.
 
     This is actually a collection of little tools to make simple,
     unicursal mazes. Currently, there are two trivial mazes available:
@@ -28,9 +28,10 @@ class TrivialMaze(MazeGenAlgo):
         super(TrivialMaze, self).__init__(h, w)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid
@@ -110,7 +111,7 @@ class TrivialMaze(MazeGenAlgo):
         return grid
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells.
 
         Args:
             a (tuple): first cell position

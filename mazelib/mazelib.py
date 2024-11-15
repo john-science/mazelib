@@ -20,7 +20,7 @@ class Maze:
 
     @staticmethod
     def set_seed(seed):
-        """helper method to set the random seeds for all the random seed for all the random libraries we are using
+        """Helper method to set the random seeds for all the random seed for all the random libraries we are using.
 
         Args:
             seed (int): random seed number
@@ -35,13 +35,8 @@ class Maze:
             np.random.seed(seed)
 
     def generate(self):
-        """public method to generate a new maze, and handle some clean-up
-
-        Returns: None
-        """
-        assert not (
-            self.generator is None
-        ), "No maze-generation algorithm has been set."
+        """Public method to generate a new maze, and handle some clean-up."""
+        assert self.generator is not None, "No maze-generation algorithm has been set."
 
         self.grid = self.generator.generate()
         self.start = None
@@ -70,10 +65,7 @@ class Maze:
             self.generate_entrances(start_outer, end_outer)
 
     def _generate_outer_entrances(self):
-        """Generate maze entrances, along the outer walls.
-
-        Returns: None
-        """
+        """Generate maze entrances, along the outer walls."""
         H = self.grid.shape[0]
         W = self.grid.shape[1]
 
@@ -94,10 +86,7 @@ class Maze:
             self.end = (randrange(1, H, 2), 0)
 
     def _generate_inner_entrances(self):
-        """Generate maze entrances, randomly within the maze.
-
-        Returns: None
-        """
+        """Generate maze entrances, randomly within the maze."""
         H, W = self.grid.shape
 
         self.start = (randrange(1, H, 2), randrange(1, W, 2))
@@ -112,7 +101,8 @@ class Maze:
     def _generate_opposite_entrances(self):
         """Generate one inner and one outer entrance.
 
-        Returns:
+        Returns
+        -------
             tuple: start cell, end cell
         """
         H, W = self.grid.shape
@@ -194,23 +184,20 @@ class Maze:
         self.solutions = mazes[posi]["solutions"]
 
     def transmute(self):
-        """transmute an existing maze grid
-
-        Returns: None
-        """
-        assert not (self.grid is None), "No maze grid yet exists to transmute."
+        """Transmute an existing maze grid."""
+        assert self.grid is not None, "No maze grid yet exists to transmute."
 
         for transmuter in self.transmuters:
             transmuter.transmute(self.grid, self.start, self.end)
 
     def solve(self):
-        """public method to solve a new maze, if possible
+        """Public method to solve a new maze, if possible.
 
         Returns: None
         """
-        assert not (self.solver is None), "No maze-solving algorithm has been set."
-        assert not (self.start is None) and not (
-            self.end is None
+        assert self.solver is not None, "No maze-solving algorithm has been set."
+        assert (
+            self.start is not None and self.end is not None
         ), "Start and end times must be set first."
 
         self.solutions = self.solver.solve(self.grid, self.start, self.end)
@@ -250,17 +237,19 @@ class Maze:
         return "\n".join(txt)
 
     def __str__(self):
-        """display maze walls, entrances, and solutions, if available
+        """Display maze walls, entrances, and solutions, if available.
 
-        Returns:
+        Returns
+        -------
             str: string representation of the maze
         """
         return self.tostring(True, True)
 
     def __repr__(self):
-        """display maze walls, entrances, and solutions, if available
+        """Display maze walls, entrances, and solutions, if available.
 
-        Returns:
+        Returns
+        -------
             str: string representation of the maze
         """
         return self.__str__()

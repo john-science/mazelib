@@ -10,6 +10,8 @@ if not compiled:
 
 class GrowingTree(MazeGenAlgo):
     """
+    The Growing-Tree maze-generating algorithm.
+
     1. Let C be a list of cells, initially empty. Add one cell to C, at random.
     2. Choose a cell from C, and carve a passage to any unvisited neighbor of that cell,
         adding that neighbor to C as well. If there are no unvisited neighbors,
@@ -28,9 +30,10 @@ class GrowingTree(MazeGenAlgo):
         self.backtrack_chance = backtrack_chance
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid

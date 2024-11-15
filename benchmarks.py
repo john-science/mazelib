@@ -1,4 +1,5 @@
-""" The benchmarks below are useful for testing performance when making changes to the maze algorithms. """
+"""The benchmarks below are useful for testing performance when making changes to the maze algorithms."""
+
 from datetime import datetime
 from sysconfig import get_python_version
 from timeit import Timer
@@ -29,7 +30,8 @@ def run_benchmarks():
     """Run the benchmarks.
     An annoying screen-print will occur so that you know your progress, as these tests might take a while.
 
-    Returns:
+    Returns
+    -------
         list: 2D list of the team each generator/solver combination took
     """
     times = [[0.0] * len(SIZES) for _ in range(len(GENERATORS) * len(SOLVERS))]

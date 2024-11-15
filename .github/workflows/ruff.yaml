@@ -1,0 +1,24 @@
+name: Ruff Linting
+
+permissions:
+  contents: read
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.13'
+      - name: Update package index
+        run: sudo apt-get update
+      - name: Run Linter
+        run:  |
+          pip install -e .[dev]
+          ruff check .

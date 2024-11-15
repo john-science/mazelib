@@ -10,6 +10,8 @@ if not compiled:
 
 class BacktrackingGenerator(MazeGenAlgo):
     """
+    The Backtracking maze-generating algorithm.
+
     1. Randomly choose a starting cell.
     2. Randomly choose a wall at the current cell and open a passage through to any random adjacent
         cell, that has not been visited yet. This is now the current cell.
@@ -21,9 +23,10 @@ class BacktrackingGenerator(MazeGenAlgo):
         super(BacktrackingGenerator, self).__init__(w, h)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid, with walls

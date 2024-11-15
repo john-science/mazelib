@@ -1,5 +1,4 @@
 import abc
-import numpy as np
 from numpy.random import shuffle
 
 
@@ -7,7 +6,7 @@ class MazeSolveAlgo:
     __metaclass__ = abc.ABCMeta
 
     def solve(self, grid, start, end):
-        """helper method to solve a init the solver before solving the maze
+        """Helper method to solve a init the solver before solving the maze.
 
         Args:
             grid (np.array): maze array
@@ -20,7 +19,7 @@ class MazeSolveAlgo:
         return self._solve()
 
     def _solve_preprocessor(self, grid, start, end):
-        """ensure the maze mazes any sense before you solve it
+        """Ensure the maze mazes any sense before you solve it.
 
         Args:
             grid (np.array): maze array
@@ -85,7 +84,7 @@ class MazeSolveAlgo:
         return ns
 
     def _midpoint(self, a, b):
-        """Find the wall cell between to passage cells
+        """Find the wall cell between to passage cells.
 
         Args:
             a (tuple): first cell
@@ -107,13 +106,14 @@ class MazeSolveAlgo:
         return tuple(map(sum, zip(start, direction)))
 
     def _on_edge(self, cell):
-        """Does the cell lay on the edge, rather inside of the maze grid?
+        """Return True if the cell lia on the edge of the maze grid.
 
         Args:
             cell (tuple): some place in the grid
         Returns:
             bool: Is the cell on the edge of the maze?
         """
+        # ruff: noqa: SIM103
         r, c = cell
 
         if r == 0 or r == self.grid.shape[0] - 1:
@@ -143,7 +143,8 @@ class MazeSolveAlgo:
             return (r, c - 1)
 
     def _within_one(self, cell, desire):
-        """Is the current cell within one move of the desired cell?
+        """Return True if the current cell is within one move of the desired cell.
+
         Note, this might be one full more, or one half move.
 
         Args:
@@ -203,7 +204,7 @@ class MazeSolveAlgo:
         return solution
 
     def prune_solutions(self, solutions):
-        """prune all the duplicate cells from all solutions, and fix end points
+        """Prune all the duplicate cells from all solutions, and fix end points.
 
         Args:
             solutions (list): multiple raw solutions

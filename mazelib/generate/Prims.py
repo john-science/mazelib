@@ -10,7 +10,7 @@ if not compiled:
 
 class Prims(MazeGenAlgo):
     """
-    The Algorithm
+    The Prims maze-generating algorithm.
 
     1. Choose an arbitrary cell from the grid, and add it to some
         (initially empty) set visited nodes (V).
@@ -24,9 +24,10 @@ class Prims(MazeGenAlgo):
         super(Prims, self).__init__(h, w)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid

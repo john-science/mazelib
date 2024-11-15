@@ -10,6 +10,8 @@ if not compiled:
 
 class AldousBroder(MazeGenAlgo):
     """
+    The Aldous-Broder maze-generating algorithm.
+
     1. Choose a random cell.
     2. Choose a random neighbor of the current cell and visit it. If the neighbor has not
         yet been visited, add the traveled edge to the spanning tree.
@@ -20,9 +22,10 @@ class AldousBroder(MazeGenAlgo):
         super(AldousBroder, self).__init__(h, w)
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid, with walls

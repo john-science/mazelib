@@ -13,12 +13,14 @@ SERPENTINE = 2
 
 class HuntAndKill(MazeGenAlgo):
     """
+    The Hunt-and-Kill maze-generating algorithm.
+
     1. Randomly choose a starting cell.
     2. Perform a random walk from the current cel, carving passages to unvisited neighbors,
-        until the current cell has no unvisited neighbors.
+       until the current cell has no unvisited neighbors.
     3. Select a new grid cell; if it has been visited, walk from it.
     4. Repeat steps 2 and 3 a sufficient number of times that there the probability of a cell
-        not being visited is extremely small.
+       not being visited is extremely small.
 
     In this implementation of Hunt-and-kill there are two different ways to select a new grid cell in step 2.  The first
     is serpentine through the grid (the classic solution), the second is to randomly select a new cell enough times that
@@ -36,9 +38,10 @@ class HuntAndKill(MazeGenAlgo):
             self.ho = RANDOM
 
     def generate(self):
-        """highest-level method that implements the maze-generating algorithm
+        """Highest-level method that implements the maze-generating algorithm.
 
-        Returns:
+        Returns
+        -------
             np.array: returned matrix
         """
         # create empty grid

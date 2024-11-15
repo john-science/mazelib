@@ -9,6 +9,8 @@ if not compiled:
 
 class Chain(MazeSolveAlgo):
     """
+    The Chain maze solving algorithm.
+
     1. draw a straight-ish line from start to end, ignore the walls.
     2. Follow the line from start to end.
         a. If you bump into a wall, you have to go around.
@@ -29,11 +31,12 @@ class Chain(MazeSolveAlgo):
             self.directions = [(-2, 0), (0, 2), (2, 0), (0, -2)]
 
     def _solve(self):
-        """solve a maze by trying to head directly, diagonally across the maze,
+        """Solve a maze by trying to head directly, diagonally across the maze,
         when you hit a barrier, send out a back-tracking robot until you get to the next
         cell along the diagonal.
 
-        Returns:
+        Returns
+        -------
             list: maze solution path
         """
         guiding_line = self._draw_guiding_line()
@@ -53,7 +56,7 @@ class Chain(MazeSolveAlgo):
         return [solution]
 
     def _send_out_robots(self, solution, guiding_line, i):
-        """send out backtracking robots in all directions, to look for the next point in the guiding line
+        """Send out backtracking robots in all directions, to look for the next point in the guiding line.
 
         Args:
             solutions (list): The current solution path
@@ -89,7 +92,7 @@ class Chain(MazeSolveAlgo):
         return guiding_line.index(solution[-1])
 
     def _backtracking_solve(self, solution, goal):
-        """our robots will attempt to solve the sub-maze using backtracking solver
+        """Our robots will attempt to solve the sub-maze using backtracking solver.
 
         Args:
             solution (list): current path to the finish
@@ -162,9 +165,10 @@ class Chain(MazeSolveAlgo):
         return False
 
     def _draw_guiding_line(self):
-        """draw a (mostly) straight line from start to end
+        """Draw a (mostly) straight line from start to end.
 
-        Returns:
+        Returns
+        -------
             list: the (probably digonal) straight line across the maze to the end
         """
         r2, c2 = self.end
