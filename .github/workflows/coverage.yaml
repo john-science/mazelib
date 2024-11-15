@@ -1,5 +1,8 @@
 name: Mazelib code coverage
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -11,14 +14,14 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.10"
+          python-version: "3.13"
       - name: Update package index
         run: sudo apt-get update
       - name: Install PIP Packages

@@ -1,12 +1,15 @@
 name: black
 
+permissions:
+  contents: read
+
 on: [push, pull_request]
 
 # use workaround due to: https://github.com/psf/black/issues/2079#issuecomment-812359146
 jobs:
     check-formatting:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-python@v2
-            - uses: psf/black@23.7.0
+            - uses: psf/black@24.10.0
