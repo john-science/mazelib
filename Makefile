@@ -1,4 +1,4 @@
-.PHONY: all clean uninstall install benchmark lint test dist sdist twine
+.PHONY: all clean uninstall install benchmark lint test wheel twine
 
 all:
 	@grep -Ee '^[a-z].*:' Makefile | cut -d: -f1 | grep -vF all
@@ -13,6 +13,7 @@ uninstall: clean
 	$(shell pip uninstall -y mazelib >/dev/null 2>/dev/null)
 
 install: uninstall
+	pip install -U pip
 	pip install .
 
 benchmark:
@@ -24,19 +25,16 @@ test:
 	python test/test_solvers.py
 	python test/test_transmuters.py
 
-dist: install
-	python setup.py sdist
-
-sdist: dist
-
 wheel:
-	wheel python setup.py bdist_wheel --universal
-	auditwheel repair dist/*.whl -w .
+	pip install -U pip
+	pip install -U wheel
+	mkdir -f dist
+	pip wheel . -w dist/
+	rm dist/Cython*.whl
+	rm dist/numpy*.whl
+	auditwheel repair dist/mazelib*.whl -w .
 
-egg:
-	python setup.py bdist_egg
-
-twine: dist egg
+twine: wheel
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 lint:
