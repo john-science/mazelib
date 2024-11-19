@@ -1,4 +1,7 @@
-.PHONY: all clean uninstall install benchmark lint test wheel twine
+##########################################
+#    Just a handy set of dev shortcuts   #
+##########################################
+.PHONY: all clean uninstall install lint test benchmark wheel twine
 
 all:
 	@grep -Ee '^[a-z].*:' Makefile | cut -d: -f1 | grep -vF all
@@ -16,14 +19,17 @@ install: uninstall
 	pip install -U pip
 	pip install .
 
-benchmark:
-	python benchmarks/benchmarks.py
+lint:
+	black .
 
 test:
 	python test/test_maze.py
 	python test/test_generators.py
 	python test/test_solvers.py
 	python test/test_transmuters.py
+
+benchmark:
+	python benchmarks/benchmarks.py
 
 wheel:
 	pip install -U pip
@@ -36,6 +42,3 @@ wheel:
 
 twine: wheel
 	twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
-
-lint:
-	black .

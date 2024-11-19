@@ -5,11 +5,8 @@ permissions:
 
 on:
   push:
-  #  branches:
-  #    - main
-  pull_request:
-  #  branches:
-  #    - main
+    branches:
+      - main
 
 jobs:
   build:
@@ -38,6 +35,6 @@ jobs:
       - name: Archive PIP wheel artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: mazelib-wheels
           path: |
             dist/mazelib*.whl
