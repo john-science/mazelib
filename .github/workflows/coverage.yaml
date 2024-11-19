@@ -13,6 +13,7 @@ on:
 
 jobs:
   build:
+    if: github.repository == 'john-science/mazelib'
 
     runs-on: ubuntu-24.04
 

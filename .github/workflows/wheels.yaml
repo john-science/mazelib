@@ -7,10 +7,10 @@ on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   build:
+    if: github.repository == 'john-science/mazelib'
 
     runs-on: ubuntu-24.04
 
