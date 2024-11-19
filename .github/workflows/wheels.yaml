@@ -31,7 +31,7 @@ jobs:
       - name: Build Wheels
         run: |
           pip install -U wheel
-          mkdir -f dist
+          mkdir dist
           pip wheel . -w dist/
           rm dist/Cython*.whl
           rm dist/numpy*.whl
