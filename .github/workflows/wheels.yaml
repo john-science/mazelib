@@ -1,13 +1,10 @@
-name: code coverage
+name: build wheels
 
 permissions:
   contents: read
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -27,12 +24,19 @@ jobs:
         run: sudo apt-get update
       - name: Install PIP Packages
         run: |
+          pip install -U pip
           pip install -e .
-          pip install pytest
-          pip install codecov
-      - name: Run Coverage Tests
+      - name: Build Wheels
         run: |
-          coverage run -m unittest discover
-          codecov
-        env:
-          PYTHONHASHSEED: 0
+          pip install -U wheel
+          mkdir dist
+          pip wheel . -w dist/
+          rm dist/Cython*.whl
+          rm dist/numpy*.whl
+      - name: Archive PIP wheel artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mazelib-wheels
+          path: |
+            dist/mazelib*.whl
+          retention-days: 5
