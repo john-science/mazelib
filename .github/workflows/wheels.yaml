@@ -35,7 +35,6 @@ jobs:
           pip wheel . -w dist/
           rm dist/Cython*.whl
           rm dist/numpy*.whl
-          auditwheel repair dist/mazelib*.whl -w .
       - name: Archive PIP wheel artifacts
         uses: actions/upload-artifact@v4
         with:
