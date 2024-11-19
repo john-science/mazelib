@@ -1,0 +1,44 @@
+name: build wheels
+
+permissions:
+  contents: read
+
+on:
+  push:
+  #  branches:
+  #    - main
+  pull_request:
+  #  branches:
+  #    - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.13"
+      - name: Update package index
+        run: sudo apt-get update
+      - name: Install PIP Packages
+        run: |
+          pip install -U pip
+          pip install -e .
+      - name: Build Wheels
+        run: |
+          pip install -U wheel
+          mkdir -f dist
+          pip wheel . -w dist/
+          rm dist/Cython*.whl
+          rm dist/numpy*.whl
+          auditwheel repair dist/mazelib*.whl -w .
+      - name: Archive PIP wheel artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels
+          path: |
+            dist/mazelib*.whl
