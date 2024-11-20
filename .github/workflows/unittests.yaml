@@ -5,16 +5,20 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
+    paths-ignore:
+      - 'doc/**'
   pull_request:
+    paths-ignore:
+      - 'doc/**'
 
 jobs:
   build:
 
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        # BEHOLD, our test grid!
+        os: [ubuntu-24.04, windows-2022, macos-14]
         python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
@@ -23,8 +27,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Update package index
-        run: sudo apt-get update
       - name: Install PIP Packages
         run: |
           pip install -e .
