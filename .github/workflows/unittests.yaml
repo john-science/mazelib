@@ -18,20 +18,20 @@ jobs:
     strategy:
       matrix:
         # BEHOLD, our test grid!
-        os: [ubuntu-24.04, windows-2022, macos-14]
+        os: [ubuntu-24.04, windows-2025, macos-15]
         python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Setup Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
       - name: Install PIP Packages
         run: |
-          pip install -e .
+          pip install --editable .
           pip install pytest
       - name: Run tests
-        run: pytest test/
+        run: pytest
         env:
           PYTHONHASHSEED: 0
