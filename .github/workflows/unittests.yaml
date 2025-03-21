@@ -29,9 +29,9 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install PIP Packages
         run: |
-          pip install --editable .
+          pip install -e .
           pip install pytest
       - name: Run tests
-        run: pytest
+        run: pytest test/
         env:
           PYTHONHASHSEED: 0
