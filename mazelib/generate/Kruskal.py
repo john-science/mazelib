@@ -31,13 +31,15 @@ class Kruskal(MazeGenAlgo):
                 forest.append([(row, col)])
                 grid[row][col] = 0
 
-        edges = []
-        for row in range(2, self.H - 1, 2):
-            for col in range(1, self.W - 1, 2):
-                edges.append((row, col))
-        for row in range(1, self.H - 1, 2):
-            for col in range(2, self.W - 1, 2):
-                edges.append((row, col))
+        edges = [
+            (row, col)
+            for row in range(2, self.H - 1, 2)
+            for col in range(1, self.W - 1, 2)
+        ] + [
+            (row, col)
+            for row in range(1, self.H - 1, 2)
+            for col in range(2, self.W - 1, 2)
+        ]
 
         shuffle(edges)
 

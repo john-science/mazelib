@@ -91,7 +91,7 @@ class ShortestPath(MazeSolveAlgo):
 
             # 3) a solution reaches the end or a dead end when we mark it by appending a None.
             num_unfinished = sum(
-                map(lambda sol: 0 if sol[-1] is None else 1, solutions)
+                0 if sol[-1] is None else 1 for sol in solutions
             )
 
         # 4) clean-up solutions
