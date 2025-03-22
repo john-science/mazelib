@@ -183,7 +183,7 @@ class MazeTest(unittest.TestCase):
         m.generator = Prims(3, 3)
         self.assertRaises(AssertionError, m.solve)
 
-        # the pretty-print, sring formats should fail gracefully
+        # the pretty-print, string formats should fail gracefully
         m.start = (1, 1)
         m.end = (3, 3)
         assert str(m) == ""

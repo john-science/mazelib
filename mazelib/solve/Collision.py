@@ -110,7 +110,7 @@ class Collision(MazeSolveAlgo):
         return temp_paths
 
     def _fix_collisions(self, paths):
-        """Look through paths for collsions.
+        """Look through paths for collisions.
         If a collision exists, build a wall in the maze at that point.
 
         Args:

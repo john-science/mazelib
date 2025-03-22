@@ -184,7 +184,7 @@ class SolversTest(unittest.TestCase):
         assert sol == m.solver._prune_solution(sol * 100)
 
     def test_backtracking_solver(self):
-        """Test BacktrackingSolver against a maze with outer/inner entraces."""
+        """Test BacktrackingSolver against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -203,7 +203,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_chain(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -222,7 +222,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_collision(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -241,7 +241,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_random_mouse(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -260,7 +260,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_shortest_path(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -279,7 +279,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_shortest_paths(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
@@ -298,7 +298,7 @@ class SolversTest(unittest.TestCase):
                     assert self.solution_is_sane(sol)
 
     def test_tremaux(self):
-        """Test against a maze with outer/inner entraces."""
+        """Test against a maze with outer/inner entrances."""
         starts = [True, False]
         ends = [True, False]
 
