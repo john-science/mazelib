@@ -38,7 +38,7 @@ classifiers = [
 [project.optional-dependencies]
 dev = [
     "black == 24.10.0",
-    "ruff == 0.7.4",
+    "ruff == 0.11.2",
     "toml == 0.10.2",
     "twine == 4.0.2",
 ]
@@ -62,7 +62,7 @@ readme = {file = ["README.md"]}
 #######################################################################
 [tool.ruff]
 # This is the exact version of Ruff we use.
-required-version = "0.7.4"
+required-version = "0.11.2"
 
 # Assume Python 3.13
 target-version = "py313"
@@ -98,11 +98,13 @@ exclude = [
 
 [tool.ruff.lint]
 # Enable pycodestyle (E) and Pyflakes (F) codes by default.
+# C4 - flake8-comprehensions
 # D - NumPy docstring rules
 # N801 - Class name should use CapWords convention
+# PERF - Perflint
 # SIM - code simplification rules
 # TID - tidy imports
-select = ["E", "F", "D", "N801", "SIM", "TID"]
+select = ["E", "F", "C4", "D", "N801", "PERF", "SIM", "TID"]
 
 # Ruff rules we ignore (for now) because they are not 100% automatable
 #
@@ -142,4 +144,3 @@ ban-relative-imports = "all"
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
-

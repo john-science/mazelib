@@ -78,8 +78,8 @@ def print_benchmarks(times):
     """
     print("\nmazelib benchmarking")
     print(datetime.now().strftime("%Y-%m-%d %H:%M"))
-    print("Python version: {0}".format(get_python_version()))
-    print("mazelib version: {0}".format(version))
+    print(f"Python version: {get_python_version()}")
+    print(f"mazelib version: {version}")
     print(
         "\nTotal Time (seconds): %.5f\n" % sum([sum(times_row) for times_row in times])
     )

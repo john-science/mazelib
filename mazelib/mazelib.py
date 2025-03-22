@@ -218,9 +218,7 @@ class Maze:
             return ""
 
         # build the walls of the grid
-        txt = []
-        for row in self.grid:
-            txt.append("".join(["#" if cell else " " for cell in row]))
+        txt = ["".join("#" if cell else " " for cell in row) for row in self.grid]
 
         # insert the start and end points
         if entrances and self.start and self.end:
