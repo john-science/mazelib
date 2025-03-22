@@ -43,7 +43,7 @@ Again, let's look at the simplest example:
     m.generate_entrances()
     m.solve()
 
-The `BacktrackingSolver` algorithm was choosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. If you prefer, you can manually set the entrances using:
+The `BacktrackingSolver` algorithm was chosen to solve the maze. But first, entrances to the maze had to be randomly generated using the helper method `generate_entrances()`. If you prefer, you can manually set the entrances using:
 
     m.start = (1, 1)
     m.end = (5, 5)

@@ -173,7 +173,7 @@ perfect
 
 ###### Notes
 
-This algorithm is very flexible. Instead of defining exactly what must be done, it lays out a general construct. The exact order in which we choose a new cell from set C in step 2 is left undefined. That means we can pick one at random (and mimick the Prim's algorithm), or always pick the most recent one (and mimick the Backtracking algorithm). This implementation allows the developer to set the percentage of time Backtracking is chosen versus Prim's. This gives a lot of variety to the final complexity and look of the final maze.
+This algorithm is very flexible. Instead of defining exactly what must be done, it lays out a general construct. The exact order in which we choose a new cell from set C in step 2 is left undefined. That means we can pick one at random (and mimic the Prim's algorithm), or always pick the most recent one (and mimic the Backtracking algorithm). This implementation allows the developer to set the percentage of time Backtracking is chosen versus Prim's. This gives a lot of variety to the final complexity and look of the final maze.
 
 
 ## Hunt-and-Kill

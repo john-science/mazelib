@@ -122,7 +122,7 @@ class Tremaux(MazeSolveAlgo):
                 visit_counts[visit_count] = []
             visit_counts[visit_count].append(neighbor)
 
-        # fullfill the Tremaux rules, using visit counts
+        # fulfill the Tremaux rules, using visit counts
         if 0 in visit_counts:
             # handle the case where we have no choice where to go
             return choice(visit_counts[0])

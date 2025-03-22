@@ -32,7 +32,7 @@ class Perturbation(MazeTransmuteAlgo):
         super(Perturbation, self).__init__()
 
     def _transmute(self):
-        """Primary method to slightly pertub the maze a set number of times."""
+        """Primary method to slightly perturb the maze a set number of times."""
         for i in range(self.repeat):
             # Add a small number of random walls, blocking current passages
             for j in range(self.new_walls):
