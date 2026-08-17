@@ -20,8 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - name: Update package index
-        run: sudo apt-get update
       - name: Install PIP Packages
         run: |
           pip install -U pip
@@ -40,4 +38,4 @@ jobs:
           name: mazelib-wheels
           path: |
             dist/mazelib*.whl
-          retention-days: 5
+          retention-days: 7
