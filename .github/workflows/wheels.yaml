@@ -5,8 +5,8 @@ permissions:
 
 on:
   push:
-#    branches:
-#      - main
+    branches:
+      - main
 
 jobs:
   build:
@@ -34,8 +34,6 @@ jobs:
           pip wheel . -w dist/
           rm -f dist/Cython*.whl
           rm -f dist/numpy*.whl
-          ls
-          ls dist/
       - name: Archive PIP wheel artifacts
         uses: actions/upload-artifact@v4
         with:
