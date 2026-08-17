@@ -136,9 +136,7 @@ class GeneratorsTest(unittest.TestCase):
         """Test Dungeon Rooms maze-creation mazes a reasonably sane maze when generating some random rooms."""
         for i in range(20):
             m = Maze(900 + i)
-            m.generator = DungeonRooms(
-                4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="random"
-            )
+            m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="random")
             m.generate()
 
             assert boundary_is_solid(m.grid)
@@ -147,9 +145,7 @@ class GeneratorsTest(unittest.TestCase):
     def test_dungeon_rooms_serpentine_rooms(self):
         """Test DungeonRooms mazes are reasonably when generating some random rooms in a serpentine fashion."""
         m = Maze(443)
-        m.generator = DungeonRooms(
-            4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="serpentine"
-        )
+        m.generator = DungeonRooms(4, 4, rooms=[[(1, 1), (3, 3)]], hunt_order="serpentine")
         m.generate()
 
         assert boundary_is_solid(m.grid)

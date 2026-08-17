@@ -80,9 +80,7 @@ def print_benchmarks(times):
     print(datetime.now().strftime("%Y-%m-%d %H:%M"))
     print("Python version: {0}".format(get_python_version()))
     print("mazelib version: {0}".format(version))
-    print(
-        "\nTotal Time (seconds): %.5f\n" % sum([sum(times_row) for times_row in times])
-    )
+    print("\nTotal Time (seconds): %.5f\n" % sum([sum(times_row) for times_row in times]))
     print("\nmaze size," + ",".join([str(s) for s in SIZES]))
 
     row = -1

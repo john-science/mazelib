@@ -49,39 +49,17 @@ class Kruskal(MazeGenAlgo):
             tree2 = -1
 
             if ce_row % 2 == 0:  # even-numbered row: vertical wall
-                tree1 = sum(
-                    [
-                        i if (ce_row - 1, ce_col) in j else 0
-                        for i, j in enumerate(forest)
-                    ]
-                )
-                tree2 = sum(
-                    [
-                        i if (ce_row + 1, ce_col) in j else 0
-                        for i, j in enumerate(forest)
-                    ]
-                )
+                tree1 = sum([i if (ce_row - 1, ce_col) in j else 0 for i, j in enumerate(forest)])
+                tree2 = sum([i if (ce_row + 1, ce_col) in j else 0 for i, j in enumerate(forest)])
             else:  # odd-numbered row: horizontal wall
-                tree1 = sum(
-                    [
-                        i if (ce_row, ce_col - 1) in j else 0
-                        for i, j in enumerate(forest)
-                    ]
-                )
-                tree2 = sum(
-                    [
-                        i if (ce_row, ce_col + 1) in j else 0
-                        for i, j in enumerate(forest)
-                    ]
-                )
+                tree1 = sum([i if (ce_row, ce_col - 1) in j else 0 for i, j in enumerate(forest)])
+                tree2 = sum([i if (ce_row, ce_col + 1) in j else 0 for i, j in enumerate(forest)])
 
             if tree1 != tree2:
                 new_tree = forest[tree1] + forest[tree2]
                 temp1 = list(forest[tree1])
                 temp2 = list(forest[tree2])
-                forest = [
-                    x for x in forest if x != temp1
-                ]  # faster than forest.remove(temp1)
+                forest = [x for x in forest if x != temp1]  # faster than forest.remove(temp1)
                 forest = [x for x in forest if x != temp2]
                 forest.append(new_tree)
                 grid[ce_row][ce_col] = 0

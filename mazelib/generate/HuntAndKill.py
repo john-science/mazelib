@@ -81,9 +81,7 @@ class HuntAndKill(MazeGenAlgo):
                 grid[neighbor[0]][neighbor[1]] = 0
                 grid[(neighbor[0] + this_row) // 2][(neighbor[1] + this_col) // 2] = 0
                 this_row, this_col = neighbor
-                unvisited_neighbors = self._find_neighbors(
-                    this_row, this_col, grid, True
-                )
+                unvisited_neighbors = self._find_neighbors(this_row, this_col, grid, True)
 
     def _hunt(self, grid, count):
         """Based on how this algorithm was configured, choose hunt for the next starting point.
@@ -133,10 +131,7 @@ class HuntAndKill(MazeGenAlgo):
                 if row > (self.H - 2):
                     return (-1, -1)
 
-            if (
-                grid[row][col] == 0
-                and len(self._find_neighbors(row, col, grid, True)) > 0
-            ):
+            if grid[row][col] == 0 and len(self._find_neighbors(row, col, grid, True)) > 0:
                 found = True
 
         return (row, col)

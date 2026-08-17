@@ -34,12 +34,8 @@ class MazeSolveAlgo:
         # validating checks
         assert grid is not None, "Maze grid is not set."
         assert start is not None and end is not None, "Entrances are not set."
-        assert (
-            start[0] >= 0 and start[0] < grid.shape[0]
-        ), "Entrance is outside the grid."
-        assert (
-            start[1] >= 0 and start[1] < grid.shape[1]
-        ), "Entrance is outside the grid."
+        assert start[0] >= 0 and start[0] < grid.shape[0], "Entrance is outside the grid."
+        assert start[1] >= 0 and start[1] < grid.shape[1], "Entrance is outside the grid."
         assert end[0] >= 0 and end[0] < grid.shape[0], "Entrance is outside the grid."
         assert end[1] >= 0 and end[1] < grid.shape[1], "Entrance is outside the grid."
 
@@ -65,19 +61,11 @@ class MazeSolveAlgo:
 
         if r > 1 and not self.grid[r - 1, c] and not self.grid[r - 2, c]:
             ns.append((r - 2, c))
-        if (
-            r < self.grid.shape[0] - 2
-            and not self.grid[r + 1, c]
-            and not self.grid[r + 2, c]
-        ):
+        if r < self.grid.shape[0] - 2 and not self.grid[r + 1, c] and not self.grid[r + 2, c]:
             ns.append((r + 2, c))
         if c > 1 and not self.grid[r, c - 1] and not self.grid[r, c - 2]:
             ns.append((r, c - 2))
-        if (
-            c < self.grid.shape[1] - 2
-            and not self.grid[r, c + 1]
-            and not self.grid[r, c + 2]
-        ):
+        if c < self.grid.shape[1] - 2 and not self.grid[r, c + 1] and not self.grid[r, c + 2]:
             ns.append((r, c + 2))
 
         shuffle(ns)

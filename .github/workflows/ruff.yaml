@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
-      - name: Update package index
-        run: sudo apt-get update
       - name: Run Linter
         run:  |
+          set -x
           pip install -e .[dev]
+          ruff format --check .
           ruff check .
