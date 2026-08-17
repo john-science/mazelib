@@ -128,19 +128,11 @@ class Tremaux(MazeSolveAlgo):
             return choice(visit_counts[0])
         elif 1 in visit_counts:
             # try not to backtrack, if you can
-            if (
-                len(visit_counts[1]) > 1
-                and len(solution) > 2
-                and solution[-3] in visit_counts[1]
-            ):
+            if len(visit_counts[1]) > 1 and len(solution) > 2 and solution[-3] in visit_counts[1]:
                 visit_counts[1].remove(solution[-3])
             return choice(visit_counts[1])
         else:
             # try not to backtrack, if you can
-            if (
-                len(visit_counts[2]) > 1
-                and len(solution) > 2
-                and solution[-3] in visit_counts[2]
-            ):
+            if len(visit_counts[2]) > 1 and len(solution) > 2 and solution[-3] in visit_counts[2]:
                 visit_counts[2].remove(solution[-3])
             return choice(visit_counts[2])

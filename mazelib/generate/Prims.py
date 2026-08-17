@@ -53,9 +53,7 @@ class Prims(MazeGenAlgo):
             grid[current_row][current_col] = 0
             neighbors = neighbors[:nn] + neighbors[nn + 1 :]
             # connect that neighbor to a random neighbor with grid[posi] == 0
-            nearest_n0, nearest_n1 = self._find_neighbors(
-                current_row, current_col, grid
-            )[0]
+            nearest_n0, nearest_n1 = self._find_neighbors(current_row, current_col, grid)[0]
             grid[(current_row + nearest_n0) // 2][(current_col + nearest_n1) // 2] = 0
 
             # find all unvisited neighbors of current, add them to neighbors

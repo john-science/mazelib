@@ -64,10 +64,7 @@ class ShortestPath(MazeSolveAlgo):
                     # continue with all un-stopped solutions
                     if len(solutions[s]) > 1:
                         # check to see if you've gone past the endpoint
-                        if (
-                            self._midpoint(solutions[s][-1], solutions[s][-2])
-                            == self.end
-                        ):
+                        if self._midpoint(solutions[s][-1], solutions[s][-2]) == self.end:
                             return self._clean_up([solutions[s][:-1]])
 
                     # find all the neighbors of the last cell in the solution
@@ -90,9 +87,7 @@ class ShortestPath(MazeSolveAlgo):
                         solutions[s].append(ns[0])
 
             # 3) a solution reaches the end or a dead end when we mark it by appending a None.
-            num_unfinished = sum(
-                map(lambda sol: 0 if sol[-1] is None else 1, solutions)
-            )
+            num_unfinished = sum(map(lambda sol: 0 if sol[-1] is None else 1, solutions))
 
         # 4) clean-up solutions
         return self._clean_up(solutions)

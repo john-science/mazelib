@@ -145,9 +145,7 @@ class Maze:
             reducer (function): How do you want to determine solution difficulty (default is length).
         Returns: None
         """
-        assert (
-            difficulty >= 0.0 and difficulty <= 1.0
-        ), "Maze difficulty must be between 0 to 1."
+        assert difficulty >= 0.0 and difficulty <= 1.0, "Maze difficulty must be between 0 to 1."
 
         # generate different mazes
         mazes = []
@@ -196,9 +194,7 @@ class Maze:
         Returns: None
         """
         assert self.solver is not None, "No maze-solving algorithm has been set."
-        assert (
-            self.start is not None and self.end is not None
-        ), "Start and end times must be set first."
+        assert self.start is not None and self.end is not None, "Start and end times must be set first."
 
         self.solutions = self.solver.solve(self.grid, self.start, self.end)
         if self.prune:

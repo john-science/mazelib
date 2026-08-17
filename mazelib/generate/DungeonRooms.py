@@ -122,12 +122,8 @@ class DungeonRooms(MazeGenAlgo):
 
         # find possible doors on all sides of room
         possible_doors = []
-        odd_rows = [
-            i for i in range(top_left[0] - 1, bottom_right[0] + 2) if i % 2 == 1
-        ]
-        odd_cols = [
-            i for i in range(top_left[1] - 1, bottom_right[1] + 2) if i % 2 == 1
-        ]
+        odd_rows = [i for i in range(top_left[0] - 1, bottom_right[0] + 2) if i % 2 == 1]
+        odd_cols = [i for i in range(top_left[1] - 1, bottom_right[1] + 2) if i % 2 == 1]
 
         if top_left[0] > 2:
             possible_doors += zip([top_left[0] - 1] * len(odd_rows), odd_rows)
@@ -151,20 +147,14 @@ class DungeonRooms(MazeGenAlgo):
         """
         if self.grid[start[0], start[1]] == 0:
             current = start
-            unvisited_neighbors = self._find_neighbors(
-                current[0], current[1], self.grid, True
-            )
+            unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
             while len(unvisited_neighbors) > 0:
                 neighbor = choice(unvisited_neighbors)
                 self.grid[neighbor[0], neighbor[1]] = 0
-                self.grid[
-                    (neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2
-                ] = 0
+                self.grid[(neighbor[0] + current[0]) // 2, (neighbor[1] + current[1]) // 2] = 0
                 current = neighbor
-                unvisited_neighbors = self._find_neighbors(
-                    current[0], current[1], self.grid, True
-                )
+                unvisited_neighbors = self._find_neighbors(current[0], current[1], self.grid, True)
 
     def _hunt(self, count):
         """Based on how this algorithm was configured, choose hunt for the next starting point.
@@ -210,10 +200,7 @@ class DungeonRooms(MazeGenAlgo):
                 if cell[0] > (self.H - 2):
                     return (-1, -1)
 
-            if (
-                self.grid[cell[0]][cell[1]] == 0
-                and len(self._find_neighbors(cell[0], cell[1], self.grid, True)) > 0
-            ):
+            if self.grid[cell[0]][cell[1]] == 0 and len(self._find_neighbors(cell[0], cell[1], self.grid, True)) > 0:
                 found = True
 
         return cell
@@ -317,19 +304,11 @@ class DungeonRooms(MazeGenAlgo):
 
         if r > 1 and not self.grid[r - 1][c] and not self.grid[r - 2][c]:
             ns.append((r - 2, c))
-        if (
-            r < self.grid.shape[0] - 2
-            and not self.grid[r + 1][c]
-            and not self.grid[r + 2][c]
-        ):
+        if r < self.grid.shape[0] - 2 and not self.grid[r + 1][c] and not self.grid[r + 2][c]:
             ns.append((r + 2, c))
         if c > 1 and not self.grid[r][c - 1] and not self.grid[r][c - 2]:
             ns.append((r, c - 2))
-        if (
-            c < self.grid.shape[1] - 2
-            and not self.grid[r][c + 1]
-            and not self.grid[r][c + 2]
-        ):
+        if c < self.grid.shape[1] - 2 and not self.grid[r][c + 1] and not self.grid[r][c + 2]:
             ns.append((r, c + 2))
 
         shuffle(ns)
