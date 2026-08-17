@@ -5,8 +5,8 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
+#    branches:
+#      - main
 
 jobs:
   build:
@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
       - name: Update package index
@@ -28,11 +28,14 @@ jobs:
           pip install -e .
       - name: Build Wheels
         run: |
+          set -x
           pip install -U wheel
           mkdir dist
           pip wheel . -w dist/
-          rm dist/Cython*.whl
-          rm dist/numpy*.whl
+          rm -f dist/Cython*.whl
+          rm -f dist/numpy*.whl
+          ls
+          lst dist/
       - name: Archive PIP wheel artifacts
         uses: actions/upload-artifact@v4
         with:
