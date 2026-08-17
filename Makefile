@@ -20,7 +20,7 @@ install: uninstall
 	pip install .
 
 lint:
-	black .
+	ruff format . && ruff check --fix .
 
 test:
 	python test/test_maze.py
